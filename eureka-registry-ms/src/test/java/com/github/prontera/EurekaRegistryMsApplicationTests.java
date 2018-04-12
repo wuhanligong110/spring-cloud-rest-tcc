@@ -11,6 +11,7 @@ public class EurekaRegistryMsApplicationTests {
 
     @Test
     public void contextLoads() {
+
     }
 
 }
