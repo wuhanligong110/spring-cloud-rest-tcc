@@ -34,12 +34,12 @@ spring:
     config:
       server:
         git:
-          uri: 'https://git.oschina.net/witless/conf-repo.git'
+          uri: 'https://github.com/wuhanligong110/spring-cloud-rest-tcc.git'
           #uri: 'https://github.com/prontera/solar.git'
-          #searchPaths: '{application}'
+          searchPaths: '{application}'
           clone-on-start: true
-          #username: 'chris'
-          #password: '123123123'
+          username: '694208570@qq.com'
+          password: '115599abc'
         encrypt:
           enabled: false
   application:

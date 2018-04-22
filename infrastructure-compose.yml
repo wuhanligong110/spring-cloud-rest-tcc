@@ -31,7 +31,7 @@ services:
             - "./docker-mysql/db/:/docker-entrypoint-initdb.d/:ro"
             - "./docker-mysql/master/lib/:/var/lib/mysql/"
             - "./docker-mysql/master/log/:/var/log/mysql/"
-            - "./docker-mysql/master/conf.d/:/etc/mysql/mysql.conf.d/"
+#            - "./docker-mysql/master/conf.d/:/etc/mysql/mysql.conf.d/"
             - "/usr/share/zoneinfo/Asia/Shanghai:/usr/share/zoneinfo/Asia/Shanghai:ro"
         environment:
             - TZ=Asia/Shanghai
