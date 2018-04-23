@@ -34,11 +34,9 @@ spring:
     config:
       server:
         git:
-          uri: 'https://github.com/wuhanligong110/spring-cloud-rest-tcc.git'
-          #uri: 'https://github.com/prontera/solar.git'
-          searchPaths: '{application}'
+          uri: 'https://gitee.com/lhhxb/conf-repo.git'
           clone-on-start: true
-          username: '694208570@qq.com'
+          username: 'wuhanligong110'
           password: '115599abc'
         encrypt:
           enabled: false
