@@ -11,6 +11,6 @@ import java.util.Set;
 @MyBatisRepository
 public interface EventSubscriberMapper extends CrudMapper<EventSubscriber> {
 
-    int updateEventStatusByPrimaryKeyInCasMode(@Param("id") Long id, @Param("expect") EventStatus expect, @Param("target") EventStatus target);
 
+    int updateEventStatusByPrimaryKeyInCasMode(@Param("id") Long id, @Param("expect") EventStatus expect, @Param("target") EventStatus target);
 }

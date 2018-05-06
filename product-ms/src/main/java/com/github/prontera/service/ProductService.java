@@ -1,5 +1,8 @@
 package com.github.prontera.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.prontera.model.request.PageRequest;
 import com.github.prontera.persistence.CrudMapper;
 import com.github.prontera.domain.Product;
 import com.github.prontera.persistence.ProductMapper;
@@ -28,4 +31,8 @@ public class ProductService extends CrudServiceImpl<Product> {
         return mapper.selectAll(offset, limited);
     }
 
+    public Page<Product> productPageList(PageRequest request) {
+        PageHelper.startPage(request.getPageNo(), request.getPageSize());
+        return mapper.queryAll();
+    }
 }

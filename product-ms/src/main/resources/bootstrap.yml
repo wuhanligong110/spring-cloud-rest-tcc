@@ -56,6 +56,11 @@ mybatis:
   type-handlers-package: 'com.github.prontera.domain.type.handler'
   mapper-locations: 'classpath*:mapper/**/*Mapper.xml'
   type-aliases-package: 'com.github.prontera.domain'
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
 flyway:
   enabled: true
   baseline-on-migrate: true
