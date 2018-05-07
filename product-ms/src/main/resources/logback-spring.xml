@@ -13,6 +13,8 @@
         <!-- 添加附加的appender,最多只能添加一个 -->
         <appender-ref ref="FILE"/>
     </appender>
+    <appender name="MY_FILE" class="com.example.demo.mongo.MongoDBAppender">
+    </appender>
 
     <springProfile name="default">
         <logger name="com.github.prontera" level="DEBUG"/>
@@ -34,8 +36,9 @@
         <appender-ref ref="CONSOLE"/>
         <!--<appender-ref ref="FILE"/>-->
     </logger>
+    <logger name="com.apache.ibatis" level="TRACE"/>
 
-    <root level="WARN">
+    <root level="INFO">
         <!--<appender-ref ref="ASYNC"/>-->
         <!--<appender-ref ref="FILE"/>-->
         <appender-ref ref="CONSOLE"/>

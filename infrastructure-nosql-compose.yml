@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+    mongodb:
+        image: mongo:3.4
+        ports:
+            - "27017:27017"
+        volumes:
+            - ./data/mongodb/db:/data/db
+        command: mongod --dbpath /data/db
+    mx_redis:
+      restart: always
+      image: redis:3.2
+      volumes:
+        - ./data/redis:/data
+      ports:
+        - "6379:6379"
+      command: redis-server --appendonly yes
