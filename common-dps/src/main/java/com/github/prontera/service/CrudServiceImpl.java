@@ -26,17 +26,17 @@ public class CrudServiceImpl<T extends IdentityDomain> implements CrudService<T>
     }
 
     @Override
-    public int persistNonNullProperties(T entity) {
-        Preconditions.checkNotNull(entity, "persisting entity should not be NULL");
-        initializeOffsetDateTime(entity);
-        return getMapper().insertSelective(entity);
-    }
-
-    @Override
     public int persist(T entity) {
         Preconditions.checkNotNull(entity, "persisting entity should not be NULL");
         initializeOffsetDateTime(entity);
         return getMapper().insert(entity);
+    }
+
+    @Override
+    public int persistNonNullProperties(T entity) {
+        Preconditions.checkNotNull(entity, "persisting entity should not be NULL");
+        initializeOffsetDateTime(entity);
+        return getMapper().insertSelective(entity);
     }
 
     @Override
