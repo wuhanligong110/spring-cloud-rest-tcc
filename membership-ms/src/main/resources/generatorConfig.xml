@@ -3,8 +3,6 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
 
-    <classPathEntry location="E:\repository\mysql\mysql-connector-java\5.1.29\mysql-connector-java-5.1.29.jar"/>
-
     <context id="chris">
         <commentGenerator>
             <property name="suppressAllComments" value="true"/>
@@ -12,7 +10,7 @@
 
         <!--com.mysql.jdbc.Driver-->
         <!--com.mysql.cj.jdbc.Driver-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.16.0.113:3306/membership?serverTimezone=UTC"
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql:///membership?serverTimezone=UTC"
                         userId="chris" password="123123"/>
 
         <javaTypeResolver>
@@ -39,7 +37,7 @@
             <property name="rootInterface" value="com.github.prontera.persistence.CrudMapper"/>
         </javaClientGenerator>
 
-        <table alias="tpoint_flow" tableName="t_point_flow" domainObjectName="PointFlowTest2"
+        <table alias="tpoint_flow" tableName="t_point_flow" domainObjectName="PointFlow"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
@@ -48,7 +46,7 @@
             <columnOverride column="expire_time" javaType="java.time.OffsetDateTime"/>
         </table>
 
-        <table alias="tpoint_sum" tableName="t_point_sum" domainObjectName="PointSummaryTest2"
+        <table alias="tpoint_sum" tableName="t_point_sum" domainObjectName="PointSummary"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>

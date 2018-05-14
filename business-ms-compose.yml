@@ -11,7 +11,6 @@ services:
     account:
         build: ./account-ms
         image: prontera/account-ms
-        net: host
         ports:
             - "10014:10014"
             - "10248:10248"
@@ -27,7 +26,6 @@ services:
     order:
         build: ./order-ms
         image: prontera/order-ms
-        net: host
         ports:
             - "8295:8295"
             - "10848:10848"
@@ -43,7 +41,6 @@ services:
     product:
         build: ./product-ms
         image: prontera/product-ms
-        net: host
         ports:
             - "8040:8040"
             - "10912:10912"
@@ -59,7 +56,6 @@ services:
     tcc_coordinator:
         build: ./tcc-coordinator-ms
         image: prontera/tcc-coordinator-ms
-        net: host
         ports:
             - "11020:11020"
             - "12841:12841"
@@ -75,7 +71,6 @@ services:
     membership:
         build: ./membership-ms
         image: prontera/membership-ms
-        net: host
         ports:
             - "10673:10673"
             - "10391:10391"

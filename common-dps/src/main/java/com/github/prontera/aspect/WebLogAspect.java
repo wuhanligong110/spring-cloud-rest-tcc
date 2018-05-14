@@ -25,7 +25,7 @@ import java.util.*;
 public class WebLogAspect {
 
     private static final  Logger logger = Logger.getLogger("MONGODB");
-    @Pointcut("execution(public * com.github.prontera.web..*.*(..))")
+    @Pointcut("execution(public * com.github.prontera.controller..*.*(..))")
     public void webLog(){}
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint){

@@ -14,9 +14,6 @@
         <appender-ref ref="FILE"/>
     </appender>
     <appender name="MONGODB" class="com.github.prontera.appender.MongoDBAppender">
-        <!--<connectionUrl>"mongodb://10.16.0.113:27017"</connectionUrl>
-        <databaseName>"shop_product_logs"</databaseName>
-        <collectionName>"logs_request"</collectionName>-->
     </appender>
 
     <springProfile name="default">
@@ -45,5 +42,6 @@
         <!--<appender-ref ref="ASYNC"/>-->
         <!--<appender-ref ref="FILE"/>-->
         <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="MONGODB"/>
     </root>
 </configuration>
