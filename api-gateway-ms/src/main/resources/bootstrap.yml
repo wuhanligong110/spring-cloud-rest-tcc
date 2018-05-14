@@ -41,3 +41,10 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 1500
+jwt:
+  expireTime: 110
+  user:
+    login: '/user/login'
+auth:
+  allow:
+    url: '/user/login,/swagger/**'
