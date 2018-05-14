@@ -1,5 +1,6 @@
 package com.github.prontera.persistence;
 
+import com.github.pagehelper.Page;
 import com.github.prontera.MyBatisRepository;
 import com.github.prontera.domain.Product;
 import org.apache.ibatis.annotations.Param;
@@ -14,4 +15,10 @@ public interface ProductMapper extends CrudMapper<Product> {
     int consumeStock(@Param("productId") Long productId);
 
     int returnReservedStock(@Param("productId") Long productId);
+
+    /**
+     * 查询产品
+     * @return
+     */
+    Page<Product> queryAll();
 }

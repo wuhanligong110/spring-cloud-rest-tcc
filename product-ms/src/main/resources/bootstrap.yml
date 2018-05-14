@@ -50,6 +50,9 @@ spring:
       fail-fast: true
   zipkin:
     base-url: 'http://zipkin_server:9411/'
+  data:
+    mongodb:
+      uri: 'mongodb://10.16.0.113:27017/shop_product_logs'
 encrypt:
   key: '*&3loa#@9no_0*(!'
 mybatis:
@@ -57,7 +60,16 @@ mybatis:
   mapper-locations: 'classpath*:mapper/**/*Mapper.xml'
   type-aliases-package: 'com.github.prontera.domain'
 #  config-locations: 'classpath*:mybatis-config.xml'
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
 flyway:
   enabled: true
   baseline-on-migrate: true
   validate-on-migrate: false
+#mongodb:
+#  host: 10.16.0.113
+#  port: 27017
+#  database: shop_product_logs
