@@ -43,4 +43,13 @@ public class RegisterRequest extends RestfulRequest {
     @ApiModelProperty(value = "登录密码", example = "123123123", required = true)
     private String password;
 
+    @NotNull
+    @JsonProperty("businessId")
+    @ApiModelProperty(value = "商家Id", example = "8888", required = true)
+    private Integer businessId;
+
+    private String ancestor;
+
+    private Integer parentId;
+
 }

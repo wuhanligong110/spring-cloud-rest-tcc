@@ -27,7 +27,7 @@
     tuab.operator as tuab_operator
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from tcrm_user_account_bind tuab
     where tuab.id = #{id,jdbcType=INTEGER}
@@ -37,20 +37,25 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.github.prontera.domain.CrmUserAccountBind">
-    insert into tcrm_user_account_bind (user_id, user_name, reserve_mobile, 
-      account_card, account_code, account_name, 
-      city, open_account, id_card, 
-      status, account_type, operator
+    insert into tcrm_user_account_bind (id, user_id, user_name,
+      reserve_mobile, account_card, account_code,
+      account_name, city, open_account,
+      id_card, status, account_type,
+      create_time, update_time, operator
       )
-    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{reserveMobile,jdbcType=VARCHAR}, 
-      #{accountCard,jdbcType=VARCHAR}, #{accountCode,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, 
-      #{city,jdbcType=VARCHAR}, #{openAccount,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{accountType,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+      #{reserveMobile,jdbcType=VARCHAR}, #{accountCard,jdbcType=VARCHAR}, #{accountCode,jdbcType=VARCHAR},
+      #{accountName,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{openAccount,jdbcType=VARCHAR},
+      #{idCard,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{accountType,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.github.prontera.domain.CrmUserAccountBind">
     insert into tcrm_user_account_bind
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="userId != null">
         user_id,
       </if>
@@ -84,11 +89,20 @@
       <if test="accountType != null">
         account_type,
       </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
       <if test="operator != null">
         operator,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
@@ -121,6 +135,12 @@
       </if>
       <if test="accountType != null">
         #{accountType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="operator != null">
         #{operator,jdbcType=VARCHAR},
@@ -163,6 +183,12 @@
       <if test="accountType != null">
         account_type = #{accountType,jdbcType=INTEGER},
       </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="operator != null">
         operator = #{operator,jdbcType=VARCHAR},
       </if>
@@ -182,7 +208,24 @@
       id_card = #{idCard,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       account_type = #{accountType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
       operator = #{operator,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryUserAccountPageList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tcrm_user_account_bind tuab
+    where tuab.user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <update id="accountUnBind" parameterType="com.github.prontera.model.request.AccountUnBindRequest">
+    update tcrm_user_account_bind
+    set
+      status = 0
+    where id = #{id,jdbcType=INTEGER}
+    and user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

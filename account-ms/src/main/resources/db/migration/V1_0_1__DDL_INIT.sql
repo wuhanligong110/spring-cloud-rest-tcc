@@ -30,6 +30,7 @@ CREATE TABLE `tcrm_user` (
   `status` int(2) DEFAULT '1' COMMENT '1-可用  0-封停',
   `mobile` varchar(20) DEFAULT NULL COMMENT '手机号',
   `password` varchar(64) DEFAULT NULL COMMENT '密码',
+  `pwd_salt` varchar(128) NOT NULL COMMENT '加密盐',
   `create_time` datetime DEFAULT NULL COMMENT '用户创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '用户更新时间',
 	`operator` varchar(30) DEFAULT NULL COMMENT '操作人',
@@ -74,7 +75,7 @@ CREATE TABLE `tcrm_user_account_bind` (
   `update_time` datetime DEFAULT NULL COMMENT '用户更新时间',
 	`operator` varchar(30) DEFAULT NULL COMMENT '操作人',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id` (`user_id`) USING BTREE
+  UNIQUE KEY `user_account` (`user_id`,`account_card`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='账户绑定表';
 
 CREATE TABLE `tbiz_credit_type` (

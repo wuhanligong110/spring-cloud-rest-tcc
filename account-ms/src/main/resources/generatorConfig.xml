@@ -40,41 +40,41 @@
         <table alias="tu" tableName="tcrm_user" domainObjectName="CrmUser"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
-            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
+            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
+            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
         </table>
 
         <table alias="tuab" tableName="tcrm_user_account_bind" domainObjectName="CrmUserAccountBind"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="true"/>
-            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
-            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
+            <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="false"/>
+            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
+            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
         </table>
 
         <table alias="tua" tableName="tcrm_user_address" domainObjectName="CrmUserAddress"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="true"/>
-            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
-            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
+            <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="false"/>
+            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
+            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
         </table>
 
-        <!--<table alias="tct" tableName="tbiz_credit_type" domainObjectName="BizCreditType"
+        <table alias="tct" tableName="tbiz_credit_type" domainObjectName="BizCreditType"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="true"/>
-            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
-            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
+            <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="false"/>
+            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
+            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
         </table>
 
         <table alias="tcd" tableName="tbiz_credit_detail" domainObjectName="BizCreditDetail"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="true"/>
-            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
-            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
-        </table>-->
+            <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="false"/>
+            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
+            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
+        </table>
 
     </context>
 </generatorConfiguration>

@@ -28,33 +28,33 @@
     <result column="tu_status" jdbcType="INTEGER" property="status" />
     <result column="tu_mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="tu_password" jdbcType="VARCHAR" property="password" />
+    <result column="tu_pwd_salt" jdbcType="VARCHAR" property="pwdSalt" />
     <result column="tu_create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="tu_update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="tu_operator" jdbcType="VARCHAR" property="operator" />
-    <result column="tu_pwd_salt" jdbcType="VARCHAR" property="pwdSalt" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.github.prontera.domain.CrmUser">
     <result column="tu_ancestor" jdbcType="LONGVARCHAR" property="ancestor" />
   </resultMap>
   <sql id="Base_Column_List">
-    tu.user_id as tu_user_id, tu.business_id as tu_business_id, tu.parent_id as tu_parent_id, 
-    tu.buy_total_money as tu_buy_total_money, tu.withdrawal_credit_total as tu_withdrawal_credit_total, 
-    tu.have_withdrawal_credit_total as tu_have_withdrawal_credit_total, tu.acc_withdrawal_credit as tu_acc_withdrawal_credit, 
-    tu.shop_credit_total as tu_shop_credit_total, tu.used_shop_credit_total as tu_used_shop_credit_total, 
-    tu.acc_shop_credit as tu_acc_shop_credit, tu.wechat_nickname as tu_wechat_nickname, 
-    tu.wechat_subscribe as tu_wechat_subscribe, tu.wechat_openid as tu_wechat_openid, 
-    tu.wechat_sex as tu_wechat_sex, tu.wechat_city as tu_wechat_city, tu.wechat_country as tu_wechat_country, 
-    tu.wechat_province as tu_wechat_province, tu.wechat_language as tu_wechat_language, 
-    tu.wechat_headimgurl as tu_wechat_headimgurl, tu.wechat_subscribe_time as tu_wechat_subscribe_time, 
-    tu.wechat_unionid as tu_wechat_unionid, tu.wechat_remark as tu_wechat_remark, tu.wechat_groupid as tu_wechat_groupid, 
-    tu.status as tu_status, tu.mobile as tu_mobile, tu.password as tu_password, tu.create_time as tu_create_time, 
-    tu.update_time as tu_update_time, tu.operator as tu_operator, tu.pwd_salt as tu_pwd_salt
+    tu.user_id as tu_user_id, tu.business_id as tu_business_id, tu.parent_id as tu_parent_id,
+    tu.buy_total_money as tu_buy_total_money, tu.withdrawal_credit_total as tu_withdrawal_credit_total,
+    tu.have_withdrawal_credit_total as tu_have_withdrawal_credit_total, tu.acc_withdrawal_credit as tu_acc_withdrawal_credit,
+    tu.shop_credit_total as tu_shop_credit_total, tu.used_shop_credit_total as tu_used_shop_credit_total,
+    tu.acc_shop_credit as tu_acc_shop_credit, tu.wechat_nickname as tu_wechat_nickname,
+    tu.wechat_subscribe as tu_wechat_subscribe, tu.wechat_openid as tu_wechat_openid,
+    tu.wechat_sex as tu_wechat_sex, tu.wechat_city as tu_wechat_city, tu.wechat_country as tu_wechat_country,
+    tu.wechat_province as tu_wechat_province, tu.wechat_language as tu_wechat_language,
+    tu.wechat_headimgurl as tu_wechat_headimgurl, tu.wechat_subscribe_time as tu_wechat_subscribe_time,
+    tu.wechat_unionid as tu_wechat_unionid, tu.wechat_remark as tu_wechat_remark, tu.wechat_groupid as tu_wechat_groupid,
+    tu.status as tu_status, tu.mobile as tu_mobile, tu.password as tu_password, tu.pwd_salt as tu_pwd_salt,
+    tu.create_time as tu_create_time, tu.update_time as tu_update_time, tu.operator as tu_operator
   </sql>
   <sql id="Blob_Column_List">
     tu.ancestor as tu_ancestor
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -66,28 +66,28 @@
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.github.prontera.domain.CrmUser">
-    insert into tcrm_user (user_id, business_id, parent_id, 
-      buy_total_money, withdrawal_credit_total, have_withdrawal_credit_total, 
-      acc_withdrawal_credit, shop_credit_total, used_shop_credit_total, 
-      acc_shop_credit, wechat_nickname, wechat_subscribe, 
-      wechat_openid, wechat_sex, wechat_city, 
-      wechat_country, wechat_province, wechat_language, 
-      wechat_headimgurl, wechat_subscribe_time, 
-      wechat_unionid, wechat_remark, wechat_groupid, 
-      status, mobile, password, 
-      operator, pwd_salt, ancestor
-      )
-    values (#{userId,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
-      #{buyTotalMoney,jdbcType=BIGINT}, #{withdrawalCreditTotal,jdbcType=BIGINT}, #{haveWithdrawalCreditTotal,jdbcType=BIGINT}, 
-      #{accWithdrawalCredit,jdbcType=BIGINT}, #{shopCreditTotal,jdbcType=BIGINT}, #{usedShopCreditTotal,jdbcType=BIGINT}, 
-      #{accShopCredit,jdbcType=BIGINT}, #{wechatNickname,jdbcType=VARCHAR}, #{wechatSubscribe,jdbcType=INTEGER}, 
-      #{wechatOpenid,jdbcType=VARCHAR}, #{wechatSex,jdbcType=INTEGER}, #{wechatCity,jdbcType=VARCHAR}, 
-      #{wechatCountry,jdbcType=VARCHAR}, #{wechatProvince,jdbcType=VARCHAR}, #{wechatLanguage,jdbcType=VARCHAR}, 
-      #{wechatHeadimgurl,jdbcType=VARCHAR}, #{wechatSubscribeTime,jdbcType=TIMESTAMP}, 
-      #{wechatUnionid,jdbcType=VARCHAR}, #{wechatRemark,jdbcType=VARCHAR}, #{wechatGroupid,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{operator,jdbcType=VARCHAR}, #{pwdSalt,jdbcType=VARCHAR}, #{ancestor,jdbcType=LONGVARCHAR}
-      )
+    insert into tcrm_user (user_id, business_id, parent_id,
+      buy_total_money, withdrawal_credit_total, have_withdrawal_credit_total,
+      acc_withdrawal_credit, shop_credit_total, used_shop_credit_total,
+      acc_shop_credit, wechat_nickname, wechat_subscribe,
+      wechat_openid, wechat_sex, wechat_city,
+      wechat_country, wechat_province, wechat_language,
+      wechat_headimgurl, wechat_subscribe_time,
+      wechat_unionid, wechat_remark, wechat_groupid,
+      status, mobile, password,
+      pwd_salt, create_time, update_time,
+      operator, ancestor)
+    values (#{userId,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER},
+      #{buyTotalMoney,jdbcType=BIGINT}, #{withdrawalCreditTotal,jdbcType=BIGINT}, #{haveWithdrawalCreditTotal,jdbcType=BIGINT},
+      #{accWithdrawalCredit,jdbcType=BIGINT}, #{shopCreditTotal,jdbcType=BIGINT}, #{usedShopCreditTotal,jdbcType=BIGINT},
+      #{accShopCredit,jdbcType=BIGINT}, #{wechatNickname,jdbcType=VARCHAR}, #{wechatSubscribe,jdbcType=INTEGER},
+      #{wechatOpenid,jdbcType=VARCHAR}, #{wechatSex,jdbcType=INTEGER}, #{wechatCity,jdbcType=VARCHAR},
+      #{wechatCountry,jdbcType=VARCHAR}, #{wechatProvince,jdbcType=VARCHAR}, #{wechatLanguage,jdbcType=VARCHAR},
+      #{wechatHeadimgurl,jdbcType=VARCHAR}, #{wechatSubscribeTime,jdbcType=TIMESTAMP},
+      #{wechatUnionid,jdbcType=VARCHAR}, #{wechatRemark,jdbcType=VARCHAR}, #{wechatGroupid,jdbcType=VARCHAR},
+      #{status,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{pwdSalt,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      #{operator,jdbcType=VARCHAR}, #{ancestor,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.github.prontera.domain.CrmUser" useGeneratedKeys="true" keyProperty="userId">
     insert into tcrm_user
@@ -170,11 +170,17 @@
       <if test="password != null">
         password,
       </if>
-      <if test="operator != null">
-        operator,
-      </if>
       <if test="pwdSalt != null">
         pwd_salt,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="operator != null">
+        operator,
       </if>
       <if test="ancestor != null">
         ancestor,
@@ -259,11 +265,17 @@
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="operator != null">
-        #{operator,jdbcType=VARCHAR},
-      </if>
       <if test="pwdSalt != null">
         #{pwdSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
       </if>
       <if test="ancestor != null">
         #{ancestor,jdbcType=LONGVARCHAR},
@@ -348,11 +360,17 @@
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="operator != null">
-        operator = #{operator,jdbcType=VARCHAR},
-      </if>
       <if test="pwdSalt != null">
         pwd_salt = #{pwdSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
       </if>
       <if test="ancestor != null">
         ancestor = #{ancestor,jdbcType=LONGVARCHAR},
@@ -387,8 +405,10 @@
       status = #{status,jdbcType=INTEGER},
       mobile = #{mobile,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      operator = #{operator,jdbcType=VARCHAR},
       pwd_salt = #{pwdSalt,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR},
       ancestor = #{ancestor,jdbcType=LONGVARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -419,8 +439,10 @@
       status = #{status,jdbcType=INTEGER},
       mobile = #{mobile,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      operator = #{operator,jdbcType=VARCHAR},
-      pwd_salt = #{pwdSalt,jdbcType=VARCHAR}
+      pwd_salt = #{pwdSalt,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 

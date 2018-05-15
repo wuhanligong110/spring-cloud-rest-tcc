@@ -23,6 +23,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  * @author hxb
@@ -54,6 +55,12 @@ public class CrmUserService extends CrudServiceImpl<CrmUser> implements Applicat
         final String loginPassword = digestWithSalt(transientUser.getPassword(), salt);
         transientUser.setPwdSalt(salt);
         transientUser.setPassword(loginPassword);
+        if(StringUtils.isEmpty(transientUser.getAncestor())){
+            transientUser.setAncestor("0");
+        }
+        if(StringUtils.isEmpty(transientUser.getParentId())){
+            transientUser.setParentId(0);
+        }
         // 混合盐后入库
         persistNonNullProperties(transientUser);
         //赠送注册奖励--注册送20元现金

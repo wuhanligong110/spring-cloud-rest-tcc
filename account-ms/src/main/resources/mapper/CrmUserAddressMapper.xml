@@ -25,7 +25,7 @@
     tua.update_time as tua_update_time, tua.operator as tua_operator
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from tcrm_user_address tua
     where tua.id = #{id,jdbcType=INTEGER}
@@ -35,18 +35,23 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.github.prontera.domain.CrmUserAddress">
-    insert into tcrm_user_address (user_id, receiving_user_name, mobile, 
-      province_name, city_name, area, 
-      receiving_address, third_account, type, 
-      type_name, operator)
-    values (#{userId,jdbcType=INTEGER}, #{receivingUserName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
-      #{provinceName,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
-      #{receivingAddress,jdbcType=VARCHAR}, #{thirdAccount,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
-      #{typeName,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR})
+    insert into tcrm_user_address (id, user_id, receiving_user_name,
+      mobile, province_name, city_name,
+      area, receiving_address, third_account,
+      type, type_name, create_time,
+      update_time, operator)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{receivingUserName,jdbcType=VARCHAR},
+      #{mobile,jdbcType=VARCHAR}, #{provinceName,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR},
+      #{area,jdbcType=VARCHAR}, #{receivingAddress,jdbcType=VARCHAR}, #{thirdAccount,jdbcType=VARCHAR},
+      #{type,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.github.prontera.domain.CrmUserAddress">
     insert into tcrm_user_address
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="userId != null">
         user_id,
       </if>
@@ -77,11 +82,20 @@
       <if test="typeName != null">
         type_name,
       </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
       <if test="operator != null">
         operator,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
@@ -111,6 +125,12 @@
       </if>
       <if test="typeName != null">
         #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="operator != null">
         #{operator,jdbcType=VARCHAR},
@@ -150,6 +170,12 @@
       <if test="typeName != null">
         type_name = #{typeName,jdbcType=VARCHAR},
       </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="operator != null">
         operator = #{operator,jdbcType=VARCHAR},
       </if>
@@ -168,6 +194,8 @@
       third_account = #{thirdAccount,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
       type_name = #{typeName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
       operator = #{operator,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -178,4 +206,10 @@
     from tcrm_user_address tua
     where tua.user_id = #{userId,jdbcType=INTEGER}
   </select>
+
+  <delete id="addressDelete" parameterType="com.github.prontera.model.request.AddressDeleteRequest">
+    delete from tcrm_user_address
+    where id = #{id,jdbcType=INTEGER}
+    AND user_id = #{userId,jdbcType=INTEGER}
+  </delete>
 </mapper>
