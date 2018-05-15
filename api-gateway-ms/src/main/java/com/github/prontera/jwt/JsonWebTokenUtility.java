@@ -61,9 +61,8 @@ public class JsonWebTokenUtility {
      */
     public String createJsonWebToken(AuthTokenDetails authTokenDetails) {
         String token =
-                Jwts.builder().setSubject(authTokenDetails.getId().toString())
-                        .claim("username", authTokenDetails.getUsername())
-                        .claim("roleNames", authTokenDetails.getRoleNames())
+                Jwts.builder().setSubject(authTokenDetails.getUserId().toString())
+                        .claim("mobile", authTokenDetails.getMobile())
                         .setExpiration(buildExpirationDate(expire))
                         .signWith(getSignatureAlgorithm(),
                                 getSecretKey()).compact();
@@ -90,10 +89,9 @@ public class JsonWebTokenUtility {
             Claims claims =
                     Jwts.parser().setSigningKey(getSecretKey()).parseClaimsJws(token).getBody();
             String userId = claims.getSubject();
-            String username = (String) claims.get("username");
-            List<String> roleNames = (List) claims.get("roleNames");
+            String mobile = (String) claims.get("mobile");
             Date expirationDate = claims.getExpiration();
-            authTokenDetails = new AuthTokenDetails(Long.valueOf(userId), username, null, roleNames, expirationDate);
+            authTokenDetails = new AuthTokenDetails(Long.valueOf(userId), mobile, expirationDate);
         } catch (JwtException ex) {
             logger.error(ex.getMessage(), ex);
         }

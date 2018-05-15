@@ -17,11 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 public class AuthTokenDetails implements java.io.Serializable {
 
-    private Long id;// 用户ID
-    private String username;// 用户登录名
-    private String ip;// 用户IP
-
-    private List<String> roleNames;
+    private Long userId;// 用户ID
+    private String mobile;
     private Date expirationDate;
 
 }

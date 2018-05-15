@@ -24,13 +24,13 @@ public class RegisterResponse extends RestfulResponse {
     private static final long serialVersionUID = 7883775815440213351L;
 
     @ApiModelProperty(value = "用户ID", example = "1", required = true)
-    private Long id;
+    private Long userId;
 
     @JsonProperty("mobile")
     @ApiModelProperty(value = "手机号", example = "18888888888", required = true)
     private String mobile;
 
-    @JsonProperty("balance")
-    @ApiModelProperty(value = "用户的初始化余额", example = "100000000", required = true)
-    private Long balance;
+    @JsonProperty("accWithdrawalCredit")
+    @ApiModelProperty(value = "用户所得注册奖励", example = "100000000", required = true)
+    private Long accWithdrawalCredit;
 }

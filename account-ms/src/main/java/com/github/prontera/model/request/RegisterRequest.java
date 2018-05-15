@@ -39,15 +39,8 @@ public class RegisterRequest extends RestfulRequest {
 
     @NotNull
     @Size(min = 6, max = 20, message = "请输入6~20位的密码")
-    @JsonProperty("login_pwd")
-    @ApiModelProperty(value = "登录与支付密码", example = "123123123", required = true)
-    private String loginPwd;
-
-    @NotNull
-    @Min(100L)
-    @Max(100000000L)
-    @JsonProperty("balance")
-    @ApiModelProperty(value = "用户的初始化余额", example = "100000000", required = true)
-    private Long balance;
+    @JsonProperty("password")
+    @ApiModelProperty(value = "登录密码", example = "123123123", required = true)
+    private String password;
 
 }

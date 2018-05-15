@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,11 +62,9 @@ public class JsonWebTokenAuthenticationProvider implements AuthenticationProvide
                 tokenService.parseAndValidate(tokenHeader);
 
         if (authTokenDetails != null) {
-            List<GrantedAuthority> authorities =
-                    authTokenDetails.getRoleNames().stream()
-                            .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+            List<GrantedAuthority> authorities = new LinkedList<>();
             // userId介入Spring Security
-            principal = new User(authTokenDetails.getId().toString(), "",
+            principal = new User(authTokenDetails.getUserId().toString(), "",
                     authorities);
         }
 

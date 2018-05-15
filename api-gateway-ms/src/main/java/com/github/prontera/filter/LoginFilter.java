@@ -34,7 +34,7 @@ public class LoginFilter extends ZuulFilter {
     @Autowired
     private JsonWebTokenUtility tokenService;
 
-    @Value("${jwt.user.login:/user/login}")
+    @Value("${jwt.user.login:/users/login}")
     private String loginUrl;
 
     @Override
@@ -65,14 +65,8 @@ public class LoginFilter extends ZuulFilter {
                 Map<String,Object> value = JSONObject.parseObject(responseData,Map.class);
                 if(value!=null&&value.get("data")!=null){
                     Map<String,Object> data = JSONObject.parseObject(value.get("data").toString());
-                    JSONArray jsonArray = JSONObject.parseArray(data.get("roles").toString());
-                    List<String> roleNameList= jsonArray.stream().map(json->{
-                        Map<String,String> map=JSONObject.parseObject(json.toString(),Map.class);
-                        return map.get("roleName");
-                    }).collect(Collectors.toList());
-                    AuthTokenDetails authTokenDetails = new AuthTokenDetails(Long.valueOf(data.get("userId").toString()),data.get("userName").toString(),null,roleNameList,null);
+                    AuthTokenDetails authTokenDetails = new AuthTokenDetails(Long.valueOf(data.get("userId").toString()),data.get("mobile").toString(),null);
                     String jwt=tokenService.initKey().createJsonWebToken(authTokenDetails);
-                    authTokenDetails=null;
                     if(jwt!=null){
                         AuthTokenVO authTokenVO=new AuthTokenVO();
                         authTokenVO.setToken(jwt);

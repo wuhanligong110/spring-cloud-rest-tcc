@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.prontera.persistence.CrmUserMapper">
+  <resultMap id="BaseResultMap" type="com.github.prontera.domain.CrmUser">
+    <id column="tu_user_id" jdbcType="INTEGER" property="userId" />
+    <result column="tu_business_id" jdbcType="INTEGER" property="businessId" />
+    <result column="tu_parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="tu_buy_total_money" jdbcType="BIGINT" property="buyTotalMoney" />
+    <result column="tu_withdrawal_credit_total" jdbcType="BIGINT" property="withdrawalCreditTotal" />
+    <result column="tu_have_withdrawal_credit_total" jdbcType="BIGINT" property="haveWithdrawalCreditTotal" />
+    <result column="tu_acc_withdrawal_credit" jdbcType="BIGINT" property="accWithdrawalCredit" />
+    <result column="tu_shop_credit_total" jdbcType="BIGINT" property="shopCreditTotal" />
+    <result column="tu_used_shop_credit_total" jdbcType="BIGINT" property="usedShopCreditTotal" />
+    <result column="tu_acc_shop_credit" jdbcType="BIGINT" property="accShopCredit" />
+    <result column="tu_wechat_nickname" jdbcType="VARCHAR" property="wechatNickname" />
+    <result column="tu_wechat_subscribe" jdbcType="INTEGER" property="wechatSubscribe" />
+    <result column="tu_wechat_openid" jdbcType="VARCHAR" property="wechatOpenid" />
+    <result column="tu_wechat_sex" jdbcType="INTEGER" property="wechatSex" />
+    <result column="tu_wechat_city" jdbcType="VARCHAR" property="wechatCity" />
+    <result column="tu_wechat_country" jdbcType="VARCHAR" property="wechatCountry" />
+    <result column="tu_wechat_province" jdbcType="VARCHAR" property="wechatProvince" />
+    <result column="tu_wechat_language" jdbcType="VARCHAR" property="wechatLanguage" />
+    <result column="tu_wechat_headimgurl" jdbcType="VARCHAR" property="wechatHeadimgurl" />
+    <result column="tu_wechat_subscribe_time" jdbcType="TIMESTAMP" property="wechatSubscribeTime" />
+    <result column="tu_wechat_unionid" jdbcType="VARCHAR" property="wechatUnionid" />
+    <result column="tu_wechat_remark" jdbcType="VARCHAR" property="wechatRemark" />
+    <result column="tu_wechat_groupid" jdbcType="VARCHAR" property="wechatGroupid" />
+    <result column="tu_status" jdbcType="INTEGER" property="status" />
+    <result column="tu_mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="tu_password" jdbcType="VARCHAR" property="password" />
+    <result column="tu_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="tu_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="tu_operator" jdbcType="VARCHAR" property="operator" />
+    <result column="tu_pwd_salt" jdbcType="VARCHAR" property="pwdSalt" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.github.prontera.domain.CrmUser">
+    <result column="tu_ancestor" jdbcType="LONGVARCHAR" property="ancestor" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tu.user_id as tu_user_id, tu.business_id as tu_business_id, tu.parent_id as tu_parent_id, 
+    tu.buy_total_money as tu_buy_total_money, tu.withdrawal_credit_total as tu_withdrawal_credit_total, 
+    tu.have_withdrawal_credit_total as tu_have_withdrawal_credit_total, tu.acc_withdrawal_credit as tu_acc_withdrawal_credit, 
+    tu.shop_credit_total as tu_shop_credit_total, tu.used_shop_credit_total as tu_used_shop_credit_total, 
+    tu.acc_shop_credit as tu_acc_shop_credit, tu.wechat_nickname as tu_wechat_nickname, 
+    tu.wechat_subscribe as tu_wechat_subscribe, tu.wechat_openid as tu_wechat_openid, 
+    tu.wechat_sex as tu_wechat_sex, tu.wechat_city as tu_wechat_city, tu.wechat_country as tu_wechat_country, 
+    tu.wechat_province as tu_wechat_province, tu.wechat_language as tu_wechat_language, 
+    tu.wechat_headimgurl as tu_wechat_headimgurl, tu.wechat_subscribe_time as tu_wechat_subscribe_time, 
+    tu.wechat_unionid as tu_wechat_unionid, tu.wechat_remark as tu_wechat_remark, tu.wechat_groupid as tu_wechat_groupid, 
+    tu.status as tu_status, tu.mobile as tu_mobile, tu.password as tu_password, tu.create_time as tu_create_time, 
+    tu.update_time as tu_update_time, tu.operator as tu_operator, tu.pwd_salt as tu_pwd_salt
+  </sql>
+  <sql id="Blob_Column_List">
+    tu.ancestor as tu_ancestor
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tcrm_user tu
+    where tu.user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tcrm_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.github.prontera.domain.CrmUser">
+    insert into tcrm_user (user_id, business_id, parent_id, 
+      buy_total_money, withdrawal_credit_total, have_withdrawal_credit_total, 
+      acc_withdrawal_credit, shop_credit_total, used_shop_credit_total, 
+      acc_shop_credit, wechat_nickname, wechat_subscribe, 
+      wechat_openid, wechat_sex, wechat_city, 
+      wechat_country, wechat_province, wechat_language, 
+      wechat_headimgurl, wechat_subscribe_time, 
+      wechat_unionid, wechat_remark, wechat_groupid, 
+      status, mobile, password, 
+      operator, pwd_salt, ancestor
+      )
+    values (#{userId,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
+      #{buyTotalMoney,jdbcType=BIGINT}, #{withdrawalCreditTotal,jdbcType=BIGINT}, #{haveWithdrawalCreditTotal,jdbcType=BIGINT}, 
+      #{accWithdrawalCredit,jdbcType=BIGINT}, #{shopCreditTotal,jdbcType=BIGINT}, #{usedShopCreditTotal,jdbcType=BIGINT}, 
+      #{accShopCredit,jdbcType=BIGINT}, #{wechatNickname,jdbcType=VARCHAR}, #{wechatSubscribe,jdbcType=INTEGER}, 
+      #{wechatOpenid,jdbcType=VARCHAR}, #{wechatSex,jdbcType=INTEGER}, #{wechatCity,jdbcType=VARCHAR}, 
+      #{wechatCountry,jdbcType=VARCHAR}, #{wechatProvince,jdbcType=VARCHAR}, #{wechatLanguage,jdbcType=VARCHAR}, 
+      #{wechatHeadimgurl,jdbcType=VARCHAR}, #{wechatSubscribeTime,jdbcType=TIMESTAMP}, 
+      #{wechatUnionid,jdbcType=VARCHAR}, #{wechatRemark,jdbcType=VARCHAR}, #{wechatGroupid,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{operator,jdbcType=VARCHAR}, #{pwdSalt,jdbcType=VARCHAR}, #{ancestor,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.github.prontera.domain.CrmUser" useGeneratedKeys="true" keyProperty="userId">
+    insert into tcrm_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="buyTotalMoney != null">
+        buy_total_money,
+      </if>
+      <if test="withdrawalCreditTotal != null">
+        withdrawal_credit_total,
+      </if>
+      <if test="haveWithdrawalCreditTotal != null">
+        have_withdrawal_credit_total,
+      </if>
+      <if test="accWithdrawalCredit != null">
+        acc_withdrawal_credit,
+      </if>
+      <if test="shopCreditTotal != null">
+        shop_credit_total,
+      </if>
+      <if test="usedShopCreditTotal != null">
+        used_shop_credit_total,
+      </if>
+      <if test="accShopCredit != null">
+        acc_shop_credit,
+      </if>
+      <if test="wechatNickname != null">
+        wechat_nickname,
+      </if>
+      <if test="wechatSubscribe != null">
+        wechat_subscribe,
+      </if>
+      <if test="wechatOpenid != null">
+        wechat_openid,
+      </if>
+      <if test="wechatSex != null">
+        wechat_sex,
+      </if>
+      <if test="wechatCity != null">
+        wechat_city,
+      </if>
+      <if test="wechatCountry != null">
+        wechat_country,
+      </if>
+      <if test="wechatProvince != null">
+        wechat_province,
+      </if>
+      <if test="wechatLanguage != null">
+        wechat_language,
+      </if>
+      <if test="wechatHeadimgurl != null">
+        wechat_headimgurl,
+      </if>
+      <if test="wechatSubscribeTime != null">
+        wechat_subscribe_time,
+      </if>
+      <if test="wechatUnionid != null">
+        wechat_unionid,
+      </if>
+      <if test="wechatRemark != null">
+        wechat_remark,
+      </if>
+      <if test="wechatGroupid != null">
+        wechat_groupid,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="pwdSalt != null">
+        pwd_salt,
+      </if>
+      <if test="ancestor != null">
+        ancestor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="buyTotalMoney != null">
+        #{buyTotalMoney,jdbcType=BIGINT},
+      </if>
+      <if test="withdrawalCreditTotal != null">
+        #{withdrawalCreditTotal,jdbcType=BIGINT},
+      </if>
+      <if test="haveWithdrawalCreditTotal != null">
+        #{haveWithdrawalCreditTotal,jdbcType=BIGINT},
+      </if>
+      <if test="accWithdrawalCredit != null">
+        #{accWithdrawalCredit,jdbcType=BIGINT},
+      </if>
+      <if test="shopCreditTotal != null">
+        #{shopCreditTotal,jdbcType=BIGINT},
+      </if>
+      <if test="usedShopCreditTotal != null">
+        #{usedShopCreditTotal,jdbcType=BIGINT},
+      </if>
+      <if test="accShopCredit != null">
+        #{accShopCredit,jdbcType=BIGINT},
+      </if>
+      <if test="wechatNickname != null">
+        #{wechatNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatSubscribe != null">
+        #{wechatSubscribe,jdbcType=INTEGER},
+      </if>
+      <if test="wechatOpenid != null">
+        #{wechatOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatSex != null">
+        #{wechatSex,jdbcType=INTEGER},
+      </if>
+      <if test="wechatCity != null">
+        #{wechatCity,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatCountry != null">
+        #{wechatCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatProvince != null">
+        #{wechatProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatLanguage != null">
+        #{wechatLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatHeadimgurl != null">
+        #{wechatHeadimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatSubscribeTime != null">
+        #{wechatSubscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wechatUnionid != null">
+        #{wechatUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatRemark != null">
+        #{wechatRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatGroupid != null">
+        #{wechatGroupid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdSalt != null">
+        #{pwdSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="ancestor != null">
+        #{ancestor,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.github.prontera.domain.CrmUser">
+    update tcrm_user
+    <set>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="buyTotalMoney != null">
+        buy_total_money = #{buyTotalMoney,jdbcType=BIGINT},
+      </if>
+      <if test="withdrawalCreditTotal != null">
+        withdrawal_credit_total = #{withdrawalCreditTotal,jdbcType=BIGINT},
+      </if>
+      <if test="haveWithdrawalCreditTotal != null">
+        have_withdrawal_credit_total = #{haveWithdrawalCreditTotal,jdbcType=BIGINT},
+      </if>
+      <if test="accWithdrawalCredit != null">
+        acc_withdrawal_credit = #{accWithdrawalCredit,jdbcType=BIGINT},
+      </if>
+      <if test="shopCreditTotal != null">
+        shop_credit_total = #{shopCreditTotal,jdbcType=BIGINT},
+      </if>
+      <if test="usedShopCreditTotal != null">
+        used_shop_credit_total = #{usedShopCreditTotal,jdbcType=BIGINT},
+      </if>
+      <if test="accShopCredit != null">
+        acc_shop_credit = #{accShopCredit,jdbcType=BIGINT},
+      </if>
+      <if test="wechatNickname != null">
+        wechat_nickname = #{wechatNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatSubscribe != null">
+        wechat_subscribe = #{wechatSubscribe,jdbcType=INTEGER},
+      </if>
+      <if test="wechatOpenid != null">
+        wechat_openid = #{wechatOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatSex != null">
+        wechat_sex = #{wechatSex,jdbcType=INTEGER},
+      </if>
+      <if test="wechatCity != null">
+        wechat_city = #{wechatCity,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatCountry != null">
+        wechat_country = #{wechatCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatProvince != null">
+        wechat_province = #{wechatProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatLanguage != null">
+        wechat_language = #{wechatLanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatHeadimgurl != null">
+        wechat_headimgurl = #{wechatHeadimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatSubscribeTime != null">
+        wechat_subscribe_time = #{wechatSubscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wechatUnionid != null">
+        wechat_unionid = #{wechatUnionid,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatRemark != null">
+        wechat_remark = #{wechatRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatGroupid != null">
+        wechat_groupid = #{wechatGroupid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdSalt != null">
+        pwd_salt = #{pwdSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="ancestor != null">
+        ancestor = #{ancestor,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.github.prontera.domain.CrmUser">
+    update tcrm_user
+    set business_id = #{businessId,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      buy_total_money = #{buyTotalMoney,jdbcType=BIGINT},
+      withdrawal_credit_total = #{withdrawalCreditTotal,jdbcType=BIGINT},
+      have_withdrawal_credit_total = #{haveWithdrawalCreditTotal,jdbcType=BIGINT},
+      acc_withdrawal_credit = #{accWithdrawalCredit,jdbcType=BIGINT},
+      shop_credit_total = #{shopCreditTotal,jdbcType=BIGINT},
+      used_shop_credit_total = #{usedShopCreditTotal,jdbcType=BIGINT},
+      acc_shop_credit = #{accShopCredit,jdbcType=BIGINT},
+      wechat_nickname = #{wechatNickname,jdbcType=VARCHAR},
+      wechat_subscribe = #{wechatSubscribe,jdbcType=INTEGER},
+      wechat_openid = #{wechatOpenid,jdbcType=VARCHAR},
+      wechat_sex = #{wechatSex,jdbcType=INTEGER},
+      wechat_city = #{wechatCity,jdbcType=VARCHAR},
+      wechat_country = #{wechatCountry,jdbcType=VARCHAR},
+      wechat_province = #{wechatProvince,jdbcType=VARCHAR},
+      wechat_language = #{wechatLanguage,jdbcType=VARCHAR},
+      wechat_headimgurl = #{wechatHeadimgurl,jdbcType=VARCHAR},
+      wechat_subscribe_time = #{wechatSubscribeTime,jdbcType=TIMESTAMP},
+      wechat_unionid = #{wechatUnionid,jdbcType=VARCHAR},
+      wechat_remark = #{wechatRemark,jdbcType=VARCHAR},
+      wechat_groupid = #{wechatGroupid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      pwd_salt = #{pwdSalt,jdbcType=VARCHAR},
+      ancestor = #{ancestor,jdbcType=LONGVARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.github.prontera.domain.CrmUser">
+    update tcrm_user
+    set business_id = #{businessId,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      buy_total_money = #{buyTotalMoney,jdbcType=BIGINT},
+      withdrawal_credit_total = #{withdrawalCreditTotal,jdbcType=BIGINT},
+      have_withdrawal_credit_total = #{haveWithdrawalCreditTotal,jdbcType=BIGINT},
+      acc_withdrawal_credit = #{accWithdrawalCredit,jdbcType=BIGINT},
+      shop_credit_total = #{shopCreditTotal,jdbcType=BIGINT},
+      used_shop_credit_total = #{usedShopCreditTotal,jdbcType=BIGINT},
+      acc_shop_credit = #{accShopCredit,jdbcType=BIGINT},
+      wechat_nickname = #{wechatNickname,jdbcType=VARCHAR},
+      wechat_subscribe = #{wechatSubscribe,jdbcType=INTEGER},
+      wechat_openid = #{wechatOpenid,jdbcType=VARCHAR},
+      wechat_sex = #{wechatSex,jdbcType=INTEGER},
+      wechat_city = #{wechatCity,jdbcType=VARCHAR},
+      wechat_country = #{wechatCountry,jdbcType=VARCHAR},
+      wechat_province = #{wechatProvince,jdbcType=VARCHAR},
+      wechat_language = #{wechatLanguage,jdbcType=VARCHAR},
+      wechat_headimgurl = #{wechatHeadimgurl,jdbcType=VARCHAR},
+      wechat_subscribe_time = #{wechatSubscribeTime,jdbcType=TIMESTAMP},
+      wechat_unionid = #{wechatUnionid,jdbcType=VARCHAR},
+      wechat_remark = #{wechatRemark,jdbcType=VARCHAR},
+      wechat_groupid = #{wechatGroupid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      pwd_salt = #{pwdSalt,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryByMobile" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tcrm_user tu
+    where tu.mobile = #{mobile}
+  </select>
+
+  <select id="queryByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tcrm_user tu
+    where tu.user_id = #{userId}
+  </select>
+
+</mapper>

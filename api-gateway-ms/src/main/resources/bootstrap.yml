@@ -44,7 +44,7 @@ hystrix:
 jwt:
   expireTime: 110
   user:
-    login: '/user/login'
+    login: '/users/login'
 auth:
   allow:
-    url: '/user/login,/swagger/**'
+    url: '/users/login,/swagger/**'

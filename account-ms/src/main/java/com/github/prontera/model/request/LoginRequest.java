@@ -39,7 +39,7 @@ public class LoginRequest extends RestfulRequest {
     @NotNull
     @Size(min = 6, max = 20, message = "请输入6~20位的密码")
     @JsonProperty("login_pwd")
-    @ApiModelProperty(value = "登录与支付密码", example = "123123123", required = true)
+    @ApiModelProperty(value = "登录密码", example = "123123123", required = true)
     private String loginPwd;
 
 }

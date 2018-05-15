@@ -3,14 +3,14 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
 
-    <context id="chris">
+    <classPathEntry location="E:\repository\mysql\mysql-connector-java\5.1.29\mysql-connector-java-5.1.29.jar"/>
+
+    <context id="chris" targetRuntime="MyBatis3">
         <commentGenerator>
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
 
-        <!--com.mysql.jdbc.Driver-->
-        <!--com.mysql.cj.jdbc.Driver-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql:///account?serverTimezone=UTC"
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.16.0.113:3306/account?serverTimezone=UTC"
                         userId="chris" password="123123"/>
 
         <javaTypeResolver>
@@ -19,46 +19,62 @@
         </javaTypeResolver>
 
         <javaModelGenerator targetPackage="com.github.prontera.domain"
-                            targetProject="${dao.target.dir}">
+                            targetProject="account-ms">
             <property name="enableSubPackages" value="true"/>
             <!--<property name="trimStrings" value="true"/>-->
             <!--<property name="immutable" value="true"/>-->
             <property name="rootClass" value="com.github.prontera.model.BasicDomain"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.github.prontera.domain"
-                         targetProject="${dao.target.dir}">
+        <sqlMapGenerator targetPackage="com.github.prontera.persistence"
+                         targetProject="account-ms">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator targetPackage="com.github.prontera.domain"
-                             targetProject="${dao.target.dir}" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="com.github.prontera.persistence"
+                             targetProject="account-ms" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
             <property name="rootInterface" value="com.github.prontera.persistence.CrudMapper"/>
         </javaClientGenerator>
 
-        <table alias="tuser" tableName="t_user" domainObjectName="User"
+        <table alias="tu" tableName="tcrm_user" domainObjectName="CrmUser"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
             <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
-            <columnOverride column="delete_time" javaType="java.time.OffsetDateTime"/>
-            <columnOverride column="expire_time" javaType="java.time.OffsetDateTime"/>
         </table>
 
-        <table alias="tuser_balance_tcc" tableName="t_user_balance_tcc" domainObjectName="UserBalanceTcc"
+        <table alias="tuab" tableName="tcrm_user_account_bind" domainObjectName="CrmUserAccountBind"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <columnOverride column="status"
-                            jdbcType="TINYINT"
-                            javaType="com.github.prontera.domain.type.TccStatus"
-                            typeHandler="com.github.prontera.domain.type.handler.TccStatusTypeHandler"/>
-            <columnOverride column="t_user_id" property="userId"/>
+            <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="true"/>
             <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
             <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
-            <columnOverride column="delete_time" javaType="java.time.OffsetDateTime"/>
-            <columnOverride column="expire_time" javaType="java.time.OffsetDateTime"/>
         </table>
+
+        <table alias="tua" tableName="tcrm_user_address" domainObjectName="CrmUserAddress"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="true"/>
+            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
+            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
+        </table>
+
+        <!--<table alias="tct" tableName="tbiz_credit_type" domainObjectName="BizCreditType"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="true"/>
+            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
+            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
+        </table>
+
+        <table alias="tcd" tableName="tbiz_credit_detail" domainObjectName="BizCreditDetail"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="true"/>
+            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
+            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
+        </table>-->
 
     </context>
 </generatorConfiguration>

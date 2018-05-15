@@ -27,8 +27,8 @@ public class LoginResponse extends RestfulResponse {
     @ApiModelProperty(value = "手机号", example = "18888888888", required = true)
     private String mobile;
 
-    @JsonProperty("balance")
-    @ApiModelProperty(value = "用户的初始化余额", example = "100000000", required = true)
-    private Long balance;
+    @JsonProperty("userId")
+    @ApiModelProperty(value = "用户ID", example = "1000001", required = true)
+    private Long userId;
 
 }

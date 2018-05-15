@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.prontera.persistence.CrmUserAccountBindMapper">
+  <resultMap id="BaseResultMap" type="com.github.prontera.domain.CrmUserAccountBind">
+    <id column="tuab_id" jdbcType="INTEGER" property="id" />
+    <result column="tuab_user_id" jdbcType="INTEGER" property="userId" />
+    <result column="tuab_user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="tuab_reserve_mobile" jdbcType="VARCHAR" property="reserveMobile" />
+    <result column="tuab_account_card" jdbcType="VARCHAR" property="accountCard" />
+    <result column="tuab_account_code" jdbcType="VARCHAR" property="accountCode" />
+    <result column="tuab_account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="tuab_city" jdbcType="VARCHAR" property="city" />
+    <result column="tuab_open_account" jdbcType="VARCHAR" property="openAccount" />
+    <result column="tuab_id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="tuab_status" jdbcType="INTEGER" property="status" />
+    <result column="tuab_account_type" jdbcType="INTEGER" property="accountType" />
+    <result column="tuab_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="tuab_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="tuab_operator" jdbcType="VARCHAR" property="operator" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tuab.id as tuab_id, tuab.user_id as tuab_user_id, tuab.user_name as tuab_user_name, 
+    tuab.reserve_mobile as tuab_reserve_mobile, tuab.account_card as tuab_account_card, 
+    tuab.account_code as tuab_account_code, tuab.account_name as tuab_account_name, tuab.city as tuab_city, 
+    tuab.open_account as tuab_open_account, tuab.id_card as tuab_id_card, tuab.status as tuab_status, 
+    tuab.account_type as tuab_account_type, tuab.create_time as tuab_create_time, tuab.update_time as tuab_update_time, 
+    tuab.operator as tuab_operator
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tcrm_user_account_bind tuab
+    where tuab.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tcrm_user_account_bind
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.github.prontera.domain.CrmUserAccountBind">
+    insert into tcrm_user_account_bind (user_id, user_name, reserve_mobile, 
+      account_card, account_code, account_name, 
+      city, open_account, id_card, 
+      status, account_type, operator
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{reserveMobile,jdbcType=VARCHAR}, 
+      #{accountCard,jdbcType=VARCHAR}, #{accountCode,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{openAccount,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{accountType,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.github.prontera.domain.CrmUserAccountBind">
+    insert into tcrm_user_account_bind
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="reserveMobile != null">
+        reserve_mobile,
+      </if>
+      <if test="accountCard != null">
+        account_card,
+      </if>
+      <if test="accountCode != null">
+        account_code,
+      </if>
+      <if test="accountName != null">
+        account_name,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="openAccount != null">
+        open_account,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="accountType != null">
+        account_type,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="reserveMobile != null">
+        #{reserveMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCard != null">
+        #{accountCard,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCode != null">
+        #{accountCode,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="openAccount != null">
+        #{openAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="accountType != null">
+        #{accountType,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.github.prontera.domain.CrmUserAccountBind">
+    update tcrm_user_account_bind
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="reserveMobile != null">
+        reserve_mobile = #{reserveMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCard != null">
+        account_card = #{accountCard,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCode != null">
+        account_code = #{accountCode,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="openAccount != null">
+        open_account = #{openAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="accountType != null">
+        account_type = #{accountType,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.github.prontera.domain.CrmUserAccountBind">
+    update tcrm_user_account_bind
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      reserve_mobile = #{reserveMobile,jdbcType=VARCHAR},
+      account_card = #{accountCard,jdbcType=VARCHAR},
+      account_code = #{accountCode,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      open_account = #{openAccount,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      account_type = #{accountType,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

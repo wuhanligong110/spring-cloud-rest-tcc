@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.prontera.persistence.CrmUserAddressMapper">
+  <resultMap id="BaseResultMap" type="com.github.prontera.domain.CrmUserAddress">
+    <id column="tua_id" jdbcType="INTEGER" property="id" />
+    <result column="tua_user_id" jdbcType="INTEGER" property="userId" />
+    <result column="tua_receiving_user_name" jdbcType="VARCHAR" property="receivingUserName" />
+    <result column="tua_mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="tua_province_name" jdbcType="VARCHAR" property="provinceName" />
+    <result column="tua_city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="tua_area" jdbcType="VARCHAR" property="area" />
+    <result column="tua_receiving_address" jdbcType="VARCHAR" property="receivingAddress" />
+    <result column="tua_third_account" jdbcType="VARCHAR" property="thirdAccount" />
+    <result column="tua_type" jdbcType="INTEGER" property="type" />
+    <result column="tua_type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="tua_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="tua_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="tua_operator" jdbcType="VARCHAR" property="operator" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tua.id as tua_id, tua.user_id as tua_user_id, tua.receiving_user_name as tua_receiving_user_name, 
+    tua.mobile as tua_mobile, tua.province_name as tua_province_name, tua.city_name as tua_city_name, 
+    tua.area as tua_area, tua.receiving_address as tua_receiving_address, tua.third_account as tua_third_account, 
+    tua.type as tua_type, tua.type_name as tua_type_name, tua.create_time as tua_create_time, 
+    tua.update_time as tua_update_time, tua.operator as tua_operator
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tcrm_user_address tua
+    where tua.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tcrm_user_address
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.github.prontera.domain.CrmUserAddress">
+    insert into tcrm_user_address (user_id, receiving_user_name, mobile, 
+      province_name, city_name, area, 
+      receiving_address, third_account, type, 
+      type_name, operator)
+    values (#{userId,jdbcType=INTEGER}, #{receivingUserName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{provinceName,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{receivingAddress,jdbcType=VARCHAR}, #{thirdAccount,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{typeName,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.github.prontera.domain.CrmUserAddress">
+    insert into tcrm_user_address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="receivingUserName != null">
+        receiving_user_name,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="provinceName != null">
+        province_name,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="receivingAddress != null">
+        receiving_address,
+      </if>
+      <if test="thirdAccount != null">
+        third_account,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="typeName != null">
+        type_name,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="receivingUserName != null">
+        #{receivingUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null">
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingAddress != null">
+        #{receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdAccount != null">
+        #{thirdAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.github.prontera.domain.CrmUserAddress">
+    update tcrm_user_address
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="receivingUserName != null">
+        receiving_user_name = #{receivingUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null">
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingAddress != null">
+        receiving_address = #{receivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdAccount != null">
+        third_account = #{thirdAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null">
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.github.prontera.domain.CrmUserAddress">
+    update tcrm_user_address
+    set user_id = #{userId,jdbcType=INTEGER},
+      receiving_user_name = #{receivingUserName,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      receiving_address = #{receivingAddress,jdbcType=VARCHAR},
+      third_account = #{thirdAccount,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryUserAddressPageList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tcrm_user_address tua
+    where tua.user_id = #{userId,jdbcType=INTEGER}
+  </select>
+</mapper>

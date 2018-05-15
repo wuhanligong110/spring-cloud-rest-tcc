@@ -21,7 +21,6 @@
         <module>account-ms</module>
         <module>product-ms</module>
         <module>spring-boot-admin-ms</module>
-        <module>tcc-coordinator-ms</module>
         <module>zipkin-ms</module>
         <module>event-driven-dps</module>
         <module>membership-ms</module>
@@ -51,6 +50,7 @@
         <pagehelper-spring-boot-starter.version>1.1.0</pagehelper-spring-boot-starter.version>
         <reflections.version>0.9.11</reflections.version>
         <spring-boot-admin.version>1.4.6</spring-boot-admin.version>
+        <plugin.maven-compiler>3.1</plugin.maven-compiler>
     </properties>
 
     <dependencyManagement>

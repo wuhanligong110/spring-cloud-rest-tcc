@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.prontera.persistence.BizCreditTypeMapper">
+  <resultMap id="BaseResultMap" type="com.github.prontera.domain.BizCreditType">
+    <id column="tct_id" jdbcType="INTEGER" property="id" />
+    <result column="tct_type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="tct_type_value" jdbcType="INTEGER" property="typeValue" />
+    <result column="tct_type_category" jdbcType="INTEGER" property="typeCategory" />
+    <result column="tct_balance_type" jdbcType="INTEGER" property="balanceType" />
+    <result column="tct_status" jdbcType="INTEGER" property="status" />
+    <result column="tct_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="tct_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="tct_operator" jdbcType="VARCHAR" property="operator" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tct.id as tct_id, tct.type_name as tct_type_name, tct.type_value as tct_type_value, 
+    tct.type_category as tct_type_category, tct.balance_type as tct_balance_type, tct.status as tct_status, 
+    tct.create_time as tct_create_time, tct.update_time as tct_update_time, tct.operator as tct_operator
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbiz_credit_type tct
+    where tct.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tbiz_credit_type
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.github.prontera.domain.BizCreditType">
+    insert into tbiz_credit_type (type_name, type_value, type_category, 
+      balance_type, status, operator
+      )
+    values (#{typeName,jdbcType=VARCHAR}, #{typeValue,jdbcType=INTEGER}, #{typeCategory,jdbcType=INTEGER}, 
+      #{balanceType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.github.prontera.domain.BizCreditType">
+    insert into tbiz_credit_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="typeName != null">
+        type_name,
+      </if>
+      <if test="typeValue != null">
+        type_value,
+      </if>
+      <if test="typeCategory != null">
+        type_category,
+      </if>
+      <if test="balanceType != null">
+        balance_type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeValue != null">
+        #{typeValue,jdbcType=INTEGER},
+      </if>
+      <if test="typeCategory != null">
+        #{typeCategory,jdbcType=INTEGER},
+      </if>
+      <if test="balanceType != null">
+        #{balanceType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.github.prontera.domain.BizCreditType">
+    update tbiz_credit_type
+    <set>
+      <if test="typeName != null">
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeValue != null">
+        type_value = #{typeValue,jdbcType=INTEGER},
+      </if>
+      <if test="typeCategory != null">
+        type_category = #{typeCategory,jdbcType=INTEGER},
+      </if>
+      <if test="balanceType != null">
+        balance_type = #{balanceType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.github.prontera.domain.BizCreditType">
+    update tbiz_credit_type
+    set type_name = #{typeName,jdbcType=VARCHAR},
+      type_value = #{typeValue,jdbcType=INTEGER},
+      type_category = #{typeCategory,jdbcType=INTEGER},
+      balance_type = #{balanceType,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
