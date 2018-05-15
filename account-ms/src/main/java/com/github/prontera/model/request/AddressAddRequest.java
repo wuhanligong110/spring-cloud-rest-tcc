@@ -2,14 +2,17 @@ package com.github.prontera.model.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
@@ -30,6 +33,8 @@ public class AddressAddRequest extends RestfulRequest{
     private String receivingUserName;
 
     @NotNull
+    @NotBlank
+    @Pattern(regexp = "^\\d{11}$", message = "请输入11位手机号")
     @ApiModelProperty(value = "收件人联系电话", example = "15222222222", required = true)
     private String mobile;
 

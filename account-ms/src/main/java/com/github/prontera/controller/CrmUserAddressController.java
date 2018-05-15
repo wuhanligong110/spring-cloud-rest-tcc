@@ -7,6 +7,7 @@ import com.github.prontera.Shift;
 import com.github.prontera.domain.CrmUser;
 import com.github.prontera.domain.CrmUserAddress;
 import com.github.prontera.model.request.AddressAddRequest;
+import com.github.prontera.model.request.AddressDeleteRequest;
 import com.github.prontera.model.request.PageRequest;
 import com.github.prontera.model.response.ObjectDataResponse;
 import com.github.prontera.page.PageInfo;
@@ -53,6 +54,22 @@ public class CrmUserAddressController {
     @ApiOperation(value = "用户新增收件地址", notes = "添加新的收件地址")
     @RequestMapping(value = "/users/{userId}/address", method = RequestMethod.POST)
     public ObjectDataResponse<CrmUserAddress> addressAdd(@PathVariable Long userId, @Valid @RequestBody AddressAddRequest request, BindingResult error) {
+        final CrmUser user = userService.queryByUserId(userId);
+        if (user == null) {
+            Shift.fatal(StatusCode.USER_NOT_EXISTS);
+        }
+        request.setUserId(Math.toIntExact(userId));
+        CrmUserAddress userAddress = new CrmUserAddress();
+        BeanUtils.copyProperties(request,userAddress);
+        userAddressService.persistNonNullProperties(userAddress);
+        return new ObjectDataResponse<>(userAddress);
+    }
+
+    @Delay
+    @RandomlyThrowsException
+    @ApiOperation(value = "用户删除收件地址", notes = "删除收件地址")
+    @RequestMapping(value = "/users/{userId}/address", method = RequestMethod.DELETE)
+    public ObjectDataResponse<CrmUserAddress> addressDelete(@PathVariable Long userId, @Valid @RequestBody AddressDeleteRequest request, BindingResult error) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
