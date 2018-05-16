@@ -36,19 +36,24 @@ public enum StatusCode implements RestStatus {
     DUPLICATE_KEY(42001, "操作过快, 请稍后再试"),
 
     /**
-     * 查询产品时不存在
+     * 用于注册时用户已经存在的情况
      */
-    PRODUCT_NOT_EXISTS(42002, "产品不存在"),
+    USER_EXISTS(42002, "用户已经存在, 请尝试登录"),
 
     /**
-     * 产品库存不足
+     * 用于登录时用户不存在的情况
      */
-    INSUFFICIENT_PRODUCT(42003, "产品库存不足"),
+    USER_NOT_EXISTS(42003, "用户不存在, 请先注册"),
 
     /**
-     * 查询商家信息时不存在
+     * 凭证错误
      */
-    BUSINESS_NOT_EXISTS(42004, "商家不存在"),
+    INVALID_CREDENTIAL(42004, "用户名或密码错误"),
+
+    /**
+     * 用户余额不足
+     */
+    INSUFFICIENT_BALANCE(42005, "用户余额不足"),
 
     // 50xxx 服务端异常
     /**

@@ -1,0 +1,83 @@
+package com.miget.hxb.controller;
+
+import com.github.pagehelper.Page;
+import com.miget.hxb.Delay;
+import com.miget.hxb.RandomlyThrowsException;
+import com.miget.hxb.Shift;
+import com.miget.hxb.domain.CrmUser;
+import com.miget.hxb.domain.CrmUserAccountBind;
+import com.miget.hxb.model.request.AccountAddRequest;
+import com.miget.hxb.model.request.AccountUnBindRequest;
+import com.miget.hxb.model.request.PageRequest;
+import com.miget.hxb.model.response.ObjectDataResponse;
+import com.miget.hxb.page.PageInfo;
+import com.miget.hxb.service.CrmUserAccountBindService;
+import com.miget.hxb.service.CrmUserService;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+/**
+ * @author hxb
+ */
+@RestController
+@RequestMapping(value = "/api/v1", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+public class CrmUserAccountBindController {
+
+    @Autowired
+    private CrmUserAccountBindService userAccountBindService;
+
+    @Autowired
+    private CrmUserService userService;
+
+    @Delay
+    @RandomlyThrowsException
+    @ApiOperation(value = "根据ID获取用户绑定的卡号", notes = "包括绑定的银行卡、支付宝等")
+    @RequestMapping(value = "/users/{userId}/account", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<PageInfo<CrmUserAccountBind>> accountPageList(@PathVariable Long userId, PageRequest request) {
+        final CrmUser user = userService.queryByUserId(userId);
+        if (user == null) {
+            Shift.fatal(StatusCode.USER_NOT_EXISTS);
+        }
+        final Page<CrmUserAccountBind> accountList = userAccountBindService.queryUserAccountPageList(userId,request);
+        PageInfo<CrmUserAccountBind> pageInfo = new PageInfo<>(accountList);
+        return new ObjectDataResponse<>(pageInfo);
+    }
+
+    @Delay
+    @RandomlyThrowsException
+    @ApiOperation(value = "用户新增绑卡", notes = "包括绑定的银行卡、支付宝等")
+    @RequestMapping(value = "/users/{userId}/account", method = RequestMethod.POST)
+    public ObjectDataResponse<CrmUserAccountBind> accountAdd(@PathVariable Long userId, @Valid @RequestBody AccountAddRequest request, BindingResult error) {
+        final CrmUser user = userService.queryByUserId(userId);
+        if (user == null) {
+            Shift.fatal(StatusCode.USER_NOT_EXISTS);
+        }
+        request.setUserId(Math.toIntExact(userId));
+        CrmUserAccountBind userAccount = new CrmUserAccountBind();
+        BeanUtils.copyProperties(request,userAccount);
+        userAccount.setStatus(1);
+        userAccountBindService.persistNonNullProperties(userAccount);
+        return new ObjectDataResponse<>(userAccount);
+    }
+
+    @Delay
+    @RandomlyThrowsException
+    @ApiOperation(value = "用户解绑账号", notes = "将绑定状态设置为无效")
+    @RequestMapping(value = "/users/{userId}/account", method = RequestMethod.DELETE)
+    public ObjectDataResponse accountUnBind(@PathVariable Long userId, @Valid @RequestBody AccountUnBindRequest request, BindingResult error) {
+        final CrmUser user = userService.queryByUserId(userId);
+        if (user == null) {
+            Shift.fatal(StatusCode.USER_NOT_EXISTS);
+        }
+        request.setUserId(Math.toIntExact(userId));
+        userAccountBindService.accountUnBind(request);
+        return new ObjectDataResponse<>(null);
+    }
+
+}

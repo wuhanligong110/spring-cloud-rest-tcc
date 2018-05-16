@@ -15,7 +15,7 @@ CREATE TABLE `tcim_product` (
   `hava_inventory` int(11) DEFAULT '0' COMMENT '已消耗的库存',
   `list_img` varchar(50) DEFAULT NULL COMMENT '列表图片',
   `detail_img` varchar(50) DEFAULT NULL COMMENT '详情图片',
-  `if_hot` int(1) DEFAULT '0' COMMENT '是否热门产品  0-是  1-否',
+  `if_hot` int(1) DEFAULT '0' COMMENT '是否热门产品  1-是  0-否',
   `product_standard` text COMMENT '产品参数描述（参数之间用|分割，参数名称和参数值用#分割）',
   `sort` int(11) DEFAULT '99999' COMMENT '排序',
   `tag` varchar(255) DEFAULT NULL COMMENT '标签(用#分割)',

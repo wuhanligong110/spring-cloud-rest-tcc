@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.miget.hxb.persistence.CimProductMapper">
-  <resultMap id="BaseResultMap" type="com.miget.hxb.domain.type.CimProduct">
+  <resultMap id="BaseResultMap" type="com.miget.hxb.domain.CimProduct">
     <id column="tp_product_id" jdbcType="INTEGER" property="productId" />
     <result column="tp_business_id" jdbcType="INTEGER" property="businessId" />
     <result column="tp_categoty_id" jdbcType="INTEGER" property="categotyId" />
@@ -21,7 +21,7 @@
     <result column="tp_update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="tp_operator" jdbcType="VARCHAR" property="operator" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.miget.hxb.domain.type.CimProduct">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.miget.hxb.domain.CimProduct">
     <result column="tp_product_standard" jdbcType="LONGVARCHAR" property="productStandard" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -47,7 +47,7 @@
     delete from tcim_product
     where product_id = #{productId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.miget.hxb.domain.type.CimProduct">
+  <insert id="insert" parameterType="com.miget.hxb.domain.CimProduct">
     insert into tcim_product (product_id, business_id, categoty_id, 
       consume_type, product_name, sub_name, 
       pre_price, price, inventory, 
@@ -63,7 +63,7 @@
       #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, #{productStandard,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.miget.hxb.domain.type.CimProduct">
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.CimProduct">
     insert into tcim_product
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="productId != null">
@@ -184,7 +184,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.type.CimProduct">
+  <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.CimProduct">
     update tcim_product
     <set>
       <if test="businessId != null">
@@ -244,7 +244,7 @@
     </set>
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miget.hxb.domain.type.CimProduct">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miget.hxb.domain.CimProduct">
     update tcim_product
     set business_id = #{businessId,jdbcType=INTEGER},
       categoty_id = #{categotyId,jdbcType=INTEGER},
@@ -266,7 +266,7 @@
       product_standard = #{productStandard,jdbcType=LONGVARCHAR}
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.type.CimProduct">
+  <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.CimProduct">
     update tcim_product
     set business_id = #{businessId,jdbcType=INTEGER},
       categoty_id = #{categotyId,jdbcType=INTEGER},
@@ -287,4 +287,13 @@
       operator = #{operator,jdbcType=VARCHAR}
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
+
+  <select id="queryBusinessProductPageList" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tcim_product tp
+    where tp.business_id = #{businessId,jdbcType=INTEGER}
+  </select>
 </mapper>
