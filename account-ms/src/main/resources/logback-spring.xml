@@ -15,24 +15,24 @@
     </appender>
 
     <springProfile name="default">
-        <logger name="com.github.prontera" level="DEBUG"/>
+        <logger name="com.miget.hxb" level="DEBUG"/>
     </springProfile>
     <springProfile name="dev">
-        <logger name="com.github.prontera" level="DEBUG"/>
+        <logger name="com.miget.hxb" level="DEBUG"/>
     </springProfile>
     <springProfile name="test">
-        <logger name="com.github.prontera" level="DEBUG"/>
+        <logger name="com.miget.hxb" level="DEBUG"/>
     </springProfile>
     <springProfile name="stag">
-        <logger name="com.github.prontera" level="WARN"/>
+        <logger name="com.miget.hxb" level="WARN"/>
     </springProfile>
     <springProfile name="prod">
-        <logger name="com.github.prontera" level="WARN"/>
+        <logger name="com.miget.hxb" level="WARN"/>
     </springProfile>
 
     <logger name="com.umeng.push" level="DEBUG"/>
 
-    <logger name="com.github.prontera.persistence.UserBalanceTccMapper" level="WARN"/>
+    <logger name="com.miget.hxb.persistence.UserBalanceTccMapper" level="WARN"/>
 
     <logger name="org.apache.ibatis.cache.decorators.LoggingCache" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.prontera.persistence.BizCreditTypeMapper">
-  <resultMap id="BaseResultMap" type="com.github.prontera.domain.BizCreditType">
+<mapper namespace="com.miget.hxb.persistence.BizCreditTypeMapper">
+  <resultMap id="BaseResultMap" type="com.miget.hxb.domain.BizCreditType">
     <id column="tct_id" jdbcType="INTEGER" property="id" />
     <result column="tct_type_name" jdbcType="VARCHAR" property="typeName" />
     <result column="tct_type_value" jdbcType="INTEGER" property="typeValue" />
@@ -27,7 +27,7 @@
     delete from tbiz_credit_type
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.github.prontera.domain.BizCreditType">
+  <insert id="insert" parameterType="com.miget.hxb.domain.BizCreditType">
     insert into tbiz_credit_type (id, type_name, type_value,
       type_category, balance_type, status,
       create_time, update_time, operator
@@ -37,7 +37,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.github.prontera.domain.BizCreditType">
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.BizCreditType">
     insert into tbiz_credit_type
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -98,7 +98,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.github.prontera.domain.BizCreditType">
+  <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.BizCreditType">
     update tbiz_credit_type
     <set>
       <if test="typeName != null">
@@ -128,7 +128,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.github.prontera.domain.BizCreditType">
+  <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.BizCreditType">
     update tbiz_credit_type
     set type_name = #{typeName,jdbcType=VARCHAR},
       type_value = #{typeValue,jdbcType=INTEGER},
@@ -140,4 +140,12 @@
       operator = #{operator,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryUseableCreditType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbiz_credit_type tct
+    where tct.status = 1
+    and tct.type_value = #{typeValue,jdbcType=INTEGER}
+  </select>
 </mapper>

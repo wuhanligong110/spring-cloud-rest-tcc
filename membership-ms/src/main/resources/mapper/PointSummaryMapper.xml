@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.prontera.persistence.PointSummaryMapper">
-    <resultMap id="BaseResultMap" type="com.github.prontera.domain.PointSummary">
+<mapper namespace="com.miget.hxb.persistence.PointSummaryMapper">
+    <resultMap id="BaseResultMap" type="com.miget.hxb.domain.PointSummary">
         <id column="tpoint_sum_id" jdbcType="BIGINT" property="id"/>
         <result column="tpoint_sum_create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="tpoint_sum_update_time" jdbcType="TIMESTAMP" property="updateTime"/>
@@ -30,14 +30,14 @@
         DELETE FROM t_point_sum
         WHERE id = #{id,jdbcType=BIGINT}
     </delete>
-    <insert id="insert" parameterType="com.github.prontera.domain.PointSummary" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.miget.hxb.domain.PointSummary" useGeneratedKeys="true"
             keyProperty="id">
         INSERT INTO t_point_sum (id, delete_time, user_id,
                                  point_sum)
         VALUES (#{id,jdbcType=BIGINT}, #{deleteTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=BIGINT},
                 #{pointSum,jdbcType=INTEGER})
     </insert>
-    <insert id="insertSelective" parameterType="com.github.prontera.domain.PointSummary" useGeneratedKeys="true"
+    <insert id="insertSelective" parameterType="com.miget.hxb.domain.PointSummary" useGeneratedKeys="true"
             keyProperty="id">
         insert into t_point_sum
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -69,7 +69,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.github.prontera.domain.PointSummary">
+    <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.PointSummary">
         update t_point_sum
         <set>
             <if test="deleteTime != null">
@@ -84,7 +84,7 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.github.prontera.domain.PointSummary">
+    <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.PointSummary">
         UPDATE t_point_sum
         SET delete_time = #{deleteTime,jdbcType=TIMESTAMP},
             user_id     = #{userId,jdbcType=BIGINT},

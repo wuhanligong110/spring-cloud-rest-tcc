@@ -11,7 +11,7 @@
     <description>hystrix dashboard that is aggregating with turbine</description>
 
     <parent>
-        <groupId>com.github.prontera</groupId>
+        <groupId>com.miget.hxb</groupId>
         <artifactId>spring-cloud-microservice</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>

@@ -79,9 +79,9 @@ Zuul在本实例中仅作为路由所使用，配置降低Ribbon的读取与连�
 - 为了达到开箱即用，选用公开仓库Github或者GitOsc。
 
 - 本项目中有两个自定义注解
-  `@com.github.prontera.Delay` 控制方法的延时返回时间；
+  `@com.miget.hxb.Delay` 控制方法的延时返回时间；
 
-  `@com.github.prontera.RandomlyThrowsException` 随机抛出异常，人为地制造异常。
+  `@com.miget.hxb.RandomlyThrowsException` 随机抛出异常，人为地制造异常。
 
   默认的远程配置如下
 

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miget.hxb.persistence.CimProductImgMapper">
+  <resultMap id="BaseResultMap" type="com.miget.hxb.domain.CimProductImg">
+    <id column="tpi_id" jdbcType="INTEGER" property="id" />
+    <result column="tpi_product_id" jdbcType="INTEGER" property="productId" />
+    <result column="tpi_img" jdbcType="VARCHAR" property="img" />
+    <result column="tpi_img_type" jdbcType="INTEGER" property="imgType" />
+    <result column="tpi_sort" jdbcType="INTEGER" property="sort" />
+    <result column="tpi_isshow" jdbcType="INTEGER" property="isshow" />
+    <result column="tpi_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="tpi_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="tpi_operator" jdbcType="VARCHAR" property="operator" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tpi.id as tpi_id, tpi.product_id as tpi_product_id, tpi.img as tpi_img, tpi.img_type as tpi_img_type, 
+    tpi.sort as tpi_sort, tpi.isshow as tpi_isshow, tpi.create_time as tpi_create_time, 
+    tpi.update_time as tpi_update_time, tpi.operator as tpi_operator
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_product_img tpi
+    where tpi.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tcim_product_img
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miget.hxb.domain.CimProductImg">
+    insert into tcim_product_img (id, product_id, img, 
+      img_type, sort, isshow, 
+      create_time, update_time, operator
+      )
+    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, 
+      #{imgType,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{isshow,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.CimProductImg">
+    insert into tcim_product_img
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+      <if test="imgType != null">
+        img_type,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="isshow != null">
+        isshow,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="imgType != null">
+        #{imgType,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isshow != null">
+        #{isshow,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.CimProductImg">
+    update tcim_product_img
+    <set>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="imgType != null">
+        img_type = #{imgType,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isshow != null">
+        isshow = #{isshow,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.CimProductImg">
+    update tcim_product_img
+    set product_id = #{productId,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      img_type = #{imgType,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      isshow = #{isshow,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

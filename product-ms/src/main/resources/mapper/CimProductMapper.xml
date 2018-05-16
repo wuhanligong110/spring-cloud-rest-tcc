@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miget.hxb.persistence.CimProductMapper">
+  <resultMap id="BaseResultMap" type="com.miget.hxb.domain.type.CimProduct">
+    <id column="tp_product_id" jdbcType="INTEGER" property="productId" />
+    <result column="tp_business_id" jdbcType="INTEGER" property="businessId" />
+    <result column="tp_categoty_id" jdbcType="INTEGER" property="categotyId" />
+    <result column="tp_consume_type" jdbcType="INTEGER" property="consumeType" />
+    <result column="tp_product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="tp_sub_name" jdbcType="VARCHAR" property="subName" />
+    <result column="tp_pre_price" jdbcType="INTEGER" property="prePrice" />
+    <result column="tp_price" jdbcType="BIGINT" property="price" />
+    <result column="tp_inventory" jdbcType="INTEGER" property="inventory" />
+    <result column="tp_hava_inventory" jdbcType="INTEGER" property="havaInventory" />
+    <result column="tp_list_img" jdbcType="VARCHAR" property="listImg" />
+    <result column="tp_detail_img" jdbcType="VARCHAR" property="detailImg" />
+    <result column="tp_if_hot" jdbcType="INTEGER" property="ifHot" />
+    <result column="tp_sort" jdbcType="INTEGER" property="sort" />
+    <result column="tp_tag" jdbcType="VARCHAR" property="tag" />
+    <result column="tp_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="tp_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="tp_operator" jdbcType="VARCHAR" property="operator" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.miget.hxb.domain.type.CimProduct">
+    <result column="tp_product_standard" jdbcType="LONGVARCHAR" property="productStandard" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tp.product_id as tp_product_id, tp.business_id as tp_business_id, tp.categoty_id as tp_categoty_id, 
+    tp.consume_type as tp_consume_type, tp.product_name as tp_product_name, tp.sub_name as tp_sub_name, 
+    tp.pre_price as tp_pre_price, tp.price as tp_price, tp.inventory as tp_inventory, 
+    tp.hava_inventory as tp_hava_inventory, tp.list_img as tp_list_img, tp.detail_img as tp_detail_img, 
+    tp.if_hot as tp_if_hot, tp.sort as tp_sort, tp.tag as tp_tag, tp.create_time as tp_create_time, 
+    tp.update_time as tp_update_time, tp.operator as tp_operator
+  </sql>
+  <sql id="Blob_Column_List">
+    tp.product_standard as tp_product_standard
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tcim_product tp
+    where tp.product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tcim_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miget.hxb.domain.type.CimProduct">
+    insert into tcim_product (product_id, business_id, categoty_id, 
+      consume_type, product_name, sub_name, 
+      pre_price, price, inventory, 
+      hava_inventory, list_img, detail_img, 
+      if_hot, sort, tag, create_time, 
+      update_time, operator, product_standard
+      )
+    values (#{productId,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, #{categotyId,jdbcType=INTEGER}, 
+      #{consumeType,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{subName,jdbcType=VARCHAR}, 
+      #{prePrice,jdbcType=INTEGER}, #{price,jdbcType=BIGINT}, #{inventory,jdbcType=INTEGER}, 
+      #{havaInventory,jdbcType=INTEGER}, #{listImg,jdbcType=VARCHAR}, #{detailImg,jdbcType=VARCHAR}, 
+      #{ifHot,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, #{productStandard,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.type.CimProduct">
+    insert into tcim_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="categotyId != null">
+        categoty_id,
+      </if>
+      <if test="consumeType != null">
+        consume_type,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="subName != null">
+        sub_name,
+      </if>
+      <if test="prePrice != null">
+        pre_price,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="inventory != null">
+        inventory,
+      </if>
+      <if test="havaInventory != null">
+        hava_inventory,
+      </if>
+      <if test="listImg != null">
+        list_img,
+      </if>
+      <if test="detailImg != null">
+        detail_img,
+      </if>
+      <if test="ifHot != null">
+        if_hot,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="tag != null">
+        tag,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="productStandard != null">
+        product_standard,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="categotyId != null">
+        #{categotyId,jdbcType=INTEGER},
+      </if>
+      <if test="consumeType != null">
+        #{consumeType,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="subName != null">
+        #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="prePrice != null">
+        #{prePrice,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="inventory != null">
+        #{inventory,jdbcType=INTEGER},
+      </if>
+      <if test="havaInventory != null">
+        #{havaInventory,jdbcType=INTEGER},
+      </if>
+      <if test="listImg != null">
+        #{listImg,jdbcType=VARCHAR},
+      </if>
+      <if test="detailImg != null">
+        #{detailImg,jdbcType=VARCHAR},
+      </if>
+      <if test="ifHot != null">
+        #{ifHot,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="productStandard != null">
+        #{productStandard,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.type.CimProduct">
+    update tcim_product
+    <set>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="categotyId != null">
+        categoty_id = #{categotyId,jdbcType=INTEGER},
+      </if>
+      <if test="consumeType != null">
+        consume_type = #{consumeType,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="subName != null">
+        sub_name = #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="prePrice != null">
+        pre_price = #{prePrice,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="inventory != null">
+        inventory = #{inventory,jdbcType=INTEGER},
+      </if>
+      <if test="havaInventory != null">
+        hava_inventory = #{havaInventory,jdbcType=INTEGER},
+      </if>
+      <if test="listImg != null">
+        list_img = #{listImg,jdbcType=VARCHAR},
+      </if>
+      <if test="detailImg != null">
+        detail_img = #{detailImg,jdbcType=VARCHAR},
+      </if>
+      <if test="ifHot != null">
+        if_hot = #{ifHot,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="tag != null">
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="productStandard != null">
+        product_standard = #{productStandard,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miget.hxb.domain.type.CimProduct">
+    update tcim_product
+    set business_id = #{businessId,jdbcType=INTEGER},
+      categoty_id = #{categotyId,jdbcType=INTEGER},
+      consume_type = #{consumeType,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      sub_name = #{subName,jdbcType=VARCHAR},
+      pre_price = #{prePrice,jdbcType=INTEGER},
+      price = #{price,jdbcType=BIGINT},
+      inventory = #{inventory,jdbcType=INTEGER},
+      hava_inventory = #{havaInventory,jdbcType=INTEGER},
+      list_img = #{listImg,jdbcType=VARCHAR},
+      detail_img = #{detailImg,jdbcType=VARCHAR},
+      if_hot = #{ifHot,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      tag = #{tag,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR},
+      product_standard = #{productStandard,jdbcType=LONGVARCHAR}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.type.CimProduct">
+    update tcim_product
+    set business_id = #{businessId,jdbcType=INTEGER},
+      categoty_id = #{categotyId,jdbcType=INTEGER},
+      consume_type = #{consumeType,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      sub_name = #{subName,jdbcType=VARCHAR},
+      pre_price = #{prePrice,jdbcType=INTEGER},
+      price = #{price,jdbcType=BIGINT},
+      inventory = #{inventory,jdbcType=INTEGER},
+      hava_inventory = #{havaInventory,jdbcType=INTEGER},
+      list_img = #{listImg,jdbcType=VARCHAR},
+      detail_img = #{detailImg,jdbcType=VARCHAR},
+      if_hot = #{ifHot,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      tag = #{tag,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+</mapper>

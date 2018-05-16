@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties>
-        <property name="dialectClass" value="com.github.prontera.core.orm.dialect.MySql5Dialect"/>
+        <property name="dialectClass" value="com.miget.hxb.core.orm.dialect.MySql5Dialect"/>
     </properties>
 
     <!-- 配置mybatis的缓存，延迟加载等等一系列属性 -->
@@ -57,16 +57,16 @@
     </settings>
 
     <typeAliases>
-        <package name="com.github.prontera.domain"/>
+        <package name="com.miget.hxb.domain"/>
     </typeAliases>
 
 	<typeHandlers>
-    		<typeHandler handler="com.github.prontera.xoss.util.DateTypeHandler" javaType="Date" jdbcType="DECIMAL"/>
+    		<typeHandler handler="com.miget.hxb.xoss.util.DateTypeHandler" javaType="Date" jdbcType="DECIMAL"/>
     </typeHandlers>
     
     <plugins>
-        <plugin interceptor="com.github.prontera.core.orm.paging.PaginationResultSetHandlerInterceptor"/>
-        <plugin interceptor="com.github.prontera.core.orm.paging.PaginationStatementHandlerInterceptor"/>
+        <plugin interceptor="com.miget.hxb.core.orm.paging.PaginationResultSetHandlerInterceptor"/>
+        <plugin interceptor="com.miget.hxb.core.orm.paging.PaginationStatementHandlerInterceptor"/>
     </plugins>
 
 	

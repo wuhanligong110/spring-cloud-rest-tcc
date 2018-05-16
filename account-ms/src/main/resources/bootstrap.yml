@@ -53,9 +53,9 @@ spring:
 encrypt:
   key: '*&3loa#@9no_0*(!'
 mybatis:
-  type-handlers-package: 'com.github.prontera.domain.type.handler'
+  type-handlers-package: 'com.miget.hxb.domain.type.handler'
   mapper-locations: 'classpath*:mapper/**/*Mapper.xml'
-  type-aliases-package: 'com.github.prontera.domain'
+  type-aliases-package: 'com.miget.hxb.domain'
 flyway:
   enabled: true
   baseline-on-migrate: true

@@ -13,26 +13,26 @@
         <!-- 添加附加的appender,最多只能添加一个 -->
         <appender-ref ref="FILE"/>
     </appender>
-    <appender name="MONGODB" class="com.github.prontera.appender.MongoDBAppender">
+    <appender name="MONGODB" class="com.miget.hxb.appender.MongoDBAppender">
     </appender>
 
     <springProfile name="default">
-        <logger name="com.github.prontera" level="DEBUG"/>
+        <logger name="com.miget.hxb" level="DEBUG"/>
     </springProfile>
     <springProfile name="dev">
-        <logger name="com.github.prontera" level="DEBUG"/>
+        <logger name="com.miget.hxb" level="DEBUG"/>
     </springProfile>
     <springProfile name="test">
-        <logger name="com.github.prontera" level="DEBUG"/>
+        <logger name="com.miget.hxb" level="DEBUG"/>
     </springProfile>
     <springProfile name="stag">
-        <logger name="com.github.prontera" level="WARN"/>
+        <logger name="com.miget.hxb" level="WARN"/>
     </springProfile>
     <springProfile name="prod">
-        <logger name="com.github.prontera" level="WARN"/>
+        <logger name="com.miget.hxb" level="WARN"/>
     </springProfile>
 
-    <logger name="com.github.prontera.persistence" level="WARN" additivity="false">
+    <logger name="com.miget.hxb.persistence" level="WARN" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <!--<appender-ref ref="FILE"/>-->
     </logger>

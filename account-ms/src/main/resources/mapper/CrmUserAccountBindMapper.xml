@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.prontera.persistence.CrmUserAccountBindMapper">
-  <resultMap id="BaseResultMap" type="com.github.prontera.domain.CrmUserAccountBind">
+<mapper namespace="com.miget.hxb.persistence.CrmUserAccountBindMapper">
+  <resultMap id="BaseResultMap" type="com.miget.hxb.domain.CrmUserAccountBind">
     <id column="tuab_id" jdbcType="INTEGER" property="id" />
     <result column="tuab_user_id" jdbcType="INTEGER" property="userId" />
     <result column="tuab_user_name" jdbcType="VARCHAR" property="userName" />
@@ -36,7 +36,7 @@
     delete from tcrm_user_account_bind
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.github.prontera.domain.CrmUserAccountBind">
+  <insert id="insert" parameterType="com.miget.hxb.domain.CrmUserAccountBind">
     insert into tcrm_user_account_bind (id, user_id, user_name,
       reserve_mobile, account_card, account_code,
       account_name, city, open_account,
@@ -50,7 +50,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.github.prontera.domain.CrmUserAccountBind">
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.CrmUserAccountBind">
     insert into tcrm_user_account_bind
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -147,7 +147,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.github.prontera.domain.CrmUserAccountBind">
+  <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.CrmUserAccountBind">
     update tcrm_user_account_bind
     <set>
       <if test="userId != null">
@@ -195,7 +195,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.github.prontera.domain.CrmUserAccountBind">
+  <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.CrmUserAccountBind">
     update tcrm_user_account_bind
     set user_id = #{userId,jdbcType=INTEGER},
       user_name = #{userName,jdbcType=VARCHAR},
@@ -221,7 +221,7 @@
     where tuab.user_id = #{userId,jdbcType=INTEGER}
   </select>
 
-  <update id="accountUnBind" parameterType="com.github.prontera.model.request.AccountUnBindRequest">
+  <update id="accountUnBind" parameterType="com.miget.hxb.model.request.AccountUnBindRequest">
     update tcrm_user_account_bind
     set
       status = 0

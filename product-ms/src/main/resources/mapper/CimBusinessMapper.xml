@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miget.hxb.persistence.CimBusinessMapper">
+  <resultMap id="BaseResultMap" type="com.miget.hxb.domain.CimBusiness">
+    <id column="tb_business_id" jdbcType="INTEGER" property="businessId" />
+    <result column="tb_business_name" jdbcType="VARCHAR" property="businessName" />
+    <result column="tb_business_desc" jdbcType="VARCHAR" property="businessDesc" />
+    <result column="tb_logo" jdbcType="VARCHAR" property="logo" />
+    <result column="tb_recommend" jdbcType="INTEGER" property="recommend" />
+    <result column="tb_sort" jdbcType="INTEGER" property="sort" />
+    <result column="tb_tag" jdbcType="VARCHAR" property="tag" />
+    <result column="tb_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="tb_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="tb_operator" jdbcType="VARCHAR" property="operator" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tb.business_id as tb_business_id, tb.business_name as tb_business_name, tb.business_desc as tb_business_desc, 
+    tb.logo as tb_logo, tb.recommend as tb_recommend, tb.sort as tb_sort, tb.tag as tb_tag, 
+    tb.create_time as tb_create_time, tb.update_time as tb_update_time, tb.operator as tb_operator
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_business tb
+    where tb.business_id = #{businessId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tcim_business
+    where business_id = #{businessId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miget.hxb.domain.CimBusiness">
+    insert into tcim_business (business_id, business_name, business_desc, 
+      logo, recommend, sort, 
+      tag, create_time, update_time, 
+      operator)
+    values (#{businessId,jdbcType=INTEGER}, #{businessName,jdbcType=VARCHAR}, #{businessDesc,jdbcType=VARCHAR}, 
+      #{logo,jdbcType=VARCHAR}, #{recommend,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, 
+      #{tag,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{operator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.CimBusiness">
+    insert into tcim_business
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="businessName != null">
+        business_name,
+      </if>
+      <if test="businessDesc != null">
+        business_desc,
+      </if>
+      <if test="logo != null">
+        logo,
+      </if>
+      <if test="recommend != null">
+        recommend,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="tag != null">
+        tag,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="businessId != null">
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="businessName != null">
+        #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessDesc != null">
+        #{businessDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null">
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null">
+        #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.CimBusiness">
+    update tcim_business
+    <set>
+      <if test="businessName != null">
+        business_name = #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessDesc != null">
+        business_desc = #{businessDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null">
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null">
+        recommend = #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="tag != null">
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where business_id = #{businessId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.CimBusiness">
+    update tcim_business
+    set business_name = #{businessName,jdbcType=VARCHAR},
+      business_desc = #{businessDesc,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      recommend = #{recommend,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      tag = #{tag,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR}
+    where business_id = #{businessId,jdbcType=INTEGER}
+  </update>
+</mapper>

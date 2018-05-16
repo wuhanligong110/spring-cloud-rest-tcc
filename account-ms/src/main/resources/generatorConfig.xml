@@ -18,26 +18,26 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.github.prontera.domain"
+        <javaModelGenerator targetPackage="com.miget.hxb.domain"
                             targetProject="account-ms">
             <property name="enableSubPackages" value="true"/>
             <!--<property name="trimStrings" value="true"/>-->
             <!--<property name="immutable" value="true"/>-->
-            <property name="rootClass" value="com.github.prontera.model.BasicDomain"/>
+            <property name="rootClass" value="com.miget.hxb.model.BasicDomain"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.github.prontera.persistence"
+        <sqlMapGenerator targetPackage="com.miget.hxb.persistence"
                          targetProject="account-ms">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator targetPackage="com.github.prontera.persistence"
+        <javaClientGenerator targetPackage="com.miget.hxb.persistence"
                              targetProject="account-ms" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
-            <property name="rootInterface" value="com.github.prontera.persistence.CrudMapper"/>
+            <property name="rootInterface" value="com.miget.hxb.persistence.CrudMapper"/>
         </javaClientGenerator>
 
-        <table alias="tu" tableName="tcrm_user" domainObjectName="CrmUser"
+        <!--<table alias="tu" tableName="tcrm_user" domainObjectName="CrmUser"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
@@ -66,7 +66,7 @@
             <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="false"/>
             <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
             <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
-        </table>
+        </table>-->
 
         <table alias="tcd" tableName="tbiz_credit_detail" domainObjectName="BizCreditDetail"
                enableCountByExample="false" enableUpdateByExample="false"

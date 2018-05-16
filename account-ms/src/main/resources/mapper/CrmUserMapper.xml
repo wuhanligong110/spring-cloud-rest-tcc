@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.prontera.persistence.CrmUserMapper">
-  <resultMap id="BaseResultMap" type="com.github.prontera.domain.CrmUser">
+<mapper namespace="com.miget.hxb.persistence.CrmUserMapper">
+  <resultMap id="BaseResultMap" type="com.miget.hxb.domain.CrmUser">
     <id column="tu_user_id" jdbcType="INTEGER" property="userId" />
     <result column="tu_business_id" jdbcType="INTEGER" property="businessId" />
     <result column="tu_parent_id" jdbcType="INTEGER" property="parentId" />
@@ -33,7 +33,7 @@
     <result column="tu_update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="tu_operator" jdbcType="VARCHAR" property="operator" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.github.prontera.domain.CrmUser">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.miget.hxb.domain.CrmUser">
     <result column="tu_ancestor" jdbcType="LONGVARCHAR" property="ancestor" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -65,7 +65,7 @@
     delete from tcrm_user
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.github.prontera.domain.CrmUser">
+  <insert id="insert" parameterType="com.miget.hxb.domain.CrmUser">
     insert into tcrm_user (user_id, business_id, parent_id,
       buy_total_money, withdrawal_credit_total, have_withdrawal_credit_total,
       acc_withdrawal_credit, shop_credit_total, used_shop_credit_total,
@@ -89,7 +89,7 @@
       #{pwdSalt,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{operator,jdbcType=VARCHAR}, #{ancestor,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.github.prontera.domain.CrmUser" useGeneratedKeys="true" keyProperty="userId">
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.CrmUser" useGeneratedKeys="true" keyProperty="userId">
     insert into tcrm_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -282,7 +282,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.github.prontera.domain.CrmUser">
+  <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.CrmUser">
     update tcrm_user
     <set>
       <if test="businessId != null">
@@ -378,7 +378,7 @@
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.github.prontera.domain.CrmUser">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miget.hxb.domain.CrmUser">
     update tcrm_user
     set business_id = #{businessId,jdbcType=INTEGER},
       parent_id = #{parentId,jdbcType=INTEGER},
@@ -412,7 +412,7 @@
       ancestor = #{ancestor,jdbcType=LONGVARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.github.prontera.domain.CrmUser">
+  <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.CrmUser">
     update tcrm_user
     set business_id = #{businessId,jdbcType=INTEGER},
       parent_id = #{parentId,jdbcType=INTEGER},
@@ -459,5 +459,21 @@
     from tcrm_user tu
     where tu.user_id = #{userId}
   </select>
+
+  <update id="addWithdrawCredit" parameterType="com.miget.hxb.model.request.CreditAddRequest">
+    update tcrm_user
+    set
+      withdrawal_credit_total = withdrawal_credit_total + #{credit,jdbcType=BIGINT},
+      acc_withdrawal_credit = acc_withdrawal_credit + #{credit,jdbcType=BIGINT}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <update id="addShopCredit" parameterType="com.miget.hxb.model.request.CreditAddRequest">
+    update tcrm_user
+    set
+      shop_credit_total = shop_credit_total + #{credit,jdbcType=BIGINT},
+      acc_shop_credit = acc_shop_credit + #{credit,jdbcType=BIGINT}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
 
 </mapper>

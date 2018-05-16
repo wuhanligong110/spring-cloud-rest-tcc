@@ -15,19 +15,19 @@
     </appender>
 
     <springProfile name="default">
-        <logger name="com.github.prontera" level="DEBUG"/>
+        <logger name="com.miget.hxb" level="DEBUG"/>
     </springProfile>
     <springProfile name="dev">
-        <logger name="com.github.prontera" level="DEBUG"/>
+        <logger name="com.miget.hxb" level="DEBUG"/>
     </springProfile>
     <springProfile name="test">
-        <logger name="com.github.prontera" level="DEBUG"/>
+        <logger name="com.miget.hxb" level="DEBUG"/>
     </springProfile>
     <springProfile name="stag">
-        <logger name="com.github.prontera" level="WARN"/>
+        <logger name="com.miget.hxb" level="WARN"/>
     </springProfile>
     <springProfile name="prod">
-        <logger name="com.github.prontera" level="WARN"/>
+        <logger name="com.miget.hxb" level="WARN"/>
     </springProfile>
 
     <root level="WARN">

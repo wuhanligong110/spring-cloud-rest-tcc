@@ -18,23 +18,23 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.github.prontera.domain"
+        <javaModelGenerator targetPackage="com.miget.hxb.domain"
                             targetProject="${dao.target.dir}">
             <property name="enableSubPackages" value="true"/>
             <!--<property name="trimStrings" value="true"/>-->
             <!--<property name="immutable" value="true"/>-->
-            <property name="rootClass" value="com.github.prontera.model.BasicDomain"/>
+            <property name="rootClass" value="com.miget.hxb.model.BasicDomain"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.github.prontera.domain"
+        <sqlMapGenerator targetPackage="com.miget.hxb.domain"
                          targetProject="${dao.target.dir}">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator targetPackage="com.github.prontera.domain"
+        <javaClientGenerator targetPackage="com.miget.hxb.domain"
                              targetProject="${dao.target.dir}" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
-            <property name="rootInterface" value="com.github.prontera.persistence.CrudMapper"/>
+            <property name="rootInterface" value="com.miget.hxb.persistence.CrudMapper"/>
         </javaClientGenerator>
 
         <table alias="tevent_pub" tableName="t_event_pub" domainObjectName="EventPublisher"
@@ -42,8 +42,8 @@
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="event_status"
                             jdbcType="TINYINT"
-                            javaType="com.github.prontera.domain.type.EventStatus"
-                            typeHandler="com.github.prontera.domain.type.handler.EventStatusTypeHandler"/>
+                            javaType="com.miget.hxb.domain.type.EventStatus"
+                            typeHandler="com.miget.hxb.domain.type.handler.EventStatusTypeHandler"/>
             <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
             <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
             <columnOverride column="delete_time" javaType="java.time.OffsetDateTime"/>
@@ -56,8 +56,8 @@
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="event_status"
                             jdbcType="TINYINT"
-                            javaType="com.github.prontera.domain.type.EventStatus"
-                            typeHandler="com.github.prontera.domain.type.handler.EventStatusTypeHandler"/>
+                            javaType="com.miget.hxb.domain.type.EventStatus"
+                            typeHandler="com.miget.hxb.domain.type.handler.EventStatusTypeHandler"/>
             <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
             <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
             <columnOverride column="delete_time" javaType="java.time.OffsetDateTime"/>

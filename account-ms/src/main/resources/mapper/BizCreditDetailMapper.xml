@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.prontera.persistence.BizCreditDetailMapper">
-  <resultMap id="BaseResultMap" type="com.github.prontera.domain.BizCreditDetail">
+<mapper namespace="com.miget.hxb.persistence.BizCreditDetailMapper">
+  <resultMap id="BaseResultMap" type="com.miget.hxb.domain.BizCreditDetail">
     <id column="tcd_id" jdbcType="INTEGER" property="id" />
     <result column="tcd_user_id" jdbcType="INTEGER" property="userId" />
     <result column="tcd_credit_type" jdbcType="INTEGER" property="creditType" />
     <result column="tcd_order_id" jdbcType="VARCHAR" property="orderId" />
     <result column="tcd_deal_id" jdbcType="VARCHAR" property="dealId" />
+    <result column="tcd_remark" jdbcType="VARCHAR" property="remark" />
     <result column="tcd_credit" jdbcType="BIGINT" property="credit" />
     <result column="tcd_create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="tcd_update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -14,11 +15,12 @@
   </resultMap>
   <sql id="Base_Column_List">
     tcd.id as tcd_id, tcd.user_id as tcd_user_id, tcd.credit_type as tcd_credit_type, 
-    tcd.order_id as tcd_order_id, tcd.deal_id as tcd_deal_id, tcd.credit as tcd_credit, 
-    tcd.create_time as tcd_create_time, tcd.update_time as tcd_update_time, tcd.operator as tcd_operator
+    tcd.order_id as tcd_order_id, tcd.deal_id as tcd_deal_id, tcd.remark as tcd_remark, 
+    tcd.credit as tcd_credit, tcd.create_time as tcd_create_time, tcd.update_time as tcd_update_time, 
+    tcd.operator as tcd_operator
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from tbiz_credit_detail tcd
     where tcd.id = #{id,jdbcType=INTEGER}
@@ -27,17 +29,17 @@
     delete from tbiz_credit_detail
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.github.prontera.domain.BizCreditDetail">
-    insert into tbiz_credit_detail (id, user_id, credit_type,
-      order_id, deal_id, credit,
-      create_time, update_time, operator
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{creditType,jdbcType=INTEGER},
-      #{orderId,jdbcType=VARCHAR}, #{dealId,jdbcType=VARCHAR}, #{credit,jdbcType=BIGINT},
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.miget.hxb.domain.BizCreditDetail">
+    insert into tbiz_credit_detail (id, user_id, credit_type, 
+      order_id, deal_id, remark, 
+      credit, create_time, update_time, 
+      operator)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{creditType,jdbcType=INTEGER}, 
+      #{orderId,jdbcType=VARCHAR}, #{dealId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{credit,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{operator,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.github.prontera.domain.BizCreditDetail">
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.BizCreditDetail">
     insert into tbiz_credit_detail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -54,6 +56,9 @@
       </if>
       <if test="dealId != null">
         deal_id,
+      </if>
+      <if test="remark != null">
+        remark,
       </if>
       <if test="credit != null">
         credit,
@@ -84,6 +89,9 @@
       <if test="dealId != null">
         #{dealId,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="credit != null">
         #{credit,jdbcType=BIGINT},
       </if>
@@ -98,7 +106,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.github.prontera.domain.BizCreditDetail">
+  <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.BizCreditDetail">
     update tbiz_credit_detail
     <set>
       <if test="userId != null">
@@ -112,6 +120,9 @@
       </if>
       <if test="dealId != null">
         deal_id = #{dealId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
       <if test="credit != null">
         credit = #{credit,jdbcType=BIGINT},
@@ -128,16 +139,40 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.github.prontera.domain.BizCreditDetail">
+  <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.BizCreditDetail">
     update tbiz_credit_detail
     set user_id = #{userId,jdbcType=INTEGER},
       credit_type = #{creditType,jdbcType=INTEGER},
       order_id = #{orderId,jdbcType=VARCHAR},
       deal_id = #{dealId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
       credit = #{credit,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       operator = #{operator,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryUserCreditPageList" resultType="com.miget.hxb.model.response.UserCreditDetailResponse"
+          parameterType="com.miget.hxb.model.request.UserCreditDetailRequest">
+    SELECT
+        tcd.create_time,
+        tcd.credit,
+        tcd.order_id,
+        tcd.remark,
+        tct.type_value,
+        tct.type_name,
+        tct.balance_type,
+        tct.type_category
+    FROM
+        tbiz_credit_detail tcd,
+        tbiz_credit_type tct
+    WHERE
+        tct.type_value = tcd.credit_type
+    AND tcd.user_id = #{userId,jdbcType=INTEGER}
+    <if test="typeValue != null">
+      AND tcd.credit_type = #{typeValue,jdbcType=INTEGER}
+    </if>
+  </select>
+
 </mapper>

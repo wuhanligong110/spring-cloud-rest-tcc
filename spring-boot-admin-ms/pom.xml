@@ -11,7 +11,7 @@
     <description>a simple application to manage and monitor your spring boot applications</description>
 
     <parent>
-        <groupId>com.github.prontera</groupId>
+        <groupId>com.miget.hxb</groupId>
         <artifactId>spring-cloud-microservice</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>

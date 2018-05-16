@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miget.hxb.persistence.CimProductCategotyMapper">
+  <resultMap id="BaseResultMap" type="com.miget.hxb.domain.CimProductCategoty">
+    <id column="tpc_categoty_id" jdbcType="INTEGER" property="categotyId" />
+    <result column="tpc_parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="tpc_categoty_name" jdbcType="VARCHAR" property="categotyName" />
+    <result column="tpc_categoty_img" jdbcType="VARCHAR" property="categotyImg" />
+    <result column="tpc_categoty_order" jdbcType="INTEGER" property="categotyOrder" />
+    <result column="tpc_if_show" jdbcType="INTEGER" property="ifShow" />
+    <result column="tpc_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="tpc_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="tpc_operator" jdbcType="VARCHAR" property="operator" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tpc.categoty_id as tpc_categoty_id, tpc.parent_id as tpc_parent_id, tpc.categoty_name as tpc_categoty_name, 
+    tpc.categoty_img as tpc_categoty_img, tpc.categoty_order as tpc_categoty_order, tpc.if_show as tpc_if_show, 
+    tpc.create_time as tpc_create_time, tpc.update_time as tpc_update_time, tpc.operator as tpc_operator
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_product_categoty tpc
+    where tpc.categoty_id = #{categotyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tcim_product_categoty
+    where categoty_id = #{categotyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miget.hxb.domain.CimProductCategoty">
+    insert into tcim_product_categoty (categoty_id, parent_id, categoty_name, 
+      categoty_img, categoty_order, if_show, 
+      create_time, update_time, operator
+      )
+    values (#{categotyId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{categotyName,jdbcType=VARCHAR}, 
+      #{categotyImg,jdbcType=VARCHAR}, #{categotyOrder,jdbcType=INTEGER}, #{ifShow,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.CimProductCategoty">
+    insert into tcim_product_categoty
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="categotyId != null">
+        categoty_id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="categotyName != null">
+        categoty_name,
+      </if>
+      <if test="categotyImg != null">
+        categoty_img,
+      </if>
+      <if test="categotyOrder != null">
+        categoty_order,
+      </if>
+      <if test="ifShow != null">
+        if_show,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="categotyId != null">
+        #{categotyId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="categotyName != null">
+        #{categotyName,jdbcType=VARCHAR},
+      </if>
+      <if test="categotyImg != null">
+        #{categotyImg,jdbcType=VARCHAR},
+      </if>
+      <if test="categotyOrder != null">
+        #{categotyOrder,jdbcType=INTEGER},
+      </if>
+      <if test="ifShow != null">
+        #{ifShow,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.CimProductCategoty">
+    update tcim_product_categoty
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="categotyName != null">
+        categoty_name = #{categotyName,jdbcType=VARCHAR},
+      </if>
+      <if test="categotyImg != null">
+        categoty_img = #{categotyImg,jdbcType=VARCHAR},
+      </if>
+      <if test="categotyOrder != null">
+        categoty_order = #{categotyOrder,jdbcType=INTEGER},
+      </if>
+      <if test="ifShow != null">
+        if_show = #{ifShow,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where categoty_id = #{categotyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.CimProductCategoty">
+    update tcim_product_categoty
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      categoty_name = #{categotyName,jdbcType=VARCHAR},
+      categoty_img = #{categotyImg,jdbcType=VARCHAR},
+      categoty_order = #{categotyOrder,jdbcType=INTEGER},
+      if_show = #{ifShow,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR}
+    where categoty_id = #{categotyId,jdbcType=INTEGER}
+  </update>
+</mapper>
