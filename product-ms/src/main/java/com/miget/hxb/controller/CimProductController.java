@@ -8,6 +8,7 @@ import com.miget.hxb.domain.CimBusiness;
 import com.miget.hxb.domain.CimProduct;
 import com.miget.hxb.model.request.PageRequest;
 import com.miget.hxb.model.request.ProductAddRequest;
+import com.miget.hxb.model.request.ProductUpdateRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.page.PageInfo;
 import com.miget.hxb.service.CimBusinessService;
@@ -27,6 +28,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/api/v1", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 public class CimProductController {
+
     @Autowired
     private CimProductService productService;
     @Autowired
@@ -34,9 +36,9 @@ public class CimProductController {
 
     @Delay
     @RandomlyThrowsException
-    @ApiOperation(value = "根据商家ID获取产品列表", notes = "")
+    @ApiOperation(value = "根据商家ID获取产品列表", notes = "产品列表")
     @RequestMapping(value = "/products/{businessId}/product", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ObjectDataResponse<PageInfo<CimProduct>> findUser(@PathVariable Long businessId, @Valid PageRequest request) {
+    public ObjectDataResponse<PageInfo<CimProduct>> productPageList(@PathVariable Long businessId, @Valid PageRequest request) {
         final CimBusiness business = businessService.find(businessId);
         if (business == null) {
             Shift.fatal(StatusCode.BUSINESS_NOT_EXISTS);
@@ -50,7 +52,7 @@ public class CimProductController {
     @RandomlyThrowsException
     @ApiOperation(value = "根据商家ID新增产品", notes = "添加新的产品")
     @RequestMapping(value = "/products/{businessId}/product", method = RequestMethod.PUT)
-    public ObjectDataResponse<CimProduct> addressAdd(@PathVariable Long businessId, @Valid @RequestBody ProductAddRequest request, BindingResult error) {
+    public ObjectDataResponse<CimProduct> productAdd(@PathVariable Long businessId, @Valid @RequestBody ProductAddRequest request, BindingResult error) {
         final CimBusiness business = businessService.find(businessId);
         if (business == null) {
             Shift.fatal(StatusCode.BUSINESS_NOT_EXISTS);
@@ -58,8 +60,25 @@ public class CimProductController {
         request.setBusinessId(Math.toIntExact(businessId));
         CimProduct product = new CimProduct();
         BeanUtils.copyProperties(request,product);
+        product.setOperator("system");
         productService.persistNonNullProperties(product);
         return new ObjectDataResponse<>(product);
+    }
+
+    @Delay
+    @RandomlyThrowsException
+    @ApiOperation(value = "根据商家ID更新产品", notes = "更新产品")
+    @RequestMapping(value = "/products/{businessId}/product", method = RequestMethod.POST)
+    public ObjectDataResponse productUpdate(@PathVariable Long businessId, @Valid @RequestBody ProductUpdateRequest request, BindingResult error) {
+        final CimBusiness business = businessService.find(businessId);
+        if (business == null) {
+            Shift.fatal(StatusCode.BUSINESS_NOT_EXISTS);
+        }
+        request.setBusinessId(Math.toIntExact(businessId));
+        CimProduct product = new CimProduct();
+        BeanUtils.copyProperties(request,product);
+        productService.updateNonNullProperties(product);
+        return new ObjectDataResponse<>(null);
     }
 
 }

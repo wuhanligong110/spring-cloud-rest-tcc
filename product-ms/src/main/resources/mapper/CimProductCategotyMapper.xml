@@ -23,6 +23,7 @@
     from tcim_product_categoty tpc
     where tpc.categoty_id = #{categotyId,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from tcim_product_categoty
     where categoty_id = #{categotyId,jdbcType=INTEGER}
@@ -140,4 +141,35 @@
       operator = #{operator,jdbcType=VARCHAR}
     where categoty_id = #{categotyId,jdbcType=INTEGER}
   </update>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tcim_product_categoty tpc
+  </select>
+
+  <select id="queryFirstLevel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tcim_product_categoty tpc
+    where tpc.parent_id = 0
+  </select>
+
+  <select id="querySecondLevel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tcim_product_categoty tpc,tcim_product_categoty tpc2
+    where tpc.parent_id = tpc2.categoty_id
+    and tpc2.parent_id = 0
+  </select>
+
+  <select id="queryThirdLevel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tcim_product_categoty tpc,tcim_product_categoty tpc2,tcim_product_categoty tpc3
+    where tpc.parent_id = tpc2.categoty_id
+    and tpc2.parent_id = tpc3.categoty_id
+    and tpc3.parent_id = 0
+  </select>
+
 </mapper>

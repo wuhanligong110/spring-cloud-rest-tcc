@@ -41,7 +41,7 @@ CREATE TABLE `tcim_product_img` (
 
 CREATE TABLE `tcim_product_categoty` (
   `categoty_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '产品分类id',
-	`parent_id` int(11) NOT NULL COMMENT '产品父类id',
+	`parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '产品父类id',
   `categoty_name` varchar(20) DEFAULT NULL COMMENT '产品分类名称',
   `categoty_img` varchar(50) DEFAULT NULL COMMENT '分类图片',
   `categoty_order` int(2) DEFAULT '0' COMMENT '分类排序',
