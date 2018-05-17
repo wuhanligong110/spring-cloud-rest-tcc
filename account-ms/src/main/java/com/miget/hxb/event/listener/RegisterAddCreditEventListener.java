@@ -1,10 +1,8 @@
 package com.miget.hxb.event.listener;
 
-import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.event.RegisterAddCreditEvent;
 import com.miget.hxb.model.request.CreditAddRequest;
 import com.miget.hxb.service.BizCreditDetailService;
-import com.miget.hxb.service.CrmUserService;
 import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;

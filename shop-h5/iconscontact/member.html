@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>客户必读</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>		
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+	</head>
+	<body style="background-color: white;">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">客户必读</h1>
+		</header>
+		
+		<div class="mui-content" style="background-color: white;">
+			<div style="text-align: center;margin: 2em 0 0 0;">
+				<img  src="http://wh.jiuguishangcheng.com/images/6179429e9e4b4c979a3b06db978e983d">
+			</div>
+			<div style="text-align: center;font-size: large;font-weight: bold;margin-bottom: 2em;">
+				海峡两岸官网网络营销有限公司
+			</div>
+			<div>
+				<ul class="mui-table-view" style="margin-top: 5px;">
+				    <li class="mui-table-view-cell">		    	
+				    	<a href="#popover">
+				    		<span>
+			                    <svg class="icon1-5" aria-hidden="true">
+								    <use xlink:href="#icon-kefu2"></use>
+								</svg>    			
+				    		</span>
+				    		<span style="font-weight: bold;font-size: smaller;float: right;">
+				    			联系客服
+				    		</span>
+				    	</a>
+				    </li>
+				</ul>				
+			</div>
+			<div>
+				<ul class="mui-table-view" style="margin-top: 5px;">
+				    <li class="mui-table-view-cell" style="text-align: center;">		    	
+		    			<span style="font-weight: bold;font-size: smaller;">
+				    			客户实用操作指南
+				    	</span>
+				    </a>
+				</ul>				
+			</div>			
+			<div>
+				<img style="width: 100%;" src="http://wh.jiuguishangcheng.com/images/adb4c4f32edef1eed51434ebd92eef07" />
+			</div>
+		</div>
+		
+		<!--联系客服弹窗-->
+		<div id="popover" class="mui-popover">
+		  <ul class="mui-table-view">
+		    <li class="mui-table-view-cell">
+		    	<div>
+		    		<img src="http://wh.jiuguishangcheng.com/images/8c90a33a875cc0e46313457841371c18"  style="width: 100%;"/>
+		    	</div>
+		    	<div style="text-align: center;font-weight: bold;padding: 1em 0;">
+		    		客服电话:17764059579
+		    	</div>
+		    </li>
+		  </ul>
+		</div>		
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/iconfont/iconfont.js" ></script>	
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+	</script>
+</html>

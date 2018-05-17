@@ -5,17 +5,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
- * @author Zhao Junjian
+ * @author hxb
  */
 @Getter
 @Setter
@@ -31,12 +28,15 @@ public class PlaceOrderRequest extends RestfulRequest {
 
     @NotNull
     @Min(1)
-    @ApiModelProperty(value = "产品ID", required = true, example = "1")
-    private Long productId;
+    @ApiModelProperty(value = "用户ID", required = true, example = "1")
+    private Long userId;
 
     @NotNull
     @Min(1)
-    @ApiModelProperty(value = "用户ID", required = true, example = "1")
-    private Long userId;
+    @ApiModelProperty(value = "地址ID", required = true, example = "5")
+    private Integer addressId;
+
+    @ApiModelProperty(value = "订单明细", required = true)
+    private List<PlaceOrderItemRequest> orderItems;
 
 }

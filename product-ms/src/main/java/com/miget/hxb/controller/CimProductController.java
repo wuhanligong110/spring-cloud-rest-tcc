@@ -6,6 +6,7 @@ import com.miget.hxb.RandomlyThrowsException;
 import com.miget.hxb.Shift;
 import com.miget.hxb.domain.CimBusiness;
 import com.miget.hxb.domain.CimProduct;
+import com.miget.hxb.model.request.OrderCancelRequest;
 import com.miget.hxb.model.request.PageRequest;
 import com.miget.hxb.model.request.ProductAddRequest;
 import com.miget.hxb.model.request.ProductUpdateRequest;
@@ -21,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author hxb
@@ -79,6 +81,15 @@ public class CimProductController {
         BeanUtils.copyProperties(request,product);
         productService.updateNonNullProperties(product);
         return new ObjectDataResponse<>(null);
+    }
+
+    @Delay
+    @RandomlyThrowsException
+    @ApiOperation(value = "订单取消增加产品库存", notes = "更新产品库存")
+    @RequestMapping(value = "/products/inventory", method = RequestMethod.POST)
+    ObjectDataResponse<Integer> orderCancel(@RequestBody List<OrderCancelRequest> orderCancelRequests){
+        Integer result = productService.orderCancel(orderCancelRequests);
+        return new ObjectDataResponse<>(result);
     }
 
 }

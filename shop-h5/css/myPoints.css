@@ -1,0 +1,31 @@
+body{
+	font-family: sans-serif;	
+}
+
+.ab-ucenter-wddd-wd-xx{
+	font-family: PingFangSC-Medium;	
+	font-size: 16px;
+	color: #3F424B;
+	line-height: 40px;	
+}
+
+.ab-ucenter-wddd-ckqxx{
+    font-size: 16px;
+    color: red;
+    line-height: 40px;
+    font-weight: bold;
+}
+
+.tab-ucenter-wd-sxx{
+	color: #848484;
+	line-height: 40px;
+}
+
+.tcart-tj-ddcp-row-hj {
+    padding: 0.5em 0;
+    border-bottom: 1px solid #F2F2F2;
+}
+
+.tabbar-content-padding{
+	padding: 0 1em;
+}

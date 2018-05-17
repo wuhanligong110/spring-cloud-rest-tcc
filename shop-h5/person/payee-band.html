@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>提现绑卡</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			body{
+				font-family: PingFangSC-Regular;
+			    font-size: 14px;
+			    color: #848484;
+			}
+			input{
+				font-size:10px ;
+			}
+		</style>
+	</head>
+	
+
+	<body>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell" style="padding: 8px 15px;">
+						<label style="width:20%;font-family: sans-serif;color: #848484;">银行账号</label>
+						<input style="width:70%;font-family: sans-serif;color: #3F424B;" id='account' type="number" class="mui-input-clear mui-input" placeholder="请输入开户行银行卡号">
+					</li>
+					<li class="mui-table-view-cell" style="padding: 8px 15px;">
+						<label style="width:20%;font-family: sans-serif;color: #848484;">开户名称</label>
+						<input style="width:70%;font-family: sans-serif;color: #3F424B;" id='username' type="text" class="mui-input-clear mui-input" placeholder="请输入开户行用户名">
+					</li>
+					<li class="mui-table-view-cell" style="padding: 8px 15px;" id='showBankPicker'>
+						<a class="mui-navigate-right">
+							<label style="width:20%;font-family: sans-serif;color: #848484;">开&nbsp;户&nbsp;行</label>
+							<input id='openBank' readonly="readonly" style="width:60%;font-family: sans-serif;color: #3F424B;" type="text" class="mui-input-clear mui-input" >
+                     		<span  style="font-size: 12px;color: #848484;">请选择</span>
+				       </a>			        
+					</li>
+					<li class="mui-table-view-cell" style="padding: 8px 15px;">
+						<label style="width:20%;font-family: sans-serif;color: #848484;">手机号码</label>
+						<input style="width:78%;font-size: 12px;font-family: sans-serif;color: #3F424B;" id='mobile' type="number" class="mui-input-clear mui-input" placeholder="请输入银行预留手机号码"></input>
+					</li>
+				</ul>			
+			</form>
+			<div class="mui-row mui-text-center" style="padding: 3em 0 0 0;">
+				<button id='bandAccount' type="button" class="mui-btn mui-btn-danger" style="width: 250px; border-radius: 100px;height: 40px;">绑定</button>		    
+			</div>
+		</div>	
+	</body>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<script>
+			//设置body高度
+			$('div[class="mui-content"]').css({'height':document.documentElement.clientHeight+"px",background: "white"});
+			(function($, doc) {
+				//设置body高度
+				$.init();
+				$.ready(function() {
+		
+					/**
+					 * 获取对象属性的值
+					 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+					 * @param {Object} obj 对象
+					 * @param {String} param 属性名
+					 */
+					var _getParam = function(obj, param) {
+						return obj[param] || '';
+					};
+					
+					//普通示例
+					var bankPicker = new $.PopPicker();
+					bankPicker.setData([{
+						value: '1002',
+						text: '工商银行'
+					}, {
+						value: '1005',
+						text: '农业银行'
+					}, {
+						value: '1026',
+						text: '中国银行'
+					}, {
+						value: '1003',
+						text: '建设银行'
+					}, {
+						value: '1001',
+						text: '招商银行'
+					}, {
+						value: '1066',
+						text: '邮储银行'
+					}, {
+						value: '1020',
+						text: '交通银行'
+					}, {
+						value: '1004',
+						text: '浦发银行'
+					}, {
+						value: '1006',
+						text: '民生银行'
+					}, {
+						value: '1009', 
+						text: '兴业银行'
+					}, {
+						value: '1010',
+						text: '平安银行'
+					}, {
+						value: '1021',
+						text: '中信银行'
+					}, {
+						value: '1025',
+						text: '华夏银行'
+					}, {
+						value: '1027',
+						text: '广发银行'
+					}, {
+						value: '1022',
+						text: '光大银行'
+					}, {
+						value: '1032',
+						text: '北京银行'
+					}, {
+						value: '1056', 
+						text: '宁波银行'
+					}]);
+										
+					var showBankPickerButton = doc.getElementById('showBankPicker');
+					var openBank = doc.getElementById('openBank');
+					showBankPickerButton.addEventListener('tap', function(event) {
+						bankPicker.show(function(items) {
+							openBank.value = items[0].text;
+							openBank.setAttribute("txt",items[0].value);
+						});
+					}, false);
+					
+				});
+			})(mui, document);
+			
+			//绑定按钮
+			$("#bandAccount").click(function(){
+				var account = $("#account").val();
+				var username = $("#username").val();
+				var openBank = $("#openBank").val();
+				var bankCode = $("#openBank").attr("txt");
+				var mobile = $("#mobile").val();
+				if(checkPayeeAccount(username,account,openBank,mobile,bankCode)){
+					var btnArray = ['否', '是'];
+	                mui.confirm('请仔细核对相关信息，绑定后无法修改！确认无误？', '绑卡信息确认', btnArray, function(e) {
+	                    if (e.index == 1) {
+	                    	$.ajax({
+							   type: "POST",
+							   url: "/rest/api/wxpublic/updatePayee",
+							   async: false,
+							   data:{account:account,username:username,openBank:openBank,mobile:mobile,bankCode:bankCode},
+							   success: function(returnMsg){
+						   	       if("success" == returnMsg){
+						   	       		mui.toast("更新地址成功",{'verticalAlign':'middle'});
+						   	       		window.location.href = '/';
+						   	       } else {
+						   	       	  	mui.toast("更新地址异常,请联系管理员",{'verticalAlign':'middle'});
+						   	       }
+							   }
+							});	
+	                    } else {
+	                        
+	                    }
+	                });
+								
+				}
+			});
+			
+			//检验送货地址
+			function checkPayeeAccount(username,account,openBank,mobile,bankCode){
+				var regex = /^1[3|4|5|7|8][0-9]{9}$/;
+				var accountReg = /^([1-9]{1})(\d{14}|\d{18})$/;
+				if(username == ''){
+					mui.toast("用户名称不能为空",{'verticalAlign':'middle'});
+					return false;
+				}
+				if(username.length > 20){
+					mui.toast("用户名称不能超过20个字符",{'verticalAlign':'middle'});
+					return false;
+				}	
+				if(mobile == ''){
+					mui.toast("手机号码不能为空",{'verticalAlign':'middle'});
+					return false;
+				}
+				if(!regex.test(mobile)){
+					mui.toast("请输入正确的手机号码",{'verticalAlign':'middle'});
+					return false;
+				}	
+				if(openBank == ''){
+					mui.toast("开户行不能为空",{'verticalAlign':'middle'});
+					return false;
+				}
+				if(account == ''){
+					mui.toast("银行账号不能为空",{'verticalAlign':'middle'});
+					return false;
+				}
+				if(!accountReg.test(account)){
+					mui.toast("请输入正确的银行账号",{'verticalAlign':'middle'});
+					return false;
+				}	
+				if(bankCode == ''){
+					mui.toast("银行编码不能为空",{'verticalAlign':'middle'});
+					return false;
+				}
+				return true;
+			}
+			
+			$.ajax({
+			   type: "POST",
+			   url: "/rest/api/wxpublic/userCenter",
+			   async: false,
+			   timeout:10000,//超时时间设置为10秒；
+			   success: function(userCenterResp){
+				    var bizCustomer = userCenterResp.bizCustomer;				     
+					$("#username").val(bizCustomer.payeeUsername);
+					$("#account").val(bizCustomer.payeeAccount);
+					$("#openBank").attr("txt",bizCustomer.payeeBankCode);
+					$("#openBank").val(bizCustomer.payeeOpenBank);
+					$("#mobile").val(bizCustomer.payeeMobile);	
+					
+					if(userCenterResp.payeeBand == 1){
+						$("#bandAccount").attr("disabled","disabled")
+						$("#bandAccount").text("已绑定"); 
+					}
+			   }
+			});
+		</script>
+</html>

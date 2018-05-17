@@ -1,7 +1,5 @@
 package com.miget.hxb.config;
 
-import com.miget.hxb.controller.TccErrorDecoder;
-import com.miget.hxb.controller.TccErrorDecoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

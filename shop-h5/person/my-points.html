@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>我的积分</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+		<link rel="stylesheet" href="../css/myPoints.css" />
+	<body>
+		<div class="mui-content tabbar-content-padding">
+		    <div class="mui-row">
+		        <div class="mui-col-sm-12 mui-col-xs-12 mui-text-center">
+		        	<img src="http://wh.jiuguishangcheng.com/images/d87dbd75ce70dc8bdb19cc33ecf5827b?f=png">
+		        </div>
+			    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-hj">
+			    	<div id="txjf-div" class="mui-row">
+			    	    <div class="mui-col-sm-6 mui-col-xs-6 ab-ucenter-wddd-wd-xx iconfont icon-jifen">
+			    	    	提现积分
+			    	    </div>				    	    
+			    	    <div id="txjf" class="mui-col-sm-5 mui-col-xs-5 mui-text-right ab-ucenter-wddd-ckqxx">
+			    	    	0
+			    	    </div>
+			    	    <div class="mui-col-sm-1 mui-col-xs-1 mui-text-center tab-ucenter-wd-sxx"> 
+			    	    	> 
+			    	    </div>				    	    
+			    	</div>				    	
+			    </div>
+			    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-hj">
+			    	<div class="mui-row">
+			    	    <div class="mui-col-sm-6 mui-col-xs-6 ab-ucenter-wddd-wd-xx iconfont icon-jifen">
+			    	    	消费积分
+			    	    </div>				    	    
+			    	    <div id="xfjf" class="mui-col-sm-5 mui-col-xs-5 mui-text-right ab-ucenter-wddd-ckqxx">
+			    	    	0
+			    	    </div>
+			    	    <div class="mui-col-sm-1 mui-col-xs-1 mui-text-center tab-ucenter-wd-sxx"> 
+			    	    	
+			    	    </div>				    	    
+			    	</div>				    	
+			    </div>			    
+		    </div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script>
+		$(function(){
+			//提现积分
+			$('#txjf').html(getRequestUrlParam('txjf')/100);
+			//消费积分
+			$('#xfjf').html(getRequestUrlParam('xfjf')/100);
+	
+			//提现积分跳转
+			$("#txjf-div").click(function(){
+				window.location.href = "my-withdraw.html";
+			});
+		});		
+	</script>
+</html>

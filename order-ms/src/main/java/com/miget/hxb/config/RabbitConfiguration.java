@@ -1,6 +1,5 @@
 package com.miget.hxb.config;
 
-import com.miget.hxb.EventDrivenPublisher;
 import com.google.common.collect.ImmutableMap;
 import com.miget.hxb.EventDrivenPublisher;
 import org.springframework.amqp.core.Binding;
@@ -18,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfiguration {
 
-    public static final String DEFAULT_DIRECT_EXCHANGE = "prontera.direct";
+    public static final String DEFAULT_DIRECT_EXCHANGE = "miget.direct";
     public static final String POINT_QUEUE = "point";
     public static final String DEAD_POINT_QUEUE = "d.point";
     public static final String POINT_KEY = "0666fb88-4cc2-11e7-9226-0242ac130004";

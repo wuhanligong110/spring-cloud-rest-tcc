@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的订单</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+	</head>
+	<body>
+		<script id='order-template' type="text/template">
+			<% for(var i in orders){ var item=orders[i]; %>
+				<div class="mui-card">
+					<div class="mui-card-header">
+						<div class="mui-row mui-col-sm-12 mui-col-xs-12" id="orderProductDetail">
+							<div class="mui-col-sm-6 mui-col-xs-6">
+								<%=( item.productName || '&nbsp;&nbsp;') %>
+							</div>
+							<div class="mui-col-sm-6 mui-col-xs-6 mui-text-right txas" style="color: #848484;" productid="<%=item.productId%>">
+								>
+							</div>
+						</div>
+					</div>
+					<div class="mui-card-content">
+						<div class="mui-row mui-card-content-inner">							
+				    	    <div class="mui-col-sm-10 mui-col-xs-10">								
+								姓名：<%=( item.shipName|| '&nbsp;&nbsp;') %>
+								<br/>
+								电话：<%=( item.shipPhone|| '&nbsp;&nbsp;') %>
+								<br/>
+								地址：<%=( item.shipAddress|| '&nbsp;&nbsp;') %>
+								<br/>
+								订单时间：<%=( item.createTime|| '&nbsp;&nbsp;') %>
+							</div>
+							<div class="mui-col-sm-2 mui-col-xs-2">
+				    	    	<img src="<%=item.productBriefImg%>" class="mui-col-sm-12 mui-col-xs-12"/>
+				    	    	<div style="color: red;float:right;font-size: 15px;">¥<%=( item.amount || '&nbsp;&nbsp;') %></div>
+				    	    </div>
+						</div>
+					</div>					
+					<% if(item.isSend=='0' ) { %>
+						<div class="mui-card-footer">待发货</div>
+					<% } else { %>
+						<div class="mui-card-footer">
+							<div class="mui-row mui-col-sm-12 mui-col-xs-12">
+								<div class="mui-col-sm-6 mui-col-xs-6">
+									已发货
+								</div>
+								<div class="mui-col-sm-6 mui-col-xs-6 mui-text-right" style="color: #848484;">
+									<a id="kuaidiDetail" style="z-index: 1000000;" href="https://m.kuaidi100.com/index_all.html?type=<%=item.courierCompany%>&postid=<%=item.courierNumber%>">物流详情-></a>
+								</div>
+							</div>
+						</div>
+					<% } %>
+				</div>
+			<% } %>
+		</script>
+		<div class="mui-content">
+			<div id="pullrefresh" class="mui-scroll-wrapper" style="background-color: white;">			
+				<div class="mui-scroll" style="padding-top: 15px;padding-bottom: 20px;">
+					<div id='order-list'>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>	
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/arttmpl.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script>
+		mui('body').on('tap','a',function(){
+		    window.top.location.href=this.href;
+		});
+		
+		(function($, doc) {
+			$.init({
+				gestureConfig: {
+					tap: true, //默认为true
+					doubletap: true, //默认为false
+					longtap: true, //默认为false
+					swipe: true, //默认为true
+					drag: true, //默认为true
+					hold: true, //默认为false，不监听
+					release: true //默认为false，不监听
+				},
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						contentrefresh: '正在加载...',
+						callback: pulldownRefresh
+					},
+					up: {
+						callback: pullupRefresh
+					}
+				}
+			});
+			
+			var pageIndex = 1;
+			var pageSize = 10;
+			pullupRefresh();
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pullupRefresh() {
+				setTimeout(function() {
+					initOrderHistory(pageIndex,pageSize);
+					pageIndex++;
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(); //refresh completed
+				}, 300);
+			}
+			var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pulldownRefresh() {
+				setTimeout(function() {
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+				}, 1000);
+			}
+			
+			var orders = [];
+			template.config('escape', false);
+			var bindOrderList = function() {
+				if(orders.length == 0){
+					doc.querySelector('#order-list').innerHTML ='<div class="iconfont icon-meiyoudingdan-01" style="font-size: 60px;color: red;text-align: center;margin: 3em 0 0 0;"><div><span style="font-size: 10px;">快去下单吧</span></div></div>';
+				}else{
+					doc.querySelector('#order-list').innerHTML = template('order-template', {
+						"orders": orders
+					});
+					$('#orderProductDetail').on('tap','.txas',function(){
+					    window.location.href = "../product/productDetail.html?productId="+this.getAttribute("productid");//
+					});
+				}			
+			};
+			//bindOrderList();
+			
+			var initOrderHistory = function(pageIndex,pageSize){
+				var isSend = getRequestUrlParam("isSend");	
+				var url = '/rest/api/order/list?pageIndex='+pageIndex+'&pageSize='+pageSize;
+				if(isSend != null){
+					url = '/rest/api/order/list?pageIndex='+pageIndex+'&pageSize='+pageSize+'&isSend='+isSend;
+				}
+				console.log(url);
+				$.ajax({
+					url:url,
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{'Content-Type':'application/json'},	              
+					success:function(result){
+						if(result.code=='0'){
+							var datas = result.data.datas;
+							//console.log(JSON.stringify(result));
+					   		var orderList = result.data.datas;
+					   		for(var i in orderList){
+					   			orderList[i].amount = Number(orderList[i].amount/100).toFixed(2);
+					   			orders.push(orderList[i]);
+					   		}
+					   		//console.log(JSON.stringify(orders));
+					   		bindOrderList();
+						}else{
+							mui.toast(result.msg)
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			}
+
+		}(mui, document));
+	</script>
+</html>

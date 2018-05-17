@@ -1,0 +1,40 @@
+<ion-view id="category" view-title="商品分类" hide-back-button="true" cache-view="false">
+  <ion-content class="scroll-content  has-header" scroll="false">
+    <header id="header">
+      <div class="header-center">
+        <span>商品分类</span>
+      </div>
+    </header>
+    <nav id="nav">
+      <ul>
+        <li ng-class="$index==0?'nav-current':'nav-blur'" ng-repeat="item in categoryData"  ng-click="categoryLeftClick($event);getCategoryDetailData(item.categotyId)">{{item.categotyName}}</li>
+      </ul>
+    </nav>
+    <div id="pro">
+      <ion-content lazy-scroll>
+        <div class="pro-scroll">
+          <div class="pro-warp">
+            <div class="banner" >
+            <img ng-src="{{categoryDetailData.categoryHeader}}" alt="">   
+            </div>
+            <div class="content">
+            	<div ng-repeat="item in categoryDetailData.secondCategotyList">
+              <div class="content-title">
+                <span>{{item.flagName}}</span>
+              </div>
+              <div class="content-body">
+                <li class="content-body-list" ng-repeat="item2 in item.categotyList" ui-sref="goodsList({typeNumber:{{item2.categotyId}},type:'categoty'})">
+                  <img image-lazy-src="{{item2.categotyImg}}" alt="" image-lazy-loader="bubbles">
+                  <span>{{item2.categotyName}}</span>
+                </li>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-content>
+
+    </div>
+  </ion-content>
+</ion-view>
+

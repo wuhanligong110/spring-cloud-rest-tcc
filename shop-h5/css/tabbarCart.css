@@ -1,0 +1,157 @@
+.tcart-tj-yjdz{
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #9A9797;
+    text-align: center;
+    margin: 0.5em 0;
+}
+
+.tcart-tj-ddcp{
+/*	padding: 0 1em;*/
+}
+
+.tcart-tj-ddcp-sp{
+/*	padding: 0 1em;*/
+    background: #F8F8F8 !important;
+}
+
+.tcart-tj-ddcp-row{
+    border-bottom: 1px solid #F2F2F2;
+    padding: 0.5em 0 0.2em 0;   
+}
+
+.tcart-tj-ddcp-row-cpmc{
+	font-size: 16px;
+	color: #3F424B;
+}
+
+.tcart-tj-ddcp-row-cpjg{
+	font-size: 14px;
+	color: #3F424B;
+}
+
+.tcart-tj-ddcp-row-tp{
+	padding: 0 1em 0.5em 0;	
+}
+
+.tcart-tj-ddcp-row-zf{
+	padding: 0 1em 0 0.5em;	
+}
+
+.tcart-tj-ddcp-row-numbox{
+	padding: 1em 0 0 2em;	
+}
+
+.tcart-tj-ddcp-row-hj-mc{
+	font-size: 14px;
+	color: #3F424B;
+	text-align: right;
+}
+
+.tcart-tj-ddcp-row-hj-jg{
+	font-size: 20px;
+	color: #000000;
+	text-align: center;
+	line-height: 17px;	
+}
+
+.tcart-tj-ddcp-row-hj{
+	padding: 0.5em 0;	
+    border-bottom: 1px solid #F2F2F2;		
+}
+
+.index-tabbar-car-xzzffs{
+	font-size: 12px;
+	color: #848484;
+	line-height: 12px;
+	padding: 1em 0 1em 0;
+}
+
+.tcart-tj-zfbwz{
+    font-size: 11px;
+    color: #CCCCCC;	
+}
+
+.tcart-tj-zfbbt{
+	font-size: 14px;
+    color: #3F424B;	
+}
+
+.tcart-tj-wxzfp{
+	font-size: 14px;
+	color: #3F424B;
+	line-height: 14px;	
+}
+
+.tcart-tj-wxzf{
+    margin: 0.5em 0 0 0;	
+}
+
+.tcart-tj-zftj{
+	text-align: center;
+    margin: 5em 0 3em 0;	
+}
+
+.tcart-tj-ljzf{
+    width: 20em;
+    height: 3em;
+    border-radius: 100px;
+    background: #EF0001;	
+}
+
+.tabbar-cart-null{
+	height: 200px;
+	text-align: center;
+	color: red;
+}
+
+.tabbar-cart-null-icon{
+	font-size: 100px;
+	padding-top: 50px;
+}
+
+.tabbar-cart-null-wz{
+	margin: 50px 0 0 0;
+}
+
+.tabbar-cart-null-bt{
+	width: 200px;
+    margin: 1em 0;
+}
+
+.tcart-tj-yjdz-tp{
+	width: 30px;
+}
+
+.tcart-tj-yjdztj{
+	padding: 0.5em 0 0 0;
+}
+
+.tcart-tj-yjdz-sjnr{
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #2E2E2E;	
+}
+
+.tcart-tj-yjdz-sjtp{
+	width: 20px;
+	margin: 1em;
+}
+
+.tcart-tj-yjdztj-xy{
+	height: 3px;
+	background: url(http://wh.jiuguishangcheng.com/images/d6dfbdbcdc5b5eb955c195de008b8e0b?f=png) repeat fixed top;
+	background-size: 260px 3px;
+}
+
+.cartTab-number{
+	position: absolute;
+    background: #D85A5A;
+    top: 0;
+    width: 20px;
+    border-radius: 50%;
+    color: #333;
+    font-size: 12px;
+    font-weight: bold;
+    display: none;
+}

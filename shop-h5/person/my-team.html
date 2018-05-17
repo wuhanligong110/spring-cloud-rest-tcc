@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的粉丝</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+		<style>
+			.mui-table-view:after{
+				height: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="data-content" class="mui-content">
+			<div class="iconfont icon-meiyoudingdan-01" style="font-size: 60px;color: red;text-align: center;margin: 3em 0 0 0;">
+				<div><span style="font-size: 10px;">快去推广吧</span></div>
+			</div>	
+			
+			<!--<ul class="mui-table-view" id='data-content' style="margin-top: 0;">
+
+			</ul>-->
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		
+		function loadData(pageIndex){
+			if(pageIndex<=0)pageIndex = 1;
+			$.ajax({
+				url:'/rest/api/membership/list?pageIndex='+pageIndex,
+				dataType:'json',//服务器返回json格式数据
+				type:'get',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/json'},	              
+				success:function(resp){
+					if(resp.code=='0'){
+						var datas = resp.data.datas;
+						if(datas.length > 0){
+							var s = '<ul class="mui-table-view" style="margin-top: 0;">';							
+							for(var i=0;i<datas.length;i++){
+								s+= '<li class="mui-table-view-cell mui-media">'
+								s+= '<a href="javascript:;">'
+								s+= '		<img class="mui-media-object mui-pull-left" src="'+datas[i].wechatHeadimgurl +'">';
+								s+= '		<div class="mui-media-body">';
+								s+= '			'+ datas[i].wechatNickname +'';
+								s+= '			<p class="mui-ellipsis">'+(datas[i].oldOrderNum=='0'?'未入单':'单数：'+datas[i].oldOrderNum)+'<span style="float: right;padding-right: 30px;">粉丝财富值：'+formatData(datas[i].teamAmount)+'</span></p>';
+								s+= '		</div>';
+								s+= '	</a>';
+								s+= '</li>';
+							}
+							s+= '</ul>';
+							$('#data-content').html(s);
+						}
+					}else{
+						mui.toast(resp.msg);
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+		}
+		var pageNo = 1;
+		loadData(pageNo);
+	</script>
+</html>

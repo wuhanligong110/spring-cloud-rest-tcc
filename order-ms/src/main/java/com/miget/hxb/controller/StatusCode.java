@@ -60,6 +60,21 @@ public enum StatusCode implements RestStatus {
      */
     INSUFFICIENT_BALANCE(42006, "余额不足"),
 
+    /**
+     * 订单参数错误，订单产品Id数量小于0
+     */
+    NULL_PRODUCT(42007,"订单产品Id数量小于0"),
+
+    /**
+     * 订单取消增加库存失败
+     */
+    FAIL_CANCEL_ORDER(42008,"取消订单失败"),
+
+    /**
+     * 没有可取消的订单
+     */
+    WITHOUT_CANCEL_ORDER(42008, "没有可取消的订单"),
+
     // 50xxx 服务端异常
     /**
      * 用于处理未知的服务端错误

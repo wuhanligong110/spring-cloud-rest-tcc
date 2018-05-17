@@ -1,0 +1,40 @@
+*{padding:0;margin:0}
+body{
+	text-align:center;
+	background-color:#310262
+}
+div.lottery-cycle{
+    position: absolute;
+    left: 218px;
+    top: 510px;
+}
+div.lottery-button{
+	position: absolute;
+    left: 385px;
+    top: 672px;
+}
+.lottery-font{
+	color:#FF6C00;
+	font-style:normal;
+	font-variant:small-caps;
+	font-weight:bold;
+	font-size:35px;
+	line-height:1.5em;
+	font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+.lottery-font2{
+	height: 365px;
+	overflow: hidden;
+	color:#fff;
+	font-style:normal;
+	font-variant:small-caps;
+	font-weight:bold;
+	font-size:30px;
+	line-height:1.5em;
+	font-family:arial,verdana;
+	font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+.lottery-font2 li{
+	height: 45px;
+}

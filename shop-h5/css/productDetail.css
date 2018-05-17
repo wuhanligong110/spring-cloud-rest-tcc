@@ -1,0 +1,181 @@
+body{
+	font-family: PingFangSC-Regular;
+}
+
+.prdjjdiv{
+	font-family:  sans-serif;
+	font-size: 12px;
+	color: #848484;
+	position:relative;
+	left: 43px;
+	top: 16px;
+	float:left;
+}
+
+.prdjjs2{
+	margin-left: 5em;
+}
+
+.prdcs{
+	text-align: center;
+    padding: 20px 0 10px 0;
+    color: #463333;
+    font-size: medium;	
+}
+
+.prdcsxqdiv{
+    font-size: x-small;
+    padding: 3px 5px;
+}
+
+.prdcsxqdivs1{
+	width: 130px;
+    display: block;
+    float: left;	
+    font-family: sans-serif;
+	font-size: 12px;
+	color: #848484;
+	letter-spacing: 0;
+	position: relative;
+	left: 14px;
+}
+
+.prdcsxqdivs2{
+    font-family: sans-serif;
+	font-size: 12px;
+	color: #848484;
+	letter-spacing: 0;
+}
+
+.tjgwcgm{
+	position: fixed;
+	bottom: 4em;
+	text-align: center;
+	display: none;
+}
+
+.promptBtn{
+	background: #FFFFFF;
+	border-radius: 40px 0 0 40px;
+	width: 140px;height: 40px;
+	left: 48px;
+	top: -10px !important;
+}
+
+.checkoutBtn{
+	background: #EF0001;
+	border-radius: 0 40px 40px 0;
+	width: 140px;
+	height: 40px;
+	left: 48px;
+	top: -10px !important;
+}
+
+.promptBtnFont{
+	font-family: sans-serif;
+	font-size: 16px;
+	color: #888888;
+	letter-spacing: 0;
+}
+
+.checkoutBtnFont{
+	font-family: sans-serif;
+	font-size: 16px;
+	color: #FFFFFF;
+	letter-spacing: 0;
+}
+
+.productDetailDiv{
+	background: white;
+	overflow-y: scroll;
+}
+
+.prduct-nr{
+    padding: 0.5em 0.5em 2em 0.5em;	
+}
+
+.{
+	font-family: SFUIDisplay-Regular;
+	font-size: 20px;
+	color: #000001;
+	text-align: center;
+	line-height: 16px;	
+}
+
+.cpxq{
+	padding: 0.5em 1em;
+}
+
+.cpxq-jg{
+	font-family: SFUIDisplay-Regular;
+	font-size: 1.5em;
+	color: red;
+	line-height: 16px;
+	font-weight: bold;
+}
+
+.cpxq-jg-r{
+	font-size: 0.8em;
+	color: red;
+}
+
+.cpxq-yj{
+	font-size: 12px;
+	color: #848484;
+}
+
+.cpxq-xpmc{
+    font-family: PingFangSC-Medium;
+    font-size: 18px;
+    color: #000000;
+    margin: 0.5em 0;
+}
+
+.cpxq-cpcs{
+	font-size: 14px;
+	color: #3F424B;
+	letter-spacing: 0;
+	line-height: 14px;	
+}
+
+.bk-red{
+  background: red;
+}
+
+.cpxq-jrgwc{
+	position: fixed;
+    bottom: 4em;
+    width: 100%;
+}
+
+.cpxq-btn-jrgwc{
+	background: #FFFFFF;
+	border-radius: 40px 0 0 40px;
+	width: 130px;
+    height: 40px;
+    box-shadow: 1px 2px 30px 1px #E2B0B0;
+    border: 0;
+}
+
+.cpxq-btn-ljgm{
+	background: #EF0001;
+	border-radius: 0 40px 40px 0;
+	width: 130px;
+    height: 40px;
+    box-shadow: 1px 2px 30px 1px #E2B0B0;
+    border: 0;
+}
+
+.cpxq-btn-jrgwc-wz{
+    font-family: PingFangSC-Regular;
+    font-size: 16px;
+    color: #888888;
+    letter-spacing: 0;	
+}
+
+.cpxq-btn-ljgm-wz{
+	font-family: PingFangSC-Regular;
+	font-size: 16px;
+	color: #FFFFFF;
+	letter-spacing: 0;	
+}

@@ -3,14 +3,14 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
 
-    <context id="chris">
+    <classPathEntry location="E:\repository\mysql\mysql-connector-java\5.1.29\mysql-connector-java-5.1.29.jar"/>
+
+    <context id="chris" targetRuntime="MyBatis3">
         <commentGenerator>
-            <property name="suppressAllComments" value="true"/>
+            <property name="suppressAllComments" value="false"/>
         </commentGenerator>
 
-        <!--com.mysql.jdbc.Driver-->
-        <!--com.mysql.cj.jdbc.Driver-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql:///order?serverTimezone=UTC"
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.16.0.113:3306/order?serverTimezone=UTC"
                         userId="chris" password="123123"/>
 
         <javaTypeResolver>
@@ -19,50 +19,38 @@
         </javaTypeResolver>
 
         <javaModelGenerator targetPackage="com.miget.hxb.domain"
-                            targetProject="${dao.target.dir}">
+                            targetProject="order-ms">
             <property name="enableSubPackages" value="true"/>
             <!--<property name="trimStrings" value="true"/>-->
             <!--<property name="immutable" value="true"/>-->
             <property name="rootClass" value="com.miget.hxb.model.BasicDomain"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.miget.hxb.domain"
-                         targetProject="${dao.target.dir}">
+        <sqlMapGenerator targetPackage="com.miget.hxb.persistence"
+                         targetProject="order-ms">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator targetPackage="com.miget.hxb.domain"
-                             targetProject="${dao.target.dir}" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="com.miget.hxb.persistence"
+                             targetProject="order-ms" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
             <property name="rootInterface" value="com.miget.hxb.persistence.CrudMapper"/>
         </javaClientGenerator>
 
-        <table alias="tevent_pub" tableName="t_event_pub" domainObjectName="EventPublisher"
+        <table alias="to" tableName="tbiz_order" domainObjectName="BizOrder"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <columnOverride column="event_status"
-                            jdbcType="TINYINT"
-                            javaType="com.miget.hxb.domain.type.EventStatus"
-                            typeHandler="com.miget.hxb.domain.type.handler.EventStatusTypeHandler"/>
-            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
-            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
-            <columnOverride column="delete_time" javaType="java.time.OffsetDateTime"/>
-            <columnOverride column="pub_guid" property="guid"/>
-            <columnOverride column="biz_type" property="businessType"/>
+            <columnOverride column="order_id" javaType="java.lang.Long" isGeneratedAlways="false"/>
+            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
+            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
         </table>
 
-        <table alias="tevent_sub" tableName="t_event_sub" domainObjectName="EventSubscriber"
+        <table alias="toi" tableName="tbiz_order_item" domainObjectName="BizOrderItem"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <columnOverride column="event_status"
-                            jdbcType="TINYINT"
-                            javaType="com.miget.hxb.domain.type.EventStatus"
-                            typeHandler="com.miget.hxb.domain.type.handler.EventStatusTypeHandler"/>
-            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
-            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="true"/>
-            <columnOverride column="delete_time" javaType="java.time.OffsetDateTime"/>
-            <columnOverride column="pub_guid" property="guid"/>
-            <columnOverride column="biz_type" property="businessType"/>
+            <columnOverride column="order_item_id" javaType="java.lang.Long" isGeneratedAlways="false"/>
+            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
+            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
         </table>
 
     </context>

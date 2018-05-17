@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>海峡两岸官网商城</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/bootstrap.css">
+		<link rel="stylesheet" href="../css/common.css" />
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" style="font-weight: bold;">我的积分</h1>
+		</header>
+		<div class="mui-content" style="text-align: center;">
+			<table class="table table-bordered table-responsive">
+				<thead>
+					<tr >
+						<td>积分类型</td>
+						<td>积分额度</td>
+						<td>发放时间</td>
+					</tr>
+				</thead>
+				<tbody id='data-content'>
+				</tbody>
+			</table>
+			<div class="mui-content-padded">
+				<ul class="mui-pager">
+					<li class="mui-previous">
+						<a href="#" onclick="prev()">
+							上一页
+						</a>
+					</li>
+					<li id='pageNo_show'>
+							1
+					</li>
+					<li class="mui-next">
+						<a href="#" onclick="next()">
+							下一页
+						</a>
+					</li>
+				</ul>
+				</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		function prev(){
+			if(pageNo<=1)return;
+			loadData(--pageNo);
+		}
+		function next(){
+			if(pageNo>=max)return;
+			loadData(++pageNo);
+		}
+		function type2Desc(type){
+			//1.销售积分=钱  2.购物积分(消费积分)  3.幸运积分   4.广告补贴  5.董事津贴  6.激励奖  7. 能量红包  8.福利补贴
+			if(type=='1'){
+				return '销售积分';
+			} else if(type=='2'){
+				return '消费积分';
+			} else if(type=='3'){
+				return '幸运积分';
+			} else if(type=='4'){
+				return '广告补贴';
+			} else if(type=='5'){
+				return '董事津贴';
+			} else if(type=='6'){
+				return '激励奖';
+			} else if(type=='7'){
+				return '能量红包';
+			} else if(type=='8'){
+				return '福利补贴';
+			} else {
+				return '待定奖励';
+			}
+		}
+		function loadData(pageIndex){
+			document.getElementById('pageNo_show').innerHTML = pageIndex;
+			$.ajax({
+				url: '/rest/api/credit/list?pageIndex='+pageIndex,
+				dataType:'json',//服务器返回json格式数据
+				type:'get',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/json'},	              
+				success:function(resp){
+					if(resp.code=='0'){
+						//服务器返回响应；
+						document.getElementById('data-content').innerHTML = '';
+						var s = '';
+						var datas = resp.data.datas;
+						max = resp.data.pageCount;
+						for(var i=0;i<datas.length;i++){
+							s += '<tr >';
+							s += '<td>'+type2Desc(datas[i].creditType) +'</td>';
+							s += '<td>'+formatCredit(datas[i].credit) +'</td>';
+							s += '<td>'+datas[i].createTime +'</td>';
+							s += '</tr>';
+						}
+						document.getElementById('data-content').innerHTML = s;
+						if(pageIndex<=1){
+							addClass(document.getElementsByClassName('mui-previous')[0],'mui-disabled')
+						}else{
+							removeClass(document.getElementsByClassName('mui-previous')[0],'mui-disabled')
+						}
+						if(pageIndex>=max){
+							addClass(document.getElementsByClassName('mui-next')[0],'mui-disabled')
+						}else{
+							removeClass(document.getElementsByClassName('mui-next')[0],'mui-disabled')
+						}
+					}else{
+						mui.toast(resp.msg)
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+		}
+		function formatCredit(number){
+			if(number > 0){
+				return '增加'+(number/100.0).toFixed(2);
+			}else{
+				return '消费'+(-number/100.0).toFixed(2);
+			}		
+		}
+		var pageNo = 1;
+		var max = 100;
+		loadData(pageNo);
+	</script>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>幸运大转盘</title>
+<link rel="stylesheet" href="../css/lottery.css" />
+</head>
+<body>
+	<div style="background: url(http://wh.jiuguishangcheng.com/images/36a42d90132e32a4de174d086dad0d71)  no-repeat center top;width:980px;height: 1380px;background-size: 100%;position: relative;">
+		<div class="lottery-cycle"><img src="http://wh.jiuguishangcheng.com/images/06c7bb0efa648dd17d095a5f9d361616?f=png" style="width: 540px;" id="lotteryCyc"></div>
+		<div class="lottery-button"><img src="http://wh.jiuguishangcheng.com/images/d78bdb3a6fd62fd90ec3859de4132292?f=png" style="width: 212px;" id="lotteryBtn"></div>	
+	</div>	
+	<div class="lottery-font" >
+		您今天还有<span id="toHavaLotteryNumTodaySpan" style="color: white;">0</span>次抽奖机会，累计还有<span id="toHavaLotteryNumSpan" style="color: white;">0</span>次抽奖机会
+	</div>
+	<div>
+		<div style="background: url(http://wh.jiuguishangcheng.com/images/c18afa16bff02a7094d0888d655a28d9)  no-repeat center top;width:980px;height: 760px;background-size: 100%;">
+			<div style="height: 270px;"></div>
+			<ul class="lottery-font2 js-slide-list" id="luckyList">
+				
+			</ul>
+		</div>
+	</div>
+</body>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jQueryRotate.2.2.js"></script>
+<script src="../js/jquery.easing.min.js"></script>
+<script type="text/javascript" src="../js/common.js" ></script>
+
+<script>
+$(function(){
+	//抽奖记录滚动
+	var doscroll = function(){
+	    var $parent = $('.js-slide-list');
+	    var $first = $parent.find('li:first');
+	    var height = $first.height();
+	    $first.animate({
+	         marginTop: -height + 'px'
+	         }, 400, function() {
+	         $first.css('marginTop', 0).appendTo($parent);
+	    });
+	};
+
+	//真实中奖记录
+	var loadLucy = function () {
+        $.get("/rest/api/activity/top10",{},function (data) {
+        	if(data){
+        		$("#luckyList").empty();
+	        	var list = '';
+	        	for(var i=0;i<data.length;i++){
+	        		var winningAmountHtml = '';
+	        	    var winningAmount = data[i].winningAmount/100;
+	        		var winningDesc = data[i].winningDesc;
+	        		if(winningAmount > 28){
+	        			winningAmountHtml ='<span style="color:#3ECE35">'+winningAmount+'</span>积分';
+	        		} else if(winningAmount > 0 && winningAmount <= 28){
+	        			winningAmountHtml =winningAmount+'积分';
+	        		} else {//中奖为实物
+	        			winningAmountHtml ='<span style="color:gold">'+winningDesc+'</span>';
+	        		}
+	        		list += '<li>恭喜'+compact(data[i].nickname,8)+'获得了'+winningAmountHtml+'</li>'
+	        	}
+            	$("#luckyList").html(list);
+            	setInterval(function(){doscroll()}, 1000);
+        	}
+        },"json");
+    }
+	var loadCnt = function(){
+		$.get("/rest/api/activity/bigwheel",{'type':1},function (res) {
+        	if(res.code==0){
+        		var toHavaLotteryNum = res.data.lotteryNum-res.data.havaLotteryNum;
+        		$("#toHavaLotteryNumTodaySpan").html(res.data.toHavaLotteryNumToday);
+        		$("#toHavaLotteryNumSpan").html(toHavaLotteryNum);
+        		
+			    //设置奖池比例
+			    var bizDrawPool = res.data.bizDrawPool;
+			    console.log(bizDrawPool);
+			    var bizDrawPoolAmount = 0;
+			    if(bizDrawPool.amount  > bizDrawPool.drawPoolFull){
+			    	bizDrawPoolAmount = bizDrawPool.drawPoolFull;
+			    } else if(bizDrawPool.amount < 0){
+			    	bizDrawPoolAmount = 0;
+			    } else {
+			    	bizDrawPoolAmount = bizDrawPool.amount;
+			    }   		
+        	}
+        },"json");
+	}
+    //每次进页面显示最新中奖记录TOP10
+    loadLucy();
+    loadCnt();
+
+	function pointer2Angle(awards){
+		n = 7;//圆环份数
+		return (360/(2*n))*((n-awards)*2+1);
+	}
+	var rotateFunc = function(awards,text){  //awards:奖项，angle:奖项对应的角度
+		//angle = (360/(2*n))*((n-awards)*2+1);//n=7;
+		angle = pointer2Angle(awards);
+		$('#lotteryCyc').stopRotate();
+		$("#lotteryCyc").rotate({
+			angle:0, 
+			duration: 5000,
+			animateTo: angle+360*4, //终点
+			callback:function(){
+				startFlag = false;
+				console.log(text);
+				alert(text);
+			}
+		}); 
+	};
+	var startFlag = false;
+	$("#lotteryBtn").rotate({ 
+	   bind: 
+		 { 
+			click: function(){
+//				alert('亲,系统升级中请耐心等待');
+//				return false;
+				if(startFlag){
+					return;
+				}else{
+					startFlag = true;
+				}
+				//开始抽奖
+				$.ajax('/rest/api/activity/bigwheel',{
+					data:{'type':0},
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{'Content-Type':'application/json'},	              
+					success:function(res){
+						if(res.code==0){
+							//res.data
+							//服务器返回响应
+							var pointer =  res.data.actWheelRecord.winningLevel;
+							var gift = 7;
+							switch(pointer){
+								case 1:gift=2;break
+								case 2:gift=3;break
+								case 3:gift=4;break
+								case 4:gift=5;break
+								case 5:gift=6;break			
+								case 6:{
+									    var angle = [7];
+                            			gift=angle[Math.floor(Math.random()*angle.length)];
+                            			break
+								}
+								case 7:gift=1;break
+								case 8:gift=1;break
+								case 9:gift=1;break
+								case 10:gift=1;break
+								default:gift=61;
+							}
+							rotateFunc(gift,'恭喜您获得了'+res.data.actWheelRecord.winningDesc);
+							//每次自己抽奖完也刷一次
+							loadLucy();
+							var toHavaLotteryNum = res.data.lotteryNum-res.data.havaLotteryNum;
+							$("#toHavaLotteryNumTodaySpan").html(res.data.toHavaLotteryNumToday);
+        					$("#toHavaLotteryNumSpan").html(toHavaLotteryNum);
+        					
+						    //设置奖池比例
+						    var bizDrawPool = res.data.bizDrawPool;
+						    var bizDrawPoolAmount = 0;
+						    if(bizDrawPool.amount  > bizDrawPool.drawPoolFull){
+						    	bizDrawPoolAmount = bizDrawPool.drawPoolFull;
+						    } else if(bizDrawPool.amount < 0){
+						    	bizDrawPoolAmount = 0;
+						    } else {
+						    	bizDrawPoolAmount = bizDrawPool.amount;
+						    }   					
+						}else{
+							alert(res.errors[0].msg)
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+				
+			}
+		 } 
+	});
+	
+})
+</script>
+</html>

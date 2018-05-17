@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>海峡两岸官网商城</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.css">
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="css/tabbarCart.css"/>
+		<link rel="stylesheet" type="text/css" href="css/tabbarUserCenter.css"/>
+	</head>
+
+	<body>		
+		<nav class="mui-bar mui-bar-tab" id="nav-div">
+		    <a id="homeTab" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-shouye"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a id="cartTab" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-gouwuche" ></span>
+		        <span class="mui-tab-label">购物车</span>
+		        <span id='productCartItermNmber' class="cartTab-number">0</span>
+		    </a>
+		    <a id="personTab" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-huiyuan" ></span>
+		        <span class="mui-tab-label">会员</span>
+		    </a>
+		    <a id="infoTab" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-webicon07" ></span>
+		        <span class="mui-tab-label">企业</span>
+		    </a>
+		</nav>		
+		<div class="mui-content">
+			<!--首页-->
+			<div id="tabbar-with-homeTab" class="mui-control-content tabbar-content">
+				<div id="indexSlider" >
+					
+				</div>
+                
+			    <div class="mui-row hfhy">
+			        <div class="mui-col-sm-6 mui-col-xs-6 hfhyl">
+						<a href="product/productDetail.html?productId=1">
+							<img src="http://wh.jiuguishangcheng.com/images/3d0dcdd7c19bf0584b53b9da96721096">
+						</a>
+			        </div>
+			        <div class="mui-col-sm-6 mui-col-xs-6 hfhyr">
+						<a href="product/productDetail.html?productId=2">
+							<img src="http://wh.jiuguishangcheng.com/images/834fd564e8d1511eba887caf92f18271">
+						</a>
+			        </div>
+			        <div class="mui-col-sm-6 mui-col-xs-6 hfhyl">
+						<a href="product/productDetail.html?productId=4">
+							<img src="http://wh.jiuguishangcheng.com/images/20a61b96fb53cd177d3fbb17654bd7d2">
+						</a>
+			        </div>
+			        <div class="mui-col-sm-6 mui-col-xs-6 hfhyr">
+						<a href="product/productDetail.html?productId=6">
+							<img src="http://wh.jiuguishangcheng.com/images/659c3c046f369e9312bf1e3a218c37dc">
+						</a>
+			       </div>
+		            <!--<div class="mui-col-sm-12 mui-col-xs-12">
+						<a href="#">
+							<img src="http://wh.jiuguishangcheng.com/images/76b50479027765ee11d03b1c0692618d">
+						</a>
+		        	</div>-->       
+			    </div>
+			    
+			    <div class="mui-row sy-rmcp" >
+			        <div class="mui-col-sm-12 mui-col-xs-12 sy-rmtjwz">
+			        	热门推荐
+			        </div>
+			        <div id="sy-rmtjwz-sp" class="mui-col-sm-12 mui-col-xs-12">
+			        	<div class="mui-row sy-rmtjcp">
+				        	<a href="#">
+					        	<div class="mui-row">
+					        	    <div class="mui-col-sm-4 mui-col-xs-4">
+					        	    	 <img src="http://wh.jiuguishangcheng.com/images/3cacddb21a9e4d0c809c4f247abb2402" class="sy-rmtjcp-tp">
+					        	    </div>
+					        		<div class="mui-col-sm-8 mui-col-xs-8 sy-rmtjcp-nr">
+					        			<div class="mui-row">
+					        			    <div class="mui-col-sm-12 mui-col-xs-12 sy-rmtjcp-nr-bt">富贵茅台酒</div>
+					        			    <div class="mui-col-sm-12 mui-col-xs-12 sy-rmtjcp-nr-fbt">53度茅台迎宾酒 500ml</div>
+					        			    <div class="mui-col-sm-12 mui-col-xs-12 ">
+					        			    	<div class="mui-row">
+					        			    	    <div class="mui-col-sm-3 mui-col-xs-3 sy-rmtjcp-nr-bq"><span>纯度高</span></div>
+					        			    	    <div class="mui-col-sm-3 mui-col-xs-3 sy-rmtjcp-nr-bq"><span>正品</span></div>
+					        			    	</div>
+					        			    </div>
+					        			    <div class="mui-col-sm-12 mui-col-xs-12 sy-rmtjcp-nr-jgkc">
+					        			    	<div class="mui-row">
+					        			    	    <div class="mui-col-sm-4 mui-col-xs-4 sy-rmtjcp-nr-jgkc-jg">
+					        			    	    	<span>¥</span>
+					        			    	    	<span class="sy-rmtjcp-nr-jgkc-jgsz">569</span>
+					        			    	    </div>
+					        			    	    <div class="mui-col-sm-4 mui-col-xs-4">
+					        			    	    	<span>原价:</span>
+					        			    	    	<span>¥850</span>
+					        			    	    </div>
+					        			    	    <div class="mui-col-sm-4 mui-col-xs-4">
+					        			    	    	<span>已售</span>
+					        			    	    	<span>4814</span>
+					        			    	    </div>
+					        			    	</div>
+					        			    </div>
+					        			</div>
+					        		</div>			        			
+					        	</div>
+				        	</a>			        	    
+			        	</div>
+		        	</div>
+			    </div>
+			    
+			    <div class="mui-row sy-mtcp">
+					—茅台出品—
+			    </div>
+			</div>
+			<!--购物车 -->
+			<div id="tabbar-with-cartTab" class="mui-control-content tabbar-content-padding">
+				<div id="tabbar-with-cart-hava" class="mui-row">
+				    <div id="tabbarcart-tjdz"  class="mui-col-sm-12 mui-col-xs-12 tcart-tj-yjdztj">
+				    	<div id="tabbarcart-tjyjdz" class="mui-row" >
+					    	<div class="mui-col-sm-2 mui-col-xs-2">
+					    		<img src="http://wh.jiuguishangcheng.com/images/20132418c5e87f18ba4f54be5c030ddb" class="tcart-tj-yjdz-tp" />
+					    	</div>
+					    	<div class="mui-col-sm-8 mui-col-xs-8 tcart-tj-yjdz">
+					    		添加邮寄地址
+					    	</div>
+					    	<div class="mui-col-sm-2 mui-col-xs-2 mui-text-center tab-ucenter-wd-sxx"> 
+					    		> 
+					    	</div>
+				    	</div>
+				    	<div id="tabbarcart-yjdz" class="mui-row" style="display: none;">
+					    	<div class="mui-col-sm-2 mui-col-xs-2">
+					    		<img src="http://wh.jiuguishangcheng.com/images/8d95f6016400cba758895eb13b04daff?f=png" class="tcart-tj-yjdz-sjtp" />
+					    	</div>
+					    	<div class="mui-col-sm-8 mui-col-xs-8 tcart-tj-yjdz-sjnr">
+					    		<div class="mui-row">
+					    		    <div class="mui-col-sm-12 mui-col-xs-12">
+					    		    	<div class="mui-row">
+					    		    	    <div class="mui-col-sm-3 mui-col-xs-3">收货人:</div>
+					    		    	    <div id="ad-username" class="mui-col-sm-5 mui-col-xs-5">....</div>
+					    		    	    <div id="ad-phone" class="mui-col-sm-4 mui-col-xs-4">....</div>
+					    		    	</div>
+					    		    </div>
+					    		    <div class="mui-col-sm-12 mui-col-xs-12 mui-text-left">
+					    		    	<span>收货地址:</span>
+					    		    	<span id="ad-address">....</span>
+					    		    </div>
+					    		</div>
+					    	</div>
+					    	<div class="mui-col-sm-2 mui-col-xs-2 mui-text-center tab-ucenter-wd-sxx"> 
+					    		> 
+					    	</div>
+					    	<div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-yjdztj-xy"></div>
+				    	</div>
+				    </div>
+				    <div id="tabbarcart-orderList" class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-sp">
+				    	<div class="mui-row tcart-tj-ddcp-row">
+				    	    <div class="mui-col-sm-2 mui-col-xs-2 tcart-tj-ddcp-row-tp">
+				    	    	<img src="http://wh.jiuguishangcheng.com/images/3cacddb21a9e4d0c809c4f247abb2402" />
+				    	    </div>
+				    	    <div class="mui-col-sm-6 mui-col-xs-6">
+				    	    	<div class="mui-row">
+				    	    	    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-cpmc">
+				    	    	    	海峡两岸中国梦
+				    	    	    </div>
+				    	    	    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-cpjg">
+				    	    	    	¥850
+				    	    	    </div>
+				    	    	</div>
+				    	    </div>
+				    	    <div class="mui-col-sm-4 mui-col-xs-4 tcart-tj-ddcp-row-numbox ">
+								<div class="mui-numbox" data-numbox-step='1' data-numbox-min='0' data-numbox-max='100'>
+								  <button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+								  <input class="mui-numbox-input tcart-tj-ddcp-sp" type="number" />
+								  <button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+								</div>	    	
+				    	    </div>
+				    	</div>
+				    </div>
+				    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp">
+				    	<div class="mui-row tcart-tj-ddcp-row-hj">
+				    	    <div class="mui-col-sm-8 mui-col-xs-8 tcart-tj-ddcp-row-hj-mc">合计</div>
+				    	    <div class="mui-col-sm-1 mui-col-xs-1 mui-text-right">¥</div>
+				    	    <div id="totalPrice" class="mui-col-sm-3 mui-col-xs-3 tcart-tj-ddcp-row-hj-jg">850</div>
+				    	</div>
+				    </div>
+				    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp">
+				    	<div class="mui-row index-tabbar-car-xzzffs">
+							选择支付方式
+				    	</div>
+				    </div>
+				    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp">
+				    	<div class="mui-row tcart-tj-ddcp-row">
+				    	    <div class="mui-col-sm-2 mui-col-xs-2 tcart-tj-ddcp-row-zf">
+				    	    	<img src="http://wh.jiuguishangcheng.com/images/f969029eb3cbc31e946318b54bd973b4?f=png" />
+				    	    </div>
+				    	    <div class="mui-col-sm-6 mui-col-xs-6 tcart-tj-wxzf">
+				    	    	微信支付			    	    	
+				    	    </div>
+				    	    <div class="mui-col-sm-4 mui-col-xs-4">
+								<div class="mui-input-row mui-radio">
+									<label>&nbsp;</label>
+									<input name="payradio" value="wxpay" checked="checked" type="radio">
+								</div>		    	    	
+				    	    </div>
+				    	</div>
+				    </div>				    
+				    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp">
+				    	<div class="mui-row tcart-tj-ddcp-row">
+				    	    <div class="mui-col-sm-2 mui-col-xs-2 tcart-tj-ddcp-row-zf">
+				    	    	<img src="http://wh.jiuguishangcheng.com/images/b462822de6622d87d3063b268add9240?f=png" />
+				    	    </div>
+				    	    <div class="mui-col-sm-6 mui-col-xs-6">
+				    	    	<div class="mui-row">
+				    	    	    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-zfbbt">
+				    	    	    	支付宝
+				    	    	    </div>
+				    	    	    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-zfbwz">
+				    	    	    	数亿用户都在用,安全可托付
+				    	    	    </div>
+				    	    	</div>				    	    	
+				    	    </div>
+				    	    <div class="mui-col-sm-4 mui-col-xs-4">
+								<div class="mui-input-row mui-radio">
+									<label>&nbsp;</label>
+									<input name="payradio" type="radio" value="alipay" disabled="disabled">
+								</div>		    	    	
+				    	    </div>
+				    	</div>
+				    </div>
+				    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp">
+				    	<div class="mui-row tcart-tj-ddcp-row">
+				    	    <div class="mui-col-sm-2 mui-col-xs-2 tcart-tj-ddcp-row-zf">
+				    	    	<img src="http://wh.jiuguishangcheng.com/images/6d8fcb7a75c77e289295fa05f477d898?f=png" />
+				    	    </div>
+				    	    <div class="mui-col-sm-6 mui-col-xs-6 tcart-tj-wxzf">
+				    	    	提现积分兑换		    	    	
+				    	    </div>
+				    	    <div class="mui-col-sm-4 mui-col-xs-4">
+								<div class="mui-input-row mui-radio">
+									<label>&nbsp;</label>
+									<input name="payradio" type="radio" value="jfdhpay" disabled="disabled">
+								</div>		    	    	
+				    	    </div>
+				    	</div>
+				    </div>
+				    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-zftj">
+				    	<button id="payBtnFinal" type="button" class="mui-btn mui-btn-danger tcart-tj-ljzf">立即支付</button>
+				    </div>
+				</div>
+				<div id="tabbar-with-cart-null" class="mui-row tabbar-cart-null" style="display: none;">
+				    <div class="mui-col-sm-12 mui-col-xs-12 iconfont icon-gouwucheweikong tabbar-cart-null-icon">
+				    </div>
+				    <div class="mui-col-sm-12 mui-col-xs-12 tabbar-cart-null-wz">
+				    	购物车为空快去选择商品吧
+				    </div>
+				    <div class="mui-col-sm-12 mui-col-xs-12 ">
+				    	<button id="tabbar-cart-null-bt" type="button" class="mui-btn mui-btn-danger tabbar-cart-null-bt">去逛逛</button>
+				    </div>				    
+				</div>
+			</div>
+			<!-- 个人中心 -->
+			<div id="tabbar-with-personTab" class="mui-control-content tabbar-content-padding">
+				<div class="mui-row">
+				    <div class="mui-col-sm-12 mui-col-xs-12 tab-ucenter-grtp">
+				    	<div class="mui-row">
+				    	    <div class="mui-col-sm-6 mui-col-xs-6">
+				    	    	<div id="wechatNickname" class="mui-col-sm-12 mui-col-xs-12 tab-ucenter-grtp-mc">
+				    	    		..
+				    	    	</div>
+				    	    	<div id="consumerId" class="mui-col-sm-12 mui-col-xs-12 tab-ucenter-grtp-id">
+				    	    		会员ID:...
+				    	    	</div>
+				    	    	<div id="vipLevel" class="mui-col-sm-12 mui-col-xs-12 tab-ucenter-grtp-id">
+				    	    		会员等级:...
+				    	    	</div>
+				    	    </div>
+				    	    <div class="mui-col-sm-6 mui-col-xs-6 mui-text-right tab-ucenter-grtp-imag">
+				    	    	<img id="wechatHeadimgurl" src="http://wh.jiuguishangcheng.com/images/45bc313cc02503758e98bec59668c19c" class="tab-ucenter-tpd-t" />				    	    		
+				    	    </div>
+				    	    <!--<div class="mui-col-sm-1 mui-col-xs-1 mui-text-center tab-ucenter-tpd-s"> 
+				    	    	> 
+				    	    </div>-->
+				    	</div>
+				    </div>
+				    <div class="mui-col-sm-12 mui-col-xs-12 padding-1-0">
+				    	<div class="mui-row">
+				    	    <div class="mui-col-sm-6 mui-col-xs-6 tab-ucenter-wddd-wd">我的订单</div>
+				    	    <div id="allOrders" class="mui-col-sm-6 mui-col-xs-6 mui-text-right ab-ucenter-wddd-ckqbdd">查看全部订单	></div>
+				    	</div>
+				    </div>
+				    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-hj">
+				    	<div class="mui-row">
+				    	    <div id="payedOrders" class="mui-col-sm-3 mui-col-xs-3 mui-text-center">
+				    	    	<div class="mui-col-sm-12 mui-col-xs-12 mui-text-center">
+				    	    		<img src="http://wh.jiuguishangcheng.com/images/f7da810cfe9df1b705394443f762b025?f=png" class="tab-ucenter-tp"/>
+				    	    	</div>
+				    	    	<div class="mui-col-sm-12 mui-col-xs-12 mui-text-center tcart-tj-ddcp-row-wz">待发货</div>
+				    	    </div>
+				    	    <div id="sendedOrders" class="mui-col-sm-3 mui-col-xs-3 mui-text-center">
+				    	    	<div class="mui-col-sm-12 mui-col-xs-12 mui-text-center">
+									<img src="http://wh.jiuguishangcheng.com/images/c2cb6edfb337b509334ab630fb6d6fea?f=png" class="tab-ucenter-tp"/>				    	    		
+				    	    	</div>
+				    	    	<div class="mui-col-sm-12 mui-col-xs-12 mui-text-center tcart-tj-ddcp-row-wz">已发货</div>
+				    	    </div>
+				    	    <div class="mui-col-sm-3 mui-col-xs-3 mui-text-center">
+				    	    	<div class="mui-col-sm-12 mui-col-xs-12 mui-text-center">
+				    	    		<img src="http://wh.jiuguishangcheng.com/images/de5153066d437d9687026a374d8abcf9?f=png" class="tab-ucenter-tp"/>
+				    	    	</div>
+				    	    	<div class="mui-col-sm-12 mui-col-xs-12 mui-text-center tcart-tj-ddcp-row-wz">代评价</div>
+				    	    </div>
+				    	    <div class="mui-col-sm-3 mui-col-xs-3 mui-text-center">
+				    	    	<div class="mui-col-sm-12 mui-col-xs-12 mui-text-center">
+				    	    		<img src="http://wh.jiuguishangcheng.com/images/ceed90cb77e7e8afa12a054f86854c0e?f=png" class="tab-ucenter-tp"/>
+				    	    	</div>
+				    	    	<div class="mui-col-sm-12 mui-col-xs-12 mui-text-center tcart-tj-ddcp-row-wz">退款/售后</div>
+				    	    </div>
+				    	</div>
+				    </div>
+				    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-hj">
+				    	<div id="personTab-wdjf" class="mui-row">
+				    	    <div class="mui-col-sm-6 mui-col-xs-6 ab-ucenter-wddd-wd-xx mui-icon iconfont icon-zhuanjifentouzijiaoyi">
+				    	    	我的积分
+				    	    </div>
+				    	    <div class="mui-col-sm-5 mui-col-xs-5 mui-text-right ab-ucenter-wddd-ckqxx">
+				    	    	<a id="myPoints" class="ab-ucenter-wddd-a" href="person/my-points.html">马上去兑换</a>
+				    	    </div>
+				    	    <div class="mui-col-sm-1 mui-col-xs-1 mui-text-center tab-ucenter-wd-sxx"> 
+				    	    	>
+				    	    </div>
+				    	</div>
+				    </div>
+				    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-hj">
+				    	<div class="mui-row">
+				    	    <div class="mui-col-sm-6 mui-col-xs-6 ab-ucenter-wddd-wd-xx mui-icon iconfont icon-fenxiang2">
+				    	    	活动推广
+				    	    </div>				    	    
+				    	    <div class="mui-col-sm-5 mui-col-xs-5 mui-text-right ab-ucenter-wddd-ckqxx">
+				    	    	<a id="myRcode" class="ab-ucenter-wddd-a" href="person/my-rcode.html">去推广</a>
+				    	    </div>
+				    	    <div class="mui-col-sm-1 mui-col-xs-1 mui-text-center tab-ucenter-wd-sxx"> 
+				    	    	> 
+				    	    </div>				    	    
+				    	</div>				    	
+				    </div>
+				    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-hj">
+				    	<div id="personTab-wdfs" class="mui-row">
+				    	    <div class="mui-col-sm-6 mui-col-xs-6 ab-ucenter-wddd-wd-xx mui-icon iconfont icon-tuanduiguanli">
+				    	    	我的粉丝
+				    	    </div>				    	    
+				    	    <div class="mui-col-sm-5 mui-col-xs-5 mui-text-right ab-ucenter-wddd-ckqxx">
+				    	    	团队力量大
+				    	    </div>
+				    	    <div class="mui-col-sm-1 mui-col-xs-1 mui-text-center tab-ucenter-wd-sxx"> 
+				    	    	> 
+				    	    </div>				    	    
+				    	</div>				    	
+				    </div>				    
+				    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-hj">
+				    	<div class="mui-row">
+				    	    <div class="mui-col-sm-6 mui-col-xs-6 ab-ucenter-wddd-wd-xx mui-icon iconfont icon-dalushimingrenzheng3bbangdingyinxingqiafuzhi">
+				    	    	账户绑定
+				    	    </div>
+				    	    <div class="mui-col-sm-5 mui-col-xs-5 mui-text-right ab-ucenter-wddd-ckqxx">
+				    	    	<a id="accountBand" class="ab-ucenter-wddd-a" href="person/account-band.html">绑定更安全</a>				    	    	
+				    	    </div>
+				    	    <div class="mui-col-sm-1 mui-col-xs-1 mui-text-center tab-ucenter-wd-sxx"> 
+				    	    	> 
+				    	    </div>				    	    
+				    	</div>				    	
+				    </div>
+				</div>
+			</div>
+			<!--企业介绍-->
+			<div id="tabbar-with-infoTab" class="mui-control-content tabbar-content-help">
+			    <!--<div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-hj">
+			    	<a>
+				    	<div class="mui-row">
+				    	    <div class="mui-col-sm-2 mui-col-xs-2 ab-ucenter-wddd-wd-xx">
+				    	    	<img src="http://wh.jiuguishangcheng.com/images/6179429e9e4b4c979a3b06db978e983d"/>
+				    	    </div>
+				    	    <div class="mui-col-sm-5 mui-col-xs-5 ab-ucenter-qyjs">
+				    	    	企业介绍
+				    	    </div>
+				    	    <div class="mui-col-sm-4 mui-col-xs-4 mui-text-right ab-ucenter-qyjs-ckqxx">
+				    	    	2017-10-31
+				    	    </div>			    	    
+				    	    <div class="mui-col-sm-1 mui-col-xs-1 mui-text-center tab-ucenter-qyjs-sxx"> 
+				    	    	> 
+				    	    </div>				    	    
+				    	</div>
+			    	</a>			    	
+			    </div>-->
+				<img src="http://wh.jiuguishangcheng.com/images/8b842a9a841a849b13fd6f20f81da0f5"/>
+			</div>
+	</body>
+	<script id='banner-template' type="text/template">
+		<div class="mui-slider">
+			<div class="mui-slider-group mui-slider-loop">
+				<% if(record.length > 0) { var item=record[0];%>
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="<%=(item.linkUrl)%>" class="" title="<%=(item.shareTitle)%>">
+						<img src="<%=(item.imgUrl)%>">
+					</a>
+				</div>
+				<% } %>
+				<% for(var i in record){ var item=record[i]; %>
+				<div class="mui-slider-item">
+					<a href="<%=(item.linkUrl)%>" class="" title="<%=(item.shareTitle)%>">
+						<img src="<%=(item.imgUrl)%>">
+					</a>
+				</div>	
+				<% } %>
+				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				<% if(record.length > 0) { var item=record[0]; %>
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="<%=(item.linkUrl)%>" class="" title="<%=(item.shareTitle)%>">
+						<img src="<%=(item.imgUrl)%>">
+					</a>
+				</div>
+				<% } %>
+			</div>
+			<div class="mui-slider-indicator">
+				<% for(var i in record){ if(i==0) { %>
+				<div class="mui-indicator mui-active"></div>
+				<% } else { %>
+					<div class="mui-indicator"></div>
+				<% } } %>
+			</div>
+		</div>
+	</script>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/arttmpl.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/weixin.js" ></script>
+	<script type="text/javascript" src="js/index.js" ></script>
+	
+</html>

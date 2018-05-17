@@ -1,0 +1,71 @@
+<ion-view id="details" view-title="商品详细页面" hide-back-button="true" cache-view="false">
+  <ion-content class="scroll-content" scroll="false">
+    <!-- 头部 -->
+    <header id="header">
+      <div class="header-left">
+        <div ng-click="func_goBack()">
+          <span></span>
+        </div>
+      </div>
+      <div class="header-center">
+        <span>商品详情</span>
+      </div>
+      <div class="header-right">
+        <span></span>
+      </div>
+    </header>
+    <!-- 产品选项 -->
+    <div id="view" class="viewWarp">
+      <ion-slide-box show-pager="true" auto-play="true" does-continue="true">
+        <ion-slide ng-repeat="item in obj_productDetailImg">
+          <img ng-src="{{item}}">
+          <div class="viewText"><span>{{$index+1}}</span>/{{productDetailImgSize}}</div>
+        </ion-slide>
+      </ion-slide-box>
+    </div> 
+    <div id="des">
+      <div class="desText">{{obj_goodsInfo.description}}</div>
+      <div class="desNumber">¥{{obj_goodsInfo.price}}</div>
+    </div>
+    <div id="list">
+      <div class="shuliang clearBoth">
+        <span class="floatLeft">数量</span>
+        <div class="floatLeft">
+          <span class="listLeft floatLeft" ng-click="func_jian1()">-</span>
+          <input class="floatLeft" type="text" readonly ng-model="obj_goodsDetailInfo.number">
+          <span class="listRight floatLeft" ng-click="func_jia1()">+</span>
+        </div>
+      </div>
+    </div>
+    <div id="otherInfo">
+      <div class="yunfei">
+        <span>运费</span>
+        <p>店铺单笔订单不满89元，货到付款运费10元，在线支付运费10元</p>
+      </div>
+      <div class="fuwu">
+        <span>服务</span>
+        <p>由澳贝琳官方旗舰店从广东广州市发货并提供售后服务</p>
+      </div>
+      <div class="tishi">
+        <span>提示</span>
+        <p>该商品支持七天无理由退货</p>
+      </div>
+    </div>
+  </ion-content>
+  <!-- 固定底边栏 -->
+  <div id="buy">
+    <div class="buyLeft">
+      <div class="guanzhu">
+        <span></span>
+        <strong>关注</strong>
+      </div>
+      <div class="gouwuche" ui-sref="cart">
+        <span></span>
+        <i id="badge" class="badge badge-assertive">{{obj_cartCount.count}}</i>
+        <strong>购物车</strong>
+      </div>
+    </div>
+    <div class="buyCenter" ng-click="func_addToCart()">加入购物车</div>
+    <div class="buyRight" ng-click="func_goHome()">立即购买</div>
+  </div>
+</ion-view>

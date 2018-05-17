@@ -1,0 +1,84 @@
+@font-face {font-family: "iconfont";
+    src:url('../fonts/iconfont.ttf') format('truetype'); /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-bangdingyinxingqia:before { content: "\e92d"; }
+
+.icon-vip6:before { content: "\e6bf"; }
+
+.icon-jifen:before { content: "\e61a"; }
+
+.icon-icon1:before { content: "\e641"; }
+
+.icon-dalushimingrenzheng3bbangdingyinxingqiafuzhi:before { content: "\e63a"; }
+
+.icon-shouye1:before { content: "\e63c"; }
+
+.icon-ai-bind-cel:before { content: "\e66f"; }
+
+.icon-gouwucheweikong:before { content: "\e66b"; }
+
+.icon-huiyuan:before { content: "\e642"; }
+
+.icon-fenxiang2:before { content: "\e63e"; }
+
+.icon-zhuanjifentouzijiaoyi:before { content: "\e68d"; }
+
+.icon-webicon07:before { content: "\e671"; }
+
+.icon-seven:before { content: "\e6b0"; }
+
+.icon-gouwuche:before { content: "\e617"; }
+
+.icon-qiye1:before { content: "\e6df"; }
+
+.icon-shouye4:before { content: "\e645"; }
+
+.icon-meiyoudingdan-01:before { content: "\e618"; }
+
+.icon-qiye2:before { content: "\e646"; }
+
+.icon-daili2:before { content: "\e60d"; }
+
+.icon-jifenshangcheng8:before { content: "\e6e5"; }
+
+.icon-youji1:before { content: "\e662"; }
+
+.icon-weixinzhifu2:before { content: "\e69c"; }
+
+.icon-jifen2:before { content: "\e614"; }
+
+.icon-zhifubao2:before { content: "\e616"; }
+
+.icon-config:before { content: "\e700"; }
+
+.icon-zhifubao3:before { content: "\e6d5"; }
+
+.icon-guanxifenxi:before { content: "\e63d"; }
+
+.icon-vip9:before { content: "\e6dd"; }
+
+.icon-jifenduihuanxin:before { content: "\e6fe"; }
+
+.icon-youji2:before { content: "\e8f0"; }
+
+.icon-tenpay:before { content: "\e664"; }
+
+.icon-jifenduihuanjilu:before { content: "\e640"; }
+
+.icon-shouye:before { content: "\e62e"; }
+
+.icon-tiantuihuo:before { content: "\e6e6"; }
+
+.icon-erweima3:before { content: "\e633"; }
+
+.icon-tuanduiguanli:before { content: "\e7b2"; }
+

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>提现明细</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/withdrawDetail.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+	</head>
+	<body>
+		<script id='cashRecord-template' type="text/template">			
+			<% for(var i in records){ var item=records[i]; %>				
+				<div class="mui-row txmx-row">
+			        <div class="mui-col-sm-12 mui-col-xs-12">
+			        	<div class="mui-row txmx-lqjf-txzt">
+			        	    <div class="mui-col-sm-6 mui-col-xs-6 txmx-lqjf">
+			        	    	领取积分
+			        	    </div>
+			        	    <% if(item.status=='1' ) { %>
+				        	    <div class="mui-col-sm-6 mui-col-xs-6 mui-text-right txmx-txzt">
+				        	    	提现成功
+				        	    </div>
+			        	    <% } else if(item.status=='2' ) { %>
+			        	    	<div class="mui-col-sm-6 mui-col-xs-6 mui-text-right txmx-txsb">
+				        	    	提现失败
+				        	    </div>
+			        	    <% } else { %>
+			        	    	<div class="mui-col-sm-6 mui-col-xs-6 mui-text-right txmx-txz">
+				        	    	提现中
+				        	    </div>
+				        	<% } %>
+			        	</div>
+			        </div>
+			        <div class="mui-col-sm-12 mui-col-xs-12 mui-text-center txmx-txje-wz">
+			        	提现金额
+			        </div>
+			        <div class="mui-col-sm-12 mui-col-xs-12 mui-text-center txmx-txje-je">
+			        	<span>¥</span>
+			        	<span class="txmx-txje-jesz"><%=( item.credit || '&nbsp;&nbsp;') %></span>
+			        </div>
+			        <div class="mui-col-sm-12 mui-col-xs-12 txmx-txje-txsj">
+			        	<span>提现时间:</span>
+			        	<span><%=( item.createTime|| '&nbsp;&nbsp;') %></span>
+			        </div>
+			        <div class="mui-col-sm-12 mui-col-xs-12 txmx-txje-txsj">
+			        	<span>备注信息:</span>
+			        	<span>领取积分<%=( item.credit || '&nbsp;&nbsp;') %>分</span>
+			        </div>
+			    </div>
+		    <% } %>
+		</script>
+		<div class="mui-content tabbar-content-padding txmx-content">	
+			
+			<div id="pullrefresh" class="mui-scroll-wrapper" style="background-color: white;">					
+				<div class="mui-scroll" style="padding-top: 0px;padding-bottom: 20px;">
+					<!--<div class="mui-row">
+				        <div class="mui-col-sm-12 mui-col-xs-12 mui-text-center">
+				        	<img src="http://wh.jiuguishangcheng.com/images/b48e5f061480fca8cb9d601af253ffa1?f=png" style="width: 50%;">
+				        </div>
+				    </div>-->
+					<div id='record-list' style="margin: 0 1em;">
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>	
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/arttmpl.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script>
+		(function($, doc) {
+			$.init({
+				gestureConfig: {
+					tap: true, //默认为true
+					doubletap: true, //默认为false
+					longtap: true, //默认为false
+					swipe: true, //默认为true
+					drag: true, //默认为true
+					hold: true, //默认为false，不监听
+					release: true //默认为false，不监听
+				},
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						contentrefresh: '正在加载...',
+						callback: pulldownRefresh
+					},
+					up: {
+						callback: pullupRefresh
+					}
+				}
+			});
+			
+			var pageIndex = 1;
+			var pageSize = 5;
+			pullupRefresh();
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pullupRefresh() {
+				setTimeout(function() {
+					initRecordHistory(pageIndex,pageSize);
+					pageIndex++;
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(); //refresh completed
+				}, 300);
+			}
+			var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pulldownRefresh() {
+				setTimeout(function() {
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+				}, 1000);
+			}
+			
+			var records = [];
+			template.config('escape', false);
+			var bindRecordList = function() {
+				if(records.length == 0){
+					doc.querySelector('#record-list').innerHTML ='<div class="iconfont icon-meiyoudingdan-01" style="font-size: 60px;color: red;text-align: center;margin: 3em 0 0 0;"><div><span style="font-size: 10px;">您还没有申请提现噢</span></sdiv></div>';
+				}else{
+					doc.querySelector('#record-list').innerHTML = template('cashRecord-template', {
+						"records": records
+					});
+				}
+			};
+			//bindRecordList();
+			
+			var initRecordHistory = function(pageIndex,pageSize){
+				$.ajax({
+				   type: "POST",
+				   url: '/rest/api/cashRecord/list',
+				   async: false,
+				   timeout:10000,//超时时间设置为10秒；
+				   dataType:'json',//服务器返回json格式数据
+				   data:{pageIndex:pageIndex,pageSize:pageSize},
+				   success: function(result){
+				   		//console.log(JSON.stringify(result));
+				   		var recordList = result.data.datas;
+				   		for(var i in recordList){
+				   			recordList[i].credit = Number(recordList[i].credit/100).toFixed(2);
+				   			records.push(recordList[i]);
+				   		}
+				   		//console.log(JSON.stringify(records));
+				   		bindRecordList();
+				   },
+				   error:function(e){
+				   	console.log("出错了!!!"+e);
+				   }
+				});
+			}
+
+		}(mui, document));
+	</script>
+</html>

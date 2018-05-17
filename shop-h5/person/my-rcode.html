@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>分享二维码</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style>
+	      /* 二维码推荐 */
+	     body {
+			    position: absolute;
+			    top: 0;
+			    right: 0;
+			    bottom: 0;
+			    left: 0;
+			    font-family: "Helvetica Neue",Helvetica,sans-serif;
+			    font-size: .85rem;
+			    line-height: 1.5;
+			    color: #3d4145;
+			    background: #eee;
+			    overflow: hidden;
+			}
+	      .ewm{background: url(http://wh.jiuguishangcheng.com/images/42cf4b2a7918d0607cdfcb5db2ee0ac2) top center no-repeat;width: 100%;height: 100%;background-size: cover;position: relative;}
+	      .ewm .ewm_pic{width: 5.5rem;position: absolute;top: 74.5%;left:80.5%;margin-left: -2.5rem;}
+	      .ewm .ewm_pic img{width: 100%;}
+	      .ewm .ewm_pic p{font-size: .5rem;color: #d2aa67;margin:0;text-align: center;}
+		</style>
+	</head>
+	<body>	
+		<div id="ewm" class="mui-content ewm">
+	        <div style="padding-top: 10px;font-size: smaller;font-weight: 900;color: white;">
+	        	<div class="mui-text-center">
+	        		<img id="wechatImg" style="width: 50px;border-radius: 50%;">
+	        		<div>
+	        			<span id="nickName" style="color: red;font-weight: bold;"></span>
+	        		</div>
+	        	</div>
+				<!--<div style="margin-top: 1em;">
+	        		我为<span style="color: red;">海峡两岸</span>代言
+				</div>-->
+	        </div>
+	      <div class="ewm_pic">
+		        <div>
+		        	<img id="myRcode">
+		        </div>
+	      </div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script type="text/javascript" src="../js/weixin.js" ></script>
+	<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js "></script>
+	<script>
+		$(function(){
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			
+			//设置购物车为空居中偏上 购物车为空高度200px
+			$("#ewm").css('background-size',document.documentElement.clientWidth+"px	"+document.documentElement.clientHeight+"px");
+		
+			//图片
+			$('#wechatImg').attr("src",getRequestUrlParam('wechatImg'));
+			//姓名
+			$('#nickName').html(getRequestDecodeUrlParam('nickName'));
+	
+			//加载页面数据
+			$.ajax({
+			   type: "POST",
+			   url: "/rest/api/wxpublic/spread",
+			   data:{openId:getRequestUrlParam('openId')},
+			   async:false,
+			   timeout:10000,//超时时间设置为10秒；
+			   success: function(rRCodeUrl){
+			     //微信头像
+			     $("#myRcode").attr("src",rRCodeUrl);
+			   }
+			});
+			
+		});
+		
+	$.ajax({
+	   type: "POST",
+	   url: "/rest/api/wxpublic/wechat/share",
+	   async: false,
+	   data:{url:location.href.split('#')[0]},
+	   success: function(resp){
+	   		console.log(JSON.stringify(resp));
+   	       if(resp.code == 0){
+   	       		wx.config({
+			      debug: false,//设置调试模式
+			      appId: resp.data.appid,
+			      timestamp: resp.data.timestamp,
+			      nonceStr: resp.data.nonceStr,
+			      signature: resp.data.signature,
+			      jsApiList: [
+			     	 'showOptionMenu',
+			         'onMenuShareTimeline',
+			         'onMenuShareAppMessage',
+			         'onMenuShareQQ'
+			         ]   
+			    });
+   	       } else {
+   	       	  	mui.toast("微信分享异常,请联系管理员",{'verticalAlign':'middle'});
+   	       }
+	   }
+	});	
+	 
+	   var title = '海峡两岸情'; //设置分享标题 自己定义
+	   var link = location.href.split('#')[0];//设置分享url 后端获取
+	   var imgUrl = 'http://wh.jiuguishangcheng.com/images/56c74b0e16950a145239bfd402e8c6f5';//设置分享图标地址 自己定义
+	   var desc = getRequestDecodeUrlParam('nickName')+'的个人名片';//设置分享描述 自己定义
+	 
+	   wx.ready(function(){
+	      wx.onMenuShareTimeline({
+	         title: title,
+	         link: link,
+	         imgUrl: imgUrl,
+	         trigger: function (res) {
+	 
+	         },
+	         success: function (res) {
+	            //alert('分享成功');         
+	            },
+	         cancel: function (res) {
+	            //alert('您已取消分享');         
+	            }
+	      });
+	 
+	      wx.onMenuShareAppMessage({
+	         title: title,
+	         desc: desc,
+	         link: link,
+	         imgUrl: imgUrl,
+	         success: function (res) {
+	            //alert('分享成功');         
+	            },
+	         cancel: function (res) {
+	            //alert('您已取消分享');         
+	            }
+	      });
+	 
+	      wx.onMenuShareQQ({
+	         title: title,
+	         desc: desc,
+	         link: link,
+	         imgUrl: imgUrl,
+	         success: function () {
+	            //alert('分享成功');         
+	          },
+	         cancel: function () {
+	            //alert('您已取消分享');         
+	         }
+	      });
+	   });
+	 
+	 	wx.error(function (res) {
+			//alert(res.errMsg);
+		});
+	 
+	</script>
+</html>

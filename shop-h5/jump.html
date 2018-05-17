@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript" src="js/jquery.min.js" ></script>
+	<script type="text/javascript" src="/js/common.js" ></script>
+	<script>
+		//校验微信浏览器
+		check_wx_b();
+		
+		var state = getRequestUrlParam('state');
+
+		if(state == 'rcode'){//分享二维码
+			//获取用户openId
+			$.ajax({
+			   type: "POST",
+			   url: "/rest/api/wxpublic/getBizCustomer",
+			   async: false,
+			   timeout:10000,//超时时间设置为10秒；
+			   data:{code:getRequestUrlParam('code')},
+			   success: function(bizCustomer){
+				     window.location.href = "person/my-rcode.html?openId="+bizCustomer.wechatOpenid+"&nickName="+encodeURI(bizCustomer.wechatNickname)+"&wechatImg="+bizCustomer.wechatHeadimgurl;
+			   }
+			});
+		} else if( state == 'usercenter' || state == 'company') {
+			$.ajax({
+			   type: "POST",
+			   url: "/rest/api/wxpublic/getOpenId",
+			   async: false,
+			   timeout:10000,//超时时间设置为10秒；
+			   data:{code:getRequestUrlParam('code')},
+			   success: function(openId){
+				   	console.log(openId+"登录成功");
+				   	
+				   	var href = '';
+		   			if(state == 'usercenter'){//个人中心
+						href = '/#personTab';
+					} else if(state == 'company'){//企业动态
+						href = '/#infoTab';
+					}
+					window.location.href = href;
+			   }
+			});
+		}
+	</script>	
+</html>

@@ -296,4 +296,8 @@
     from tcim_product tp
     where tp.business_id = #{businessId,jdbcType=INTEGER}
   </select>
+
+  <update id="addProductInventory">
+
+  </update>
 </mapper>

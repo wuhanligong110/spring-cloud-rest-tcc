@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+		<link rel="stylesheet" href="../css/common.css" />
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css"href="../css/icons-extra.css"/>
+		<link rel="stylesheet" href="../css/productCategotyList.css" />
+		<style>
+			.mui-table-view:after {
+			    height: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="height: 34px;">
+			<a id="headLeft" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="padding-top: 5px;"></a>
+<!--			<h1 class="mui-title">积分购商城</h1>-->
+		</header>
+		<div class="mui-content" style="padding-top: 34px;">
+				<div id="sliderCredits" class="mui-slider">
+					<div class="mui-slider-group mui-slider-loop">
+						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							 <img src="http://wh.jiuguishangcheng.com/images/fdbd4b252463a269c5b6a23e0408b44c">
+						</div>
+						<!-- 第1张 -->
+						<div class="mui-slider-item">
+							<img src="http://wh.jiuguishangcheng.com/images/fdbd4b252463a269c5b6a23e0408b44c">
+						</div>					
+						<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<img src="http://wh.jiuguishangcheng.com/images/fdbd4b252463a269c5b6a23e0408b44c">
+						</div>
+					</div>
+					<div class="mui-slider-indicator">
+						<div class="mui-indicator mui-active"></div>
+					</div>
+				</div>			
+			<div>
+				<ul class="mui-table-view" style="margin-top: -0.3em;">
+				    <li class="mui-table-view-cell" style="color: #D4237A;border-bottom: 1px solid #EFE8E8;">		    	
+			    			<span>
+			                    <svg class="icon1-5" aria-hidden="true">
+								    <use xlink:href="#icon-jifenduihuan2"></use>
+								</svg>  			
+				    		</span>
+				    		<span style="font-weight: bold;font-size: smaller;">
+				    			剩余消费积分
+				    	    </span>
+				    	    <span id="xfjfsy" style="color: red;float: right;font-weight: bold;">
+				    	    	0
+				    	    </span>
+				    </li>
+				</ul>				
+			</div>
+			<div id="productCategotyListDiv" class="mui-content productCategotyListDiv" style="padding-bottom: 16em;">
+				<div style="text-align: center;color: #FFAF5E;padding: 10em 0;">
+					<svg class="icongwc" aria-hidden="true">
+						<use xlink:href="#icon-jifenshangcheng8"></use>
+				    </svg>
+				     	商城准备中...
+				</div>				
+			</div>
+		</div>
+		<input id="username4Credits" type="hidden"/>
+		<input id="phone4Credits"    type="hidden"/>
+		<input id="address4Credits"  type="hidden"/>
+	</body>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/creditsStore.js" ></script>
+	<script type="text/javascript" src="../js/iconfont/iconfont.js" ></script>	
+	<script>
+		
+	mui("#sliderCredits").slider({
+		interval: 2000
+	});
+	
+	$.ajax({
+	   type: "POST",
+	   url: "/rest/api/wxpublic/getBizCustomer",
+	   async: false,
+	   timeout:10000,//超时时间设置为10秒；
+	   success: function(bizCustomer){ 
+		     //校验是否是禁止用户
+		     check_customer_status(bizCustomer.status);
+		     //消费积分
+		     $('#xfjfsy').html(formatData(bizCustomer.mshopCredit));
+		     //邮寄地址-姓名
+		     $("#username4Credits").val(bizCustomer.username);
+		     //邮寄地址-电话
+		     $("#phone4Credits").val(bizCustomer.phone);
+		     //邮寄地址-地址
+		     $("#address4Credits").val(bizCustomer.address);
+		    
+//		     if(bizCustomer.consumerId == '1000002' || bizCustomer.consumerId == '1000003' || bizCustomer.consumerId == '1000005' ){
+//		    	$('#productCategotyListDiv').show();
+//		     } else {
+//		    	$('#productCategotyListDiv').hide();
+//		     }
+	   }
+	});
+	//加载积分产品页面数据
+	$.ajax({
+	   type: "POST",
+	   url: "/rest/api/wxpublic/productCategotyList",
+	   async: false,
+	   timeout:10000,//超时时间设置为10秒；
+	   data:{productType:2},
+	   success: function(bizProductDetailList){
+	   	
+		    var html = '';
+		    if(bizProductDetailList != null && bizProductDetailList != ''){
+		    	html += '<ul class="mui-table-view mui-grid-view">';
+		    	for(var index in bizProductDetailList){
+		        	html += '<li class="mui-table-view-cell mui-media mui-col-xs-12" style="border-bottom: 1px solid #EFE8E8;">';
+				    html += '<div class="mui-row">';
+				    html += '<div class="mui-col-sm-6 mui-col-xs-6 detail" productId="'+bizProductDetailList[index].productId+'">';
+					if(bizProductDetailList[index].ifHot == 0){//hot图标
+						html += '<div class="new-credits"></div>'; 
+					}				    
+				    html += '<img class="mui-media-object" style="border-radius: 5px;" src="'+imgSercviceUrl+bizProductDetailList[index].briefImg+'" />';
+				    html += '</div>';
+				    html += '<div class="mui-col-sm-4 mui-col-xs-4 detail" style="margin-top: 1em;" productId="'+bizProductDetailList[index].productId+'">';
+				    html += '<div>';
+				    html += '<span style="font-size: medium;">'+bizProductDetailList[index].productName+'</span>';
+				    html += '</div>';
+				    html += '<div style="color: goldenrod;margin-top: 0.5em;font-size: smaller;">';
+				    html += '<span style="margin-right: 1em;">';
+				    html += '¥ '+formatData(bizProductDetailList[index].price)*2/10;
+				    html += '</span>';
+				    html += '<span>';
+				    html += '积分 '+formatData(bizProductDetailList[index].price)*8/10;	
+				    html += '</span>';
+				    html += '</div>';
+				    html += '</div>';
+				    html += '<div class="mui-col-sm-2 mui-col-xs-2 convert" style="text-align: center;color: #D4237A;margin-top: 1em;" productId="'+bizProductDetailList[index].productId+'" productName="'+bizProductDetailList[index].productName+'" price="'+bizProductDetailList[index].price+'">';  
+				    html += '<svg class="icon2-5" aria-hidden="true">';
+					html += '<use xlink:href="#icon-jifenduihuan1"></use>';
+					html += '</svg>';			
+				    html += '</div>';    
+				    html += '</div>';
+				    
+				    html += '</li>';
+		    	}
+		    	html += '</ul>';
+	   			$('#productCategotyListDiv').html(html);		    	
+		    }
+	   		
+	   		mui(document.body).on('tap', '.detail', function(e) {
+				var productId = $(this).attr("productId");
+				location.href = 'productDetail.html?productId='+productId;
+			});
+			
+	   		mui(document.body).on('tap', '.convert', function(e) {
+				var productId = $(this).attr("productId");
+				var totalPrice = $(this).attr("price")/100;
+				var total_code = totalPrice*4/5;
+				var xfjfsy = eval($('#xfjfsy').html());
+				if(xfjfsy < total_code){
+					 mui.alert("亲,您的消费积分还不够哦","提示","确定",null);
+					 return false;
+				}
+				
+				//地址校验
+				var username = $("#username4Credits").val()
+				var phone = $("#phone4Credits").val();
+				var address = $("#address4Credits").val();		
+				if(!checkAddress(username,phone,address)) return false;	
+			
+				var productName = $(this).attr("productName");
+				mui.confirm("您将兑换【"+productName+"】，<br/>兑换至["+username+"]["+phone+"]["+address+"],<br/>确认兑换吗？","积分兑换",["是","否"],function(e){
+					if(e.index == 0){
+						//拼接数据报文
+						var productOrderData = {};
+						var creditProductOrderList = new Array();
+						creditProductOrderList.push({productId:productId,orderNumber:1});
+						productOrderData["productOrderList"] = creditProductOrderList;
+						productOrderData["total"] = totalPrice;
+						console.log("微信支付API-积分兑换");
+						wxpay_mshopConvert(productOrderData)
+					}
+				});
+			});			
+	   }
+	});	
+	
+	/**
+	 * 校验是否禁止用户
+	 */
+	function check_customer_status(status){
+		if (status == 1) {
+		    // 这里警告框会阻塞当前页面继续加载
+		    alert('亲,访问失败请联系管理员！');
+		    // 以下代码是用javascript强行关闭当前页面
+		    var opened = window.open('about:blank', '_self');
+		    opened.opener = null;
+		    opened.close();
+		}
+	}
+	</script>
+</html>

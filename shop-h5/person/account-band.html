@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>账号绑定</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+		<link rel="stylesheet" href="../css/myPoints.css" />
+	<body>
+		<div class="mui-content tabbar-content-padding">
+		    <div class="mui-row">
+		        <div class="mui-col-sm-12 mui-col-xs-12 mui-text-center">
+		        	<img src="http://wh.jiuguishangcheng.com/images/5cf8feed910c1f26eb1b2302a77f5920?f=png">
+		        </div>
+			    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-hj">
+			    	<div id="txbk-div" class="mui-row mui-navigate-right">
+			    	    <div class="mui-col-sm-6 mui-col-xs-6 ab-ucenter-wddd-wd-xx iconfont icon-bangdingyinxingqia">
+			    	    	<span class="mui-col-sm-6 mui-col-xs-6">提现绑卡</span>		    	    	
+			    	    </div>				    	    
+			    	    <div id="payeeBand" class="mui-col-sm-4 mui-col-xs-4 mui-text-right ab-ucenter-wddd-ckqxx">
+			    	    	<span class="mui-badge mui-badge-danger">未绑定</span>	    	    	
+			    	    </div>			    	    
+			    	</div>				    	
+			    </div>
+			    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-hj">
+			    	<div id="sjdz-div" class="mui-row mui-navigate-right">
+			    	    <div class="mui-col-sm-6 mui-col-xs-6 ab-ucenter-wddd-wd-xx iconfont icon-shouye1">
+			    	    	<span class="mui-col-sm-6 mui-col-xs-6">收件地址</span>		    	    	
+			    	    </div>				    	    
+			    	    <div id="addressBand" class="mui-col-sm-4 mui-col-xs-4 mui-text-right ab-ucenter-wddd-ckqxx">
+			    	    	<span class="mui-badge mui-badge-danger">未绑定</span>	    	    	
+			    	    </div>			    	    
+			    	</div>					    	
+			    </div>	
+			    <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-hj">
+			    	<div class="mui-row mui-navigate-right">
+			    	    <div class="mui-col-sm-6 mui-col-xs-6 ab-ucenter-wddd-wd-xx iconfont icon-ai-bind-cel">
+			    	    	<span class="mui-col-sm-6 mui-col-xs-6">手机绑定</span>		    	    	
+			    	    </div>				    	    
+			    	    <div class="mui-col-sm-4 mui-col-xs-4 mui-text-right ab-ucenter-wddd-ckqxx">
+			    	    	<span class="mui-badge mui-badge-inverted">未开放</span>	    	    	
+			    	    </div>			    	    
+			    	</div>					    	
+			    </div>			    
+		    </div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script>
+		$(function(){
+			if(getRequestUrlParam('payeeBand') == 1){
+				$("#payeeBand span").attr("class","mui-badge mui-badge-success");
+				$("#payeeBand span").text("已绑定"); 
+			}
+			
+			if(getRequestUrlParam('addressBand') == 1){
+				$("#addressBand span").attr("class","mui-badge mui-badge-success");
+				$("#addressBand span").text("已绑定");
+			}
+	
+			//提现绑卡跳转
+			$("#txbk-div").click(function(){
+				window.location.href = "payee-band.html";
+			});
+			
+			//收件地址跳转
+			$("#sjdz-div").click(function(){
+				window.location.href = "address-add.html";
+			});
+		});		
+	</script>
+</html>

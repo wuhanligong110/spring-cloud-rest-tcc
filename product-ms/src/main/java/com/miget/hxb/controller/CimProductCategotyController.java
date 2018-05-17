@@ -1,18 +1,12 @@
 package com.miget.hxb.controller;
 
-import com.github.pagehelper.Page;
 import com.miget.hxb.Delay;
 import com.miget.hxb.RandomlyThrowsException;
-import com.miget.hxb.Shift;
-import com.miget.hxb.domain.CimBusiness;
-import com.miget.hxb.domain.CimProduct;
 import com.miget.hxb.domain.CimProductCategoty;
-import com.miget.hxb.model.request.*;
+import com.miget.hxb.model.request.ProductCategotyAddRequest;
+import com.miget.hxb.model.request.ProductCategotyUpdateRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
-import com.miget.hxb.page.PageInfo;
-import com.miget.hxb.service.CimBusinessService;
 import com.miget.hxb.service.CimProductCategotyService;
-import com.miget.hxb.service.CimProductService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

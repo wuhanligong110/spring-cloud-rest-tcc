@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>提现积分</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<style>
+			body{
+				position: absolute;
+			    height: 100%;
+			    width: 100%;
+			    margin: 0;
+			    font-size: 12px;
+			    overflow: hidden;
+			    background: white;
+			}
+			
+			.txbtn{
+				float: right;
+				margin: 0.5em;
+				border: 1px solid #F2F2F2;
+				border-radius: 100px;
+				font-size: 14px;
+				color: #848484;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<!--<header class="mui-bar mui-bar-nav">
+		    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left" style="color: black;font-size: 12px;">
+				<span class="mui-icon mui-icon-left-nav" style="font-size: 12px;"></span>
+				返回
+		    </button>			
+			<h1 class="mui-title" style="font-size: 14px;">领取</h1>
+			<button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">
+				<a href="my-withdraw-detail.html" style="color: black;font-size: 12px;">明细</a>
+			</button>			
+		</header>-->
+		<div class="mui-row">
+			<div class="mui-col-sm-12 mui-col-xs-12">
+				<a href="my-withdraw-detail.html" class="mui-btn mui-btn-outlined txbtn">提现明细</a>
+			</div>
+		</div>
+		<div style="height: 17em;">
+			<div style="padding-top: 4em;text-align: center;color: red;">
+				<span class="mui-icon iconfont icon-jifen2" style="font-size: 40px;"></span>
+				<span style="font-size: 14px;font-weight: bold;">总积分</span>
+			</div>		
+			<div id="cashCredit" style="padding-top: 0.5em;text-align: center;font-size: 3em;color: red;">
+				0
+			</div>
+		</div>
+		<div style="height: 4em;background: #FFFFFF;">
+		    <div class="mui-input-row" style="padding-top: 0.6em;">
+		        <label style="text-align: center;font-family: PingFangSC-Regular !important;font-size: 14px;color: #2E2E2E;">领取积分</label>
+		    	<input id="withdrawNumber" type="number" class="mui-input-clear" placeholder="请输入可领取的积分" min="0">
+		    </div>
+		    <div class="mui-row" style="margin: 0.5em;float: right;"><span id="withdrawAll" style="font-family: PingFangSC-Regular;font-size: 12px;color: #EF0001;text-align: center;">全部提现</span></div>
+		</div>
+		<div class="mui-text-center" style="padding-top: 4em;margin: auto 0.5em;">
+			<button id="withdrawButton" type="button" class="mui-btn mui-btn-danger" style="width: 18em;height:40px;border-radius: 100px;">
+				<span>领取</span>
+			</button>
+		</div>
+		<div style="padding-top: 3em;bottom: 2em;color: #777;line-height: 1.5em;">
+			<ul>
+			  <li>1领取积分价值人民币1元,满100可领取</li>
+			  <li>领取收取部分手续费(微信),部分用于兑换积分,直接发放到微信零钱账户,具体以实际到账的金额为准</li>
+			  <li>领取时间:工作日 08:00 ~ 12:00</li>
+			  <li>提现请先绑定帐号直接跳转绑定</li>
+			  <li>付款到账实效为1-3日，最快次日到账</li>
+			</ul>
+		</div>
+		<input id="consumerId" type="hidden" />
+		<input id="wechatOpenid" type="hidden"/>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/common.js" ></script>
+	<script type="text/javascript" src="../js/my-withdraw.js" ></script>
+</html>

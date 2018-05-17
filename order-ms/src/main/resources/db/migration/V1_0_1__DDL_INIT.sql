@@ -1,59 +1,38 @@
--- -----------------------------------------------------
--- Schema order
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `order`
   DEFAULT CHARACTER SET utf8;
 USE `order`;
 
--- -----------------------------------------------------
--- Table `order`.`t_order`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `order`.`t_order` (
-  `id`          BIGINT(19) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `create_time` DATETIME            NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` DATETIME            NOT NULL DEFAULT '1970-01-01 00:00:00',
-  `delete_time` DATETIME            NOT NULL DEFAULT '1970-01-01 00:00:00',
-  `user_id`     BIGINT UNSIGNED     NOT NULL
-  COMMENT '下单用户ID',
-  `product_id`  BIGINT UNSIGNED     NOT NULL
-  COMMENT '产品ID',
-  `price`       INT UNSIGNED        NOT NULL
-  COMMENT '实际支付金额',
-  `status`      TINYINT UNSIGNED    NOT NULL DEFAULT 0
-  COMMENT '订单状态, 0为支付中, 1为交易完成, 2为全部资源已被撤销, 3为资源确认冲突',
-  PRIMARY KEY (`id`),
-  INDEX `idx_order_user_id_ct` (`user_id` ASC, `create_time` ASC)
-);
+CREATE TABLE `tbiz_order` (
+  `order_id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '订单id',
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+	`address_id` int(11) NOT NULL COMMENT '收货地址id',
+	`amount` bigint(15) DEFAULT NULL COMMENT '*100',
+  `is_payed` int(11) DEFAULT '0' COMMENT '是否支付 0=未支付|1=已支付',
+  `pay_id` int(1) DEFAULT NULL COMMENT '支付ID',
+	`pay_type` int(11) DEFAULT '1' COMMENT '消费类型 1：积分购买 2：购物积分兑换',
+	`create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `operator` varchar(30) DEFAULT NULL COMMENT '操作人',
+  PRIMARY KEY (`order_id`),
+  KEY `ix_user_id` (`user_id`) USING BTREE,
+  KEY `ix_create_time` (`create_time`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='订单表';
 
--- -----------------------------------------------------
--- Table `order`.`t_order_conflict`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `order`.`t_order_conflict` (
-  `id`           BIGINT(19) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `create_time`  DATETIME            NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time`  DATETIME            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `delete_time`  DATETIME            NOT NULL DEFAULT '1970-01-01 00:00:00',
-  `error_detail` VARCHAR(4096)       NOT NULL
-  COMMENT '资源冲突时的详细记录, 留作人工处理',
-  `t_order_id`   BIGINT(19) UNSIGNED NOT NULL
-  COMMENT '订单ID',
-  PRIMARY KEY (`id`)
-);
-
--- -----------------------------------------------------
--- Table `order`.`t_order_participant`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `order`.`t_order_participant` (
-  `id`          BIGINT(19) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `create_time` DATETIME            NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` DATETIME            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `delete_time` DATETIME            NOT NULL DEFAULT '1970-01-01 00:00:00',
-  `expire_time` DATETIME            NOT NULL
-  COMMENT '预留资源过期时间',
-  `uri`         VARCHAR(255)        NOT NULL
-  COMMENT '预留资源确认URI',
-  `t_order_id`  BIGINT(19) UNSIGNED NOT NULL
-  COMMENT '订单ID',
-  PRIMARY KEY (`id`),
-  INDEX `idx_order_participant_id` (`t_order_id` ASC)
-);
+CREATE TABLE `tbiz_order_item` (
+  `order_item_id` BIGINT(30) NOT NULL AUTO_INCREMENT COMMENT '订单明细id',
+  `order_id` BIGINT(20) NOT NULL COMMENT '订单id',
+  `product_id` int(11) DEFAULT NULL '产品id',
+	`business_id` int(11) NOT NULL COMMENT '商家id',
+  `product_count` int(11) DEFAULT NULL COMMENT '产品数量',
+	`product_price` int(11) DEFAULT NULL '产品单价',
+	`amount` bigint(15) DEFAULT NULL COMMENT '*100',
+  `courier_company` varchar(255) DEFAULT NULL COMMENT '快递公司',
+  `courier_number` varchar(64) DEFAULT NULL COMMENT '快递单号',
+  `send_status` int(11) DEFAULT '0' COMMENT '发货状态 0=未发货 | 1=已发货 | 2=待退货 | 3=已退货',
+	`pay_status` int(11) DEFAULT '0' COMMENT '支付状态 0=未支付 | 1=已支付 | 2=待退款 | 3=已退款',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `operator` varchar(30) DEFAULT NULL COMMENT '操作人',
+  PRIMARY KEY (`order_item_id`),
+  KEY `ix_order_id` (`order_id`,`business_id`,`product_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='订单明细表';

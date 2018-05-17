@@ -1,0 +1,26 @@
+.paytitle{
+	text-align: center;
+    background: white;
+    padding: 4em 0 1em 0;
+}
+
+.paytitlep{
+    font-size: 20px;
+    color: #7474b5;
+    font-weight: 500;	
+}
+
+.paytips{
+	padding: 2em 0 3em 0;
+    text-align: center;
+    background: white;
+}
+
+.paytips p{
+    font-size: 16px;
+}
+
+.returnmsgDiv{
+	border-bottom: 1px solid #f5e5e5;
+    padding: 1em 0;
+}

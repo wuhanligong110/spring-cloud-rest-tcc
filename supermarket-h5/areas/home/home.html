@@ -1,0 +1,152 @@
+<ion-view id="home" view-title="首页" cache-view="false">
+  <!--头部搜索栏-->
+  <div id="headerBar" class="headerBar">
+    <div id="headerBar-bg"></div>
+    <div class="headerBar-logo">
+      <!-- <i></i> -->
+    </div>
+    <a class="headerBar-search"  ng-href="#">
+      <span></span>
+      <div>
+        <input  maxlength="20" autocomplete="true" value="精美商品 独家放价"/>
+      </div>
+    </a>
+    <a class="headerBar-login" ng-href="#">
+        <span>
+            登录
+        </span>
+    </a>
+  </div>
+  <ion-content id="home-content" class="scroll-content" scroll="false">
+    <!--头部滚动条-->
+    <div class="headerSlider">
+      <div id="headerSlider" class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" ng-repeat="item in obj_headerSlideData">
+            <img alt="{{item.shareTitle}}" ng-src="{{item.imgUrl}}">
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+
+    <!-- 功能导航 -->
+    <nav id="nav">
+      <span ui-sref="tab.category">
+        <img ng-src="img/home/nav0.png" alt="">
+        <h2>分类查询</h2>
+      </span>
+      <!--<span>
+        <img ng-src="img/home/nav1.png" alt="">
+        <h2>物流查询</h2>
+      </span>
+      <span>
+        <img ng-src="img/home/nav2.png" alt="">
+        <h2>购物车</h2>
+      </span>
+      <span>
+        <img ng-src="img/home/nav3.png" alt="">
+        <h2>我的京东</h2>
+      </span>
+      <span>
+        <img ng-src="img/home/nav4.png" alt="">
+        <h2>充值</h2>
+      </span>-->
+      <span>
+        <img ng-src="img/home/nav5.png" alt="">
+        <h2>领券中心</h2>
+      </span>
+      <span>
+        <img ng-src="img/home/nav6.png" alt="">
+        <h2>生活团购</h2>
+      </span> 
+      <span>
+        <img src="img/home/nav7.png" alt="">
+        <h2>我的关注</h2>
+      </span>
+    </nav>
+
+    <!--头条-->
+    <div class="toutiao">
+      <img ng-src="img/home/home-toutiao.jpg">
+      <div id="toutiaoSlider" class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" ng-repeat="item in obj_headerTouTiao">
+            <a ng-href="{{item.linkUrl}}">{{item.shareTitle}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 限时特价 -->
+    <div id="centent">
+      <div class="centent-top">
+        <span></span>
+        <h2>限时特价</h2>
+        <div class="centent-time">
+          <span class="time-text">0</span>
+          <span class="time-text">0</span>
+          <span>:</span>
+          <span class="time-text">0</span>
+          <span class="time-text">0</span>
+          <span>:</span>
+          <span class="time-text">0</span>
+          <span class="time-text">0</span>
+        </div>
+        <div class="centent-more">
+          更多>
+        </div>
+      </div>
+      <ul class="centent-bottom">
+        <li ng-repeat="item in product_limitTimeOnSale">
+        	<a ng-href="#/details/{{item.productId}}">
+          	<img ng-src="{{item.briefImg}}" alt="{{item.productName}}">
+          </a>
+          <span class="seckill-now">￥{{item.price/100}}</span>
+          <span class="seckill-old">￥{{item.prePrice/100}}</span>
+        </li>
+      </ul>
+    </div>
+
+    <!--主题场馆-->
+    <div class="floor">
+      <div class="floor-title">主题场馆</div>
+      <div class="floor-product">
+        <div class="floor-product-list floor-left">
+        	<a ng-href="#/goodsList/{{themeProducer.leftTheme.producerId}}/producer">
+          <img ng-src="{{themeProducer.leftTheme.homepageImg}}" alt="{{themeProducer.leftTheme.producerName}}">
+          </a>
+        </div>
+        <div class="floor-product-list" >
+          <img ng-src="{{item.homepageImg}}" ui-sref="goodsList({typeNumber:{{item.producerId}},type:'producer'})" alt="{{item.producerName}}" ng-repeat="item in themeProducer.rightTheme">
+        </div>
+      </div>
+    </div>
+
+    <!--广告2-->
+    <div class="ad">
+      <ion-slide-box show-pager="true" auto-play="true" does-continue="true">
+        <ion-slide ng-repeat="item in obj_home_adv">
+          <img ng-src="{{item.imgUrl}}">
+        </ion-slide>
+      </ion-slide-box>
+    </div>
+    <!-- 产品展示 -->
+    <div id="floor-1" class="floor">
+      <div class="floor-title">品牌购</div>
+      <div class="floor-product">
+        <div class="floor-product-list floor-left">
+        	<a ng-href="#/goodsList/{{brand.leftBrand.brandId}}/brand">
+          <img ng-src="{{brand.leftBrand.homepageImg}}" alt="{{brand.leftBrand.brandName}}">
+          </a>
+        </div>
+        <div class="floor-product-list" >
+          <img ng-src="{{item.homepageImg}}" ui-sref="goodsList({typeNumber:{{item.brandId}},type:'brand'})" alt="{{item.brandName}}" ng-repeat="item in brand.rightBrand">
+        </div>
+      </div>
+    </div>
+
+    <!--回到顶部的区块-->
+    <div class="back_top"></div>
+  </ion-content>
+</ion-view>
