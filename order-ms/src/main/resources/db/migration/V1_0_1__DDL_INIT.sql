@@ -21,10 +21,10 @@ CREATE TABLE `tbiz_order` (
 CREATE TABLE `tbiz_order_item` (
   `order_item_id` BIGINT(30) NOT NULL AUTO_INCREMENT COMMENT '订单明细id',
   `order_id` BIGINT(20) NOT NULL COMMENT '订单id',
-  `product_id` int(11) DEFAULT NULL '产品id',
+  `product_id` int(11) DEFAULT NULL COMMENT '产品id',
 	`business_id` int(11) NOT NULL COMMENT '商家id',
   `product_count` int(11) DEFAULT NULL COMMENT '产品数量',
-	`product_price` int(11) DEFAULT NULL '产品单价',
+	`product_price` int(11) DEFAULT NULL COMMENT '产品单价',
 	`amount` bigint(15) DEFAULT NULL COMMENT '*100',
   `courier_company` varchar(255) DEFAULT NULL COMMENT '快递公司',
   `courier_number` varchar(64) DEFAULT NULL COMMENT '快递单号',

@@ -73,7 +73,7 @@ public enum StatusCode implements RestStatus {
     /**
      * 没有可取消的订单
      */
-    WITHOUT_CANCEL_ORDER(42008, "没有可取消的订单"),
+    WITHOUT_CANCEL_ORDER(42009, "没有可取消的订单"),
 
     // 50xxx 服务端异常
     /**
