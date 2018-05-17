@@ -180,6 +180,7 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
         }else{
             Shift.fatal(StatusCode.WITHOUT_CANCEL_ORDER);
         }
+        return 0;
     }
 
     public ObjectDataResponse<PageInfo<BizOrder>> userOrderPageList(Long userId, PageRequest request) {

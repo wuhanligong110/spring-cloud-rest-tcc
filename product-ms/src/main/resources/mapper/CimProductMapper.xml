@@ -297,7 +297,20 @@
     where tp.business_id = #{businessId,jdbcType=INTEGER}
   </select>
 
-  <update id="addProductInventory">
-
+  <update id="addProductInventory" parameterType="java.util.List">
+    update tcim_product
+    set
+    hava_inventory =  (CASE product_id
+    <foreach item="item" collection="list">
+      when #{item.productId} then hava_inventory - #{item.productCount}
+    </foreach>
+    END),
+    update_time = now()
+    <where>
+      product_id
+      <foreach item="item" open="IN (" close=")" separator="," collection="list">
+        #{item.productId}
+      </foreach>
+    </where>
   </update>
 </mapper>

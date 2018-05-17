@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
- * @author Zhao Junjian
+ * @author hxb
  */
 @Component
 public class AccountClientFallback implements AccountClient {
