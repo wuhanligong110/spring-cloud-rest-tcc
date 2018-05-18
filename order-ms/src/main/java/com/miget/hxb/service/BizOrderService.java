@@ -3,10 +3,7 @@ package com.miget.hxb.service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableMap;
-import com.miget.hxb.EventDrivenPublisher;
 import com.miget.hxb.Shift;
-import com.miget.hxb.config.EventBusinessType;
 import com.miget.hxb.controller.StatusCode;
 import com.miget.hxb.controller.client.AccountClient;
 import com.miget.hxb.controller.client.ProductClient;
@@ -19,7 +16,6 @@ import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.page.PageInfo;
 import com.miget.hxb.persistence.BizOrderMapper;
 import com.miget.hxb.persistence.CrudMapper;
-import com.miget.hxb.util.Jacksons;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -46,8 +42,6 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
     private ProductClient productClient;
     @Autowired
     private BizOrderItemService orderItemService;
-    @Autowired
-    private EventDrivenPublisher publisher;
 
     @Resource
     private BizOrderMapper mapper;
@@ -133,16 +127,6 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
         }
 
         return resultMap;
-    }
-
-    private void confirmPhase() {
-        final ImmutableMap.Builder<String, Object> payloadBuilder = ImmutableMap.builder();
-        payloadBuilder.put("point", 111);
-        payloadBuilder.put("order_id", 111);
-        payloadBuilder.put("user_id", 111);
-        payloadBuilder.put("product_id", 111);
-        // 发送积分添加事件
-        publisher.persistPublishMessage(Jacksons.parse(payloadBuilder.build()), EventBusinessType.ADD_PTS.name());
     }
 
     public int payConfirm(PaymentRequest request) {

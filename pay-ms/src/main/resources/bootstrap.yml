@@ -1,0 +1,85 @@
+server:
+  port: 10019
+management:
+  port: 10898
+  context-path: '/78d504ff-82e8-4a87-82e8-724d72d11333'
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://eureka1:8763/eureka/,http://eureka2:8762/eureka/'
+  instance:
+    metadata-map:
+      cluster: prontera
+      management:
+        port: ${management.port}
+        context-path: ${management.context-path}
+      health:
+        path: ${management.context-path}/health
+    status-page-url-path: ${management.context-path}/info
+    health-check-url-path: ${management.context-path}/health
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+spring:
+  application:
+    name: pay
+  datasource:
+    username: root
+    password: 123456
+    url: 'jdbc:mysql://solar_mysql:3306/pay?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useLegacyDatetimeCode=false&useSSL=false'
+  rabbitmq:
+    host: rabbitmq
+    username: chris
+    password: 123123
+    virtual-host: prontera
+    listener:
+      retry:
+        enabled: true
+    template:
+      retry:
+        enabled: true
+      mandatory: true
+    publisher-confirms: true
+    publisher-returns: true
+  redis:
+    host: 10.16.0.113
+    port: 6379
+    timeout: 10000
+    pool:
+      max-active: 100
+      max-wait: -1
+      max-idle: 50
+      min-idle: 0
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+    config:
+      discovery:
+        enabled: true
+        service-id: 'config-server'
+      fail-fast: true
+  zipkin:
+    base-url: 'http://zipkin_server:9411/'
+encrypt:
+  key: '*&3loa#@9no_0*(!'
+mybatis:
+  type-handlers-package: 'com.miget.hxb.domain.type.handler'
+  mapper-locations: 'classpath*:mapper/**/*Mapper.xml'
+  type-aliases-package: 'com.miget.hxb.domain'
+ribbon:
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 3
+  OkToRetryOnAllOperations: true
+  ConnectTimeout: 1500
+  ReadTimeout: 2000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
+flyway:
+  enabled: true
+  baseline-on-migrate: true
+  validate-on-migrate: false

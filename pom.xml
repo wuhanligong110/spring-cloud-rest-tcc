@@ -22,8 +22,9 @@
         <module>product-ms</module>
         <module>spring-boot-admin-ms</module>
         <module>zipkin-ms</module>
-        <module>event-driven-dps</module>
-        <module>membership-ms</module>
+        <module>mq-dps</module>
+        <module>activity-ms</module>
+        <module>pay-ms</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

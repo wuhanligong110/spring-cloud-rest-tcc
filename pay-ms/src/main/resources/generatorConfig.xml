@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <classPathEntry location="E:\repository\mysql\mysql-connector-java\5.1.29\mysql-connector-java-5.1.29.jar"/>
+
+    <context id="chris" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="false"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.16.0.113:3306/order?serverTimezone=UTC"
+                        userId="chris" password="123123"/>
+
+        <javaTypeResolver>
+            <!--当数据类型为DECIMAL或者NUMERIC的时候, 如果是true的话则总是使用java.math.BigDecimal-->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.miget.hxb.domain"
+                            targetProject="order-ms">
+            <property name="enableSubPackages" value="true"/>
+            <!--<property name="trimStrings" value="true"/>-->
+            <!--<property name="immutable" value="true"/>-->
+            <property name="rootClass" value="com.miget.hxb.model.BasicDomain"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.miget.hxb.persistence"
+                         targetProject="order-ms">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="com.miget.hxb.persistence"
+                             targetProject="order-ms" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+            <property name="rootInterface" value="com.miget.hxb.persistence.CrudMapper"/>
+        </javaClientGenerator>
+
+        <table alias="to" tableName="tbiz_order" domainObjectName="BizOrder"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="order_id" javaType="java.lang.Long" isGeneratedAlways="false"/>
+            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
+            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
+        </table>
+
+        <table alias="toi" tableName="tbiz_order_item" domainObjectName="BizOrderItem"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="order_item_id" javaType="java.lang.Long" isGeneratedAlways="false"/>
+            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
+            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
+        </table>
+
+    </context>
+</generatorConfiguration>
