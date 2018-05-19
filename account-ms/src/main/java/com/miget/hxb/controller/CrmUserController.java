@@ -1,7 +1,5 @@
 package com.miget.hxb.controller;
 
-import com.miget.hxb.Delay;
-import com.miget.hxb.RandomlyThrowsException;
 import com.miget.hxb.Shift;
 import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.model.request.LoginRequest;
@@ -27,9 +25,7 @@ public class CrmUserController {
     @Autowired
     private CrmUserService crmUserService;
 
-    @Delay
-    @RandomlyThrowsException
-    @ApiOperation(value = "根据ID获取用户", notes = "")
+    @ApiOperation(value = "根据ID获取用户", notes = "根据userId获取用户")
     @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
     public ObjectDataResponse<CrmUser> findUser(@PathVariable Long userId) {
         final CrmUser user = crmUserService.queryByUserId(userId);
@@ -42,20 +38,23 @@ public class CrmUserController {
         return new ObjectDataResponse<>(user);
     }
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "用户注册", notes = "注册新用户, 余额自定义, 用于下单等一系列操作, 并可获取JWT")
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public RegisterResponse register(@Valid @RequestBody RegisterRequest request, BindingResult error) {
         return crmUserService.register(request);
     }
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "用户登录", notes = "用于用户登录, 可获取JWT")
     @RequestMapping(value = "/users/login", method = RequestMethod.POST)
     public LoginResponse login(@Valid @RequestBody LoginRequest request, BindingResult error) {
         return crmUserService.login(request);
+    }
+
+    @ApiOperation(value = "根据微信openid获取用户", notes = "根据微信openid获取用户")
+    @RequestMapping(value = "/users/{openid}/weixin", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    ObjectDataResponse<CrmUser> queryRemoteUserByOpenId(@PathVariable("openid")String openid){
+        final CrmUser user = crmUserService.queryUserByOpenId(openid);
+        return new ObjectDataResponse<>(user);
     }
 
     /*@Delay

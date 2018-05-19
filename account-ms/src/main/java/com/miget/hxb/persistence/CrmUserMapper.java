@@ -16,4 +16,6 @@ public interface CrmUserMapper extends CrudMapper<CrmUser> {
     int addWithdrawCredit(CreditAddRequest request);
 
     int addShopCredit(CreditAddRequest request);
+
+    CrmUser queryUserByOpenId(@Param("openid")String openid);
 }

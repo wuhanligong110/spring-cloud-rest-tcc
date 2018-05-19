@@ -125,4 +125,9 @@ public class CrmUserService extends CrudServiceImpl<CrmUser> implements Applicat
     public int addShopCredit(CreditAddRequest request) {
         return mapper.addShopCredit(request);
     }
+
+    public CrmUser queryUserByOpenId(String openid) {
+        Preconditions.checkNotNull(openid);
+        return mapper.queryUserByOpenId(openid);
+    }
 }
