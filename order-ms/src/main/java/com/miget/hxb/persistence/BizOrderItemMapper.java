@@ -2,6 +2,7 @@ package com.miget.hxb.persistence;
 
 import com.miget.hxb.MyBatisRepository;
 import com.miget.hxb.domain.BizOrderItem;
+import com.miget.hxb.model.request.PaymentRequest;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface BizOrderItemMapper extends CrudMapper<BizOrderItem> {
 
     List<BizOrderItem> orderDetailList(@Param("orderId")Long orderId);
 
+    int payConfirm(PaymentRequest request);
 }

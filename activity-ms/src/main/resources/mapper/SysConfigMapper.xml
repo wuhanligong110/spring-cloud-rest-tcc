@@ -152,4 +152,12 @@
       operator = #{operator,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryConfigByBnIdAndKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tsys_config tc
+    where tc.business_id = #{businessId,jdbcType=INTEGER}
+    and tc.config_key = #{configKey,jdbcType=VARCHAR}
+  </select>
 </mapper>

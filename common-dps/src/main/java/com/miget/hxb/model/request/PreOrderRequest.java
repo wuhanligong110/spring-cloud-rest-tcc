@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"}, ignoreUnknown = true)
-public class OrderCancelRequest extends RestfulRequest{
+public class PreOrderRequest extends RestfulRequest{
 
     private static final long serialVersionUID = -4274907076944080062L;
 

@@ -40,6 +40,15 @@ spring:
       mandatory: true
     publisher-confirms: true
     publisher-returns: true
+  redis:
+    host: 10.16.0.113
+    port: 6379
+    timeout: 10000
+    pool:
+      max-active: 100
+      max-wait: -1
+      max-idle: 50
+      min-idle: 0
   cloud:
     loadbalancer:
       retry:

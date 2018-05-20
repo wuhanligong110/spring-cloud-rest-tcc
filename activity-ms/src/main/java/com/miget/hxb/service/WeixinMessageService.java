@@ -1,66 +1,60 @@
 package com.miget.hxb.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.eshop4j.api.wx.constant.WeixinConstant;
-import com.eshop4j.api.wx.custommsg.CustomTextMessage;
-import com.eshop4j.api.wx.custommsg.content.TextContent;
-import com.eshop4j.api.wx.helper.WeixinHelper;
-import com.eshop4j.api.wx.message.resp.*;
-import com.eshop4j.api.wx.model.TemplateData;
-import com.eshop4j.api.wx.utils.MessageUtil;
-import com.eshop4j.api.wx.utils.WeixinUtil;
-import com.eshop4j.web.model.BizCustomer;
-import com.eshop4j.web.service.BizCustomerService;
-import com.eshop4j.web.service.SysConfigService;
-import com.eshop4j.web.service.WeixinMessageService;
-import com.eshop4j.xoss.helper.ConfigHelper;
+import com.google.common.base.Preconditions;
+import com.miget.hxb.Shift;
+import com.miget.hxb.controller.StatusCode;
+import com.miget.hxb.controller.client.AccountClient;
+import com.miget.hxb.model.CrmUser;
+import com.miget.hxb.util.DateUtils;
+import com.miget.hxb.wx.constant.WeixinConstant;
+import com.miget.hxb.wx.custommsg.CustomTextMessage;
+import com.miget.hxb.wx.custommsg.content.TextContent;
+import com.miget.hxb.wx.helper.WeixinHelper;
+import com.miget.hxb.wx.message.resp.*;
+import com.miget.hxb.wx.model.TemplateData;
+import com.miget.hxb.wx.utils.MessageUtil;
+import com.miget.hxb.wx.utils.WeixinUtil;
 import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Service
-public class WeixinMessageService implements WeixinMessageService {
+public class WeixinMessageService{
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(WeixinMessageService.class);
 	private static ExecutorService executorService = Executors.newFixedThreadPool(30);
-	
+
 	@Autowired
-	private ConfigHelper configHelper;
-	@Autowired
-	private BizCustomerService bizCustomerService;
+	private AccountClient accountClient;
 	@Autowired
 	private WeixinHelper weixinHelper;
 	@Autowired
 	private SysConfigService sysConfigService;
-	
-	@Override
-	public void sendTempletMsg(final Integer consumerId,final String type,final String point,final String from,final String remark,final String accessToken) {
-		if(configHelper.getSwitching("wx_sendTempletMsg")){
+
+	public void sendTempletMsg(final Long businessId, final Long userId,final String type,final String point,final String from,final String remark,final String accessToken) {
+		if(sysConfigService.getSwitching(businessId,"wx_sendTempletMsg")){
 			executorService.execute(new Runnable() {
 				@Override
 				public void run() {
-					LOGGER.info("开始发送微信模板消息");				
-					BizCustomer bizCustomer = new BizCustomer();
-					bizCustomer.setConsumerId(consumerId);
-					bizCustomer = bizCustomerService.selectOne(bizCustomer);
-					if(bizCustomer != null){
-						String wechatOpenid = bizCustomer.getWechatOpenid();
+					LOGGER.info("开始发送微信模板消息");
+					final CrmUser user = findRemoteUser(userId);
+					if(user != null){
+						String wechatOpenid = user.getWechatOpenid();
 						String jsonData = TemplateData.New()
 								.setTouser(wechatOpenid)
 								.setTemplate_id(WeixinConstant.TEMPLET_TYPE)
 								.setTopcolor("#173177")
 								.setUrl(WeixinConstant.INDEX_PAGE_URL)
-								.add("first", "尊敬的客户【"+bizCustomer.getConsumerId()+"】,您好:", "#173177")
-								.add("time",DateTime.now().toString("yyyy-MM-dd HH:mm:ss"), "#173177")
+								.add("first", "尊敬的客户【"+user.getUserId()+"】,您好:", "#173177")
+								.add("time",DateUtils.getNow("yyyy-MM-dd HH:mm:ss"), "#173177")
 								.add("type", type, "#173177")
 								.add("Point", point, "#173177")
 								.add("From", from, "#173177")
@@ -68,7 +62,7 @@ public class WeixinMessageService implements WeixinMessageService {
 								.build();
 						//	String accessToken = "6-lCmfSQyrPRGtoeewM8_uvF0V7pgG_yA6QTbTq-oCWlpiogSr3Uai23rn-JoGyNLIYWebKXhmb3K0F9mdS6DEU5JHw9tpBuA6gyFiVMqSIR8x9zoXeOOPyNAhHKQdD9UJMeAIAODG";
 						if(StringUtils.isEmpty(accessToken)){
-							WeixinUtil.sendTempletMsg(weixinHelper.getAccessToken(WeixinConstant.APPID, WeixinConstant.SECRET,false), jsonData);
+							WeixinUtil.sendTempletMsg(weixinHelper.getAccessToken(businessId,WeixinConstant.APPID, WeixinConstant.SECRET,false), jsonData);
 						} else {							
 							WeixinUtil.sendTempletMsg(accessToken, jsonData);
 						}
@@ -80,29 +74,28 @@ public class WeixinMessageService implements WeixinMessageService {
 		}
 	}
 
-	@Override
-	public String sendWeixinMessage(String openid,String parameter) {
+	public String sendWeixinMessage(Long businessId, String openid,String parameter) {
 		
 		//发送微信图文消息
 		NewsMessage newmsg=new NewsMessage();
 		newmsg.setToUserName(openid);
 		newmsg.setFromUserName(WeixinConstant.FROM_USER_NAME);
-		newmsg.setCreateTime(new Date().getTime());
+		newmsg.setCreateTime(System.currentTimeMillis());
 		newmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
 		
 		String wechatImgmsgDescription = null;
 		if("0".equals(parameter)){
-			wechatImgmsgDescription = sysConfigService.getValuesByKey("wechat_notsubscribe_imgmsg_description");
+			wechatImgmsgDescription = sysConfigService.getValuesByBnIdAndKey(businessId,"wechat_notsubscribe_imgmsg_description");
 		} else {
-			BizCustomer bizCustomer = bizCustomerService.queryCustomerByCustomerId(Integer.parseInt(parameter));
-			wechatImgmsgDescription = String.format(sysConfigService.getValuesByKey("wechat_imgmsg_description"), bizCustomer != null?bizCustomer.getWechatNickname():"") ;
+			final CrmUser user = findRemoteUser(Long.parseLong(parameter));
+			wechatImgmsgDescription = String.format(sysConfigService.getValuesByBnIdAndKey(businessId,"wechat_imgmsg_description"), user != null?user.getWechatNickname():"") ;
 		}
 		
 		Article article=new Article();
 		article.setDescription(wechatImgmsgDescription); //图文消息的描述
-		article.setPicUrl(sysConfigService.getValuesByKey("wechat_imgmsg_picurl")); //图文消息图片地址
-		article.setTitle(sysConfigService.getValuesByKey("wechat_imgmsg_title"));  //图文消息标题
-		article.setUrl(sysConfigService.getValuesByKey("wechat_imgmsg_url"));  //图文 url 链接
+		article.setPicUrl(sysConfigService.getValuesByBnIdAndKey(businessId,"wechat_imgmsg_picurl")); //图文消息图片地址
+		article.setTitle(sysConfigService.getValuesByBnIdAndKey(businessId,"wechat_imgmsg_title"));  //图文消息标题
+		article.setUrl(sysConfigService.getValuesByBnIdAndKey(businessId,"wechat_imgmsg_url"));  //图文 url 链接
 		List<Article> list=new ArrayList<Article>();
 		list.add(article);     //这里发送的是单图文，如果需要发送多图文则在这里 list 中加入多个 Article 即可！
 		newmsg.setArticleCount(list.size());
@@ -113,42 +106,39 @@ public class WeixinMessageService implements WeixinMessageService {
 //		LOGGER.info(returnXmlMessage);
 		return returnXmlMessage;
 	}
-	
-	@Override
-	public String sendWeixinImageMessage(String openid, String parameter) {
+
+	public String sendWeixinImageMessage(Long businessId,String openid, String parameter) {
 		
 		ImageMessage imageMessage = new ImageMessage();
 		
 		//发送微信图片消息
 		imageMessage.setToUserName(openid);
 		imageMessage.setFromUserName(WeixinConstant.FROM_USER_NAME);
-		imageMessage.setCreateTime(new Date().getTime());
+		imageMessage.setCreateTime(System.currentTimeMillis());
 		imageMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_Image);
 		
 		Image image = new Image();
-		image.setMediaId(sysConfigService.getValuesByKey("weixin_message_mediaid"));
+		image.setMediaId(sysConfigService.getValuesByBnIdAndKey(businessId,"weixin_message_mediaid"));
 		imageMessage.setImage(image);
 		String returnXmlMessage = MessageUtil.imageMessageToXml(imageMessage);
 		return returnXmlMessage;
 	}
-	
-	@Override
+
 	public String sendWeixinTextMessage(String openid, String text) {
 		TextMessage textMessage = new TextMessage();
 		
 		//发送微信文本消息
 		textMessage.setToUserName(openid);
 		textMessage.setFromUserName(WeixinConstant.FROM_USER_NAME);
-		textMessage.setCreateTime(new Date().getTime());
+		textMessage.setCreateTime(System.currentTimeMillis());
 		textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 		textMessage.setContent(text);
 		String returnXmlMessage = MessageUtil.textMessageToXml(textMessage);
 		return returnXmlMessage;
 	}
 
-	@Override
-	public void sendCustomTextMessage(final String openid, final String content) {
-		if(configHelper.getSwitching("wx_sendCustomMsg")){
+	public void sendCustomTextMessage(final Long businessId, final String openid, final String content) {
+		if(sysConfigService.getSwitching(businessId,"wx_sendCustomMsg")){
 			executorService.execute(new Runnable() {
 				@Override
 				public void run() {
@@ -158,11 +148,20 @@ public class WeixinMessageService implements WeixinMessageService {
 					TextContent textContent = new TextContent();
 					textContent.setContent(content);
 					customTextMessage.setText(textContent); 
-				    WeixinUtil.sendCustomMsg(weixinHelper.getAccessToken(WeixinConstant.APPID, WeixinConstant.SECRET,false), JSONObject.toJSONString(customTextMessage));					
+				    WeixinUtil.sendCustomMsg(weixinHelper.getAccessToken(businessId,WeixinConstant.APPID, WeixinConstant.SECRET,false), JSONObject.toJSONString(customTextMessage));
 				}
 			});
 		} else {
 			LOGGER.info("微信客服消息开关关闭");	
 		}
+	}
+
+	private CrmUser findRemoteUser(Long userId) {
+		Preconditions.checkNotNull(userId);
+		final CrmUser user = accountClient.findUser(userId).getData();
+		if (user == null) {
+			Shift.fatal(StatusCode.USER_NOT_EXISTS);
+		}
+		return user;
 	}
 }

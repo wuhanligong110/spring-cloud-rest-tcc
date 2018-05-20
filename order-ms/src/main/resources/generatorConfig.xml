@@ -7,7 +7,7 @@
 
     <context id="chris" targetRuntime="MyBatis3">
         <commentGenerator>
-            <property name="suppressAllComments" value="false"/>
+            <property name="suppressAllComments" value="true"/>
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.16.0.113:3306/order?serverTimezone=UTC"
@@ -37,7 +37,7 @@
             <property name="rootInterface" value="com.miget.hxb.persistence.CrudMapper"/>
         </javaClientGenerator>
 
-        <table alias="to" tableName="tbiz_order" domainObjectName="BizOrder"
+        <table alias="tord" tableName="tbiz_order" domainObjectName="BizOrder"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="order_id" javaType="java.lang.Long" isGeneratedAlways="false"/>
@@ -45,13 +45,13 @@
             <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
         </table>
 
-        <table alias="toi" tableName="tbiz_order_item" domainObjectName="BizOrderItem"
+        <!--<table alias="toi" tableName="tbiz_order_item" domainObjectName="BizOrderItem"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="order_item_id" javaType="java.lang.Long" isGeneratedAlways="false"/>
             <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
             <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
-        </table>
+        </table>-->
 
     </context>
 </generatorConfiguration>

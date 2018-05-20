@@ -1,7 +1,7 @@
 package com.miget.hxb.wx;
 
 import com.miget.hxb.wx.utils.PaymentKit;
-import com.eshop4j.xoss.util.HttpUtils;
+import com.miget.hxb.util.HttpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

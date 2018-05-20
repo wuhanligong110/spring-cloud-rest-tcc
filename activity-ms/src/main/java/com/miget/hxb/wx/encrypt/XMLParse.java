@@ -8,8 +8,8 @@
 
 package com.miget.hxb.wx.encrypt;
 
-import com.eshop4j.xoss.helper.XmlHelper;
 
+import com.miget.hxb.util.XmlHelper;
 
 /**
  * XMLParse class

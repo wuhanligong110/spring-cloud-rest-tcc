@@ -1,9 +1,8 @@
-package com.eshop4j.xoss.util;
-
-import javax.xml.bind.DatatypeConverter;
+package com.miget.hxb.util;
 
 import com.google.common.base.Charsets;
 
+import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.Charset;
 
 /**

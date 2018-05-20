@@ -57,6 +57,13 @@ public class CrmUserController {
         return new ObjectDataResponse<>(user);
     }
 
+    @ApiOperation(value = "微信用户注册", notes = "微信用户注册")
+    @RequestMapping(value = "/users/weixin", method = RequestMethod.POST)
+    ObjectDataResponse<Integer> weixinRemoteRegister(@RequestBody CrmUser user){
+        int result = crmUserService.persist(user);
+        return new ObjectDataResponse<>(result);
+    }
+
     /*@Delay
     @RandomlyThrowsException
     @ApiOperation(value = "用户余额变更", notes = "直接变更指定用户的余额")

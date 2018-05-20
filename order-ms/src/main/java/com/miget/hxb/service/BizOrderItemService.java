@@ -1,6 +1,8 @@
 package com.miget.hxb.service;
 
+import com.google.common.base.Preconditions;
 import com.miget.hxb.domain.BizOrderItem;
+import com.miget.hxb.model.request.PaymentRequest;
 import com.miget.hxb.persistence.BizOrderItemMapper;
 import com.miget.hxb.persistence.CrudMapper;
 import org.slf4j.Logger;
@@ -33,5 +35,10 @@ public class BizOrderItemService extends CrudServiceImpl<BizOrderItem> {
     public List<BizOrderItem> orderDetailList(Long orderId) {
         List<BizOrderItem> orderItems = mapper.orderDetailList(orderId);
         return  orderItems;
+    }
+
+    public int payConfirm(PaymentRequest request) {
+        Preconditions.checkNotNull(request);
+        return mapper.payConfirm(request);
     }
 }

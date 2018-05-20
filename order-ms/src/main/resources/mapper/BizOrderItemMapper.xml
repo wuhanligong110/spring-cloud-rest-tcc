@@ -242,9 +242,32 @@
 
   <insert id="batchInsert" parameterType="com.miget.hxb.domain.BizOrderItem">
     INSERT INTO tbiz_order_item
-    <foreach collection="orderItemList" index="index" item="item"
-             open="values" separator="," close="">
-      (#{item.orderId},#{item.productId},#{item.businessId},#{item.productCount},#{item.productPrice},#{item.amount},#{item.courierCompany},#{item.courierNumber},#{item.sendStatus},#{item.payStatus},#{item.createTime},#{item.updateTime},#{item.operator})
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      order_id,
+      product_id,
+      business_id,
+      product_count,
+      product_price,
+      amount,
+      send_status,
+      pay_status,
+      create_time,
+      operator,
+    </trim>
+    values
+    <foreach collection="orderItemList"  item="item" separator="," >
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        #{item.orderId},
+        #{item.productId},
+        #{item.businessId},
+        #{item.productCount},
+        #{item.productPrice},
+        #{item.amount},
+        #{item.sendStatus},
+        #{item.payStatus},
+        #{item.createTime},
+        #{item.operator},
+      </trim>
     </foreach>
   </insert>
 
@@ -254,4 +277,12 @@
     from tbiz_order_item toi
     where toi.order_id = #{orderId,jdbcType=BIGINT}
   </select>
+
+  <update id="payConfirm" parameterType="com.miget.hxb.model.request.PaymentRequest">
+    update tbiz_order_item
+    set
+      pay_status = 1,
+      update_time = now()
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
 </mapper>

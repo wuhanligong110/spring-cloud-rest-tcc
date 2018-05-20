@@ -34,10 +34,19 @@ public class SysConfigService extends CrudServiceImpl<SysConfig>{
     
    public boolean getSwitching(Long businessId,String key) {
        SysConfig result = mapper.queryConfigByBnIdAndKey(businessId,key);
-
+       if(result.getConfigValue().equals("true")){
+           return true;
+       }
+       return false;
    }
 
    public Integer getIntegerValueByKey(Long businessId,String key) {
+       SysConfig result = mapper.queryConfigByBnIdAndKey(businessId,key);
+       return Integer.parseInt(result.getConfigValue());
+   }
 
+   public String getValuesByBnIdAndKey(Long businessId,String key) {
+       SysConfig result = mapper.queryConfigByBnIdAndKey(businessId,key);
+       return result.getConfigValue();
    }
 }

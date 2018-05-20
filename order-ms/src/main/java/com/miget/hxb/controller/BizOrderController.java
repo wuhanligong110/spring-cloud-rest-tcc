@@ -10,6 +10,7 @@ import com.miget.hxb.model.request.PaymentRequest;
 import com.miget.hxb.model.request.PlaceOrderRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.page.PageInfo;
+import com.miget.hxb.sender.RabbitSender;
 import com.miget.hxb.service.BizOrderService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,12 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 public class BizOrderController {
+
     @Autowired
     private BizOrderService orderService;
+
+    @Autowired
+    private RabbitSender rabbitSender;
 
     @Delay
     @RandomlyThrowsException

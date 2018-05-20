@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,13 +59,8 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
         final List<PlaceOrderItemRequest> orderItems = Preconditions.checkNotNull(request.getOrderItems());
         // 查询用户
         final CrmUser user = findRemoteUser(userId);
-        List<Integer> productIds = new ArrayList<>();
-        for(PlaceOrderItemRequest orderItem : orderItems){
-            productIds.add(orderItem.getProductId());
-        }
-        // 获取产品
-        final Map<Integer,CimProduct> productMap = findRemoteProducts(productIds);
-        Preconditions.checkNotNull(productMap);
+        // 获取产品  预定单减库存
+        final Map<Integer,CimProduct> productMap = orderProductInventory(orderItems);
 
         //用数据库中的数据计算订单以及订单明细
         Long orderAmount = 0l;
@@ -79,6 +75,7 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
             item.setSendStatus(0);
             item.setPayStatus(0);
             item.setOperator("system");
+            item.setCreateTime(OffsetDateTime.now());
             orderAmount += item.getAmount();
             orderItemList.add(item);
         }
@@ -129,8 +126,30 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
         return resultMap;
     }
 
+    private Map<Integer,CimProduct> orderProductInventory(List<PlaceOrderItemRequest> preOrderRequests) {
+        Preconditions.checkNotNull(preOrderRequests);
+        Map<Integer,CimProduct> resultMap = new HashMap<>();
+        if(preOrderRequests.size() > 0){
+            resultMap = productClient.orderProductInventory(preOrderRequests).getData();
+            for (CimProduct product : resultMap.values()) {
+                if (product == null) {
+                    Shift.fatal(StatusCode.PRODUCT_NOT_EXISTS);
+                }
+                // 检查库存
+                if (product.getHavaInventory() >= product.getInventory()) {
+                    Shift.fatal(StatusCode.INSUFFICIENT_PRODUCT);
+                }
+            }
+        }else{
+            Shift.fatal(StatusCode.NULL_PRODUCT);
+        }
+
+        return resultMap;
+    }
+
     public int payConfirm(PaymentRequest request) {
         Preconditions.checkNotNull(request);
+        orderItemService.payConfirm(request);
         return  mapper.payConfirm(request);
     }
 

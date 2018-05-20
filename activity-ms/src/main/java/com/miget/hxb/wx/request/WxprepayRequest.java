@@ -1,6 +1,5 @@
 package com.miget.hxb.wx.request;
 
-import com.eshop4j.web.model.ProductOrder;
 
 import java.util.List;
 
@@ -14,10 +13,6 @@ public class WxprepayRequest {
 	 * 微信code
 	 */
 	private String code;
-	/**
-	 * 订单列表
-	 */
-	private List<ProductOrder> productOrderList;
 	/**
 	 * 真实ip
 	 */
@@ -45,14 +40,6 @@ public class WxprepayRequest {
 
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	public List<ProductOrder> getProductOrderList() {
-		return productOrderList;
-	}
-
-	public void setProductOrderList(List<ProductOrder> productOrderList) {
-		this.productOrderList = productOrderList;
 	}
 
 	public String getRealIp() {

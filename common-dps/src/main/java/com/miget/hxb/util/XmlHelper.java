@@ -1,4 +1,4 @@
-package com.eshop4j.xoss.helper;
+package com.miget.hxb.util;
 
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;

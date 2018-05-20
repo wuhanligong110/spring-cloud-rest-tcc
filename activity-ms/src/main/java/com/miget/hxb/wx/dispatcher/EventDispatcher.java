@@ -57,9 +57,9 @@ public class EventDispatcher {
         	if(sysConfigService.getSwitching(businessId,"need_subscribe_msg")){
         		Integer messageType = sysConfigService.getIntegerValueByKey(businessId,"weixin_message_type");
         		if(messageType == 0){//图文
-        			respMessage = weixinMessageService.sendWeixinMessage(openid,parameter);
+        			respMessage = weixinMessageService.sendWeixinMessage(businessId,openid,parameter);
         		} else if (messageType == 1){//图片
-        			respMessage = weixinMessageService.sendWeixinImageMessage(openid,parameter);
+        			respMessage = weixinMessageService.sendWeixinImageMessage(businessId,openid,parameter);
         		}
         	}
         }

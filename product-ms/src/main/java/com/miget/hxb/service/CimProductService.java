@@ -6,6 +6,7 @@ import com.google.common.base.Preconditions;
 import com.miget.hxb.domain.CimProduct;
 import com.miget.hxb.model.request.OrderCancelRequest;
 import com.miget.hxb.model.request.PageRequest;
+import com.miget.hxb.model.request.PlaceOrderItemRequest;
 import com.miget.hxb.persistence.CimProductMapper;
 import com.miget.hxb.persistence.CrudMapper;
 import org.slf4j.Logger;
@@ -13,7 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hxb
@@ -41,5 +44,29 @@ public class CimProductService extends CrudServiceImpl<CimProduct>{
             return mapper.addProductInventory(orderCancelRequests);
         }
         return 0;
+    }
+
+    public Map<Integer, CimProduct> orderProductInventory(List<PlaceOrderItemRequest> preOrderRequests) {
+        Preconditions.checkNotNull(preOrderRequests);
+        if(preOrderRequests.size() > 0){
+            int updateResult = mapper.orderProductInventory(preOrderRequests);
+            if(updateResult > 0){
+                List<Integer> productIds = new ArrayList<>();
+                for(PlaceOrderItemRequest orderItemRequest : preOrderRequests){
+                    productIds.add(orderItemRequest.getProductId());
+                }
+                return findProducts(productIds);
+            }
+        }
+        return null;
+    }
+
+    public Map<Integer,CimProduct> findProducts(List<Integer> productIds) {
+        Preconditions.checkNotNull(productIds);
+        if(productIds.size() > 0){
+            Map<Integer,CimProduct> resultMap = mapper.findProducts(productIds);
+            return resultMap;
+        }
+        return null;
     }
 }

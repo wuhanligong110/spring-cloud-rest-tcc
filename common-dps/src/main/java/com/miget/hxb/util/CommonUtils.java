@@ -1,21 +1,15 @@
-package com.eshop4j.core.util;
+package com.miget.hxb.util;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.beanutils.PropertyUtilsBean;
-import org.apache.commons.lang.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.fastjson.JSONObject;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.util.*;
 
 public class CommonUtils {
 	
@@ -40,7 +34,7 @@ public class CommonUtils {
          */
         List<NameValuePair> formparams = new ArrayList<NameValuePair>();
         for(String key:paramsMap.keySet()){
-        	formparams.add(new BasicNameValuePair(key,paramsMap.get(key)));  
+        	formparams.add(new BasicNameValuePair(key,paramsMap.get(key)));
         }
 		return formparams;
 	}
@@ -148,10 +142,11 @@ public class CommonUtils {
             PropertyDescriptor[] descriptors = propertyUtilsBean.getPropertyDescriptors(obj); 
             for (int i = 0; i < descriptors.length; i++) { 
                 String name = descriptors[i].getName(); 
-                if (!StringUtils.equals(name, "class")) {
+                if (!org.apache.commons.lang.StringUtils.equals(name, "class")) {
                 	Object o = propertyUtilsBean.getNestedProperty(obj, name);
-                	if(o != null)
-                		params.put(name, o.toString()); 
+                	if(o != null){
+                        params.put(name, o.toString());
+                    }
                 } 
             } 
         } catch (Exception e) { 

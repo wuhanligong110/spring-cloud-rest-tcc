@@ -75,6 +75,8 @@ public enum StatusCode implements RestStatus {
      */
     WITHOUT_CANCEL_ORDER(42009, "没有可取消的订单"),
 
+    USER_REGISTER_FAIL(42010, "用户注册失败"),
+
     // 50xxx 服务端异常
     /**
      * 用于处理未知的服务端错误

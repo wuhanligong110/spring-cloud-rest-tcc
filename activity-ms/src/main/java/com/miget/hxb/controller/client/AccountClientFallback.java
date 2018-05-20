@@ -23,6 +23,20 @@ public class AccountClientFallback implements AccountClient {
         return null;
     }
 
+    @Override
+    public ObjectDataResponse<CrmUser> queryRemoteUserByOpenId(String openid) {
+        didNotGetResponse();
+        Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
+        return null;
+    }
+
+    @Override
+    public ObjectDataResponse<Integer> weixinRemoteRegister(CrmUser user) {
+        didNotGetResponse();
+        Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
+        return null;
+    }
+
     private void didNotGetResponse() {
         LOGGER.error("service '{}' has become unreachable", SERVICE_ID);
     }

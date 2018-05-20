@@ -6,10 +6,7 @@ import com.miget.hxb.RandomlyThrowsException;
 import com.miget.hxb.Shift;
 import com.miget.hxb.domain.CimBusiness;
 import com.miget.hxb.domain.CimProduct;
-import com.miget.hxb.model.request.OrderCancelRequest;
-import com.miget.hxb.model.request.PageRequest;
-import com.miget.hxb.model.request.ProductAddRequest;
-import com.miget.hxb.model.request.ProductUpdateRequest;
+import com.miget.hxb.model.request.*;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.page.PageInfo;
 import com.miget.hxb.service.CimBusinessService;
@@ -23,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hxb
@@ -36,8 +34,6 @@ public class CimProductController {
     @Autowired
     private CimBusinessService businessService;
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "根据商家ID获取产品列表", notes = "产品列表")
     @RequestMapping(value = "/products/{businessId}/product", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
     public ObjectDataResponse<PageInfo<CimProduct>> productPageList(@PathVariable Long businessId, @Valid PageRequest request) {
@@ -50,8 +46,6 @@ public class CimProductController {
         return new ObjectDataResponse<>(pageInfo);
     }
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "根据商家ID新增产品", notes = "添加新的产品")
     @RequestMapping(value = "/products/{businessId}/product", method = RequestMethod.PUT)
     public ObjectDataResponse<CimProduct> productAdd(@PathVariable Long businessId, @Valid @RequestBody ProductAddRequest request, BindingResult error) {
@@ -67,8 +61,6 @@ public class CimProductController {
         return new ObjectDataResponse<>(product);
     }
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "根据商家ID更新产品", notes = "更新产品")
     @RequestMapping(value = "/products/{businessId}/product", method = RequestMethod.POST)
     public ObjectDataResponse productUpdate(@PathVariable Long businessId, @Valid @RequestBody ProductUpdateRequest request, BindingResult error) {
@@ -83,12 +75,24 @@ public class CimProductController {
         return new ObjectDataResponse<>(null);
     }
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "订单取消增加产品库存", notes = "更新产品库存")
-    @RequestMapping(value = "/products/inventory", method = RequestMethod.POST)
-    ObjectDataResponse<Integer> orderCancel(@RequestBody List<OrderCancelRequest> orderCancelRequests){
+    @RequestMapping(value = "/products/cancle/inventory", method = RequestMethod.POST)
+    public ObjectDataResponse<Integer> orderCancel(@RequestBody List<OrderCancelRequest> orderCancelRequests, BindingResult error){
         Integer result = productService.orderCancel(orderCancelRequests);
+        return new ObjectDataResponse<>(result);
+    }
+
+    @ApiOperation(value = "预订单减少产品库存", notes = "减少产品库存")
+    @RequestMapping(value = "/products/preorder/inventory", method = RequestMethod.POST)
+    public ObjectDataResponse<Map<Integer,CimProduct>> orderProductInventory(@RequestBody List<PlaceOrderItemRequest> preOrderRequests, BindingResult error){
+        Map<Integer,CimProduct> result = productService.orderProductInventory(preOrderRequests);
+        return new ObjectDataResponse<>(result);
+    }
+
+    @ApiOperation(value = "批量按产品ID查询产品", notes = "查询产品")
+    @RequestMapping(value = "/products", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<Map<Integer, CimProduct>> findProducts(@RequestParam List<Integer> productIds){
+        Map<Integer,CimProduct> result = productService.findProducts(productIds);
         return new ObjectDataResponse<>(result);
     }
 

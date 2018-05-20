@@ -1,7 +1,7 @@
 package com.miget.hxb.wx.encrypt;
 
-import com.eshop4j.xoss.util.Base64Utils;
 import com.google.common.base.Charsets;
+import com.miget.hxb.util.Base64Utils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

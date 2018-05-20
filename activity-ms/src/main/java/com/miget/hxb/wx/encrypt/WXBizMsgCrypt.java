@@ -13,9 +13,8 @@
  */
 package com.miget.hxb.wx.encrypt;
 
-import com.eshop4j.xoss.util.Base64Utils;
 import com.google.common.base.Charsets;
-import com.jfinal.kit.LogKit;
+import com.miget.hxb.util.Base64Utils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -179,7 +178,6 @@ public class WXBizMsgCrypt {
             from_appid = new String(Arrays.copyOfRange(bytes, 20 + xmlLength, bytes.length),
                     Charsets.UTF_8);
         } catch (Exception e) {
-            LogKit.error(e.getMessage(), e);
             throw new AesException(AesException.IllegalBuffer);
         }
 
@@ -283,10 +281,10 @@ public class WXBizMsgCrypt {
         return result;
     }
     
-    public static void main(String[] args) throws AesException {
+    /*public static void main(String[] args) throws AesException {
     	WXBizMsgCrypt msgCrypt = new WXBizMsgCrypt("ss", "aaa1111111aaa1111111aaa1111111aaa1111111111", "sss");
     	String msgCryptMsg = msgCrypt.encrypt(msgCrypt.getRandomStr(), "我是测试数据");
     	System.out.println(msgCryptMsg);
-	}
+	}*/
 
 }

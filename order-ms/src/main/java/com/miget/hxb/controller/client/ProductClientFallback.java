@@ -4,6 +4,7 @@ import com.miget.hxb.Shift;
 import com.miget.hxb.controller.StatusCode;
 import com.miget.hxb.model.CimProduct;
 import com.miget.hxb.model.request.OrderCancelRequest;
+import com.miget.hxb.model.request.PlaceOrderItemRequest;
 import com.miget.hxb.model.request.StockReservationRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.model.response.ReservationResponse;
@@ -23,13 +24,6 @@ public class ProductClientFallback implements ProductClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductClientFallback.class);
 
     @Override
-    public ReservationResponse reserve(@RequestBody StockReservationRequest request) {
-        didNotGetResponse();
-        Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
-        return null;
-    }
-
-    @Override
     public ObjectDataResponse<Map<Integer, CimProduct>> findProducts(List<Integer> productIds) {
         didNotGetResponse();
         Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
@@ -38,6 +32,13 @@ public class ProductClientFallback implements ProductClient {
 
     @Override
     public ObjectDataResponse<Integer> orderCancel(List<OrderCancelRequest> orderCancelRequests) {
+        didNotGetResponse();
+        Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
+        return null;
+    }
+
+    @Override
+    public ObjectDataResponse<Map<Integer, CimProduct>> orderProductInventory(List<PlaceOrderItemRequest> preOrderRequests) {
         didNotGetResponse();
         Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
         return null;

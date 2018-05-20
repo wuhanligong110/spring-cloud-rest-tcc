@@ -2,11 +2,11 @@ package com.miget.hxb.wx.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.miget.hxb.util.HttpRequestClient;
 import com.miget.hxb.wx.constant.WeixinConstant;
 import com.miget.hxb.wx.constant.WeixinRequestConstant;
 import com.miget.hxb.wx.model.WeChatQRCode;
 import com.miget.hxb.wx.model.WeixinUserBaseInfo;
-import com.eshop4j.core.util.HttpRequestClient;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;

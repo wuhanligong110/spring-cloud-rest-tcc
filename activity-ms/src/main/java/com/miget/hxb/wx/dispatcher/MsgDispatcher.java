@@ -17,7 +17,7 @@ public class MsgDispatcher {
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(EventDispatcher.class);
 	
-    public String processMessage(Map<String, String> map) {
+    public String processMessage(Map<String, String> map,Long businessId) {
     	
     	LOGGER.info("微信返回参数   map={}",JSONObject.toJSONString(map));
     	

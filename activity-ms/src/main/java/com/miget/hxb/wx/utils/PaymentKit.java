@@ -1,8 +1,8 @@
 package com.miget.hxb.wx.utils;
 
-import com.eshop4j.core.util.CommonUtils;
-import com.eshop4j.xoss.helper.XmlHelper;
 import com.google.common.base.Charsets;
+import com.miget.hxb.util.CommonUtils;
+import com.miget.hxb.util.XmlHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;

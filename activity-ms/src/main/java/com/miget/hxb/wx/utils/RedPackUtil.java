@@ -1,7 +1,7 @@
 package com.miget.hxb.wx.utils;
 
 import com.miget.hxb.wx.constant.WeixinConstant;
-import com.eshop4j.core.util.HttpRequestClient;
+import com.miget.hxb.util.HttpRequestClient;
 import org.apache.http.client.HttpClient;
 
 import java.text.SimpleDateFormat;
