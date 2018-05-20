@@ -24,4 +24,7 @@ public interface AccountClient {
     @RequestMapping(value = API_PATH + "/users/{userId}", method = RequestMethod.GET)
     ObjectDataResponse<CrmUser> findUser(@PathVariable("userId") Long userId);
 
+    @RequestMapping(value = API_PATH + "/users/{openid}/weixin", method = RequestMethod.GET)
+    ObjectDataResponse<CrmUser> queryRemoteUserByOpenId(@PathVariable("openid")String openid);
+
 }

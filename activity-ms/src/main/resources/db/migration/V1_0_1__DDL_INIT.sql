@@ -2,19 +2,27 @@ CREATE SCHEMA IF NOT EXISTS `activity`
   DEFAULT CHARACTER SET utf8;
 USE `activity`;
 
-CREATE TABLE `tact_activity_lottery` (
-  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增长主键',
-	`activity_code` varchar(50) DEFAULT NULL COMMENT '活动编码',
-  `prize_id` int(11) DEFAULT '0' COMMENT '奖品ID',
-  `prize_desc` varchar(64) NOT NULL DEFAULT '' COMMENT '奖品描述',
-  `variable` int(11) DEFAULT '0' COMMENT '权重',
-  `lottery_type` int(6) NOT NULL COMMENT ' 奖励类型 1、现金红包 2、投资奖励红包3、其他4、职级体验券5、奖励金6、个人加拥券',
-	`address_type` int(6) DEFAULT '0' COMMENT '收件地址类型 0：不需要收件地址  1：邮寄地址   2：爱奇艺账户',
-  `amount` decimal(32,4) DEFAULT '0.0000' COMMENT '金额',
-  `status` int(4) DEFAULT '1' COMMENT '状态(0=无效，1=有效 )',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '用户更新时间',
+CREATE TABLE `wx_access_token` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `access_token` varchar(600) NOT NULL COMMENT 'access_token凭证',
+  `expires_in` bigint(20) DEFAULT NULL COMMENT '凭证有效时间，单位：秒',
+  `crt_time` bigint(20) DEFAULT NULL COMMENT '创建时间距离当前时间毫秒数',
+  `userid` varchar(128) DEFAULT NULL COMMENT 'userid',
+  `create_date` varchar(25) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tsys_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水号',
+	`business_id` int(11) DEFAULT NULL COMMENT '商家id',
+  `config_name` varchar(50) DEFAULT NULL COMMENT '名称',
+  `config_type` varchar(50) DEFAULT NULL COMMENT '类别',
+  `config_key` varchar(64) DEFAULT NULL COMMENT '键',
+  `config_value` varchar(255) DEFAULT NULL COMMENT '值',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `create_time` datetime DEFAULT NULL COMMENT '用户创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '用户更新时间',
   `operator` varchar(30) DEFAULT NULL COMMENT '操作人',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `activity_prize` (`activity_code`,`prize_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='活动奖项表';
+  UNIQUE KEY `uniq_key` (`config_type`,`config_key`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='系统配置';

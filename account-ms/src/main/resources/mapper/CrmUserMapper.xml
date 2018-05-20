@@ -476,4 +476,11 @@
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 
+  <select id="queryUserByOpenId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tcrm_user tu
+    where tu.wechat_openid = #{openid}
+  </select>
+
 </mapper>

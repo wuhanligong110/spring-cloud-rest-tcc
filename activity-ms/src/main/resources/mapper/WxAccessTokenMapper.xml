@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miget.hxb.persistence.WxAccessTokenMapper">
+  <resultMap id="BaseResultMap" type="com.miget.hxb.domain.WxAccessToken">
+    <id column="wat_id" jdbcType="BIGINT" property="id" />
+    <result column="wat_business_id" jdbcType="INTEGER" property="businessId" />
+    <result column="wat_access_token" jdbcType="VARCHAR" property="accessToken" />
+    <result column="wat_expires_in" jdbcType="BIGINT" property="expiresIn" />
+    <result column="wat_crt_time" jdbcType="BIGINT" property="crtTime" />
+    <result column="wat_userid" jdbcType="VARCHAR" property="userid" />
+    <result column="wat_create_date" jdbcType="VARCHAR" property="createDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    wat.id as wat_id, wat.business_id as wat_business_id, wat.access_token as wat_access_token, 
+    wat.expires_in as wat_expires_in, wat.crt_time as wat_crt_time, wat.userid as wat_userid, 
+    wat.create_date as wat_create_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wx_access_token wat
+    where wat.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from wx_access_token
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.miget.hxb.domain.WxAccessToken">
+    insert into wx_access_token (id, business_id, access_token, 
+      expires_in, crt_time, userid, 
+      create_date)
+    values (#{id,jdbcType=BIGINT}, #{businessId,jdbcType=INTEGER}, #{accessToken,jdbcType=VARCHAR}, 
+      #{expiresIn,jdbcType=BIGINT}, #{crtTime,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.WxAccessToken">
+    insert into wx_access_token
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="accessToken != null">
+        access_token,
+      </if>
+      <if test="expiresIn != null">
+        expires_in,
+      </if>
+      <if test="crtTime != null">
+        crt_time,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="accessToken != null">
+        #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresIn != null">
+        #{expiresIn,jdbcType=BIGINT},
+      </if>
+      <if test="crtTime != null">
+        #{crtTime,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.WxAccessToken">
+    update wx_access_token
+    <set>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="accessToken != null">
+        access_token = #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresIn != null">
+        expires_in = #{expiresIn,jdbcType=BIGINT},
+      </if>
+      <if test="crtTime != null">
+        crt_time = #{crtTime,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.WxAccessToken">
+    update wx_access_token
+    set business_id = #{businessId,jdbcType=INTEGER},
+      access_token = #{accessToken,jdbcType=VARCHAR},
+      expires_in = #{expiresIn,jdbcType=BIGINT},
+      crt_time = #{crtTime,jdbcType=BIGINT},
+      userid = #{userid,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectNewAccessToken" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from wx_access_token wat
+      where wat.business_id = #{businessId}
+    ORDER BY
+      wat.create_time DESC
+    LIMIT 1
+  </select>
+</mapper>

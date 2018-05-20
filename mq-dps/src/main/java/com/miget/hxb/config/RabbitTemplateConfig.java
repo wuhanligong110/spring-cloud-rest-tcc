@@ -51,7 +51,7 @@ public class RabbitTemplateConfig {
                     	// 清除重发缓存
                     redisTemplate.opsForHash().delete(MQConstants.MQ_PRODUCER_RETRY_KEY, cacheKey);
                 } else {
-                    logger.warn("交换机投机消息至队列失败，correlationData:{}", correlationData);
+                    logger.warn("交换机投递消息至队列失败，correlationData:{}", correlationData);
                 }
             } else {
                 logger.error("消息投递至交换机失败，correlationData:{}，原因：{}", correlationData, cause);
