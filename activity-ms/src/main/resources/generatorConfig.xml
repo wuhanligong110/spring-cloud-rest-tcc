@@ -37,7 +37,7 @@
             <property name="rootInterface" value="com.miget.hxb.persistence.CrudMapper"/>
         </javaClientGenerator>
 
-        <table alias="tc" tableName="tsys_config" domainObjectName="SysConfig"
+        <!--<table alias="tc" tableName="tsys_config" domainObjectName="SysConfig"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="false"/>
@@ -51,6 +51,15 @@
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="false"/>
             <columnOverride column="business_id" javaType="java.lang.Long" isGeneratedAlways="false"/>
+        </table>-->
+
+        <table alias="ta" tableName="tsm_advertisement" domainObjectName="SmAdvertisement"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="false"/>
+            <columnOverride column="business_id" javaType="java.lang.Long" isGeneratedAlways="false"/>
+            <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
+            <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
         </table>
 
     </context>

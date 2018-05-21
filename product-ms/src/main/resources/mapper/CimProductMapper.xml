@@ -345,4 +345,15 @@
     </where>
   </select>
 
+  <select id="queryBusinessOnSaleProductPageList" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tcim_product tp
+    where tp.business_id = #{businessId,jdbcType=INTEGER}
+    and tp.inventory <![CDATA[ > ]]> tp.hava_inventory
+    and tp.price <![CDATA[ < ]]> tp.pre_price
+  </select>
+
 </mapper>

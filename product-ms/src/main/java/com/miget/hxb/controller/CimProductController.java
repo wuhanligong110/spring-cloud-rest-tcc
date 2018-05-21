@@ -1,8 +1,6 @@
 package com.miget.hxb.controller;
 
 import com.github.pagehelper.Page;
-import com.miget.hxb.Delay;
-import com.miget.hxb.RandomlyThrowsException;
 import com.miget.hxb.Shift;
 import com.miget.hxb.domain.CimBusiness;
 import com.miget.hxb.domain.CimProduct;
@@ -36,7 +34,7 @@ public class CimProductController {
 
     @ApiOperation(value = "根据商家ID获取产品列表", notes = "产品列表")
     @RequestMapping(value = "/products/{businessId}/product", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ObjectDataResponse<PageInfo<CimProduct>> productPageList(@PathVariable Long businessId, @Valid PageRequest request) {
+    public ObjectDataResponse<PageInfo<CimProduct>> productPageList(@PathVariable Long businessId, @Valid @ModelAttribute PageRequest request) {
         final CimBusiness business = businessService.find(businessId);
         if (business == null) {
             Shift.fatal(StatusCode.BUSINESS_NOT_EXISTS);
@@ -94,6 +92,18 @@ public class CimProductController {
     public ObjectDataResponse<Map<Integer, CimProduct>> findProducts(@RequestParam List<Integer> productIds){
         Map<Integer,CimProduct> result = productService.findProducts(productIds);
         return new ObjectDataResponse<>(result);
+    }
+
+    @ApiOperation(value = "商家打折产品列表", notes = "产品列表")
+    @RequestMapping(value = "/products/{businessId}/onSale", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<PageInfo<CimProduct>> productOnSalePageList(@PathVariable Long businessId, @Valid @ModelAttribute PageRequest request) {
+        final CimBusiness business = businessService.find(businessId);
+        if (business == null) {
+            Shift.fatal(StatusCode.BUSINESS_NOT_EXISTS);
+        }
+        final Page<CimProduct> productList = productService.queryBusinessOnSaleProductPageList(businessId,request);
+        PageInfo<CimProduct> pageInfo = new PageInfo<>(productList);
+        return new ObjectDataResponse<>(pageInfo);
     }
 
 }

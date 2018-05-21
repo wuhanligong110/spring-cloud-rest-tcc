@@ -17,7 +17,8 @@ eureka:
         path: ${management.context-path}/health
     status-page-url-path: ${management.context-path}/info
     health-check-url-path: ${management.context-path}/health
-    prefer-ip-address: false
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
 spring:
   application:
     name: 'product'

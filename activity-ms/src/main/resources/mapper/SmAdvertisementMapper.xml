@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miget.hxb.persistence.SmAdvertisementMapper">
+  <resultMap id="BaseResultMap" type="com.miget.hxb.domain.SmAdvertisement">
+    <id column="ta_id" jdbcType="INTEGER" property="id" />
+    <result column="ta_business_id" jdbcType="INTEGER" property="businessId" />
+    <result column="ta_page_index" jdbcType="VARCHAR" property="pageIndex" />
+    <result column="ta_img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="ta_link_url" jdbcType="VARCHAR" property="linkUrl" />
+    <result column="ta_show_index" jdbcType="INTEGER" property="showIndex" />
+    <result column="ta_valid_begin_date" jdbcType="TIMESTAMP" property="validBeginDate" />
+    <result column="ta_valid_end_date" jdbcType="TIMESTAMP" property="validEndDate" />
+    <result column="ta_share_title" jdbcType="VARCHAR" property="shareTitle" />
+    <result column="ta_share_desc" jdbcType="VARCHAR" property="shareDesc" />
+    <result column="ta_share_icon" jdbcType="VARCHAR" property="shareIcon" />
+    <result column="ta_share_link" jdbcType="VARCHAR" property="shareLink" />
+    <result column="ta_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ta_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ta_operator" jdbcType="VARCHAR" property="operator" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ta.id as ta_id, ta.business_id as ta_business_id, ta.page_index as ta_page_index, 
+    ta.img_url as ta_img_url, ta.link_url as ta_link_url, ta.show_index as ta_show_index, 
+    ta.valid_begin_date as ta_valid_begin_date, ta.valid_end_date as ta_valid_end_date, 
+    ta.share_title as ta_share_title, ta.share_desc as ta_share_desc, ta.share_icon as ta_share_icon, 
+    ta.share_link as ta_share_link, ta.create_time as ta_create_time, ta.update_time as ta_update_time, 
+    ta.operator as ta_operator
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tsm_advertisement ta
+    where ta.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tsm_advertisement
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miget.hxb.domain.SmAdvertisement">
+    insert into tsm_advertisement (id, business_id, page_index, 
+      img_url, link_url, show_index, 
+      valid_begin_date, valid_end_date, share_title, 
+      share_desc, share_icon, share_link, 
+      create_time, update_time, operator
+      )
+    values (#{id,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, #{pageIndex,jdbcType=VARCHAR}, 
+      #{imgUrl,jdbcType=VARCHAR}, #{linkUrl,jdbcType=VARCHAR}, #{showIndex,jdbcType=INTEGER}, 
+      #{validBeginDate,jdbcType=TIMESTAMP}, #{validEndDate,jdbcType=TIMESTAMP}, #{shareTitle,jdbcType=VARCHAR}, 
+      #{shareDesc,jdbcType=VARCHAR}, #{shareIcon,jdbcType=VARCHAR}, #{shareLink,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.SmAdvertisement">
+    insert into tsm_advertisement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="pageIndex != null">
+        page_index,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="linkUrl != null">
+        link_url,
+      </if>
+      <if test="showIndex != null">
+        show_index,
+      </if>
+      <if test="validBeginDate != null">
+        valid_begin_date,
+      </if>
+      <if test="validEndDate != null">
+        valid_end_date,
+      </if>
+      <if test="shareTitle != null">
+        share_title,
+      </if>
+      <if test="shareDesc != null">
+        share_desc,
+      </if>
+      <if test="shareIcon != null">
+        share_icon,
+      </if>
+      <if test="shareLink != null">
+        share_link,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="pageIndex != null">
+        #{pageIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null">
+        #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="showIndex != null">
+        #{showIndex,jdbcType=INTEGER},
+      </if>
+      <if test="validBeginDate != null">
+        #{validBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validEndDate != null">
+        #{validEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shareTitle != null">
+        #{shareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="shareDesc != null">
+        #{shareDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="shareIcon != null">
+        #{shareIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="shareLink != null">
+        #{shareLink,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.SmAdvertisement">
+    update tsm_advertisement
+    <set>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="pageIndex != null">
+        page_index = #{pageIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null">
+        link_url = #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="showIndex != null">
+        show_index = #{showIndex,jdbcType=INTEGER},
+      </if>
+      <if test="validBeginDate != null">
+        valid_begin_date = #{validBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validEndDate != null">
+        valid_end_date = #{validEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shareTitle != null">
+        share_title = #{shareTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="shareDesc != null">
+        share_desc = #{shareDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="shareIcon != null">
+        share_icon = #{shareIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="shareLink != null">
+        share_link = #{shareLink,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.SmAdvertisement">
+    update tsm_advertisement
+    set business_id = #{businessId,jdbcType=INTEGER},
+      page_index = #{pageIndex,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      link_url = #{linkUrl,jdbcType=VARCHAR},
+      show_index = #{showIndex,jdbcType=INTEGER},
+      valid_begin_date = #{validBeginDate,jdbcType=TIMESTAMP},
+      valid_end_date = #{validEndDate,jdbcType=TIMESTAMP},
+      share_title = #{shareTitle,jdbcType=VARCHAR},
+      share_desc = #{shareDesc,jdbcType=VARCHAR},
+      share_icon = #{shareIcon,jdbcType=VARCHAR},
+      share_link = #{shareLink,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryAdvsPageList" resultMap="BaseResultMap" parameterType="com.miget.hxb.model.request.AdvRequest">
+    select
+    <include refid="Base_Column_List" />
+    from tsm_advertisement ta
+    where 1=1
+    <if test="businessId != null">
+      and ta.business_id = #{businessId,jdbcType=INTEGER}
+    </if>
+    <if test="pageIndex != null">
+      and ta.page_index = #{pageIndex,jdbcType=VARCHAR}
+    </if>
+    and DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%S') &gt;= DATE_FORMAT(
+    ta.valid_begin_date,
+    '%Y-%m-%d %H:%i:%S'
+    )
+    and DATE_FORMAT(now(), '%Y-%m-%d %H:%i:%S') &lt;= DATE_FORMAT(
+    ta.valid_end_date,
+    '%Y-%m-%d %H:%i:%S'
+    )
+    ORDER BY ta.show_index ASC
+  </select>
+
+</mapper>

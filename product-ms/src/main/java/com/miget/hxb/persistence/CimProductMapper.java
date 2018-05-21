@@ -23,4 +23,6 @@ public interface CimProductMapper extends CrudMapper<CimProduct> {
 
     @MapKey("productId")
     Map<Integer,CimProduct> findProducts(List<Integer> productIds);
+
+    Page<CimProduct> queryBusinessOnSaleProductPageList(@Param("businessId")Long businessId);
 }

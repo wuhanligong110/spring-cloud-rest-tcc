@@ -69,4 +69,10 @@ public class CimProductService extends CrudServiceImpl<CimProduct>{
         }
         return null;
     }
+
+    public Page<CimProduct> queryBusinessOnSaleProductPageList(Long businessId, PageRequest request) {
+        PageHelper.startPage(request.getPageNo(), request.getPageSize());
+        return mapper.queryBusinessOnSaleProductPageList(businessId);
+    }
+
 }
