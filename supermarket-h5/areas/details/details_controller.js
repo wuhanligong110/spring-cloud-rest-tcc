@@ -20,8 +20,7 @@ angular.module('details.controller', ['details.service'])
 
     // 通过后台获取到的商品详细信息数据
     function productDetail(){
-    	console.log(123456);
-	    var promise=DetailsFty.productDetail($stateParams.productId);
+	  var promise=DetailsFty.productDetail($stateParams.productId);
       promise.then(
         function(data){
           if(data){
@@ -35,17 +34,17 @@ angular.module('details.controller', ['details.service'])
           	console.log(JSON.stringify($scope.obj_productDetailImg));
           	$scope.obj_goodsInfo = data;
           	// 用户选择信息
-				    $scope.obj_goodsDetailInfo = {
-				      productId: $scope.obj_goodsInfo.productId,
-				      isFork: $scope.obj_goodsInfo.isFork,
-				      description: $scope.obj_goodsInfo.description,
-				      src: $scope.obj_goodsInfo.src,
-				      price: $scope.obj_goodsInfo.price,
-				      color: "",
-				      size: "",
-				      number: 1
-				    }
-				    $ionicSlideBoxDelegate.update();
+            $scope.obj_goodsDetailInfo = {
+              productId: $scope.obj_goodsInfo.productId,
+              isFork: $scope.obj_goodsInfo.isFork,
+              description: $scope.obj_goodsInfo.description,
+              src: $scope.obj_goodsInfo.src,
+              price: $scope.obj_goodsInfo.price,
+              color: "",
+              size: "",
+              number: 1
+            }
+            $ionicSlideBoxDelegate.update();
           }else{
           	
           }

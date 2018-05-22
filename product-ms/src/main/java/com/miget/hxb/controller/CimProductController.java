@@ -6,6 +6,7 @@ import com.miget.hxb.domain.CimBusiness;
 import com.miget.hxb.domain.CimProduct;
 import com.miget.hxb.model.request.*;
 import com.miget.hxb.model.response.ObjectDataResponse;
+import com.miget.hxb.model.response.ProductDetailResponse;
 import com.miget.hxb.page.PageInfo;
 import com.miget.hxb.service.CimBusinessService;
 import com.miget.hxb.service.CimProductService;
@@ -124,6 +125,13 @@ public class CimProductController {
         final Page<CimProduct> productList = productService.queryProductCatePageList(request);
         PageInfo<CimProduct> pageInfo = new PageInfo<>(productList);
         return new ObjectDataResponse<>(pageInfo);
+    }
+
+    @ApiOperation(value = "产品详情", notes = "产品详情")
+    @RequestMapping(value = "/products/{productId}/detail", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<ProductDetailResponse> productDetail(@PathVariable Long productId) {
+        ProductDetailResponse productDetail = productService.productDetail(productId);
+        return new ObjectDataResponse<>(productDetail);
     }
 
 }

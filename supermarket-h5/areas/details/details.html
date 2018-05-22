@@ -1,19 +1,5 @@
 <ion-view id="details" view-title="商品详细页面" hide-back-button="true" cache-view="false">
   <ion-content class="scroll-content" scroll="false">
-    <!-- 头部 -->
-    <header id="header">
-      <div class="header-left">
-        <div ng-click="func_goBack()">
-          <span></span>
-        </div>
-      </div>
-      <div class="header-center">
-        <span>商品详情</span>
-      </div>
-      <div class="header-right">
-        <span></span>
-      </div>
-    </header>
     <!-- 产品选项 -->
     <div id="view" class="viewWarp">
       <ion-slide-box show-pager="true" auto-play="true" does-continue="true">
@@ -22,9 +8,9 @@
           <div class="viewText"><span>{{$index+1}}</span>/{{productDetailImgSize}}</div>
         </ion-slide>
       </ion-slide-box>
-    </div> 
+    </div>
     <div id="des">
-      <div class="desText">{{obj_goodsInfo.description}}</div>
+      <div class="desText">{{obj_goodsInfo.productName}}</div>
       <div class="desNumber">¥{{obj_goodsInfo.price}}</div>
     </div>
     <div id="list">
