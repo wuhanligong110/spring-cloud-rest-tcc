@@ -19,12 +19,11 @@ angular.module('goodsList.controller', ['goodsList.service'])
       keyWord: "",
       loginName: "",
       billType: "",
-      pageIndex: 1,
+      pageNo: 1,
       pageSize: 10,
       sortFlag: "0",
       sortType: "desc",
-      typeNumber:$stateParams.typeNumber,
-      type:$stateParams.type
+      categotyId:$stateParams.categotyId
     };
 
 
@@ -42,9 +41,12 @@ angular.module('goodsList.controller', ['goodsList.service'])
       var promise=GoodsListFty.refreshGoodsList(message);
       promise.then(
         function(data){
-          if(data){
+          if(data.list){
+            $scope.obj_goodsListData=data.list;
+          }
+
+          if(!data.lastPage){
             $scope.pms_isMoreItemsAvailable=true;
-            $scope.obj_goodsListData=data;
           }else{
             $scope.pms_isMoreItemsAvailable=false;
           }
@@ -61,20 +63,20 @@ angular.module('goodsList.controller', ['goodsList.service'])
     // 加载更多数据的方法
     $scope.func_loadMoreGoodsList=function(){
 
-			console.log("loading............");
+      console.log("loading............");
 
       $ionicLoading.show({
         template: 'loading....'
       });
 
       // 要传递的参数
-      $scope.obj_pagingInfo.pageIndex++;
+      $scope.obj_pagingInfo.pageNo++;
       var message=$scope.obj_pagingInfo;
       // 调用promise对象
       var promise=GoodsListFty.refreshGoodsList(message);
       promise.then(
         function(data){
-          if(data != ""){
+          if(!data.lastPage){
             $scope.pms_isMoreItemsAvailable=true;
             $.each(data, function(i, item) {
               $scope.obj_goodsListData.push(item);

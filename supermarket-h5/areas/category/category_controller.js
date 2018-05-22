@@ -25,7 +25,6 @@ angular.module('category.controller', ['category.service'])
         };
 
         $scope.getCategoryDetailData = function(categotyId) {
-        	
           var promise=CategoryFty.categoryDetailData(categotyId);
 	      promise.then(
 	        function(data){

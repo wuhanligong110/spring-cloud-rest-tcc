@@ -1,5 +1,6 @@
 package com.miget.hxb.persistence;
 
+import com.github.pagehelper.Page;
 import com.miget.hxb.MyBatisRepository;
 import com.miget.hxb.domain.CimBusiness;
 
@@ -7,4 +8,5 @@ import com.miget.hxb.domain.CimBusiness;
 @MyBatisRepository
 public interface CimBusinessMapper extends CrudMapper<CimBusiness> {
 
+    Page<CimBusiness> findRecommend();
 }

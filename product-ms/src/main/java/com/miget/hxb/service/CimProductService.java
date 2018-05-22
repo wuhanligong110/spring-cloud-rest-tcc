@@ -7,6 +7,7 @@ import com.miget.hxb.domain.CimProduct;
 import com.miget.hxb.model.request.OrderCancelRequest;
 import com.miget.hxb.model.request.PageRequest;
 import com.miget.hxb.model.request.PlaceOrderItemRequest;
+import com.miget.hxb.model.request.ProductCatePageRequest;
 import com.miget.hxb.persistence.CimProductMapper;
 import com.miget.hxb.persistence.CrudMapper;
 import org.slf4j.Logger;
@@ -75,4 +76,13 @@ public class CimProductService extends CrudServiceImpl<CimProduct>{
         return mapper.queryBusinessOnSaleProductPageList(businessId);
     }
 
+    public Page<CimProduct> queryHotProductPageList(Long businessId, PageRequest request) {
+        PageHelper.startPage(request.getPageNo(), request.getPageSize());
+        return mapper.queryHotProductPageList(businessId);
+    }
+
+    public Page<CimProduct> queryProductCatePageList(ProductCatePageRequest request) {
+        PageHelper.startPage(request.getPageNo(), request.getPageSize());
+        return mapper.queryProductCatePageList(request);
+    }
 }

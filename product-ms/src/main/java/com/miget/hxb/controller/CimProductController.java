@@ -106,4 +106,24 @@ public class CimProductController {
         return new ObjectDataResponse<>(pageInfo);
     }
 
+    @ApiOperation(value = "热门产品列表", notes = "产品列表")
+    @RequestMapping(value = "/products/{businessId}/hot", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<PageInfo<CimProduct>> hotProductPageList(@PathVariable Long businessId, @Valid @ModelAttribute PageRequest request) {
+        final CimBusiness business = businessService.find(businessId);
+        if (business == null) {
+            Shift.fatal(StatusCode.BUSINESS_NOT_EXISTS);
+        }
+        final Page<CimProduct> productList = productService.queryHotProductPageList(businessId,request);
+        PageInfo<CimProduct> pageInfo = new PageInfo<>(productList);
+        return new ObjectDataResponse<>(pageInfo);
+    }
+
+    @ApiOperation(value = "产品分类列表", notes = "产品列表")
+    @RequestMapping(value = "/products/catecategoty/product", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<PageInfo<CimProduct>> productCatePageList(@Valid @ModelAttribute ProductCatePageRequest request) {
+        final Page<CimProduct> productList = productService.queryProductCatePageList(request);
+        PageInfo<CimProduct> pageInfo = new PageInfo<>(productList);
+        return new ObjectDataResponse<>(pageInfo);
+    }
+
 }

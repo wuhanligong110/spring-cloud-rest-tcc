@@ -99,7 +99,7 @@
       </div>
       <ul class="centent-bottom">
         <li ng-repeat="item in product_limitTimeOnSale">
-        	<a ng-href="#/details/{{item.productId}}">
+          <a ng-href="#/details/{{item.productId}}">
           	<img ng-src="{{item.listImg}}" alt="{{item.productName}}">
           </a>
           <span class="seckill-now">￥{{item.price/100}}</span>
@@ -111,7 +111,7 @@
     <!--主题场馆-->
     <div class="floor">
       <div class="floor-title">主题场馆</div>
-      <div class="floor-product">
+      <!--<div class="floor-business">
         <div class="floor-product-list floor-left">
         	<a ng-href="#/goodsList/{{themeProducer.leftTheme.producerId}}/producer">
           <img ng-src="{{themeProducer.leftTheme.homepageImg}}" alt="{{themeProducer.leftTheme.producerName}}">
@@ -120,30 +120,82 @@
         <div class="floor-product-list" >
           <img ng-src="{{item.homepageImg}}" ui-sref="goodsList({typeNumber:{{item.producerId}},type:'producer'})" alt="{{item.producerName}}" ng-repeat="item in themeProducer.rightTheme">
         </div>
-      </div>
+      </div>-->
+
+      <ul class="centent-business">
+          <li ng-repeat="item in businesses">
+            <a ng-href="#/goodsList/{{item.businessId}}/business">
+              <img ng-src="{{item.listImg}}" alt="{{item.businessName}}">
+            </a>
+          </li>
+      </ul>
     </div>
 
     <!--广告2-->
-    <div class="ad">
+    <!--<div class="ad">
       <ion-slide-box show-pager="true" auto-play="true" does-continue="true">
         <ion-slide ng-repeat="item in obj_home_adv">
           <img ng-src="{{item.imgUrl}}">
         </ion-slide>
       </ion-slide-box>
-    </div>
-    <!-- 产品展示 -->
+    </div>-->
+    <!-- 品牌展示 -->
     <div id="floor-1" class="floor">
       <div class="floor-title">品牌购</div>
-      <div class="floor-product">
-        <div class="floor-product-list floor-left">
-        	<a ng-href="#/goodsList/{{brand.leftBrand.brandId}}/brand">
-          <img ng-src="{{brand.leftBrand.homepageImg}}" alt="{{brand.leftBrand.brandName}}">
+      <ul class="centent-brand">
+        <li ng-repeat="item in brand">
+          <a ng-href="#/goodsList/{{item.categotyId}}/brand">
+            <img ng-src="{{item.categotyImg}}" alt="{{item.categotyName}}">
           </a>
-        </div>
-        <div class="floor-product-list" >
-          <img ng-src="{{item.homepageImg}}" ui-sref="goodsList({typeNumber:{{item.brandId}},type:'brand'})" alt="{{item.brandName}}" ng-repeat="item in brand.rightBrand">
-        </div>
-      </div>
+        </li>
+      </ul>
+    </div>
+
+    <div id="floor-2" class="floor">
+      <div class="floor-title">热门产品</div>
+      <ul>
+        <li ng-repeat="item in hotProducts">
+          <div id="sy-rmtjwz-sp" class="mui-col-sm-12 mui-col-xs-12">
+            <div class="mui-row sy-rmtjcp">
+              <a ng-href="#/details/{{item.productId}}">
+                <div class="mui-row">
+                  <div class="mui-col-sm-4 mui-col-xs-4">
+                    <img ng-src="{{item.listImg}}" class="sy-rmtjcp-tp">
+                  </div>
+                  <div class="mui-col-sm-8 mui-col-xs-8 sy-rmtjcp-nr">
+                    <div class="mui-row">
+                      <div class="mui-col-sm-12 mui-col-xs-12 sy-rmtjcp-nr-bt">{{item.productName}}</div>
+                      <div class="mui-col-sm-12 mui-col-xs-12 sy-rmtjcp-nr-fbt">{{item.subName}}</div>
+                      <div class="mui-col-sm-12 mui-col-xs-12 ">
+                        <div class="mui-row">
+                          <div class="mui-col-sm-3 mui-col-xs-3 sy-rmtjcp-nr-bq"><span>纯度高</span></div>
+                          <div class="mui-col-sm-3 mui-col-xs-3 sy-rmtjcp-nr-bq"><span>正品</span></div>
+                        </div>
+                      </div>
+                      <div class="mui-col-sm-12 mui-col-xs-12 sy-rmtjcp-nr-jgkc">
+                        <div class="mui-row">
+                          <div class="mui-col-sm-4 mui-col-xs-4 sy-rmtjcp-nr-jgkc-jg">
+                            <span>¥</span>
+                            <span class="sy-rmtjcp-nr-jgkc-jgsz">{{item.price}}</span>
+                          </div>
+                          <div class="mui-col-sm-4 mui-col-xs-4">
+                            <span>原价:</span>
+                            <span>¥{{item.prePrice}}</span>
+                          </div>
+                          <div class="mui-col-sm-4 mui-col-xs-4">
+                            <span>已售</span>
+                            <span>{{item.inventory}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
 
     <!--回到顶部的区块-->

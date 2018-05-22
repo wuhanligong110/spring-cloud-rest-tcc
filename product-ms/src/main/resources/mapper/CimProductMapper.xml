@@ -356,4 +356,24 @@
     and tp.price <![CDATA[ < ]]> tp.pre_price
   </select>
 
+  <select id="queryHotProductPageList" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tcim_product tp
+    where tp.business_id = #{businessId,jdbcType=INTEGER}
+    and tp.inventory <![CDATA[ > ]]> tp.hava_inventory
+    and tp.if_hot = 1
+  </select>
+
+  <select id="queryProductCatePageList" resultMap="ResultMapWithBLOBs" parameterType="com.miget.hxb.model.request.ProductCatePageRequest">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tcim_product tp
+    where tp.categoty_id = #{categotyId,jdbcType=INTEGER}
+  </select>
+
 </mapper>

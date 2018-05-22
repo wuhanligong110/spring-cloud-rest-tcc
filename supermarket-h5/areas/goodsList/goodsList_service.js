@@ -7,25 +7,25 @@ angular.module('goodsList.service', [])
       	// 完整的请求服务器的步骤
         var deferred = $q.defer();
         $http({  
-				   method:'post',  
-				   url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/rest/api/app/product/pageList",
-				   data:$window.app.sign(message),  
-				   headers:{'Content-Type': 'application/x-www-form-urlencoded'},  
-				   transformRequest: function(obj) {  
-				     var str = [];  
-				     for(var p in obj){  
-				       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));  
-				     }  
-				     return str.join("&");  
-				   }  
-				}).success(function(data,status,headers,config){
-					console.log(JSON.stringify(data));
-					for(var temp in data.data.datas){
-						data.data.datas[temp]["src"] = GlobalVariable.IMAGE_SERVER + data.data.datas[temp]["src"]+"?w=400&h=400";
-					}
-        	deferred.resolve(data.data.datas);
+		   method:'get',
+		   url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/product/api/v1/products/catecategoty/product",
+		   params:message,
+		   headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+		   transformRequest: function(obj) {
+			 var str = [];
+			 for(var p in obj){
+			   str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+			 }
+			 return str.join("&");
+		   }
+		}).success(function(data,status,headers,config){
+			for(var temp in data.data.list){
+				data.data.list[temp]["listImg"] = GlobalVariable.IMAGE_SERVER + data.data.list[temp]["listImg"]+"?w=400&h=400";
+			}
+            console.log(JSON.stringify(data));
+        	deferred.resolve(data.data);
         }).error(function(data,status,headers,config){
-					deferred.reject(data);
+        	deferred.reject(data);
         });
         return deferred.promise;
      }

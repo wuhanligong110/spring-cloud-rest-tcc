@@ -66,7 +66,6 @@ angular.module('home.service', [])
 		}).success(function(data,status,headers,config){
 			for(var temp in data.data.list){
 				data.data.list[temp]["listImg"] = GlobalVariable.IMAGE_SERVER + data.data.list[temp]["listImg"]+"?w=400&h=400";
-				alert(data.data.list[temp]["listImg"]);
 			}
 			deferred.resolve(data.data.list);
         }).error(function(data,status,headers,config){
@@ -78,75 +77,73 @@ angular.module('home.service', [])
       	// 完整的请求服务器的步骤
         var deferred = $q.defer();
         $http({  
-				   method:'post',  
-				   url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/rest/api/app/homepage/themeProducer",
-				   data:$window.app.sign(),  
-				   headers:{'Content-Type': 'application/x-www-form-urlencoded'},  
-				   transformRequest: function(obj) {  
-				     var str = [];  
-				     for(var p in obj){  
-				       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));  
-				     }  
-				     return str.join("&");  
-				   }  
-				}).success(function(data,status,headers,config){
-					data.data.leftTheme["homepageImg"] = GlobalVariable.IMAGE_SERVER + data.data.leftTheme["homepageImg"]+"?x=400&w=201&h=309";
-					for(var temp in data.data.rightTheme){
-						data.data.rightTheme[temp]["homepageImg"] = GlobalVariable.IMAGE_SERVER + data.data.rightTheme[temp]["homepageImg"]+"?w=202&h=150";
-					}
-					console.log(JSON.stringify(data.data));
-        	deferred.resolve(data.data);
+		   method:'get',
+		   url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/product/api/v1/businesses/business",
+		   params:{pageNo:1,pageSize:4},
+		   headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+		   transformRequest: function(obj) {
+			 var str = [];
+			 for(var p in obj){
+			   str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+			 }
+			 return str.join("&");
+		   }
+		}).success(function(data,status,headers,config){
+			for(var temp in data.data.list){
+				data.data.list[temp]["listImg"] = GlobalVariable.IMAGE_SERVER + data.data.list[temp]["listImg"];//+"?w=202&h=150"
+			}
+        	deferred.resolve(data.data.list);
         }).error(function(data,status,headers,config){
-					deferred.reject(data);
+        	deferred.reject(data);
         });
         return deferred.promise;
       },
       brandPurchase:function(){
-				// 完整的请求服务器的步骤
+      	// 完整的请求服务器的步骤
         var deferred = $q.defer();
         $http({  
-				   method:'post',  
-				   url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/rest/api/app/homepage/brandPurchase",
-				   data:$window.app.sign(),  
-				   headers:{'Content-Type': 'application/x-www-form-urlencoded'},  
-				   transformRequest: function(obj) {  
-				     var str = [];  
-				     for(var p in obj){  
-				       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));  
-				     }  
-				     return str.join("&");  
-				   }  
-				}).success(function(data,status,headers,config){
-					data.data.leftBrand["homepageImg"] = GlobalVariable.IMAGE_SERVER + data.data.leftBrand["homepageImg"]+"?x=400&w=201&h=309";
-					for(var temp in data.data.rightBrand){
-						data.data.rightBrand[temp]["homepageImg"] = GlobalVariable.IMAGE_SERVER + data.data.rightBrand[temp]["homepageImg"]+"?w=202&h=150";
-					}
-					console.log(JSON.stringify(data.data));
-        	deferred.resolve(data.data);
+		   method:'get',
+		   url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/product/api/v1/products/product/categoty/brandRecomend",
+		   params:{pageNo:1,pageSize:4},
+		   headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+		   transformRequest: function(obj) {
+			 var str = [];
+			 for(var p in obj){
+			   str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+			 }
+			 return str.join("&");
+		   }
+		}).success(function(data,status,headers,config){
+            for(var temp in data.data.list){
+                data.data.list[temp]["categotyImg"] = GlobalVariable.IMAGE_SERVER + data.data.list[temp]["categotyImg"]+"?w=202&h=150";
+            }
+            deferred.resolve(data.data.list);
         }).error(function(data,status,headers,config){
-					deferred.reject(data);
+        	deferred.reject(data);
         });
         return deferred.promise;
       },
-      homeAdv:function(){
-				// 完整的请求服务器的步骤
+      hotProduct:function(){
         var deferred = $q.defer();
         $http({  
-				   method:'post',  
-				   url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/rest/api/app/homepage/advs",
-				   data:$window.app.sign({advPlacement:'app_home_adv'}),  
-				   headers:{'Content-Type': 'application/x-www-form-urlencoded'},  
-				   transformRequest: function(obj) {  
-				     var str = [];  
-				     for(var p in obj){  
-				       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));  
-				     }  
-				     return str.join("&");  
-				   }  
-				}).success(function(data,status,headers,config){
-        	deferred.resolve(data.data.datas);
+		   method:'get',
+		   url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/product/api/v1/products/"+GlobalVariable.BUSINESS_ID+"/hot",
+		   params:{pageNo:1,pageSize:10},
+		   headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+		   transformRequest: function(obj) {
+			 var str = [];
+			 for(var p in obj){
+			   str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+			 }
+			 return str.join("&");
+		   }
+		}).success(function(data,status,headers,config){
+            for(var temp in data.data.list){
+                data.data.list[temp]["listImg"] = GlobalVariable.IMAGE_SERVER + data.data.list[temp]["listImg"]+"?w=400&h=400";
+            }
+            deferred.resolve(data.data.list);
         }).error(function(data,status,headers,config){
-					deferred.reject(data);
+        	deferred.reject(data);
         });
         return deferred.promise;
       }

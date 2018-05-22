@@ -1,6 +1,7 @@
 package com.miget.hxb.domain;
 
 import com.miget.hxb.model.BasicDomain;
+
 import java.time.OffsetDateTime;
 
 public class CimBusiness extends BasicDomain {
@@ -11,6 +12,8 @@ public class CimBusiness extends BasicDomain {
     private String businessDesc;
 
     private String logo;
+
+    private String listImg;
 
     private Integer recommend;
 
@@ -54,6 +57,14 @@ public class CimBusiness extends BasicDomain {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public String getListImg() {
+        return listImg;
+    }
+
+    public void setListImg(String listImg) {
+        this.listImg = listImg;
     }
 
     public Integer getRecommend() {

@@ -7,20 +7,20 @@ angular.module('home.controller', ['home.service'])
     getOnSaleProduct();
     getThemeProducer();
     getBrandPurchase();
-    getHomeAdv();
+    getHotProduct();
     goTop();
     countdown();
-    headerChangeColor()
+    headerChangeColor();
 
     // 监听页面激活事件
     $scope.$on('$ionicView.enter',function(){
       initHeaderSlide();
       initToutiaoSlide();
-    })
+    });
 
     // 头部滚动条数据
     function getHeaderSlideData(){
-	    var promise=HomeFty.headerSlideList();
+	  var promise=HomeFty.headerSlideList();
       promise.then(
         function(data){
           if(data){
@@ -102,11 +102,11 @@ angular.module('home.controller', ['home.service'])
     }
     
     function getThemeProducer(){
-	    var promise=HomeFty.themeProducer();
+      var promise=HomeFty.themeProducer();
       promise.then(
         function(data){
           if(data){
-            $scope.themeProducer=data;
+            $scope.businesses=data;
           }else{
           	
           }
@@ -120,7 +120,7 @@ angular.module('home.controller', ['home.service'])
     }
     
     function getBrandPurchase(){
-	    var promise=HomeFty.brandPurchase();
+	  var promise=HomeFty.brandPurchase();
       promise.then(
         function(data){
           if(data){
@@ -137,13 +137,12 @@ angular.module('home.controller', ['home.service'])
       });
     }
     
-    function getHomeAdv(){
-	    var promise=HomeFty.homeAdv();
+    function getHotProduct(){
+	  var promise=HomeFty.hotProduct();
       promise.then(
         function(data){
           if(data){
-            $scope.obj_home_adv=data;
-            $ionicSlideBoxDelegate.update();
+            $scope.hotProducts=data;
           }else{
           	
           }
