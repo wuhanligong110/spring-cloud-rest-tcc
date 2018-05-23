@@ -374,6 +374,34 @@
     <include refid="Blob_Column_List" />
     from tcim_product tp
     where tp.categoty_id = #{categotyId,jdbcType=INTEGER}
+    and tp.inventory <![CDATA[ > ]]> tp.hava_inventory
+  </select>
+
+  <resultMap type="com.miget.hxb.model.response.ProductDetailResponse" id="ProductDetailMap">
+    <id column="product_id" property="productId" jdbcType="INTEGER"/>
+    <result column="product_name" property="productName" jdbcType="VARCHAR"/>
+    <result column="price" property="price" jdbcType="INTEGER"/>
+
+    <!-- 一对多的关系 -->
+    <!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
+    <collection property="detailImgs" ofType="java.lang.String">
+      <result column="img" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+
+  <select id="productDetail" resultMap="ProductDetailMap">
+    SELECT
+        tp.product_id,
+        tp.product_name,
+        tp.price,
+        tpi.img
+    FROM
+        tcim_product tp
+    LEFT JOIN tcim_product_img tpi ON tp.product_id = tpi.product_id
+    WHERE
+        tp.product_id = #{productId,jdbcType=INTEGER}
+    AND tp.inventory  <![CDATA[ > ]]> tp.hava_inventory
+    AND tpi.isshow = 1
   </select>
 
 </mapper>

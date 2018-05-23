@@ -6,8 +6,7 @@ angular.module('details.service', [])
         var deferred = $q.defer();
         $http({  
 		   method:'get',
-		   url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/rest/api/app/product/detail",
-		   data:$window.app.sign({productId:productId}),
+		   url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/product/api/v1/products/"+productId+"/detail",
 		   headers:{'Content-Type': 'application/x-www-form-urlencoded'},
 		   transformRequest: function(obj) {
 			 var str = [];

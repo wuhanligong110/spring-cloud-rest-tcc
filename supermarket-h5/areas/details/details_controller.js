@@ -24,7 +24,7 @@ angular.module('details.controller', ['details.service'])
       promise.then(
         function(data){
           if(data){
-          	$scope.obj_productDetailImg = data.src.split(',');
+          	$scope.obj_productDetailImg = data.detailImgs;
           	$scope.productDetailImgSize = $scope.obj_productDetailImg.length;
           	console.log(JSON.stringify($scope.productDetailImgSize));
           	for(item in $scope.obj_productDetailImg){
@@ -37,8 +37,8 @@ angular.module('details.controller', ['details.service'])
             $scope.obj_goodsDetailInfo = {
               productId: $scope.obj_goodsInfo.productId,
               isFork: $scope.obj_goodsInfo.isFork,
-              description: $scope.obj_goodsInfo.description,
-              src: $scope.obj_goodsInfo.src,
+              productName: $scope.obj_goodsInfo.productName,
+              detailImgs: $scope.obj_goodsInfo.detailImgs,
               price: $scope.obj_goodsInfo.price,
               color: "",
               size: "",

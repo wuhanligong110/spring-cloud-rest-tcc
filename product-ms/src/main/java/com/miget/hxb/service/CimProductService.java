@@ -88,6 +88,7 @@ public class CimProductService extends CrudServiceImpl<CimProduct>{
     }
 
     public ProductDetailResponse productDetail(Long productId) {
-        return null;
+        Preconditions.checkNotNull(productId);
+        return mapper.productDetail(productId);
     }
 }

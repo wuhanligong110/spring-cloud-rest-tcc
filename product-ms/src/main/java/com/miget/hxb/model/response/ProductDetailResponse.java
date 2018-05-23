@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
+import java.util.List;
+
+/**
+ * @author Administrator
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,5 +19,15 @@ import lombok.*;
 public class ProductDetailResponse implements Response{
 
     private static final long serialVersionUID = -293152878576204734L;
+
+    private Integer productId;
+
+    private String productName;
+
+    private Long price;
+
+    private Integer isFork;
+
+    private List<String> detailImgs;
 
 }

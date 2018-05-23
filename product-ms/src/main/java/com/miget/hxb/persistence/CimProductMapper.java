@@ -6,6 +6,7 @@ import com.miget.hxb.domain.CimProduct;
 import com.miget.hxb.model.request.OrderCancelRequest;
 import com.miget.hxb.model.request.PlaceOrderItemRequest;
 import com.miget.hxb.model.request.ProductCatePageRequest;
+import com.miget.hxb.model.response.ProductDetailResponse;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,4 +31,6 @@ public interface CimProductMapper extends CrudMapper<CimProduct> {
     Page<CimProduct> queryHotProductPageList(@Param("businessId")Long businessId);
 
     Page<CimProduct> queryProductCatePageList(ProductCatePageRequest request);
+
+    ProductDetailResponse productDetail(@Param("productId")Long productId);
 }
