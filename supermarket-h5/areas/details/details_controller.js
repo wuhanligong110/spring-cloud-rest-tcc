@@ -28,7 +28,7 @@ angular.module('details.controller', ['details.service'])
           	$scope.productDetailImgSize = $scope.obj_productDetailImg.length;
           	console.log(JSON.stringify($scope.productDetailImgSize));
           	for(item in $scope.obj_productDetailImg){
-          		$scope.obj_productDetailImg[item] = GlobalVariable.IMAGE_SERVER + $scope.obj_productDetailImg[item] + "?w=200&h=400";
+          		$scope.obj_productDetailImg[item] = GlobalVariable.IMAGE_SERVER + $scope.obj_productDetailImg[item] + "?w=400&h=400";
           	}
           	data.src = $scope.obj_productDetailImg;
           	console.log(JSON.stringify($scope.obj_productDetailImg));
