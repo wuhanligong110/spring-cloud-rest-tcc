@@ -79,6 +79,8 @@ angular.module('details.controller', ['details.service'])
       // 进行代码健壮性判断
       IndexedDBJs.get(obj_newData.productId,"cart",
         function(data){
+          console.log("Vv");
+          console.log(data);
           if(data==null||data==undefined){
             // 不存在商品就添加
             IndexedDBJs.add("cart", obj_newData, function () {
