@@ -379,8 +379,12 @@
 
   <resultMap type="com.miget.hxb.model.response.ProductDetailResponse" id="ProductDetailMap">
     <id column="product_id" property="productId" jdbcType="INTEGER"/>
+    <result column="business_id" property="businessId" jdbcType="INTEGER"/>
+    <result column="business_name" property="businessName" jdbcType="VARCHAR"/>
+    <result column="logo" property="logo" jdbcType="VARCHAR"/>
     <result column="product_name" property="productName" jdbcType="VARCHAR"/>
     <result column="price" property="price" jdbcType="INTEGER"/>
+    <result column="list_img" property="listImg" jdbcType="VARCHAR"/>
 
     <!-- 一对多的关系 -->
     <!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
@@ -391,12 +395,17 @@
 
   <select id="productDetail" resultMap="ProductDetailMap">
     SELECT
+        tp.business_id,
+        tb.business_name,
+        tb.logo,
         tp.product_id,
         tp.product_name,
         tp.price,
+        tp.list_img,
         tpi.img
     FROM
         tcim_product tp
+    LEFT JOIN tcim_business tb ON tp.business_id = tb.business_id
     LEFT JOIN tcim_product_img tpi ON tp.product_id = tpi.product_id
     WHERE
         tp.product_id = #{productId,jdbcType=INTEGER}

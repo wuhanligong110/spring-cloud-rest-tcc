@@ -20,6 +20,12 @@ public class ProductDetailResponse implements Response{
 
     private static final long serialVersionUID = -293152878576204734L;
 
+    private Integer businessId;
+
+    private String businessName;
+
+    private String logo;
+
     private Integer productId;
 
     private String productName;
@@ -29,5 +35,7 @@ public class ProductDetailResponse implements Response{
     private Integer isFork;
 
     private List<String> detailImgs;
+
+    private String listImg;
 
 }

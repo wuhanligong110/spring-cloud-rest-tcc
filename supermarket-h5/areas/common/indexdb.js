@@ -36,13 +36,13 @@ angular.module('indexedDB', [])
         // 此处可以创建多个表
         var name = "cart";
         if (!names.contains(name)) {
-          // 创建表
-          _db.createObjectStore(
-            name,
-            {
-              keyPath: 'productId',
-              autoIncrement:false
-            });
+            // 创建表
+            _db.createObjectStore(
+                name,
+                {
+                    keyPath: 'businessId',
+                    autoIncrement:false
+                });
         }
       },
       // 获取表对象

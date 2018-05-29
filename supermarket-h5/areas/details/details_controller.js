@@ -13,7 +13,9 @@ angular.module('details.controller', ['details.service'])
     $scope.$on('$ionicView.beforeEnter', function (e) {
       IndexedDBJs.getAll("cart",function(data){
         for(var i =0;i<data.length;i++){
-          $scope.obj_cartCount.count=parseInt($scope.obj_cartCount.count)+parseInt(data[i].number);
+          for(var j=0;j<data[i].businessProductList.length;j++){
+              $scope.obj_cartCount.count=parseInt($scope.obj_cartCount.count)+parseInt(data[i].businessProductList[j].number);
+          }
         }
       },null)
     });
@@ -30,14 +32,19 @@ angular.module('details.controller', ['details.service'])
           	for(item in $scope.obj_productDetailImg){
           		$scope.obj_productDetailImg[item] = GlobalVariable.IMAGE_SERVER + $scope.obj_productDetailImg[item] + "?w=400&h=400";
           	}
-          	data.src = $scope.obj_productDetailImg;
+          	data.listImg = GlobalVariable.IMAGE_SERVER + data.listImg + "?w=400&h=400";
+          	data.logo = GlobalVariable.IMAGE_SERVER + data.logo + "?w=400&h=400";
           	console.log(JSON.stringify($scope.obj_productDetailImg));
           	$scope.obj_goodsInfo = data;
           	// 用户选择信息
             $scope.obj_goodsDetailInfo = {
+              businessId:$scope.obj_goodsInfo.businessId,
+              businessName:$scope.obj_goodsInfo.businessName,
+              logo:$scope.obj_goodsInfo.logo,
               productId: $scope.obj_goodsInfo.productId,
               isFork: $scope.obj_goodsInfo.isFork,
               productName: $scope.obj_goodsInfo.productName,
+              listImg:$scope.obj_goodsInfo.listImg,
               detailImgs: $scope.obj_goodsInfo.detailImgs,
               price: $scope.obj_goodsInfo.price,
               color: "",
@@ -71,19 +78,24 @@ angular.module('details.controller', ['details.service'])
     $scope.func_addToCart=function(){
 
       var obj_newData={};
+      var business_product_list = new Array();
       // 硬拷贝方法
       angular.copy($scope.obj_goodsDetailInfo,obj_newData);
       // 从新改变编号
-      obj_newData.productId =obj_newData.productId + "-" + obj_newData.color + "-" + obj_newData.size;
+      //obj_newData.productId =obj_newData.productId + "-" + obj_newData.color + "-" + obj_newData.size;
 
       // 进行代码健壮性判断
-      IndexedDBJs.get(obj_newData.productId,"cart",
+      IndexedDBJs.get(obj_newData.businessId,"cart",
         function(data){
-          console.log("Vv");
-          console.log(data);
           if(data==null||data==undefined){
-            // 不存在商品就添加
-            IndexedDBJs.add("cart", obj_newData, function () {
+            // 不存在商家就添加
+            business_product_list.push(obj_newData);
+            var business_cart = new Object();
+            business_cart.businessId = obj_newData.businessId;
+            business_cart.businessName = obj_newData.businessName;
+            business_cart.logo = obj_newData.logo;
+            business_cart.businessProductList = business_product_list;
+            IndexedDBJs.add("cart", business_cart, function () {
               // 变更购物车数量
               $scope.obj_cartCount.count=parseInt($scope.obj_cartCount.count)+parseInt($scope.obj_goodsDetailInfo.number);
               // 手动调用去更新数据绑定模型
@@ -93,11 +105,19 @@ angular.module('details.controller', ['details.service'])
             }, null);
           }
           else {
-            // 存在商品
+            // 存在商家
             // 是新增加6个数量，所以要处理一下，这个还影响下面变更购物车数量的逻辑
-            obj_newData.number=parseInt(obj_newData.number)+parseInt(data.number);
-
-            IndexedDBJs.update("cart", obj_newData, function () {
+            var hasProduct = false;
+            for(var i in data.businessProductList){
+                if(data.businessProductList[i].productId == obj_newData.productId){
+                    data.businessProductList[i].number=parseInt(obj_newData.number)+parseInt(data.businessProductList[i].number);
+                    hasProduct = true;
+                }
+            }
+            if(!hasProduct){
+                data.businessProductList.push(obj_newData);
+            }
+            IndexedDBJs.update("cart", data, function () {
               //变更购物车数量
               $scope.obj_cartCount.count=parseInt($scope.obj_cartCount.count)+parseInt($scope.obj_goodsDetailInfo.number);
               $scope.$digest();

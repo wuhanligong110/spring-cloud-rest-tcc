@@ -144,9 +144,9 @@
 #cart .pro-warp{
   background-color:#fff;
   width:100%;
-  height:141px;
+  /*height:141px;*/
   border-top:1px solid #dfdfdf;
-  border-bottom:1px solid #dfdfdf;
+  /*border-bottom:1px solid #dfdfdf;*/
   margin-bottom:15px;
 }
 #cart .pro-title{
