@@ -99,7 +99,10 @@ angular.module('cart.controller', ['cart.service'])
               for(var i in data.businessProductList){
                   if(data.businessProductList[i].productId == productId){
                       data.businessProductList = data.businessProductList.slice(0,i).concat(data.businessProductList.slice(i+1,data.businessProductList.length));
+                      console.log(data.businessProductList);
+                      console.log(data.businessProductList.length);
                       if(data.businessProductList.length == 0){
+                          console.log("shoud delete"+businessId);
                           CartFty.delete(businessId);
                       }
                       func_updateData(data);

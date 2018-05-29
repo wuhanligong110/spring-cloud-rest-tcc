@@ -113,6 +113,7 @@ angular.module('indexedDB', [])
             mode = 'readwrite',
             store, req;
           store = db.getObjectStore(objectStoreName,mode);
+          console.log("indexeddb delete");
           req = store.delete(id);
           req.onsuccess = success;
           req.onerror=fail;
