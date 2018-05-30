@@ -26,7 +26,7 @@
       <div class="pro-warp" ng-repeat="business in obj_cartDbData.data">
         <!-- 列表容器内部 -->
         <div class="pro-title">
-          <div class="pro-title-check"></div>
+          <div ng-class="{'pro-title-check':business.selected,'pro-title-uncheck':!business.selected}" ng-click="func_selectBusiness($event,business.businessId)"></div>
           <div class="pro-title-name">
             <img src="{{business.logo}}" alt="">
             <span>{{business.businessName}}</span>
@@ -34,10 +34,10 @@
         </div>
         <div ng-repeat="item in business.businessProductList" style="padding-bottom: 40px;">
           <div class="pro-body">
-            <div class="pro-body-check"></div>
+            <div ng-class="{'pro-body-check':item.selected,'pro-body-uncheck':!item.selected}" ng-click="func_selectProduct($event,business.businessId,item.productId)"></div>
             <div class="pro-body-des">
               <a ng-href="#/details/{{item.productId}}">
-                <img src="{{item.listImg}}" alt="">
+                <img src="{{item.listImg}}" alt="{{item.productName}}">
               </a>
               <div class="pro-body-des-text">
                 <span>{{item.description}}</span>
@@ -52,7 +52,7 @@
               </div>
             </div>
           </div>
-          <div id="delete" style="position:absolute;z-index: 100000">
+          <div id="delete" style="position:relative;z-index: 100;float: right">
             <i class="ion-trash-a" ng-click="func_delete(item.businessId,item.productId)"></i>
           </div>
         </div>
@@ -62,7 +62,7 @@
   <!-- 固定底边栏 -->
   <footer id="foot">
     <div class="footLeft">
-      <div class="checkall"></div>
+      <div ng-class="{'checkall':selectedAll,'uncheckall':!selectedAll}" ng-click="func_selectAll($event)"></div>
       <div class="checktext">全选</div>
       <div class="foot-info">
         <strong>合计:￥{{obj_cartDbData.total}}</strong>
@@ -70,7 +70,7 @@
       </div>
     </div>
     <div class="footRight" ng-click="func_goHome()">
-      去结算（0）
+      去结算
     </div>
   </footer>
 

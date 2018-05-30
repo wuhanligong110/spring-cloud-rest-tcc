@@ -81,6 +81,7 @@ angular.module('details.controller', ['details.service'])
       var business_product_list = new Array();
       // 硬拷贝方法
       angular.copy($scope.obj_goodsDetailInfo,obj_newData);
+      obj_newData.selected = true;
       // 从新改变编号
       //obj_newData.productId =obj_newData.productId + "-" + obj_newData.color + "-" + obj_newData.size;
 
@@ -95,6 +96,7 @@ angular.module('details.controller', ['details.service'])
             business_cart.businessName = obj_newData.businessName;
             business_cart.logo = obj_newData.logo;
             business_cart.businessProductList = business_product_list;
+            business_cart.selected = false;
             IndexedDBJs.add("cart", business_cart, function () {
               // 变更购物车数量
               $scope.obj_cartCount.count=parseInt($scope.obj_cartCount.count)+parseInt($scope.obj_goodsDetailInfo.number);
@@ -106,11 +108,12 @@ angular.module('details.controller', ['details.service'])
           }
           else {
             // 存在商家
-            // 是新增加6个数量，所以要处理一下，这个还影响下面变更购物车数量的逻辑
+            // 是新增加数量，所以要处理一下，这个还影响下面变更购物车数量的逻辑
             var hasProduct = false;
             for(var i in data.businessProductList){
                 if(data.businessProductList[i].productId == obj_newData.productId){
                     data.businessProductList[i].number=parseInt(obj_newData.number)+parseInt(data.businessProductList[i].number);
+                    data.businessProductList[i].selected = true;
                     hasProduct = true;
                 }
             }

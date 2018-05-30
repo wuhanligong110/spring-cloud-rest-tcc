@@ -15,7 +15,7 @@ angular.module('cart.controller', ['cart.service'])
     $scope.obj_cartDbData={
       data:"",
       total:0
-    }
+    };
 
     // 获取全部数据
     function func_getAllData(){
@@ -25,12 +25,12 @@ angular.module('cart.controller', ['cart.service'])
           var total=0;
           // 绑定要循环生成的列表数据对象
           $scope.obj_cartDbData.data=data;
-          console.log("this is data");
-          console.log(data);
           // 计算总金额
           for(var i=0;i<data.length;i++){
             for(var j=0;j<data[i].businessProductList.length;j++){
-                total=total+parseFloat(data[i].businessProductList[j].price)*data[i].businessProductList[j].number*1.0;
+                if(data[i].businessProductList[j].selected){
+                    total=total+parseFloat(data[i].businessProductList[j].price)*data[i].businessProductList[j].number*1.0;
+                }
             }
           }
           $scope.obj_cartDbData.total=total.toFixed(2);
@@ -63,7 +63,7 @@ angular.module('cart.controller', ['cart.service'])
         }
       ).finally(function () {
         });
-    }
+    };
 
     // 数量减1
     $scope.func_jian1=function(businessId,productId){
@@ -84,28 +84,77 @@ angular.module('cart.controller', ['cart.service'])
         }
       ).finally(function () {
         });
-    }
+    };
+
+    $scope.func_selectBusiness = function ($event,businessId) {
+        var promise = CartFty.get(businessId);
+        promise.then(
+            function (data) {
+                data.selected = !data.selected;
+                for(var i in data.businessProductList){
+                    data.businessProductList[i].selected = data.selected;
+                }
+                func_updateData(data);
+            },
+            function (e) {
+                CommonJs.AlertPopup(e);
+            }
+        ).finally(function () {
+        });
+    };
+
+    $scope.func_selectProduct = function ($event,businessId,productId) {
+          var promise = CartFty.get(businessId);
+          promise.then(
+              function (data) {
+                  for(var i in data.businessProductList){
+                      if(data.businessProductList[i].productId == productId){
+                          data.businessProductList[i].selected = !data.businessProductList[i].selected;
+                      }
+                  }
+                  func_updateData(data);
+              },
+              function (e) {
+                  CommonJs.AlertPopup(e);
+              }
+          ).finally(function () {
+          });
+    };
+
+    $scope.selectedAll = false;
+    $scope.func_selectAll = function ($event) {
+        //$($event.target).addClass("checked");
+        $scope.selectedAll = !$scope.selectedAll;
+        var promise = CartFty.getAllData();
+        promise.then(
+            function (data) {
+                for(var i=0;i<data.length;i++){
+                    data[i].selected = $scope.selectedAll;
+                    for(var j=0;j<data[i].businessProductList.length;j++){
+                        data[i].businessProductList[j].selected = $scope.selectedAll;
+                    }
+                    func_updateData(data[i]);
+                }
+            },
+            function (e) {
+                CommonJs.AlertPopup(e);
+            }
+        ).finally(function () {
+        });
+    };
 
     // 删除
     $scope.func_delete=function(businessId,productId){
-        console.log(businessId);
-        console.log(productId);
-        console.log("delete");
         var promise = CartFty.get(businessId);
         promise.then(
           function (data) {
-              console.log("data");
-              console.log(data);
               for(var i in data.businessProductList){
                   if(data.businessProductList[i].productId == productId){
                       data.businessProductList = data.businessProductList.slice(0,i).concat(data.businessProductList.slice(i+1,data.businessProductList.length));
-                      console.log(data.businessProductList);
-                      console.log(data.businessProductList.length);
+                      func_updateData(data);
                       if(data.businessProductList.length == 0){
-                          console.log("shoud delete"+businessId);
                           CartFty.delete(businessId);
                       }
-                      func_updateData(data);
                   }
               }
           },
