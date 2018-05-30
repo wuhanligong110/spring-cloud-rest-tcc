@@ -1,10 +1,10 @@
-angular.module('cart.route', ['cart.controller'])
+angular.module('order.route', ['order.controller'])
   .config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
-      .state('cart', {
-        url: '/cart',
-        templateUrl: 'areas/cart/cart.html',
-        controller: 'CartCtrl'
+      .state('order', {
+        url: '/order',
+        templateUrl: 'areas/order/order.html',
+        controller: 'OrderCtrl'
       })
   });

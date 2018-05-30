@@ -16,7 +16,6 @@ angular.module('details.service', [])
 			 return str.join("&");
 		   }
 		}).success(function(data,status,headers,config){
-			console.log(JSON.stringify(data));
         	deferred.resolve(data.data);
         }).error(function(data,status,headers,config){
         	deferred.reject(data);

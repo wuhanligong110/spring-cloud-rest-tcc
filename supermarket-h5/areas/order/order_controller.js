@@ -3,8 +3,8 @@
  创建人：                修改时间：
  功  能：购物车
  ******************************************************/
-angular.module('cart.controller', ['cart.service'])
-  .controller('CartCtrl', ['$scope', '$state','$ionicHistory','IndexedDBJs','CommonJs','CartFty', function ($scope, $state,$ionicHistory,IndexedDBJs,CommonJs,CartFty) {
+angular.module('order.controller', ['order.service'])
+  .controller('OrderCtrl', ['$scope', '$state','$ionicHistory','IndexedDBJs','CommonJs','CartFty', function ($scope, $state,$ionicHistory,IndexedDBJs,CommonJs,CartFty) {
 
     // 获取所有数据
     $scope.$on('$ionicView.beforeEnter', function (e) {

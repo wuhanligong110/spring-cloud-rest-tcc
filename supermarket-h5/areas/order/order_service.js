@@ -1,5 +1,5 @@
-angular.module('cart.service', [])
-  .factory('CartFty', ['$http', '$q','$window','IndexedDBJs', function ($http, $q,$window,IndexedDBJs) {
+angular.module('order.service', [])
+  .factory('OrderFty', ['$http', '$q','$window','IndexedDBJs', function ($http, $q,$window,IndexedDBJs) {
     return {
       getAllData: function () {
         var deferred = $q.defer();
