@@ -1,8 +1,6 @@
 package com.miget.hxb.controller;
 
 import com.github.pagehelper.Page;
-import com.miget.hxb.Delay;
-import com.miget.hxb.RandomlyThrowsException;
 import com.miget.hxb.Shift;
 import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.domain.CrmUserAddress;
@@ -35,8 +33,6 @@ public class CrmUserAddressController {
     @Autowired
     private CrmUserService userService;
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "根据ID获取用户收件地址", notes = "")
     @RequestMapping(value = "/users/{userId}/address", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
     public ObjectDataResponse<PageInfo<CrmUserAddress>> addressPageList(@PathVariable Long userId, PageRequest request) {
@@ -49,8 +45,17 @@ public class CrmUserAddressController {
         return new ObjectDataResponse<>(pageInfo);
     }
 
-    @Delay
-    @RandomlyThrowsException
+    @ApiOperation(value = "根据ID获取用户默认收件地址", notes = "")
+    @RequestMapping(value = "/users/{userId}/address/default", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<CrmUserAddress> userDefaultAddress(@PathVariable Long userId) {
+        final CrmUser user = userService.queryByUserId(userId);
+        if (user == null) {
+            Shift.fatal(StatusCode.USER_NOT_EXISTS);
+        }
+        final CrmUserAddress defaultAddress = userAddressService.queryUserDefaultAddress(userId);
+        return new ObjectDataResponse<>(defaultAddress);
+    }
+
     @ApiOperation(value = "用户新增收件地址", notes = "添加新的收件地址")
     @RequestMapping(value = "/users/{userId}/address", method = RequestMethod.POST)
     public ObjectDataResponse<CrmUserAddress> addressAdd(@PathVariable Long userId, @Valid @RequestBody AddressAddRequest request, BindingResult error) {
@@ -65,8 +70,6 @@ public class CrmUserAddressController {
         return new ObjectDataResponse<>(userAddress);
     }
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "用户删除收件地址", notes = "删除收件地址")
     @RequestMapping(value = "/users/{userId}/address", method = RequestMethod.DELETE)
     public ObjectDataResponse addressDelete(@PathVariable Long userId, @Valid @RequestBody AddressDeleteRequest request, BindingResult error) {

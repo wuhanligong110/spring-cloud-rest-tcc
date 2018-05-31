@@ -13,16 +13,17 @@
     <result column="tua_third_account" jdbcType="VARCHAR" property="thirdAccount" />
     <result column="tua_type" jdbcType="INTEGER" property="type" />
     <result column="tua_type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="tua_is_default" jdbcType="INTEGER" property="isDefault" />
     <result column="tua_create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="tua_update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="tua_operator" jdbcType="VARCHAR" property="operator" />
   </resultMap>
   <sql id="Base_Column_List">
-    tua.id as tua_id, tua.user_id as tua_user_id, tua.receiving_user_name as tua_receiving_user_name, 
-    tua.mobile as tua_mobile, tua.province_name as tua_province_name, tua.city_name as tua_city_name, 
-    tua.area as tua_area, tua.receiving_address as tua_receiving_address, tua.third_account as tua_third_account, 
-    tua.type as tua_type, tua.type_name as tua_type_name, tua.create_time as tua_create_time, 
-    tua.update_time as tua_update_time, tua.operator as tua_operator
+    tua.id as tua_id, tua.user_id as tua_user_id, tua.receiving_user_name as tua_receiving_user_name,
+    tua.mobile as tua_mobile, tua.province_name as tua_province_name, tua.city_name as tua_city_name,
+    tua.area as tua_area, tua.receiving_address as tua_receiving_address, tua.third_account as tua_third_account,
+    tua.type as tua_type, tua.type_name as tua_type_name, tua.is_default as tua_is_default,
+    tua.create_time as tua_create_time, tua.update_time as tua_update_time, tua.operator as tua_operator
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
@@ -36,15 +37,17 @@
   </delete>
   <insert id="insert" parameterType="com.miget.hxb.domain.CrmUserAddress">
     insert into tcrm_user_address (id, user_id, receiving_user_name,
-      mobile, province_name, city_name,
-      area, receiving_address, third_account,
-      type, type_name, create_time,
-      update_time, operator)
+    mobile, province_name, city_name,
+    area, receiving_address, third_account,
+    type, type_name, is_default,
+    create_time, update_time, operator
+    )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{receivingUserName,jdbcType=VARCHAR},
-      #{mobile,jdbcType=VARCHAR}, #{provinceName,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR},
-      #{area,jdbcType=VARCHAR}, #{receivingAddress,jdbcType=VARCHAR}, #{thirdAccount,jdbcType=VARCHAR},
-      #{type,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
-      #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR})
+    #{mobile,jdbcType=VARCHAR}, #{provinceName,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR},
+    #{area,jdbcType=VARCHAR}, #{receivingAddress,jdbcType=VARCHAR}, #{thirdAccount,jdbcType=VARCHAR},
+    #{type,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{isDefault,jdbcType=INTEGER},
+    #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.miget.hxb.domain.CrmUserAddress">
     insert into tcrm_user_address
@@ -81,6 +84,9 @@
       </if>
       <if test="typeName != null">
         type_name,
+      </if>
+      <if test="isDefault != null">
+        is_default,
       </if>
       <if test="createTime != null">
         create_time,
@@ -126,6 +132,9 @@
       <if test="typeName != null">
         #{typeName,jdbcType=VARCHAR},
       </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -170,6 +179,9 @@
       <if test="typeName != null">
         type_name = #{typeName,jdbcType=VARCHAR},
       </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -185,18 +197,19 @@
   <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.CrmUserAddress">
     update tcrm_user_address
     set user_id = #{userId,jdbcType=INTEGER},
-      receiving_user_name = #{receivingUserName,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR},
-      province_name = #{provinceName,jdbcType=VARCHAR},
-      city_name = #{cityName,jdbcType=VARCHAR},
-      area = #{area,jdbcType=VARCHAR},
-      receiving_address = #{receivingAddress,jdbcType=VARCHAR},
-      third_account = #{thirdAccount,jdbcType=VARCHAR},
-      type = #{type,jdbcType=INTEGER},
-      type_name = #{typeName,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      operator = #{operator,jdbcType=VARCHAR}
+    receiving_user_name = #{receivingUserName,jdbcType=VARCHAR},
+    mobile = #{mobile,jdbcType=VARCHAR},
+    province_name = #{provinceName,jdbcType=VARCHAR},
+    city_name = #{cityName,jdbcType=VARCHAR},
+    area = #{area,jdbcType=VARCHAR},
+    receiving_address = #{receivingAddress,jdbcType=VARCHAR},
+    third_account = #{thirdAccount,jdbcType=VARCHAR},
+    type = #{type,jdbcType=INTEGER},
+    type_name = #{typeName,jdbcType=VARCHAR},
+    is_default = #{isDefault,jdbcType=INTEGER},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    operator = #{operator,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -212,4 +225,12 @@
     where id = #{id,jdbcType=INTEGER}
     AND user_id = #{userId,jdbcType=INTEGER}
   </delete>
+
+  <select id="queryUserDefaultAddress" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tcrm_user_address tua
+    where tua.user_id = #{userId,jdbcType=INTEGER}
+    and is_default = 1
+  </select>
 </mapper>

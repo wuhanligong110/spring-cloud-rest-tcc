@@ -2,6 +2,7 @@ package com.miget.hxb.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.google.common.base.Preconditions;
 import com.miget.hxb.domain.CrmUserAddress;
 import com.miget.hxb.model.request.AddressDeleteRequest;
 import com.miget.hxb.model.request.PageRequest;
@@ -28,11 +29,19 @@ public class CrmUserAddressService extends CrudServiceImpl<CrmUserAddress>{
     }
 
     public Page<CrmUserAddress> queryUserAddressPageList(Long userId,PageRequest request) {
+        Preconditions.checkNotNull(userId);
         PageHelper.startPage(request.getPageNo(), request.getPageSize());
         return mapper.queryUserAddressPageList(userId);
     }
 
     public int addressDelete(AddressDeleteRequest request) {
+        Preconditions.checkNotNull(request);
         return mapper.addressDelete(request);
     }
+
+    public CrmUserAddress queryUserDefaultAddress(Long userId) {
+        Preconditions.checkNotNull(userId);
+        return  mapper.queryUserDefaultAddress(userId);
+    }
+
 }

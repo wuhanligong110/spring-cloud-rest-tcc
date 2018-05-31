@@ -26,7 +26,6 @@ angular.module('goodsList.controller', ['goodsList.service'])
       categotyId:$stateParams.categotyId
     };
 
-
     // 视图事件
     $scope.$on('$ionicView.beforeEnter', function (e) {
       $scope.func_refreshGoodsList();
@@ -102,18 +101,5 @@ angular.module('goodsList.controller', ['goodsList.service'])
     $scope.func_goBack=function(){
       $ionicHistory.goBack();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   })

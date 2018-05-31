@@ -6,5 +6,6 @@ angular.module('global', [])
     'PORT':'80',
     'VERSION':"0.0.1",
     "IMAGE_SERVER":"http://wh.jiuguishangcheng.com/images/",
-    "BUSINESS_ID":1
-  })
+    "BUSINESS_ID":1,
+    "USER_ID":1000001
+  });

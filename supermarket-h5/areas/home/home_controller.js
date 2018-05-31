@@ -11,6 +11,7 @@ angular.module('home.controller', ['home.service'])
     goTop();
     countdown();
     headerChangeColor();
+    initWeixinUserInfo();
 
     // 监听页面激活事件
     $scope.$on('$ionicView.enter',function(){
@@ -154,6 +155,23 @@ angular.module('home.controller', ['home.service'])
           //$scope.$broadcast('scroll.refreshComplete');
       });
     }
+
+  function initWeixinUserInfo(){
+      var promise=HomeFty.initWeixinUserInfo();
+      promise.then(
+          function(data){
+              if(data){
+                  GlobalVariable.USER_ID = data.userId;
+              }else{
+
+              }
+          },
+          function(err){
+
+          }).finally(function() {
+
+      });
+  }
 
     // 改变头部颜色
     function headerChangeColor(){

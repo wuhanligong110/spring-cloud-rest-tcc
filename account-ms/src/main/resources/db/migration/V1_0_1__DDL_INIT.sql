@@ -46,15 +46,16 @@ CREATE TABLE `tcrm_user_address` (
   `mobile` varchar(11) NOT NULL COMMENT '手机号码',
   `province_name` varchar(16) DEFAULT NULL COMMENT '省份名称',
   `city_name` varchar(16) DEFAULT NULL COMMENT '城市名字',
-	`area` varchar(63) DEFAULT NULL COMMENT '收件人地区',
+  `area` varchar(63) DEFAULT NULL COMMENT '收件人地区',
   `receiving_address` varchar(255) DEFAULT NULL COMMENT '收货人详细地址',
   `third_account` varchar(255) DEFAULT NULL COMMENT '第三方账户',
   `type` int(4) NOT NULL DEFAULT '1' COMMENT '地址类型(1:邮寄地址|2:爱奇艺账户)',
   `type_name` varchar(64) DEFAULT NULL COMMENT '地址类型名称',
+  `is_default` int(2) NOT NULL DEFAULT '0' COMMENT '是否默认地址 1：是 0：否',
   `create_time` datetime DEFAULT NULL COMMENT '用户创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '用户更新时间',
-	`operator` varchar(30) DEFAULT NULL COMMENT '操作人',
-	PRIMARY KEY (`id`),
+  `operator` varchar(30) DEFAULT NULL COMMENT '操作人',
+  PRIMARY KEY (`id`),
   KEY `user_type_index` (`user_id`,`type`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='收货人地址';
 

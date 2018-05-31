@@ -13,4 +13,7 @@ public interface CrmUserAddressMapper extends CrudMapper<CrmUserAddress> {
     Page<CrmUserAddress> queryUserAddressPageList(@Param("userId") Long userId);
 
     int addressDelete(AddressDeleteRequest request);
+
+    CrmUserAddress queryUserDefaultAddress(@Param("userId") Long userId);
+
 }

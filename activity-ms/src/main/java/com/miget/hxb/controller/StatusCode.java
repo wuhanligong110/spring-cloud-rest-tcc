@@ -77,6 +77,8 @@ public enum StatusCode implements RestStatus {
 
     USER_REGISTER_FAIL(42010, "用户注册失败"),
 
+    WEIXIN_OPENID_ERROR(42011, "微信openid获取失败"),
+
     // 50xxx 服务端异常
     /**
      * 用于处理未知的服务端错误

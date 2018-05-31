@@ -20,7 +20,6 @@ function addCsn(){
   var container = $('#csnform');
   container.find('.main').html($('#csn-form-tpl').html());
   container.show().animate({left: 0}, 200, function(){
-    getAreaSelect();
     $('#wrapper').hide();
     $('#csnli').css({display:'none', left:'100%'});
   });
@@ -43,7 +42,7 @@ function hideCsnList(){
 function onChangeCsn(e){
   var container = $(e).parent();
   if(container.hasClass('checked')) return false;
-  $.vdsConfirm({
+  /*$.vdsConfirm({
     content: '您确定要更换此收件人地址吗?',
     ok: function(){
       var html = '<div class="unfold fr"><i class="iconfont">&#xe614;</i></div>';
@@ -53,9 +52,15 @@ function onChangeCsn(e){
       container.addClass('checked');
       $('#wrapper').show();
       $('#csnli').animate({left:'100%'}, 200);
-      getFreight();
     },
-  });
+  });*/
+    var html = '<div class="unfold fr"><i class="iconfont">&#xe614;</i></div>';
+    html += container.find('dd.m').html();
+    $('#consignee .rc').html(html);
+    container.siblings('.checked').removeClass('checked');
+    container.addClass('checked');
+    $('#wrapper').show();
+    $('#csnli').animate({left:'100%'}, 200);
 }
 
 //编辑收件人信息

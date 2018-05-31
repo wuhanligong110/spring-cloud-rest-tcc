@@ -1,6 +1,7 @@
 package com.miget.hxb.domain;
 
 import com.miget.hxb.model.BasicDomain;
+
 import java.time.OffsetDateTime;
 
 public class CrmUserAddress extends BasicDomain {
@@ -25,6 +26,8 @@ public class CrmUserAddress extends BasicDomain {
     private Integer type;
 
     private String typeName;
+
+    private Integer isDefault;
 
     private OffsetDateTime createTime;
 
@@ -118,6 +121,14 @@ public class CrmUserAddress extends BasicDomain {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    public Integer getIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(Integer isDefault) {
+        this.isDefault = isDefault;
     }
 
     public OffsetDateTime getCreateTime() {
