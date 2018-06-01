@@ -8,7 +8,9 @@ angular.module('route', [
   'details.route',
   'cart.route',
   'account.route',
-  'order.route'
+  'order.route',
+  'address.list.route',
+  'address.detail.route'
 ])
   .config(function($stateProvider, $urlRouterProvider) {
 
@@ -20,5 +22,5 @@ angular.module('route', [
     else {
       $urlRouterProvider.otherwise('/guidePage');
     }*/
-		$urlRouterProvider.otherwise('/tab/home');
+	$urlRouterProvider.otherwise('/tab/home');
   });

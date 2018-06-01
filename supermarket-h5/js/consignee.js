@@ -46,7 +46,6 @@ function checkCsnForm(form){
   form.find('select[name="city"]').vdsFieldChecker({rules:{required:[true, '请选择城市']}});
   form.find('select[name="borough"]').vdsFieldChecker({rules:{required:[true, '请选择区县']}});
   form.find('input[name="address"]').vdsFieldChecker({rules:{required:[true, '详细地址不能为空'], maxlen:[240, '详细地址不能超过240个字符']}});
-  form.find('input[name="zip"]').vdsFieldChecker({rules:{zip:[true, '邮政编码格式不正确']}});
   form.find('input[name="mobile"]').vdsFieldChecker({rules:{required:[true, '手机号码不能为空'], mobile:[true, '手机号码格式不正确']}});
   return form.vdsFormChecker({isSubmit:false});
 }

@@ -44,4 +44,7 @@ public class CrmUserAddressService extends CrudServiceImpl<CrmUserAddress>{
         return  mapper.queryUserDefaultAddress(userId);
     }
 
+    public CrmUserAddress queryUserAddressDetail(Long addressId) {
+        return find(addressId);
+    }
 }

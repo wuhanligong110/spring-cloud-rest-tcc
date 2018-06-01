@@ -1,18 +1,18 @@
 <ion-view id="order" view-title="确认订单" hide-back-button="true" cache-view="false">
-  <ion-content class="scroll-content  has-header" scroll="false">
+  <ion-content class="scroll-content" scroll="false">
     <div class="wrapper" id="wrapper">
       <div class="confirm">
         <div class="row" id="consignee">
           <div class="lc">收件人</div>
           <!--<div >-->
-              <div class="rc" onclick="popCsnList()" ng-if="consignee != null">
+              <div class="rc" ui-sref="addressList()" ng-if="consignee != null">
                 <div class="unfold fr"><i class="iconfont">&#xe614;</i></div>
                 <h4 class="c666" data-id="{{consignee.id}}">{{consignee.receivingUserName}}<span class="ml10">{{consignee.mobile}}</span></h4>
                 <p class="mt5 c888">{{consignee.provinceName}}{{consignee.cityName}}{{consignee.area}}{{consignee.receivingAddress}}</p>
               </div>
             <!--</div>-->
           <!--<div ng-if="consignee == null">-->
-            <div ng-if="consignee == null" class="rc" onclick="popCsnList()"><a class="add" onclick="addCsn()">+ 添加收件人</a></div>
+            <div ng-if="consignee == null" class="rc" ui-sref="addressList()"><a class="add" ng-href="#/address/detail/">+ 添加收件人</a></div>
           <!--</div>-->
         </div>
         <div class="parcel row" id="parcel">
@@ -51,70 +51,5 @@
         <div class="submit mt20"><a class="f14 xauto center" onClick="submitOrder()">提交订单</a></div>
       </div>
     </div>
-
-    <!-- 收件人列表开始 -->
-    <div class="csnli poper hide" id="csnli">
-      <!--<div class="header">
-        <div class="op lt"><a onclick="hideCsnList()"><i class="f20 iconfont">&#xe602;</i></a></div>
-        <h2>选择收件人</h2>
-      </div>-->
-      <div class="opts module">
-        <dl id="csnopt-{{item.id}}" ng-class="{'checked':item.isDefault}" ng-repeat="item in consigneeList">
-        <dd class="l" onclick="onChangeCsn(this)"><i class="iconfont">&#xe61a;</i></dd>
-        <dd class="r" data-json='' onclick="editCsn(this)"><i class="iconfont">&#xe617;</i></dd>
-        <dd class="m">
-          <h4 class="c666" data-id="{{item.id}}">{{item.receivingUserName}}<span class="ml10">{{item.mobile}}</span></h4>
-          <p class="mt5 c888">{{item.provinceName}}{{item.cityName}}{{item.area}}{{item.receivingAddress}}</p>
-        </dd>
-        </dl>
-        <a class="add" onclick="addCsn()">+ 添加收件人</a>
-      </div>
-    </div>
-    <!-- 收件人列表结束 -->
-    <!-- 收件人表单开始 -->
-    <div class="csnform hide" id="csnform" style="width: 100%;">
-      <form><div class="main cut"></div></form>
-      <a class="submit act xauto mt15" onclick="saveCsnForm()">保 存</a>
-    </div>
-    <!-- 收件人表单结束 -->
-    <script type="text/template" id="csn-form-tpl">
-      <input type="hidden" name="id" value="0" />
-      <dl><dt>收件人</dt><dd><input name="receiver" type="text" class="vinput"></dd></dl>
-      <dl><dt>手机号码</dt><dd><input name="mobile" type="number" pattern="[0-9]*" class="vinput"></dd></dl>
-      <dl>
-        <dt>选择省份</dt>
-        <dd>
-          <div class="vslt">
-            <select name="province" id="areaslt-province" data-type="province" onchange="getAreaSelect('province')">
-              <option value="">选择省份</option>
-            </select>
-            <span><i class="iconfont">&#xe615;</i></span>
-          </div>
-        </dd>
-      </dl>
-      <dl>
-        <dt>选择城市</dt>
-        <dd>
-          <div class="vslt">
-            <select name="city" id="areaslt-city" onchange="getAreaSelect('city')">
-              <option value="">选择城市</option>
-            </select>
-            <span><i class="iconfont">&#xe615;</i></span>
-          </div>
-        </dd>
-      </dl>
-      <dl>
-        <dt>选择区/县</dt>
-        <dd>
-          <div class="vslt">
-            <select name="borough" id="areaslt-borough">
-              <option value="">选择区/县</option>
-            </select>
-            <span><i class="iconfont">&#xe615;</i></span>
-          </div>
-        </dd>
-      </dl>
-      <dl><dt>详细地址</dt><dd><textarea name="address" class="vtextarea"></textarea></dd></dl>
-    </script>
   </ion-content>
 </ion-view>

@@ -9,7 +9,6 @@ angular.module('order.controller', ['order.service'])
       $scope.$on('$ionicView.beforeEnter', function (e) {
           getDefaultConsignee();
           getSelectedProduct();
-          getConsigneeList();
       });
 
     // 默认收件人
@@ -31,19 +30,6 @@ angular.module('order.controller', ['order.service'])
       promise.then(
           function (data) {
               $scope.order = data;
-          },
-          function (e) {
-              CommonJs.AlertPopup(e);
-          }
-      ).finally(function () {
-      });
-  }
-
-  function getConsigneeList(){
-      var promise = OrderFty.getConsigneeList();
-      promise.then(
-          function (data) {
-              $scope.consigneeList = data;
           },
           function (e) {
               CommonJs.AlertPopup(e);

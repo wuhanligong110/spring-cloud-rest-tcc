@@ -82,4 +82,11 @@ public class CrmUserAddressController {
         return new ObjectDataResponse<>(null);
     }
 
+    @ApiOperation(value = "收件地址详情", notes = "")
+    @RequestMapping(value = "/users/address/detail/{addressId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<CrmUserAddress> userAddressDetail(@PathVariable Long addressId) {
+        final CrmUserAddress defaultAddress = userAddressService.queryUserAddressDetail(addressId);
+        return new ObjectDataResponse<>(defaultAddress);
+    }
+
 }

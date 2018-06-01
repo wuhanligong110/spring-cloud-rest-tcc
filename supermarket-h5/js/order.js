@@ -68,13 +68,12 @@ function editCsn(e){
   $('#csnform .main').html($('#csn-form-tpl').html());
   var form = $('#csnform form'), data = $(e).data('json');
   form.find('input[name="id"]').val(data.id);
-  form.find('input[name="receiver"]').val(data.receiver);
+  form.find('input[name="receivingUserName"]').val(data.receivingUserName);
   form.find('input[name="mobile"]').val(data.mobile);
-  form.find('textarea[name="address"]').val(data.address);
-  form.find('input[name="zip"]').val(data.zip);
-  setArea('province', null, data.province);
-  setArea('city', {province: data.province}, data.city);
-  setArea('borough', {province: data.province, city: data.city}, data.borough);
+  form.find('input[name="provinceName"]').val(data.provinceName);
+  form.find('input[name="cityName"]').val(data.cityName);
+  form.find('input[name="area"]').val(data.area);
+  form.find('textarea[name="receivingAddress"]').val(data.receivingAddress);
   $('#csnform').show().animate({left: 0}, 200, function(){
     $('#wrapper').hide();
     $('#csnli').css({display:'none', left:'100%'});
@@ -82,30 +81,18 @@ function editCsn(e){
 }
 
 //保存收件人表单
-function saveCsnForm(api){
-  var form = $('#csnform form');
-  if(checkCsnForm(form)){
-    $.asynInter(api, form.serialize(), function(res){
-      if(res.status == 'success'){
-        res.data.json = JSON.stringify(res.data);
-        res.data.province = form.find('select[name="province"] option').not(function(){return !this.selected}).text();
-        res.data.city = form.find('select[name="city"] option').not(function(){return !this.selected}).text();
-        res.data.borough = form.find('select[name="borough"] option').not(function(){return !this.selected}).text();
-        res.data.checked = 0;
-        var row = $('#csnli').find('#csnopt-'+res.data.id);
+function saveCsnForm(data){
+
+        /*var row = $('#csnli').find('#csnopt-'+data.id);
         if(row.size() > 0){
           if(row.hasClass('checked')){
             res.data.checked = 1;
-            $('#consignee .rc').html(juicer($('#csn-checked-tpl').html(), res.data));
+            $('#consignee .rc').html(juicer($('#csn-checked-tpl').html(), data));
             getFreight();
           }
           row.remove();
-        }
-        $('#csnli .opts').prepend(juicer($('#csn-row-tpl').html(), res.data)); 
+        }*/
+        $('#csnli .opts').prepend(juicer($('#csn-row-tpl').html(),data));
         hideCsnForm();
-      }else{
-        $.vdsPrompt({content:res.msg});
-      }
-    });
-  }
+
 }

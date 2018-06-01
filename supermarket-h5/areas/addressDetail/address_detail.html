@@ -1,0 +1,43 @@
+<ion-view id="addressDetail" view-title="地址详情" hide-back-button="true" cache-view="false">
+  <ion-content class="scroll-content" scroll="false">
+    <!-- 收件人表单开始 -->
+    <div class="csnform" id="csnform" style="width: 100%;">
+      <form>
+        <div class="main cut">
+          <input type="hidden" ng-model="receiver.id" name="id" value="0" />
+          <dl><dt>收件人</dt><dd><input ng-model="receiver.receiving_user_name"  value="{{address.receivingUserName}}" name="receivingUserName" type="text" class="vinput"></dd></dl>
+          <dl><dt>手机号码</dt><dd><input ng-model="receiver.mobile" value="{{address.mobile}}" name="mobile" type="number" pattern="[0-9]*" class="vinput"></dd></dl>
+          <dl>
+            <dt>选择省份</dt>
+            <dd>
+              <div class="vslt">
+                <input ng-model="receiver.province_name" value="{{address.provinceName}}"  name="provinceName" type="text" class="vinput" placeholder="请输入省份">
+                <span><i class="iconfont">&#xe615;</i></span>
+              </div>
+            </dd>
+          </dl>
+          <dl>
+            <dt>选择城市</dt>
+            <dd>
+              <div class="vslt">
+                <input ng-model="receiver.city_name" value="{{address.cityName}}" name="cityName" type="text" class="vinput">
+                <span><i class="iconfont">&#xe615;</i></span>
+              </div>
+            </dd>
+          </dl>
+          <dl>
+            <dt>选择区/县</dt>
+            <dd>
+              <div class="vslt">
+                <input ng-model="receiver.area" value="{{address.area}}" name="area" type="text" class="vinput" placeholder="请输入区/县">
+                <span><i class="iconfont">&#xe615;</i></span>
+              </div>
+            </dd>
+          </dl>
+          <dl><dt>详细地址</dt><dd><textarea ng-model="receiver.receiving_address" value="{{address.receivingAddress}}" name="receivingAddress" class="vtextarea"></textarea></dd></dl>
+        </div>
+      </form>
+      <a class="submit act xauto mt15" ng-click="func_saveCsnForm()">保 存</a>
+    </div>
+  </ion-content>
+</ion-view>
