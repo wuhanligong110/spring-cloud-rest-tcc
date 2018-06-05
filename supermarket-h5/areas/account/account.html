@@ -1,42 +1,59 @@
 <ion-view id="account" view-title="我的" hide-back-button="true" cache-view="false">
-  <ion-header-bar class="bar" id="accountbar">
-    <h1 class="title">我的账户</h1>
-  </ion-header-bar>
-  <ion-content scroll="false">
-    <div class=".light-bg padding-top padding-bottom">
-      <label id="info" class=" item item-icon-right" ng-click="func_showAction()">
-        <img  id="touxiang" src="img/account/account.jpg" >
-        <span class="ion-heart"> lvpf</span>
-        <i class="icon ion-ios-arrow-right ion-android-image"></i>
-      </label>
-    </div>
-    <div class="list">
-      <div class="item .light-bg padding-top" ng-click="func_barcode()">
-        <label>扫描二维码{{ma}}
-          <i class="ion-qr-scanner"></i>
-        </label>
+  <ion-content class="scroll-content" scroll="false">
+    <div class="wrapper">
+      <div class="topinfo">
+        <div class="module xauto cut">
+          <div class="avatar fl"><a href="#"><img src="http://thirdwx.qlogo.cn/mmopen/NZ42uviawqiaEsVeLKHqFhcBSBhEiapVDUWuiaKey96icg1qoWpHPnicgHZmk0BQFxJJdvwyJKe0hdnXOiaZWv4xbVveia5h88HykJno/132" /></a></div>
+          <div class="info">
+            <dl>
+              <dd class="mt5"><font class="f14">Avail</font><p class="ml10 dim">初级会员</p></dd>
+              <dd class="mt5">
+                <font class="dim">账户余额：</font><b>5000.00 元</b>
+                <p class="sep5"></p>
+                <font class="dim">积分：</font><b>600</b>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="menus cut">
+          <ul>
+            <li><a ng-href="#/goods/fouseList"><i class="icon ion-heart"  style="font-size: 16px"></i><span>商品收藏</span></a></li>
+            <li><a ng-href="#/goods/history"><i class="icon ion-shuffle"  style="font-size: 16px"></i><span>我的足迹</span></a></li>
+            <li><a ng-href="#/address/list"><i class="icon ion-paper-airplane"  style="font-size: 16px"></i><span>收件地址</span></a></li>
+            <li><a ng-href="#/assessment"><i class="icon ion-chatbox-working"  style="font-size: 16px"></i><span>我的评价</span></a></li>
+          </ul>
+        </div>
       </div>
-      <div class="item .light-bg padding-top item-icon-right" ng-click="func_sms()">
-        <label>发短信
-          <i class="ion-android-textsms"></i>
-        </label>
+      <div class="columns module mt10 cut">
+        <div class="order">
+          <div class="th"><a class="fr" ng-href="#/order/list">查看全部订单<i class="ion-chevron-right"></i></a><i class="icon"></i><font class="f14">我的订单</font></div>
+          <div class="menus cut" id="order-pending">
+            <a data-pending="pay" ng-href="#/order/list/0"><i class="icon ion-cash"></i><span>待付款</span><em>0</em></a>
+            <a data-pending="ship" ng-href="#/order/list/2"><i class="icon ion-android-bus"></i><span>待发货</span><em>0</em></a>
+            <a data-pending="sign" ng-href="#/order/list/3"><i class="icon ion-clipboard"></i><span>待签收</span><em>0</em></a>
+            <a data-pending="review" ng-href="#/order/list/4"><i class="icon ion-compose"></i><span>待评价</span><em>0</em></a>
+          </div>
+        </div>
+        <a class="aftersales row mt10" ng-href="#/afterSale">
+          <span class="fl"><i class="icon ion-umbrella"></i><font class="f14">售后服务</font></span>
+          <span class="fr"><i class="icon ion-chevron-right"></i></span>
+        </a>
+        <a class="feedback row" ng-href="#/feedback">
+          <span class="fl"><i class="icon ion-chatbubbles"></i><font class="f14">咨询反馈</font></span>
+          <span class="fr"><i class="icon ion-chevron-right"></i></span>
+        </a>
+        <a class="urinfo row" ng-href="#/settings">
+          <span class="fl"><i class="icon ion-gear-b"></i><font class="f14">个人设置</font></span>
+          <span class="fr"><i class="icon ion-chevron-right"></i></span>
+        </a>
+        <a class="helper row" ng-href="#/help">
+          <span class="fl"><i class="icon ion-help-circled"></i><font class="f14">帮助中心</font></span>
+          <span class="fr"><i class="icon ion-chevron-right"></i></span>
+        </a>
+        <a class="logout row" onclick="logout()">
+          <span class="fl"><i class="icon ion-power"></i><font class="f14">退出登录</font></span>
+        </a>
       </div>
-      <div class="item .light-bg padding-top item-icon-right">
-        <label>关于美啊
-          <i class="icon ion-ios-arrow-right"></i>
-        </label>
-      </div>
-      <div class="item .light-bg padding-top item-icon-right" ng-click="func_callPhone('88889999')">
-        <label>联系我们</label>
-        <a class="telephone ion-android-call" href="tel:88889999"></a>
-      </div>
-      <div class="item .light-bg padding-top item-icon-right">
-        <label>设置</label>
-        <i class="ion-android-settings"></i>
-      </div>
-    </div>
-    <div class="padding-top">
-      <button class="button button-block " id="accountbar" ng-click="func_exitApp()">退出登录</button>
     </div>
   </ion-content>
 
