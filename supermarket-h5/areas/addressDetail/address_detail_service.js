@@ -3,7 +3,7 @@ angular.module('address.detail.service', [])
     return {
         saveCsnForm: function (receiver) {
             receiver.type = 1;
-            receiver.type_name = "邮寄地址";
+            receiver.typeName = "邮寄地址";
             console.log("邮寄地址");
             console.log(receiver);
             var deferred = $q.defer();
@@ -24,8 +24,7 @@ angular.module('address.detail.service', [])
             var deferred = $q.defer();
             $http({
                 method:'get',
-                url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users/"+GlobalVariable.USER_ID+"/address/default",
-                params:{addressId:addressId},
+                url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users/address/detail/"+addressId,
                 headers:{'Content-Type': 'application/x-www-form-urlencoded'},
                 transformRequest: function(obj) {
                     var str = [];
@@ -35,8 +34,7 @@ angular.module('address.detail.service', [])
                     return str.join("&");
                 }
             }).success(function(data,status,headers,config){
-                console.log("default consignee");
-                console.log(data.data);
+                data.data.mobile = Number(data.data.mobile);
                 deferred.resolve(data.data);
             }).error(function(data,status,headers,config){
                 deferred.reject(data);

@@ -19,40 +19,52 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"}, ignoreUnknown = true)
 public class AddressAddRequest extends RestfulRequest{
 
     private static final long serialVersionUID = 1369875943024499640L;
 
+    @JsonProperty("id")
+    private Long id;
+
+    @JsonProperty("userId")
     private Integer userId;
 
     @NotNull
     @ApiModelProperty(value = "收件人姓名", example = "张三", required = true)
+    @JsonProperty("receivingUserName")
     private String receivingUserName;
 
     @NotNull
     @NotBlank
     @Pattern(regexp = "^\\d{11}$", message = "请输入11位手机号")
     @ApiModelProperty(value = "收件人联系电话", example = "15222222222", required = true)
+    @JsonProperty("mobile")
     private String mobile;
 
+    @JsonProperty("provinceName")
     private String provinceName;
 
+    @JsonProperty("cityName")
     private String cityName;
 
+    @JsonProperty("area")
     private String area;
 
+    @JsonProperty("receivingAddress")
     private String receivingAddress;
 
+    @JsonProperty("thirdAccount")
     private String thirdAccount;
 
     @NotNull
     @ApiModelProperty(value = "地址类型", example = "1", required = true)
+    @JsonProperty("type")
     private Integer type;
 
     @NotNull
     @ApiModelProperty(value = "地址类型名称", example = "收件地址", required = true)
+    @JsonProperty("typeName")
     private String typeName;
 }

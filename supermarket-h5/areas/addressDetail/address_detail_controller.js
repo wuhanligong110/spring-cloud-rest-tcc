@@ -13,11 +13,14 @@ angular.module('address.detail.controller', ['address.detail.service'])
   });
 
   function addressDetail(){
+      if(!$stateParams.addressId){
+          return;
+      }
       var promise=AddressDetailFty.addressDetail($stateParams.addressId);
       promise.then(
           function(data){
               if(data){
-                  $scope.address = data;
+                  $scope.receiver = data;
               }else{
 
               }
@@ -30,8 +33,6 @@ angular.module('address.detail.controller', ['address.detail.service'])
   }
 
   $scope.func_saveCsnForm = function(){
-      console.log($scope.receiver);
-      console.log("request");
       var promise = AddressDetailFty.saveCsnForm($scope.receiver);
       promise.then(
           function (data) {

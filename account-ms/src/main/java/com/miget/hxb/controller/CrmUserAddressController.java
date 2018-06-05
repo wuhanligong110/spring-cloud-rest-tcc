@@ -56,9 +56,9 @@ public class CrmUserAddressController {
         return new ObjectDataResponse<>(defaultAddress);
     }
 
-    @ApiOperation(value = "用户新增收件地址", notes = "添加新的收件地址")
+    @ApiOperation(value = "用户编辑收件地址", notes = "编辑收件地址")
     @RequestMapping(value = "/users/{userId}/address", method = RequestMethod.POST)
-    public ObjectDataResponse<CrmUserAddress> addressAdd(@PathVariable Long userId, @Valid @RequestBody AddressAddRequest request, BindingResult error) {
+    public ObjectDataResponse<CrmUserAddress> addressEdit(@PathVariable Long userId, @Valid @RequestBody AddressAddRequest request, BindingResult error) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
@@ -66,7 +66,11 @@ public class CrmUserAddressController {
         request.setUserId(Math.toIntExact(userId));
         CrmUserAddress userAddress = new CrmUserAddress();
         BeanUtils.copyProperties(request,userAddress);
-        userAddressService.persistNonNullProperties(userAddress);
+        if(userAddress.getId() != null){
+            userAddressService.updateNonNullProperties(userAddress);
+        }else {
+            userAddressService.persistNonNullProperties(userAddress);
+        }
         return new ObjectDataResponse<>(userAddress);
     }
 

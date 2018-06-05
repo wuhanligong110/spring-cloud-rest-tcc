@@ -1,7 +1,6 @@
 package com.miget.hxb.repository;
 
 import com.miget.hxb.model.ErrorInfo;
-import com.miget.hxb.model.ErrorInfo;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

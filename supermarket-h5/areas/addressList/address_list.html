@@ -8,7 +8,7 @@
       </div>-->
       <div class="opts module">
         <dl id="csnopt-{{item.id}}" ng-class="{'checked':item.isDefault}" ng-repeat="item in consigneeList">
-        <dd class="l" onclick="onChangeCsn(this)"><i class="iconfont">&#xe61a;</i></dd>
+        <dd class="l" ng-click="onChangeCsn(this)"><i class="iconfont">&#xe61a;</i></dd>
         <dd class="r" data-json="{{item}}" ui-sref="addressDetail({addressId:{{item.id}}})"><i class="iconfont">&#xe617;</i></dd>
         <dd class="m">
           <h4 class="c666" data-id="{{item.id}}">{{item.receivingUserName}}<span class="ml10">{{item.mobile}}</span></h4>
