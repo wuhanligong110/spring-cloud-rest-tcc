@@ -35,7 +35,7 @@
   top: 5px;
 }
 
-#details div,ul,li,h1,h2,h3,img,a{
+#details div,#details ul,#details li,#details h1,#details h2,#details h3,#details img,#details a{
   font-family:'PingHei';
   font-size:16px;
   padding:0;

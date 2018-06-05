@@ -6,7 +6,7 @@
   top: 0;
 }
 
-#category div,ul,li,h1,h2,h3,img,a{
+#category div,#category ul,#category li,#category h1,#category h2,#category h3,#category img,#category a{
   font-family:'微软雅黑';
   font-size:16px;
   padding:0;
