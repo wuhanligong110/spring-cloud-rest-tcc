@@ -4,7 +4,7 @@
  功  能：购物车
  ******************************************************/
 angular.module('address.list.controller', ['address.list.service'])
-  .controller('AddressListCtrl', ['$scope', '$state','$ionicHistory','IndexedDBJs','CommonJs','AddressListFty', function ($scope, $state,$ionicHistory,IndexedDBJs,CommonJs,AddressListFty) {
+  .controller('AddressListCtrl', ['$scope', '$state','$ionicHistory','IndexedDBJs','CommonJs','AddressListFty', function ($scope, $state,$ionicHistory,IndexedDBJs,CommonJs,AddressListFty,$location) {
 
   $scope.$on('$ionicView.beforeEnter', function (e) {
       getConsigneeList();
@@ -22,6 +22,19 @@ angular.module('address.list.controller', ['address.list.service'])
       ).finally(function () {
       });
   }
+
+  $scope.func_changeCsn = function(addressId){
+      var promise = AddressListFty.setDefault(addressId);
+      promise.then(
+          function (data) {
+              window.location = "#/order";
+          },
+          function (e) {
+              CommonJs.AlertPopup(e);
+          }
+      ).finally(function () {
+      });
+  };
 
     // 返回按钮方法
     $scope.func_goBack = function () {

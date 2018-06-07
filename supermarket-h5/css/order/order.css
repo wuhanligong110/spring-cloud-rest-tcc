@@ -73,3 +73,6 @@
 .footact .act a.clear {display:block;float:left;width:50%;height:50px;color:#339999;background:#e3e3e3}
 .footact .act a.checkout {display:block;float:right;width:50%;height:50px;color:#fff;background:#ff3333}
 .footact .act a.checkout i.iconfont {font-size:20px;}
+
+.addressChecked {font-size: 17px;color: #339999;}
+.addressunChecked {font-size: 17px;}

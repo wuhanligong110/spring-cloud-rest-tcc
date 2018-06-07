@@ -8,11 +8,11 @@
       </div>-->
       <div class="opts module">
         <dl id="csnopt-{{item.id}}" ng-class="{'checked':item.isDefault}" ng-repeat="item in consigneeList">
-        <dd class="l" ng-click="onChangeCsn(this)"><i class="iconfont">&#xe61a;</i></dd>
-        <dd class="r" data-json="{{item}}" ui-sref="addressDetail({addressId:{{item.id}}})"><i class="iconfont">&#xe617;</i></dd>
+        <dd class="l" ng-click="func_changeCsn(item.id)"><i ng-class="{'icon ion-android-checkbox-outline addressChecked':item.isDefault,'icon ion-android-checkbox-outline-blank addressunChecked':!item.isDefault}"></i></dd>
+        <dd class="r" data-json="{{item}}" ui-sref="addressDetail({addressId:{{item.id}}})"><i class="icon ion-compose"></i></dd>
         <dd class="m">
-          <h4 class="c666" data-id="{{item.id}}">{{item.receivingUserName}}<span class="ml10">{{item.mobile}}</span></h4>
-          <p class="mt5 c888">{{item.provinceName}}{{item.cityName}}{{item.area}}{{item.receivingAddress}}</p>
+          <h4 class="c666" data-id="{{item.id}}">{{item.receivingUserName}}<p class="ml10">{{item.mobile}}</p></h4>
+          <p class="mt5 c888" style="font-size: 12px;">{{item.provinceName}}{{item.cityName}}{{item.area}}{{item.receivingAddress}}</p>
         </dd>
         </dl>
         <a class="add" ng-href="#/address/detail/">+ 添加收件人</a>

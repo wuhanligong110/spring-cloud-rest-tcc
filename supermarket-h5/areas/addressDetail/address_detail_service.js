@@ -4,17 +4,33 @@ angular.module('address.detail.service', [])
         saveCsnForm: function (receiver) {
             receiver.type = 1;
             receiver.typeName = "邮寄地址";
-            console.log("邮寄地址");
-            console.log(receiver);
             var deferred = $q.defer();
             $http({
                 method:'post',
                 url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users/"+GlobalVariable.USER_ID+"/address",
                 data:receiver
             }).success(function(data,status,headers,config){
-                console.log("post receiver");
-                console.log(data.data);
                 deferred.resolve(data.data);
+            }).error(function(data,status,headers,config){
+                deferred.reject(data);
+            });
+            return deferred.promise;
+        },
+        deleteCsnForm: function (addressId) {
+            var deferred = $q.defer();
+            $http({
+                method:'delete',
+                url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users/address/"+addressId,
+                headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj){
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
+                    return str.join("&");
+                }
+            }).success(function(data,status,headers,config){
+                deferred.resolve(data.code);
             }).error(function(data,status,headers,config){
                 deferred.reject(data);
             });

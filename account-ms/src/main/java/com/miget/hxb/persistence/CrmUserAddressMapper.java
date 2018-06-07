@@ -16,4 +16,5 @@ public interface CrmUserAddressMapper extends CrudMapper<CrmUserAddress> {
 
     CrmUserAddress queryUserDefaultAddress(@Param("userId") Long userId);
 
+    int clearDefault(@Param("userId") Integer userId);
 }

@@ -75,13 +75,10 @@ public class CrmUserAddressController {
     }
 
     @ApiOperation(value = "用户删除收件地址", notes = "删除收件地址")
-    @RequestMapping(value = "/users/{userId}/address", method = RequestMethod.DELETE)
-    public ObjectDataResponse addressDelete(@PathVariable Long userId, @Valid @RequestBody AddressDeleteRequest request, BindingResult error) {
-        final CrmUser user = userService.queryByUserId(userId);
-        if (user == null) {
-            Shift.fatal(StatusCode.USER_NOT_EXISTS);
-        }
-        request.setUserId(Math.toIntExact(userId));
+    @RequestMapping(value = "/users/address/{addressId}", method = RequestMethod.DELETE, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse addressDelete(@PathVariable Long addressId) {
+        AddressDeleteRequest request = new AddressDeleteRequest();
+        request.setId(addressId);
         userAddressService.addressDelete(request);
         return new ObjectDataResponse<>(null);
     }
@@ -91,6 +88,16 @@ public class CrmUserAddressController {
     public ObjectDataResponse<CrmUserAddress> userAddressDetail(@PathVariable Long addressId) {
         final CrmUserAddress defaultAddress = userAddressService.queryUserAddressDetail(addressId);
         return new ObjectDataResponse<>(defaultAddress);
+    }
+
+    @ApiOperation(value = "设置默认地址", notes = "设置默认地址")
+    @RequestMapping(value = "/users/address/default/{addressId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<CrmUserAddress> setDefaultAddress(@PathVariable Long addressId) {
+        CrmUserAddress userAddress = userAddressService.find(addressId);
+        userAddressService.clearDefault(userAddress.getUserId());
+        userAddress.setIsDefault(1);
+        userAddressService.updateNonNullProperties(userAddress);
+        return new ObjectDataResponse<>(userAddress);
     }
 
 }

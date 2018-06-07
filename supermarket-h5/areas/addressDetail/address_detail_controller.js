@@ -47,6 +47,21 @@ angular.module('address.detail.controller', ['address.detail.service'])
       });
   };
 
+  $scope.func_deleteCsnForm = function(addressId){
+      var promise = AddressDetailFty.deleteCsnForm(addressId);
+      promise.then(
+          function (data) {
+              if(data == 20000){
+                  history.go(-1);
+              }
+          },
+          function (e) {
+              CommonJs.AlertPopup(e);
+          }
+      ).finally(function () {
+      });
+  };
+
     // 返回按钮方法
     $scope.func_goBack = function () {
       $ionicHistory.goBack();

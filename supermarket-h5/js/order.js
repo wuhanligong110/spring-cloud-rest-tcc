@@ -54,7 +54,7 @@ function onChangeCsn(e){
       $('#csnli').animate({left:'100%'}, 200);
     },
   });*/
-    var html = '<div class="unfold fr"><i class="iconfont">&#xe614;</i></div>';
+    var html = '<div class="unfold fr"><i class="icon ion-android-checkbox-outline"></i></div>';
     html += container.find('dd.m').html();
     $('#consignee .rc').html(html);
     container.siblings('.checked').removeClass('checked');

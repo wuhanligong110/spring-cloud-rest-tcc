@@ -37,7 +37,8 @@
           <dl><dt>详细地址</dt><dd><textarea ng-model="receiver.receivingAddress" name="receivingAddress" class="vtextarea"></textarea></dd></dl>
         </div>
       </form>
-      <a class="submit act xauto mt15" ng-click="func_saveCsnForm()">保 存</a>
+      <a class="submit act xauto mt15" style="background: #538bf1;" ng-click="func_saveCsnForm()">保 存</a>
+      <a ng-if="receiver.id" class="submit act xauto mt15" ng-click="func_deleteCsnForm(receiver.id)">删 除</a>
     </div>
   </ion-content>
 </ion-view>

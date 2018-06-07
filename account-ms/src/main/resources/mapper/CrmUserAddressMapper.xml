@@ -223,7 +223,6 @@
   <delete id="addressDelete" parameterType="com.miget.hxb.model.request.AddressDeleteRequest">
     delete from tcrm_user_address
     where id = #{id,jdbcType=INTEGER}
-    AND user_id = #{userId,jdbcType=INTEGER}
   </delete>
 
   <select id="queryUserDefaultAddress" resultMap="BaseResultMap">
@@ -233,4 +232,11 @@
     where tua.user_id = #{userId,jdbcType=INTEGER}
     and is_default = 1
   </select>
+
+  <update id="clearDefault">
+    update tcrm_user_address
+    set
+    is_default = 0
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
 </mapper>
