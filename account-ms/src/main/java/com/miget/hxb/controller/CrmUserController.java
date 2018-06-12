@@ -8,12 +8,16 @@ import com.miget.hxb.model.response.LoginResponse;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.model.response.RegisterResponse;
 import com.miget.hxb.service.CrmUserService;
+import com.miget.hxb.wx.utils.WeixinUtil;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -62,6 +66,20 @@ public class CrmUserController {
     ObjectDataResponse<Integer> weixinRemoteRegister(@RequestBody CrmUser user){
         int result = crmUserService.persist(user);
         return new ObjectDataResponse<>(result);
+    }
+
+    @ApiOperation(value = "根据微信获取用户Id", notes = "获取用户Id")
+    @RequestMapping(value = "/users/weixin/userinfo", method = RequestMethod.GET)
+    public ObjectDataResponse<CrmUser> weixinUserinfo(HttpServletRequest request, HttpServletResponse response) {
+        String openId = WeixinUtil.getUserOpenId(request,response);
+        if(StringUtils.isBlank(openId)){
+            Shift.fatal(StatusCode.WEIXIN_OPENID_ERROR);
+        }
+        final CrmUser user = crmUserService.queryUserByOpenId(openId);
+        if(user == null){
+            Shift.fatal(StatusCode.USER_NOT_EXISTS);
+        }
+        return new ObjectDataResponse<>(user);
     }
 
     /*@Delay

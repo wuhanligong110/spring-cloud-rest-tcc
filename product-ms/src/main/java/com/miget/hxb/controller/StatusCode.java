@@ -50,11 +50,25 @@ public enum StatusCode implements RestStatus {
      */
     BUSINESS_NOT_EXISTS(42004, "商家不存在"),
 
+    /**
+     * 用于登录时用户不存在的情况
+     */
+    USER_NOT_EXISTS(42005, "用户不存在, 请先注册"),
+
+    USER_REGISTER_FAIL(42010, "用户注册失败"),
+
+    WEIXIN_OPENID_ERROR(42011, "微信openid获取失败"),
+
     // 50xxx 服务端异常
     /**
      * 用于处理未知的服务端错误
      */
-    SERVER_UNKNOWN_ERROR(50001, "服务端异常, 请稍后再试");
+    SERVER_UNKNOWN_ERROR(50001, "服务端异常, 请稍后再试"),
+
+    /**
+     * 用于远程调用时的系统出错
+     */
+    SERVER_IS_BUSY_NOW(50002, "系统繁忙, 请稍后再试");
 
     private final int code;
 

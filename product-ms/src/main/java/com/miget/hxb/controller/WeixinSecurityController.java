@@ -1,14 +1,9 @@
 package com.miget.hxb.controller;
 
-import com.miget.hxb.Shift;
-import com.miget.hxb.controller.client.AccountClient;
-import com.miget.hxb.model.CrmUser;
-import com.miget.hxb.model.response.ObjectDataResponse;
-import com.miget.hxb.wx.dispatcher.EventDispatcher;
-import com.miget.hxb.wx.dispatcher.MsgDispatcher;
+import com.miget.hxb.dispatcher.EventDispatcher;
+import com.miget.hxb.dispatcher.MsgDispatcher;
 import com.miget.hxb.wx.utils.MessageUtil;
 import com.miget.hxb.wx.utils.SignUtil;
-import com.miget.hxb.wx.utils.WeixinUtil;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -35,8 +30,6 @@ public class WeixinSecurityController {
     private EventDispatcher eventDispatcher;
     @Autowired
     private MsgDispatcher msgDispatcher;
-    @Autowired
-    private AccountClient accountClient;
 
     /**
      * @Description: 微信服务端消息用于接收 get 参数，返回验证参数
@@ -100,19 +93,5 @@ public class WeixinSecurityController {
         }catch(Exception e){
             LOGGER.error(e,e);
         }
-    }
-
-    @ApiOperation(value = "根据微信获取用户Id", notes = "获取用户Id")
-    @RequestMapping(value = "weixin/userinfo", method = RequestMethod.GET)
-    public ObjectDataResponse<CrmUser> weixinUserinfo(HttpServletRequest request, HttpServletResponse response) {
-        String openId = WeixinUtil.getUserOpenId(request,response);
-        if(StringUtils.isBlank(openId)){
-            Shift.fatal(StatusCode.WEIXIN_OPENID_ERROR);
-        }
-        ObjectDataResponse<CrmUser> user = accountClient.queryRemoteUserByOpenId(openId);
-        if(user == null){
-            Shift.fatal(StatusCode.USER_NOT_EXISTS);
-        }
-        return user;
     }
 }

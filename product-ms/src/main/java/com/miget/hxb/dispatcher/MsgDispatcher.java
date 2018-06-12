@@ -1,4 +1,4 @@
-package com.miget.hxb.wx.dispatcher;
+package com.miget.hxb.dispatcher;
 
 import com.alibaba.fastjson.JSONObject;
 import com.miget.hxb.wx.utils.MessageUtil;

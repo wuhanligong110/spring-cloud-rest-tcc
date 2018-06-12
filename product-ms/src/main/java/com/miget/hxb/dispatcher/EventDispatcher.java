@@ -1,4 +1,4 @@
-package com.miget.hxb.wx.dispatcher;
+package com.miget.hxb.dispatcher;
 
 import com.miget.hxb.service.SysConfigService;
 import com.miget.hxb.service.WeixinMessageService;

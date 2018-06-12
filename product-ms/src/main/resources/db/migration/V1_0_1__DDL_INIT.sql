@@ -66,3 +66,50 @@ CREATE TABLE `tcim_business` (
   PRIMARY KEY (`business_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='商家表';
 
+CREATE TABLE `wx_access_token` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `access_token` varchar(600) NOT NULL COMMENT 'access_token凭证',
+  `expires_in` bigint(20) DEFAULT NULL COMMENT '凭证有效时间，单位：秒',
+  `crt_time` bigint(20) DEFAULT NULL COMMENT '创建时间距离当前时间毫秒数',
+  `userid` varchar(128) DEFAULT NULL COMMENT 'userid',
+  `create_date` varchar(25) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tsys_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水号',
+	`business_id` int(11) DEFAULT NULL COMMENT '商家id',
+  `config_name` varchar(50) DEFAULT NULL COMMENT '名称',
+  `config_type` varchar(50) DEFAULT NULL COMMENT '类别',
+  `config_key` varchar(64) DEFAULT NULL COMMENT '键',
+  `config_value` varchar(255) DEFAULT NULL COMMENT '值',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `create_time` datetime DEFAULT NULL COMMENT '用户创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '用户更新时间',
+  `operator` varchar(30) DEFAULT NULL COMMENT '操作人',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_key` (`config_type`,`config_key`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='系统配置';
+
+CREATE TABLE `tsys_business_weixin_config` (
+	`id` INT (11) NOT NULL AUTO_INCREMENT COMMENT '流水号',
+	`business_id` INT (11) DEFAULT NULL COMMENT '商家id',
+	`app_id` VARCHAR (64) DEFAULT NULL COMMENT 'APPID',
+	`app_secret` VARCHAR (64) DEFAULT NULL COMMENT 'APPSECRET',
+	`mch_id` VARCHAR (64) DEFAULT NULL COMMENT '商户号',
+	`pay_key` VARCHAR (64) DEFAULT NULL COMMENT '支付密钥',
+	`key_path` VARCHAR (255) DEFAULT NULL COMMENT '密钥文件的存放路径',
+	`notify_url` VARCHAR (255) DEFAULT NULL COMMENT '支付结果通用通知',
+	`token` VARCHAR (255) DEFAULT NULL COMMENT '公众号接口配置信息中的 Token',
+	`expireseconds` VARCHAR (255) DEFAULT NULL COMMENT '带参数临时二维码有效时间(秒)',
+	`index_page_url` VARCHAR (255) DEFAULT NULL COMMENT '首页链接地址(微信授权)',
+	`templet_type` VARCHAR (255) DEFAULT NULL COMMENT '微信模板消息id',
+	`from_user_name` VARCHAR (255) DEFAULT NULL COMMENT '开发者微信号',
+	`remark` VARCHAR (255) DEFAULT NULL COMMENT '备注',
+	`create_time` datetime DEFAULT NULL COMMENT '用户创建时间',
+	`update_time` datetime DEFAULT NULL COMMENT '用户更新时间',
+	`operator` VARCHAR (30) DEFAULT NULL COMMENT '操作人',
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `business` (`business_id`) USING BTREE
+) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT = '商家微信配置';
+

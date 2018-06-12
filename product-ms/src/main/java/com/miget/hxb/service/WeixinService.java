@@ -7,7 +7,7 @@ import com.miget.hxb.controller.client.AccountClient;
 import com.miget.hxb.model.CrmUser;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.wx.constant.WeixinConstant;
-import com.miget.hxb.wx.helper.WeixinHelper;
+import com.miget.hxb.helper.WeixinHelper;
 import com.miget.hxb.wx.model.WeixinUserBaseInfo;
 import com.miget.hxb.wx.utils.WeixinUtil;
 import org.apache.commons.lang.StringUtils;

@@ -25,6 +25,7 @@
         <module>mq-dps</module>
         <module>activity-ms</module>
         <module>pay-ms</module>
+        <module>weixin-dps</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

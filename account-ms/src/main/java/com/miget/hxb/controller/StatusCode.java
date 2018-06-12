@@ -55,6 +55,8 @@ public enum StatusCode implements RestStatus {
      */
     INSUFFICIENT_BALANCE(42005, "用户余额不足"),
 
+    WEIXIN_OPENID_ERROR(42011, "微信openid获取失败"),
+
     // 50xxx 服务端异常
     /**
      * 用于处理未知的服务端错误

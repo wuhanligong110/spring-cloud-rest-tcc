@@ -22,6 +22,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <common-dps.version>0.0.1-SNAPSHOT</common-dps.version>
+        <weixin-dps.version>0.0.1-SNAPSHOT</weixin-dps.version>
     </properties>
 
     <dependencies>
@@ -29,6 +30,11 @@
             <groupId>com.miget.hxb</groupId>
             <artifactId>common-dps</artifactId>
             <version>${common-dps.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.miget.hxb</groupId>
+            <artifactId>weixin-dps</artifactId>
+            <version>${weixin-dps.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

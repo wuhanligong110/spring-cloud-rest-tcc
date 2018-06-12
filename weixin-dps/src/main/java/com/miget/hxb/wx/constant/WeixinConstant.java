@@ -20,7 +20,7 @@ public class WeixinConstant {
 	/**
 	 * 支付密钥
 	 */
-	public static final String 	KEY = "1f6b92a4af464748b0afc2b8a11f8bf3";
+	public static final String KEY = "1f6b92a4af464748b0afc2b8a11f8bf3";
 	/**
      * 密钥文件的存放路径
      */

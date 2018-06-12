@@ -1,4 +1,4 @@
-package com.miget.hxb.wx.helper;
+package com.miget.hxb.helper;
 
 import com.alibaba.fastjson.JSONObject;
 import com.miget.hxb.domain.WxAccessToken;
