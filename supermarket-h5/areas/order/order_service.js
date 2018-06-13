@@ -44,6 +44,22 @@ angular.module('order.service', [])
             deferred.reject(e);
         });
         return deferred.promise;
-      }
+      },
+        submitOrder: function (order) {
+            var deferred = $q.defer();
+            var prepayRequest = {};
+            prepayRequest.orderItems = order.items;
+            prepayRequest.total = order.total;
+            $http({
+                method:'post',
+                url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/pay/api/v1/wxpay/prepay",
+                data:prepayRequest
+            }).success(function(data,status,headers,config){
+                deferred.resolve(data);
+            }).error(function(data,status,headers,config){
+                deferred.reject(data);
+            });
+            return deferred.promise;
+        }
     }
   }]);
