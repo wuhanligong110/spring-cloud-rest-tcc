@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author hxb
  */
@@ -23,5 +26,8 @@ public interface AccountClient {
 
     @RequestMapping(value = API_PATH + "/users/{userId}", method = RequestMethod.GET)
     ObjectDataResponse<CrmUser> findUser(@PathVariable("userId") Long userId);
+
+    @RequestMapping(value = "/users/weixin/userinfo", method = RequestMethod.GET)
+    ObjectDataResponse<CrmUser> weixinUserinfo(HttpServletRequest request, HttpServletResponse response);
 
 }

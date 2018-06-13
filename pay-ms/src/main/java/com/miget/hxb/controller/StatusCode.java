@@ -75,6 +75,8 @@ public enum StatusCode implements RestStatus {
      */
     WITHOUT_CANCEL_ORDER(42009, "没有可取消的订单"),
 
+    WEIXIN_CONFIG_NULL(42010, "商家微信配置不存在"),
+
     // 50xxx 服务端异常
     /**
      * 用于处理未知的服务端错误

@@ -3,6 +3,7 @@
 <mapper namespace="com.miget.hxb.persistence.BizOrderMapper">
   <resultMap id="BaseResultMap" type="com.miget.hxb.domain.BizOrder">
     <id column="tord_order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="tord_out_trade_no" jdbcType="VARCHAR" property="outTradeNo" />
     <result column="tord_user_id" jdbcType="INTEGER" property="userId" />
     <result column="tord_address_id" jdbcType="INTEGER" property="addressId" />
     <result column="tord_amount" jdbcType="BIGINT" property="amount" />
@@ -14,10 +15,10 @@
     <result column="tord_operator" jdbcType="VARCHAR" property="operator" />
   </resultMap>
   <sql id="Base_Column_List">
-    tord.order_id as tord_order_id, tord.user_id as tord_user_id, tord.address_id as tord_address_id,
-    tord.amount as tord_amount, tord.is_payed as tord_is_payed, tord.pay_id as tord_pay_id,
-    tord.pay_type as tord_pay_type, tord.create_time as tord_create_time, tord.update_time as tord_update_time,
-    tord.operator as tord_operator
+    tord.order_id as tord_order_id, tord.out_trade_no as tord_out_trade_no, tord.user_id as tord_user_id,
+    tord.address_id as tord_address_id, tord.amount as tord_amount, tord.is_payed as tord_is_payed,
+    tord.pay_id as tord_pay_id, tord.pay_type as tord_pay_type, tord.create_time as tord_create_time,
+    tord.update_time as tord_update_time, tord.operator as tord_operator
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
@@ -30,20 +31,23 @@
     where order_id = #{orderId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.miget.hxb.domain.BizOrder">
-    insert into tbiz_order (order_id, user_id, address_id,
-      amount, is_payed, pay_id,
-      pay_type, create_time, update_time,
-      operator)
-    values (#{orderId,jdbcType=BIGINT}, #{userId,jdbcType=INTEGER}, #{addressId,jdbcType=INTEGER},
-      #{amount,jdbcType=BIGINT}, #{isPayed,jdbcType=INTEGER}, #{payId,jdbcType=INTEGER},
-      #{payType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
-      #{operator,jdbcType=VARCHAR})
+    insert into tbiz_order (order_id, out_trade_no, user_id,
+    address_id, amount, is_payed,
+    pay_id, pay_type, create_time,
+    update_time, operator)
+    values (#{orderId,jdbcType=BIGINT}, #{outTradeNo,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
+    #{addressId,jdbcType=INTEGER}, #{amount,jdbcType=BIGINT}, #{isPayed,jdbcType=INTEGER},
+    #{payId,jdbcType=INTEGER}, #{payType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+    #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.miget.hxb.domain.BizOrder">
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.BizOrder" useGeneratedKeys="true" keyProperty="order_id">
     insert into tbiz_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
         order_id,
+      </if>
+      <if test="outTradeNo != null">
+        out_trade_no,
       </if>
       <if test="userId != null">
         user_id,
@@ -77,6 +81,9 @@
       <if test="orderId != null">
         #{orderId,jdbcType=BIGINT},
       </if>
+      <if test="outTradeNo != null">
+        #{outTradeNo,jdbcType=VARCHAR},
+      </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
@@ -109,6 +116,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.BizOrder">
     update tbiz_order
     <set>
+      <if test="outTradeNo != null">
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
@@ -141,7 +151,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.BizOrder">
     update tbiz_order
-    set user_id = #{userId,jdbcType=INTEGER},
+    set out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
       address_id = #{addressId,jdbcType=INTEGER},
       amount = #{amount,jdbcType=BIGINT},
       is_payed = #{isPayed,jdbcType=INTEGER},
@@ -167,6 +178,7 @@
     from tbiz_order tord
     where tord.user_id = #{userId,jdbcType=INTEGER}
   </select>
+
   <select id="orderPageList" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -174,5 +186,12 @@
     where tord.order_id = toi.order_id
     and toi.business_id = #{businessId,jdbcType=INTEGER}
     group by tord.order_id
+  </select>
+
+  <select id="queryOrderByTradeNo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbiz_order tord
+    where tord.out_trade_no = #{outTradeNo,jdbcType=VARCHAR}
   </select>
 </mapper>

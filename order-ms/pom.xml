@@ -21,7 +21,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <common-dps.version>0.0.1-SNAPSHOT</common-dps.version>
         <mq-dps.version>0.0.1-SNAPSHOT</mq-dps.version>
     </properties>
 

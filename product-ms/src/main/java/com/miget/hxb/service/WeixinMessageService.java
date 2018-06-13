@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import com.miget.hxb.Shift;
 import com.miget.hxb.controller.StatusCode;
 import com.miget.hxb.controller.client.AccountClient;
+import com.miget.hxb.domain.SysBusinessWeixinConfig;
 import com.miget.hxb.helper.WeixinHelper;
 import com.miget.hxb.model.CrmUser;
 import com.miget.hxb.util.DateUtils;
@@ -15,6 +16,7 @@ import com.miget.hxb.wx.message.resp.*;
 import com.miget.hxb.wx.model.TemplateData;
 import com.miget.hxb.wx.utils.MessageUtil;
 import com.miget.hxb.wx.utils.WeixinUtil;
+import com.rabbitmq.client.LongString;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,8 @@ public class WeixinMessageService{
 	private WeixinHelper weixinHelper;
 	@Autowired
 	private SysConfigService sysConfigService;
+	@Autowired
+	private SysBusinessWeixinConfigService businessWeixinConfigService;
 
 	public void sendTempletMsg(final Long businessId, final Long userId,final String type,final String point,final String from,final String remark,final String accessToken) {
 		if(sysConfigService.getSwitching(businessId,"wx_sendTempletMsg")){
@@ -48,23 +52,26 @@ public class WeixinMessageService{
 					final CrmUser user = findRemoteUser(userId);
 					if(user != null){
 						String wechatOpenid = user.getWechatOpenid();
-						String jsonData = TemplateData.New()
-								.setTouser(wechatOpenid)
-								.setTemplate_id(WeixinConstant.TEMPLET_TYPE)
-								.setTopcolor("#173177")
-								.setUrl(WeixinConstant.INDEX_PAGE_URL)
-								.add("first", "尊敬的客户【"+user.getUserId()+"】,您好:", "#173177")
-								.add("time",DateUtils.getNow("yyyy-MM-dd HH:mm:ss"), "#173177")
-								.add("type", type, "#173177")
-								.add("Point", point, "#173177")
-								.add("From", from, "#173177")
-								.add("remark", remark == null?"感谢您的支持!":remark, "#173177")
-								.build();
-						//	String accessToken = "6-lCmfSQyrPRGtoeewM8_uvF0V7pgG_yA6QTbTq-oCWlpiogSr3Uai23rn-JoGyNLIYWebKXhmb3K0F9mdS6DEU5JHw9tpBuA6gyFiVMqSIR8x9zoXeOOPyNAhHKQdD9UJMeAIAODG";
-						if(StringUtils.isEmpty(accessToken)){
-							WeixinUtil.sendTempletMsg(weixinHelper.getAccessToken(businessId,WeixinConstant.APPID, WeixinConstant.SECRET,false), jsonData);
-						} else {							
-							WeixinUtil.sendTempletMsg(accessToken, jsonData);
+						SysBusinessWeixinConfig weixinConfig = businessWeixinConfigService.queryBusinessWeixinConfig(businessId);
+						if(weixinConfig != null) {
+							String jsonData = TemplateData.New()
+									.setTouser(wechatOpenid)
+									.setTemplate_id(weixinConfig.getTempletType())
+									.setTopcolor("#173177")
+									.setUrl(weixinConfig.getIndexPageUrl())
+									.add("first", "尊敬的客户【" + user.getUserId() + "】,您好:", "#173177")
+									.add("time", DateUtils.getNow("yyyy-MM-dd HH:mm:ss"), "#173177")
+									.add("type", type, "#173177")
+									.add("Point", point, "#173177")
+									.add("From", from, "#173177")
+									.add("remark", remark == null ? "感谢您的支持!" : remark, "#173177")
+									.build();
+							//	String accessToken = "6-lCmfSQyrPRGtoeewM8_uvF0V7pgG_yA6QTbTq-oCWlpiogSr3Uai23rn-JoGyNLIYWebKXhmb3K0F9mdS6DEU5JHw9tpBuA6gyFiVMqSIR8x9zoXeOOPyNAhHKQdD9UJMeAIAODG";
+							if (StringUtils.isEmpty(accessToken)) {
+								WeixinUtil.sendTempletMsg(weixinHelper.getAccessToken(businessId, weixinConfig.getAppId(), weixinConfig.getAppSecret(), false), jsonData);
+							} else {
+								WeixinUtil.sendTempletMsg(accessToken, jsonData);
+							}
 						}
 					}
 				}
@@ -79,7 +86,10 @@ public class WeixinMessageService{
 		//发送微信图文消息
 		NewsMessage newmsg=new NewsMessage();
 		newmsg.setToUserName(openid);
-		newmsg.setFromUserName(WeixinConstant.FROM_USER_NAME);
+		SysBusinessWeixinConfig weixinConfig = businessWeixinConfigService.queryBusinessWeixinConfig(businessId);
+		if(weixinConfig != null) {
+			newmsg.setFromUserName(weixinConfig.getFromUserName());
+		}
 		newmsg.setCreateTime(System.currentTimeMillis());
 		newmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
 		
@@ -113,7 +123,10 @@ public class WeixinMessageService{
 		
 		//发送微信图片消息
 		imageMessage.setToUserName(openid);
-		imageMessage.setFromUserName(WeixinConstant.FROM_USER_NAME);
+		SysBusinessWeixinConfig weixinConfig = businessWeixinConfigService.queryBusinessWeixinConfig(businessId);
+		if(weixinConfig != null) {
+			imageMessage.setFromUserName(weixinConfig.getFromUserName());
+		}
 		imageMessage.setCreateTime(System.currentTimeMillis());
 		imageMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_Image);
 		
@@ -124,12 +137,15 @@ public class WeixinMessageService{
 		return returnXmlMessage;
 	}
 
-	public String sendWeixinTextMessage(String openid, String text) {
+	public String sendWeixinTextMessage(Long businessId,String openid, String text) {
 		TextMessage textMessage = new TextMessage();
 		
 		//发送微信文本消息
 		textMessage.setToUserName(openid);
-		textMessage.setFromUserName(WeixinConstant.FROM_USER_NAME);
+		SysBusinessWeixinConfig weixinConfig = businessWeixinConfigService.queryBusinessWeixinConfig(businessId);
+		if(weixinConfig != null) {
+			textMessage.setFromUserName(weixinConfig.getFromUserName());
+		}
 		textMessage.setCreateTime(System.currentTimeMillis());
 		textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 		textMessage.setContent(text);
@@ -147,8 +163,11 @@ public class WeixinMessageService{
 					customTextMessage.setMsgtype(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 					TextContent textContent = new TextContent();
 					textContent.setContent(content);
-					customTextMessage.setText(textContent); 
-				    WeixinUtil.sendCustomMsg(weixinHelper.getAccessToken(businessId,WeixinConstant.APPID, WeixinConstant.SECRET,false), JSONObject.toJSONString(customTextMessage));
+					customTextMessage.setText(textContent);
+					SysBusinessWeixinConfig weixinConfig = businessWeixinConfigService.queryBusinessWeixinConfig(businessId);
+					if(weixinConfig != null) {
+						WeixinUtil.sendCustomMsg(weixinHelper.getAccessToken(businessId, weixinConfig.getAppId(), weixinConfig.getAppSecret(), false), JSONObject.toJSONString(customTextMessage));
+					}
 				}
 			});
 		} else {

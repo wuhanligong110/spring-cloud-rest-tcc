@@ -55,76 +55,7 @@ public class WeixinUtil {
 	public static String createTimeStamp() {
 		return Long.toString(System.currentTimeMillis() / 1000);
 	}
-	
-	/**
-	 * 获取当前进入微信公众号用户的openid
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	public static String getUserOpenId(HttpServletRequest request, HttpServletResponse response){
-		Object openIdObj = request.getSession().getAttribute("openId");
-		String openId = "";
-		if(openIdObj!=null){
-			openId = openIdObj.toString();
-		}
-		if (StringUtils.isEmpty(openId)) {
-			openId = (String) request.getParameter("openId");
-			if(StringUtils.isEmpty(openId)){
-				String code = (String) request.getParameter("code");
-				if(StringUtils.isEmpty(code)){
-//					String requestURILocall = getRequestUrl(request);
-//					LOGGER.info("通过页面重定向获取code,页面当前请求 URL={}",requestURILocall);
-//					String requestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
-//					try {
-//						requestUrl = requestUrl.replace("APPID",WeixinConstant.APPID).replace("REDIRECT_URI",URLEncoder.encode(requestURILocall,"UTF-8"));
-//						LOGGER.info("通过页面重定向获取code,最终重定向 requestUrl={}",requestUrl);
-//						response.sendRedirect(requestUrl);
-//					} catch (IOException e) {
-//						LOGGER.error("获取当前进入微信公众号用户的openid进行页面重定向异常",e);
-//					}
-					LOGGER.error("获取当前进入微信公众号用户的openid异常,code为null");
-				} else {
-					openId = WeixinUtil.getUserOpenId(WeixinConstant.APPID, WeixinConstant.SECRET, code);
-				}
-			}
-			request.getSession().setAttribute("openId", openId);
-		}
-		LOGGER.info("当前进入微信公众号用户的 openId={}",openId);
-		if(StringUtils.isEmpty(openId)){
-			openId = "oTZdswPIB9w6XtcIOjZx6nAKy7SA";
-			LOGGER.info("获取openId为null 直接使用自己的 openId={}",openId);
-		}
-		return openId;
-	}
-	
-	 /**
-	  * 获取openId  
-	  * @param appid
-	  * @param appSecret
-	  * @param code 
-	  * @return
-	  * 采用 网页授权获取 access_token API：SnsAccessTokenApi获取
-	  */
-	public static String getUserOpenId(String appid, String appSecret, String code){
-		LOGGER.info("根据code获取openId,code={}",code);
-		String openId = "";
-		try {
-			String requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
-			requestUrl = requestUrl.replace("APPID", appid).replace("SECRET", appSecret).replace("CODE", code); 
-			String response = HttpRequestClient.invokeGet(requestUrl, null, null, null);
-			if(checkWXResult(response)){		
-				Map<String, Object> resultMap = JSONObject.parseObject(response, new TypeReference<Map<String, Object>>() {});
-				if (resultMap.get("openid") != null) {
-					openId = resultMap.get("openid").toString();
-				}     
-			}
-		} catch (Exception e) {
-			LOGGER.error("根据code获取openId异常", e);
-		}
-		return openId;
-    }
-    
+
     /** 
      * 创建临时带参数二维码 
      * @param accessToken 
@@ -222,37 +153,7 @@ public class WeixinUtil {
 		}
     	return weixinUserBaseInfoList;
     }
-    
-    /**
-     * 获取微信Https请求 client 
-     * @return
-     */
-    public static HttpClient getWXHttpsclient(){
-    	HttpClient httpclient = null;
-    	try {		
-    		KeyStore keyStore  = KeyStore.getInstance("PKCS12");
-    		FileInputStream keyStream = new FileInputStream(new File(WeixinConstant.KEY_PATH));
-    		try {
-    			keyStore.load(keyStream, WeixinConstant.MCH_ID.toCharArray());
-    		} finally {
-    			keyStream.close();
-    		}
-    		
-    		// Trust own CA and all self-signed certs
-    		SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, WeixinConstant.MCH_ID.toCharArray()).build();
-    		// Allow TLSv1 protocol only
-    		SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
-    				sslcontext,
-    				new String[] { "TLSv1" },
-    				null,
-    				SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
-    		httpclient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
-		} catch (Exception e) {
-			LOGGER.error("获取微信Https请求 client异常", e);
-		}
-    	return httpclient;
-    }
-    
+
     /**
      * 发送模板消息
      * @param jsonStr json字符串

@@ -8,7 +8,7 @@ import com.miget.hxb.model.response.LoginResponse;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.model.response.RegisterResponse;
 import com.miget.hxb.service.CrmUserService;
-import com.miget.hxb.wx.utils.WeixinUtil;
+import com.miget.hxb.service.WeixinService;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -28,6 +29,8 @@ import javax.validation.Valid;
 public class CrmUserController {
     @Autowired
     private CrmUserService crmUserService;
+    @Resource
+    private WeixinService weixinService;
 
     @ApiOperation(value = "根据ID获取用户", notes = "根据userId获取用户")
     @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
@@ -68,10 +71,10 @@ public class CrmUserController {
         return new ObjectDataResponse<>(result);
     }
 
-    @ApiOperation(value = "根据微信获取用户Id", notes = "获取用户Id")
+    @ApiOperation(value = "根据微信获取用户", notes = "获取用户")
     @RequestMapping(value = "/users/weixin/userinfo", method = RequestMethod.GET)
     public ObjectDataResponse<CrmUser> weixinUserinfo(HttpServletRequest request, HttpServletResponse response) {
-        String openId = WeixinUtil.getUserOpenId(request,response);
+        String openId = weixinService.getUserOpenId(request,response);
         if(StringUtils.isBlank(openId)){
             Shift.fatal(StatusCode.WEIXIN_OPENID_ERROR);
         }

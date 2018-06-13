@@ -15,4 +15,6 @@ public interface BizOrderMapper extends CrudMapper<BizOrder> {
     Page<BizOrder> userOrderPageList(@Param("userId") Long userId);
 
     Page<BizOrder> orderPageList(@Param("businessId")Integer businessId);
+
+    BizOrder queryOrderByTradeNo(@Param("outTradeNo")String outTradeNo);
 }

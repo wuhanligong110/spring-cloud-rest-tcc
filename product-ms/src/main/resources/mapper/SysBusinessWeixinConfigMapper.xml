@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miget.hxb.persistence.SysBusinessWeixinConfigMapper">
+  <resultMap id="BaseResultMap" type="com.miget.hxb.domain.SysBusinessWeixinConfig">
+    <id column="tbwc_id" jdbcType="INTEGER" property="id" />
+    <result column="tbwc_business_id" jdbcType="INTEGER" property="businessId" />
+    <result column="tbwc_app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="tbwc_app_secret" jdbcType="VARCHAR" property="appSecret" />
+    <result column="tbwc_mch_id" jdbcType="VARCHAR" property="mchId" />
+    <result column="tbwc_pay_key" jdbcType="VARCHAR" property="payKey" />
+    <result column="tbwc_key_path" jdbcType="VARCHAR" property="keyPath" />
+    <result column="tbwc_notify_url" jdbcType="VARCHAR" property="notifyUrl" />
+    <result column="tbwc_token" jdbcType="VARCHAR" property="token" />
+    <result column="tbwc_expireseconds" jdbcType="VARCHAR" property="expireseconds" />
+    <result column="tbwc_index_page_url" jdbcType="VARCHAR" property="indexPageUrl" />
+    <result column="tbwc_templet_type" jdbcType="VARCHAR" property="templetType" />
+    <result column="tbwc_from_user_name" jdbcType="VARCHAR" property="fromUserName" />
+    <result column="tbwc_remark" jdbcType="VARCHAR" property="remark" />
+    <result column="tbwc_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="tbwc_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="tbwc_operator" jdbcType="VARCHAR" property="operator" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tbwc.id as tbwc_id, tbwc.business_id as tbwc_business_id, tbwc.app_id as tbwc_app_id, 
+    tbwc.app_secret as tbwc_app_secret, tbwc.mch_id as tbwc_mch_id, tbwc.pay_key as tbwc_pay_key, 
+    tbwc.key_path as tbwc_key_path, tbwc.notify_url as tbwc_notify_url, tbwc.token as tbwc_token, 
+    tbwc.expireseconds as tbwc_expireseconds, tbwc.index_page_url as tbwc_index_page_url, 
+    tbwc.templet_type as tbwc_templet_type, tbwc.from_user_name as tbwc_from_user_name, 
+    tbwc.remark as tbwc_remark, tbwc.create_time as tbwc_create_time, tbwc.update_time as tbwc_update_time, 
+    tbwc.operator as tbwc_operator
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tsys_business_weixin_config tbwc
+    where tbwc.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tsys_business_weixin_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miget.hxb.domain.SysBusinessWeixinConfig">
+    insert into tsys_business_weixin_config (id, business_id, app_id, 
+      app_secret, mch_id, pay_key, 
+      key_path, notify_url, token, 
+      expireseconds, index_page_url, templet_type, 
+      from_user_name, remark, create_time, 
+      update_time, operator)
+    values (#{id,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, #{appId,jdbcType=VARCHAR}, 
+      #{appSecret,jdbcType=VARCHAR}, #{mchId,jdbcType=VARCHAR}, #{payKey,jdbcType=VARCHAR}, 
+      #{keyPath,jdbcType=VARCHAR}, #{notifyUrl,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, 
+      #{expireseconds,jdbcType=VARCHAR}, #{indexPageUrl,jdbcType=VARCHAR}, #{templetType,jdbcType=VARCHAR}, 
+      #{fromUserName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.SysBusinessWeixinConfig">
+    insert into tsys_business_weixin_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="appId != null">
+        app_id,
+      </if>
+      <if test="appSecret != null">
+        app_secret,
+      </if>
+      <if test="mchId != null">
+        mch_id,
+      </if>
+      <if test="payKey != null">
+        pay_key,
+      </if>
+      <if test="keyPath != null">
+        key_path,
+      </if>
+      <if test="notifyUrl != null">
+        notify_url,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="expireseconds != null">
+        expireseconds,
+      </if>
+      <if test="indexPageUrl != null">
+        index_page_url,
+      </if>
+      <if test="templetType != null">
+        templet_type,
+      </if>
+      <if test="fromUserName != null">
+        from_user_name,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="appSecret != null">
+        #{appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="mchId != null">
+        #{mchId,jdbcType=VARCHAR},
+      </if>
+      <if test="payKey != null">
+        #{payKey,jdbcType=VARCHAR},
+      </if>
+      <if test="keyPath != null">
+        #{keyPath,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null">
+        #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="expireseconds != null">
+        #{expireseconds,jdbcType=VARCHAR},
+      </if>
+      <if test="indexPageUrl != null">
+        #{indexPageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="templetType != null">
+        #{templetType,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserName != null">
+        #{fromUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miget.hxb.domain.SysBusinessWeixinConfig">
+    update tsys_business_weixin_config
+    <set>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null">
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="appSecret != null">
+        app_secret = #{appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="mchId != null">
+        mch_id = #{mchId,jdbcType=VARCHAR},
+      </if>
+      <if test="payKey != null">
+        pay_key = #{payKey,jdbcType=VARCHAR},
+      </if>
+      <if test="keyPath != null">
+        key_path = #{keyPath,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null">
+        notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="expireseconds != null">
+        expireseconds = #{expireseconds,jdbcType=VARCHAR},
+      </if>
+      <if test="indexPageUrl != null">
+        index_page_url = #{indexPageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="templetType != null">
+        templet_type = #{templetType,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserName != null">
+        from_user_name = #{fromUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miget.hxb.domain.SysBusinessWeixinConfig">
+    update tsys_business_weixin_config
+    set business_id = #{businessId,jdbcType=INTEGER},
+      app_id = #{appId,jdbcType=VARCHAR},
+      app_secret = #{appSecret,jdbcType=VARCHAR},
+      mch_id = #{mchId,jdbcType=VARCHAR},
+      pay_key = #{payKey,jdbcType=VARCHAR},
+      key_path = #{keyPath,jdbcType=VARCHAR},
+      notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      expireseconds = #{expireseconds,jdbcType=VARCHAR},
+      index_page_url = #{indexPageUrl,jdbcType=VARCHAR},
+      templet_type = #{templetType,jdbcType=VARCHAR},
+      from_user_name = #{fromUserName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryBusinessWeixinConfig" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tsys_business_weixin_config tbwc
+    where tbwc.business_id = #{businessId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,5 +1,4 @@
-package com.miget.hxb.wx.request;
-
+package com.miget.hxb.model.request;
 
 import java.util.List;
 
@@ -13,6 +12,14 @@ public class WxprepayRequest {
 	 * 微信code
 	 */
 	private String code;
+	/**
+	 * 收件地址
+	 */
+	private Integer addressId;
+	/**
+	 * 订单明细
+	 */
+	private List<PlaceOrderItemRequest> orderItems;
 	/**
 	 * 真实ip
 	 */
@@ -64,5 +71,21 @@ public class WxprepayRequest {
 
 	public void setTotal(Integer total) {
 		this.total = total;
+	}
+
+	public Integer getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(Integer addressId) {
+		this.addressId = addressId;
+	}
+
+	public List<PlaceOrderItemRequest> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<PlaceOrderItemRequest> orderItems) {
+		this.orderItems = orderItems;
 	}
 }

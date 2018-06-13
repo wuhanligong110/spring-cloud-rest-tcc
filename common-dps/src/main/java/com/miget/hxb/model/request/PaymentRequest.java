@@ -6,37 +6,28 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * @author hxb
+ * @author Zhao Junjian
  */
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"}, ignoreUnknown = true)
-public class PlaceOrderRequest extends RestfulRequest {
+public class PaymentRequest extends RestfulRequest {
 
-    private static final long serialVersionUID = -7089168357959601473L;
+    private static final long serialVersionUID = 7750629946817039062L;
 
-    @NotNull
-    @Min(1)
-    @ApiModelProperty(value = "用户ID", required = true, example = "1")
-    private Long userId;
+    @ApiModelProperty(value = "订单ID", example = "1", required = true)
+    private Long orderId;
 
-    @NotNull
-    @Min(1)
-    @ApiModelProperty(value = "地址ID", required = true, example = "5")
-    private Integer addressId;
-
-    @ApiModelProperty(value = "订单明细", required = true)
-    private List<PlaceOrderItemRequest> orderItems;
+    @NotEmpty
+    @ApiModelProperty(value = "交易号", example = "xxxxxxxxxx", required = true)
+    private String outTradeNo;
 
 }

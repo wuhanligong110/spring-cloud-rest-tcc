@@ -16,6 +16,9 @@ import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.page.PageInfo;
 import com.miget.hxb.persistence.BizOrderMapper;
 import com.miget.hxb.persistence.CrudMapper;
+import com.miget.hxb.sender.RabbitSender;
+import com.miget.hxb.util.MQConstants;
+import com.miget.hxb.util.RabbitMetaMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -43,6 +46,8 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
     private ProductClient productClient;
     @Autowired
     private BizOrderItemService orderItemService;
+    @Autowired
+    private RabbitSender rabbitSender;
 
     @Resource
     private BizOrderMapper mapper;
@@ -87,6 +92,7 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
         order.setAmount(orderAmount);
         order.setIsPayed(0);
         order.setOperator("system");
+        order.setOutTradeNo(request.getOutTradeNo());
         persistNonNullProperties(order);
 
         for(BizOrderItem orderItem : orderItemList){
@@ -147,10 +153,26 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
         return resultMap;
     }
 
-    public int payConfirm(PaymentRequest request) {
+    public int payConfirm(PaymentRequest request) throws Exception {
         Preconditions.checkNotNull(request);
-        orderItemService.payConfirm(request);
-        return  mapper.payConfirm(request);
+        BizOrder order = mapper.queryOrderByTradeNo(request.getOutTradeNo());
+        if(order != null){
+            request.setOrderId(order.getOrderId());
+            orderItemService.payConfirm(request);
+            mapper.payConfirm(request);
+            /** 生成一个发送对象 */
+            RabbitMetaMessage rabbitMetaMessage = new RabbitMetaMessage();
+            /**设置交换机 */
+            rabbitMetaMessage.setExchange(MQConstants.BUSINESS_EXCHANGE);
+            /**指定routing key */
+            rabbitMetaMessage.setRoutingKey(MQConstants.BUSINESS_KEY);
+            /** 设置需要传递的消息体,可以是任意对象 */
+            rabbitMetaMessage.setPayload("the message you want to send");
+            //do some biz
+            /** 发送消息 */
+            rabbitSender.send(rabbitMetaMessage);
+        }
+        return 0;
     }
 
     public int cancel(PaymentRequest request) {

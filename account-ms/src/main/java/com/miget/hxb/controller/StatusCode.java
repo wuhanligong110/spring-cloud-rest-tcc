@@ -55,13 +55,19 @@ public enum StatusCode implements RestStatus {
      */
     INSUFFICIENT_BALANCE(42005, "用户余额不足"),
 
+    WEIXIN_CONFIG_NULL(42006, "微信配置不存在"),
+
     WEIXIN_OPENID_ERROR(42011, "微信openid获取失败"),
 
     // 50xxx 服务端异常
     /**
      * 用于处理未知的服务端错误
      */
-    SERVER_UNKNOWN_ERROR(50001, "服务端异常, 请稍后再试");
+    SERVER_UNKNOWN_ERROR(50001, "服务端异常, 请稍后再试"),
+    /**
+     * 用于远程调用时的系统出错
+     */
+    SERVER_IS_BUSY_NOW(50002, "系统繁忙, 请稍后再试");
 
     private final int code;
 
