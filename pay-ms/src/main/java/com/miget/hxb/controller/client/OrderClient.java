@@ -23,10 +23,10 @@ public interface OrderClient {
      */
     String API_PATH = "/api/v1";
 
-    @RequestMapping(value = "/orders", method = RequestMethod.POST)
+    @RequestMapping(value = API_PATH + "/orders", method = RequestMethod.POST)
     ObjectDataResponse<BizOrder> placeOrder(@RequestBody PlaceOrderRequest request);
 
-    @RequestMapping(value = "/orders/confirmation", method = RequestMethod.POST)
+    @RequestMapping(value = API_PATH + "/orders/confirmation", method = RequestMethod.POST)
     ObjectDataResponse payConfirm(@RequestBody PaymentRequest request);
 
 }

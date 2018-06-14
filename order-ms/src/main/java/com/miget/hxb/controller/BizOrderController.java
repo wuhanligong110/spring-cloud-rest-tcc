@@ -47,7 +47,11 @@ public class BizOrderController {
     @ApiOperation(value = "确认订单", notes = "支付确认")
     @RequestMapping(value = "/orders/confirmation", method = RequestMethod.POST)
     public ObjectDataResponse payConfirm(@Valid @RequestBody PaymentRequest request, BindingResult result) {
-        orderService.payConfirm(request);
+        try {
+            orderService.payConfirm(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return  new ObjectDataResponse<>(null);
     }
 

@@ -6,10 +6,7 @@ import com.miget.hxb.model.request.OrderCancelRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -34,6 +31,6 @@ public interface ProductClient {
     @RequestMapping(value = API_PATH + "/products/inventory", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     ObjectDataResponse<Integer> orderCancel(@RequestBody List<OrderCancelRequest> orderCancelRequests);
 
-    @RequestMapping(value = "/weixin/{businessId}/config", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    ObjectDataResponse<SysBusinessWeixinConfig> weixinConfig(@PathVariable Long businessId);
+    @RequestMapping(value = API_PATH + "/weixin/config/{businessId}", method = RequestMethod.GET)
+    ObjectDataResponse<SysBusinessWeixinConfig> weixinConfig(@PathVariable("businessId") Long businessId);
 }

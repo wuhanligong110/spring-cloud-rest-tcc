@@ -1,0 +1,44 @@
+<ion-view id="pay" view-title="支付订单" hide-back-button="true" cache-view="false">
+  <ion-content class="scroll-content" scroll="false">
+    <div class="wrapper">
+      <div class="pay">
+        <div class="order">
+          <dl style="padding-top: 10px;padding-bottom: 20px;">
+            <dt style="width: 50%;float: left">合计金额：</dt>
+            <dd style="width: 50%;float: right;margin-left: 0" class="amount"><i class="f18 cny">¥</i><font class="f18 ml2">{{order.total}}</font></dd>
+          </dl>
+        </div>
+        <div class="payment mt10" id="payments">
+          <dl data-pid="">
+            <dd class="fr"><a><img src="http://wh.jiuguishangcheng.com/images/b462822de6622d87d3063b268add9240?f=png"/></a></dd>
+          <dd class="fl"><i class="icon ion-android-checkbox-outline-blank"></i></dd>
+          <dd class="desc"><p class="f14">支付宝</p></dd>
+          </dl>
+          <dl data-pid="">
+            <dd class="fr"><a><img src="http://wh.jiuguishangcheng.com/images/f969029eb3cbc31e946318b54bd973b4?f=png" /></a></dd>
+            <dd class="fl"><i class="icon ion-android-checkbox-outline"></i></dd>
+            <dd class="desc"><p class="f14">微信支付</p></dd>
+          </dl>
+          <dl data-pid="">
+            <dd class="fr"><a><img src="http://wh.jiuguishangcheng.com/images/6d8fcb7a75c77e289295fa05f477d898?f=png" /></a></dd>
+            <dd class="fl"><i class="icon ion-android-checkbox-outline-blank"></i></dd>
+            <dd class="desc"><p class="f14">银行卡</p></dd>
+          </dl>
+          <div class="more center"><font class="mr5">查看更多付款方式</font><i class="icon ion-chevron-right"></i></div>
+        </div>
+        <div class="submit mt20"><a class="xauto center" ng-click="func_submitOrder(order)" >付 款</a></div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function(){
+            $('#payments dl').click(function(){
+                if(!$(this).hasClass('checked')){
+                    $('#payments dl.checked').removeClass('checked');
+                    $(this).addClass('checked');
+                }
+            });
+        });
+    </script>
+  </ion-content>
+</ion-view>

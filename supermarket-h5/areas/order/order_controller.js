@@ -39,6 +39,7 @@ angular.module('order.controller', ['order.service'])
   }
 
   $scope.func_submitOrder = function (order) {
+        order.addressId = $scope.consignee.id;
       var promise = OrderFty.submitOrder(order);
       promise.then(
           function (returnParams) {
@@ -69,12 +70,13 @@ angular.module('order.controller', ['order.service'])
                               if(res.err_msg == "get_brand_wcpay_request:ok" ) {
                                   mui.alert("恭喜您支付成功","支付结果","确定",function(){
                                       //TODO   删除购物车中已支付的数据
-                                      window.location.href = '/home';
+                                      window.location.href = '#/home';
                                   },'div')
                               }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                           }
                       );
                   }
+                  window.location.href = "#/home";
               } else {
                   mui.alert(errorMessage,"支付失败","确定",null,'div')
               }

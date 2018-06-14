@@ -23,6 +23,6 @@ public interface ProductClient {
     String API_PATH = "/api/v1";
 
     @RequestMapping(value = "/weixin/{businessId}/config", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    ObjectDataResponse<SysBusinessWeixinConfig> weixinConfig(@PathVariable Long businessId);
+    ObjectDataResponse<SysBusinessWeixinConfig> weixinConfig(@PathVariable("businessId") Long businessId);
 
 }

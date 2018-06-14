@@ -17,6 +17,10 @@ public class WxprepayRequest {
 	 */
 	private Integer addressId;
 	/**
+	 * 商家ID
+	 */
+	private Long businessId;
+	/**
 	 * 订单明细
 	 */
 	private List<PlaceOrderItemRequest> orderItems;
@@ -87,5 +91,13 @@ public class WxprepayRequest {
 
 	public void setOrderItems(List<PlaceOrderItemRequest> orderItems) {
 		this.orderItems = orderItems;
+	}
+
+	public Long getBusinessId() {
+		return businessId;
+	}
+
+	public void setBusinessId(Long businessId) {
+		this.businessId = businessId;
 	}
 }

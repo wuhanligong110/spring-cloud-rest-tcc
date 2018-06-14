@@ -28,8 +28,8 @@ public class SysWeixinConfigController {
     private CimBusinessService businessService;
 
     @ApiOperation(value = "根据商家ID获取微信配置信息", notes = "微信配置")
-    @RequestMapping(value = "/weixin/{businessId}/config", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ObjectDataResponse<SysBusinessWeixinConfig> weixinConfig(@PathVariable Long businessId) {
+    @RequestMapping(value = "/weixin/config/{businessId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<SysBusinessWeixinConfig> weixinConfig(@PathVariable("businessId") Long businessId) {
         final CimBusiness business = businessService.find(businessId);
         if (business == null) {
             Shift.fatal(StatusCode.BUSINESS_NOT_EXISTS);

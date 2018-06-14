@@ -1,6 +1,6 @@
 body, html {font:12px Tahoma,Arial,Helvetica,sans-serif;color:#333;}
 body,html,h1,h2,h3,h4,h5,ol,ul,li,dl,dt,dd,p,span,form,input,img {margin:0;padding:0;}
-body {max-width:640px;height:auto;margin:0 auto;overflow-x:hidden;background:#eff2f5;}
+body {max-width:640px;height:auto;margin:0 auto;overflow-x:hidden;background:#ffffff;}
 h1,h2,h3,h4,h5 {font-size:12px;}
 ul,li {list-style-type:none;}
 dl,dt,dd {display:block;}

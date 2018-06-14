@@ -48,8 +48,18 @@ angular.module('order.service', [])
         submitOrder: function (order) {
             var deferred = $q.defer();
             var prepayRequest = {};
-            prepayRequest.orderItems = order.items;
+            var orderItems = new Array();
+            for(var i in order.items){
+                var orderItem = {};
+                orderItem.business_id = order.items[i].businessId;
+                orderItem.product_id = order.items[i].productId;
+                orderItem.product_count = order.items[i].number;
+                orderItems.push(orderItem);
+            }
+            prepayRequest.orderItems = orderItems;
             prepayRequest.total = order.total;
+            prepayRequest.addressId = order.addressId;
+            prepayRequest.businessId = GlobalVariable.BUSINESS_ID;
             $http({
                 method:'post',
                 url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/pay/api/v1/wxpay/prepay",

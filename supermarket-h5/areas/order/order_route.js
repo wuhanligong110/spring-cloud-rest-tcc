@@ -7,4 +7,9 @@ angular.module('order.route', ['order.controller'])
         templateUrl: 'areas/order/order.html',
         controller: 'OrderCtrl'
       })
+      .state('pay',{
+          url: '/pay',
+          templateUrl: 'areas/order/pay.html',
+          controller: 'OrderCtrl'
+      })
   });

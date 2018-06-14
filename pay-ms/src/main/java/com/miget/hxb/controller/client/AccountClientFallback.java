@@ -9,9 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * @author hxb
  */
@@ -27,7 +24,7 @@ public class AccountClientFallback implements AccountClient {
     }
 
     @Override
-    public ObjectDataResponse<CrmUser> weixinUserinfo(HttpServletRequest request, HttpServletResponse response) {
+    public ObjectDataResponse<CrmUser> queryRemoteUserByOpenId(@PathVariable("openid")String openid) {
         didNotGetResponse();
         Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
         return null;

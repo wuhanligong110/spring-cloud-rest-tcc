@@ -40,7 +40,7 @@
     #{payId,jdbcType=INTEGER}, #{payType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
     #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.miget.hxb.domain.BizOrder" useGeneratedKeys="true" keyProperty="order_id">
+  <insert id="insertSelective" parameterType="com.miget.hxb.domain.BizOrder" useGeneratedKeys="true" keyProperty="orderId">
     insert into tbiz_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderId != null">

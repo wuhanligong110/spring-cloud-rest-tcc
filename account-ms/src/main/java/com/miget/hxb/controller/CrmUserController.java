@@ -74,6 +74,7 @@ public class CrmUserController {
     @ApiOperation(value = "根据微信获取用户", notes = "获取用户")
     @RequestMapping(value = "/users/weixin/userinfo", method = RequestMethod.GET)
     public ObjectDataResponse<CrmUser> weixinUserinfo(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("根据微信获取用户");
         String openId = weixinService.getUserOpenId(request,response);
         if(StringUtils.isBlank(openId)){
             Shift.fatal(StatusCode.WEIXIN_OPENID_ERROR);
