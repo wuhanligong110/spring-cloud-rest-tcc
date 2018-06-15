@@ -1,12 +1,12 @@
-angular.module('goodsList.route', ['goodsList.controller'])
+angular.module('orderList.route', ['orderList.controller'])
   .config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
-      .state('goodsList', {
-        url: '/goodsList/:categotyId',
-        templateUrl: 'areas/goodsList/orderList.html',
-        controller: 'GoodsListCtrl',
-        params:{"categotyId":null}
+      .state('orderList', {
+        url: '/orderList/:orderStatus',
+        templateUrl: 'areas/orderList/orderList.html',
+        controller: 'OrderListCtrl',
+        params:{"orderStatus":null}
       })
 
   });

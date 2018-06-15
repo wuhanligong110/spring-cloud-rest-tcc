@@ -13,6 +13,8 @@ import com.miget.hxb.model.CimProduct;
 import com.miget.hxb.model.CrmUser;
 import com.miget.hxb.model.request.*;
 import com.miget.hxb.model.response.ObjectDataResponse;
+import com.miget.hxb.model.response.OrderItemResponse;
+import com.miget.hxb.model.response.OrderListResponse;
 import com.miget.hxb.page.PageInfo;
 import com.miget.hxb.persistence.BizOrderMapper;
 import com.miget.hxb.persistence.CrudMapper;
@@ -28,10 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Zhao Junjian
@@ -208,16 +207,39 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
         return 0;
     }
 
-    public ObjectDataResponse<PageInfo<BizOrder>> userOrderPageList(Long userId, PageRequest request) {
+    public ObjectDataResponse<PageInfo<OrderListResponse>> userOrderPageList(Long userId, OrderStatusPageRequest request) {
         Preconditions.checkNotNull(userId);
         Preconditions.checkNotNull(request);
+        request.setUserId(userId);
         final CrmUser user = findRemoteUser(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
         }
         PageHelper.startPage(request.getPageNo(), request.getPageSize());
-        final Page<BizOrder> orderList = mapper.userOrderPageList(userId);
-        PageInfo<BizOrder> pageInfo = new PageInfo<>(orderList);
+        final Page<OrderListResponse> orderList = mapper.userOrderPageList(request);
+        PageInfo<OrderListResponse> pageInfo = new PageInfo<>(orderList);
+        if(pageInfo.getList() != null && pageInfo.getList().size() > 0){
+            for(int i = 0; i < pageInfo.getList().size(); i++){
+                List<OrderItemResponse> orderItemList = pageInfo.getList().get(i).getOrderItems();
+                List<PlaceOrderItemRequest> orderItems = new ArrayList<>();
+                if(orderItemList != null && orderItemList.size() > 0){
+                    for(int k = 0; k < orderItemList.size(); k++){
+                        PlaceOrderItemRequest orderItemRequest = new PlaceOrderItemRequest();
+                        orderItemRequest.setBusinessId(orderItemList.get(k).getBusinessId());
+                        orderItemRequest.setProductId(orderItemList.get(k).getProductId());
+                        orderItemRequest.setProductCount(orderItemList.get(k).getProductCount());
+                        orderItems.add(orderItemRequest);
+                    }
+                }
+                final Map<Integer,CimProduct> productMap = orderProductInventory(orderItems);
+                if(pageInfo.getList().get(i).getOrderItems() != null && pageInfo.getList().get(i).getOrderItems().size() > 0){
+                    for(int j = 0; j < pageInfo.getList().get(i).getOrderItems().size(); j++){
+                        pageInfo.getList().get(i).getOrderItems().get(j).setProductName(productMap.get(pageInfo.getList().get(i).getOrderItems().get(j).getProductId()).getProductName());
+                        pageInfo.getList().get(i).getOrderItems().get(j).setProductImg(productMap.get(pageInfo.getList().get(i).getOrderItems().get(j).getProductId()).getListImg());
+                    }
+                }
+            }
+        }
         return new ObjectDataResponse<>(pageInfo);
     }
 

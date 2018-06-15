@@ -1,9 +1,9 @@
 // 商品列表页面
-angular.module('goodsList.controller', ['goodsList.service'])
-  .controller('GoodsListCtrl', function ($scope,$stateParams,GoodsListFty,$ionicLoading,$ionicHistory) {
+angular.module('orderList.controller', ['orderList.service'])
+  .controller('OrderListCtrl', function ($scope,$stateParams,OrderListFty,$ionicLoading,$ionicHistory) {
 
     // 初始化变量
-    $scope.obj_goodsListData=[];
+    $scope.obj_orderListData=[];
     $scope.pms_isMoreItemsAvailable=true;
 
     // 分页查询对象
@@ -23,27 +23,26 @@ angular.module('goodsList.controller', ['goodsList.service'])
       pageSize: 10,
       sortFlag: "0",
       sortType: "desc",
-      categotyId:$stateParams.categotyId
+      orderStatus:$stateParams.orderStatus
     };
 
     // 视图事件
     $scope.$on('$ionicView.beforeEnter', function (e) {
-      $scope.func_refreshGoodsList();
+      $scope.func_refreshOrderList();
     });
 
-    // 获取商品最新列表数据
-    $scope.func_refreshGoodsList=function(){
+    // 获取订单最新列表数据
+    $scope.func_refreshOrderList=function(){
       // 要传递的参数
-      $scope.obj_pagingInfo.pageNum=1;
+      $scope.obj_pagingInfo.pageNo=1;
       var message=$scope.obj_pagingInfo;
       // 调用promise对象
-      var promise=GoodsListFty.refreshGoodsList(message);
+      var promise=OrderListFty.refreshOrderList(message);
       promise.then(
         function(data){
           if(data.list){
-            $scope.obj_goodsListData=data.list;
+            $scope.obj_orderListData=data.list;
           }
-
           if(!data.lastPage){
             $scope.pms_isMoreItemsAvailable=true;
           }else{
@@ -60,7 +59,7 @@ angular.module('goodsList.controller', ['goodsList.service'])
     };
 
     // 加载更多数据的方法
-    $scope.func_loadMoreGoodsList=function(){
+    $scope.func_loadMoreOrderList=function(){
 
       console.log("loading............");
 
@@ -72,14 +71,15 @@ angular.module('goodsList.controller', ['goodsList.service'])
       $scope.obj_pagingInfo.pageNo++;
       var message=$scope.obj_pagingInfo;
       // 调用promise对象
-      var promise=GoodsListFty.refreshGoodsList(message);
+      var promise=OrderListFty.refreshOrderList(message);
       promise.then(
         function(data){
           if(!data.lastPage){
             $scope.pms_isMoreItemsAvailable=true;
-            $.each(data, function(i, item) {
-              $scope.obj_goodsListData.push(item);
+            $.each(data.list, function(i, item) {
+              $scope.obj_orderListData.push(item);
             });
+            console.log($scope.obj_orderListData);
           }else{
             $scope.pms_isMoreItemsAvailable=false;
           }
@@ -95,11 +95,11 @@ angular.module('goodsList.controller', ['goodsList.service'])
           },1000)
 
       });
-    }
+    };
 
     // 返回方法
     $scope.func_goBack=function(){
       $ionicHistory.goBack();
     }
 
-  })
+  });

@@ -155,6 +155,7 @@ angular.module('cart.controller', ['cart.service'])
                       if(data.businessProductList.length == 0){
                           CartFty.delete(businessId);
                       }
+                      break;
                   }
               }
           },

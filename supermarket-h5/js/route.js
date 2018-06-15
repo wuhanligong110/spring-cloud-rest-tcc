@@ -10,7 +10,8 @@ angular.module('route', [
   'account.route',
   'order.route',
   'address.list.route',
-  'address.detail.route'
+  'address.detail.route',
+  'orderList.route'
 ])
   .config(function($stateProvider, $urlRouterProvider) {
 

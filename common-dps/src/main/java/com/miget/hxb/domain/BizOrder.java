@@ -14,6 +14,8 @@ public class BizOrder extends BasicDomain {
 
     private Long amount;
 
+    private Integer orderStatus;
+
     private Integer isPayed;
 
     private Integer payId;
@@ -64,6 +66,14 @@ public class BizOrder extends BasicDomain {
 
     public void setAmount(Long amount) {
         this.amount = amount;
+    }
+
+    public Integer getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public Integer getIsPayed() {

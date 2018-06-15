@@ -36,6 +36,26 @@ angular.module('cart.service', [])
           deferred.reject(e);
         })
         return deferred.promise;
+      },
+      clearPay:function (order) {
+        for(var i in order.items){
+            var businessId = order.items[i].businessId;
+            IndexedDBJs.get(businessId,"cart",function(data){
+              for(var j in order.items){
+                  var productId = order.items[j].productId;
+                  for(var i in data.businessProductList){
+                      if(data.businessProductList[i].productId == productId){
+                          data.businessProductList = data.businessProductList.slice(0,i).concat(data.businessProductList.slice(i+1,data.businessProductList.length));
+                          break;
+                      }
+                  }
+              }
+              IndexedDBJs.update("cart",data);
+              if(data.businessProductList.length == 0){
+                  IndexedDBJs.delete(data.businessId,"cart");
+              }
+            });
+        }
       }
     }
   }]);

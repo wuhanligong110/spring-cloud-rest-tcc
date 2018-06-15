@@ -1,10 +1,10 @@
 <ion-view id="goodsList" view-title="商品列表页" hide-back-button="true" cache-view="false">
   <ion-content class="scroll-content">
     <!-- 产品部分 -->
-    <ion-refresher pulling-text="亲爱滴！马上为您加载最新商品..." refreshing-text="loading..." on-refresh="func_refreshGoodsList()"></ion-refresher>
+    <ion-refresher pulling-text="亲爱滴！马上为您加载最新商品..." refreshing-text="loading..." on-refresh="func_refreshOrderList()"></ion-refresher>
 
     <div class="orderli module cut" id="orders" data-cur="1" data-next="1">
-      <div class="item" ng-repeat="order in orderList">
+      <div class="item" ng-repeat="order in obj_orderListData">
         <div class="th c666"><span class="fr">{{order.progress}}</span><font class="mr5">订单号:</font><b>{{order.outTradeNo}}</b></div>
         <div class="goods" ng-repeat="orderItem in order.orderItems">
           <a class="im" ng-href="#/details/orderItem.productId"><img src="{{orderItem.productImg}}" /></a>
@@ -19,10 +19,10 @@
           </div>
         </div>
 
-        <div class="total"><font class="mr5">总额:</font><span class="red"><i class="cny">¥</i><font class="f14">{{order.total}}</font></span><span class="ml5 c999">(含运费：<i class="cny">¥</i>0.00</span></div>
+        <div class="total"><font class="mr5">总额:</font><span class="red"><i class="cny">¥</i><font class="f14">{{order.amount}}</font></span><span class="ml5 c999">(含运费：<i class="cny">¥</i>0.00</span></div>
         <div class="act">
           <a ng-href="#/order/detail/order.orderId">查看详细</a>
-          <a ng-if="order.status == 0" class="b1" href="<{url c='mobile/order' a='rebuy' id='${v.order_id}'}>">重新购买</a>
+          <a ng-if="order.orderStatus == 0" class="b1" href="<{url c='mobile/order' a='rebuy' id='${v.order_id}'}>">重新购买</a>
           <a ng-if="order.status == 1" class="b1" href="<{url c='mobile/pay' a='index' order_id='${v.order_id}'}>">立即付款</a>{@/if}
           <a ng-if="order.status == 2" class="b2" href="<{url c='mobile/order' a='cancel' id='${v.order_id}'}>">取消订单</a>
           <a ng-if="order.status == 3" class="b1" href="<{url c='mobile/order' a='delivered' id='${v.order_id}'}>">确认签收</a>
@@ -35,7 +35,7 @@
     <div ng-hide="pms_isMoreItemsAvailable" style="text-align: center">
       <span>见底了！</span>
     </div>
-    <ion-infinite-scroll ng-if="pms_isMoreItemsAvailable" on-infinite="func_loadMoreGoodsList()" distance="1%" immediate-check="false">
+    <ion-infinite-scroll ng-if="pms_isMoreItemsAvailable" on-infinite="func_loadMoreOrderList()" distance="1%" immediate-check="false">
     </ion-infinite-scroll>
   </ion-content>
 </ion-view>

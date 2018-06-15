@@ -9,7 +9,6 @@ import com.miget.hxb.controller.StatusCode;
 import com.miget.hxb.controller.client.AccountClient;
 import com.miget.hxb.controller.client.OrderClient;
 import com.miget.hxb.controller.client.ProductClient;
-import com.miget.hxb.domain.BizOrder;
 import com.miget.hxb.domain.SysBusinessWeixinConfig;
 import com.miget.hxb.model.CrmUser;
 import com.miget.hxb.model.request.PaymentRequest;

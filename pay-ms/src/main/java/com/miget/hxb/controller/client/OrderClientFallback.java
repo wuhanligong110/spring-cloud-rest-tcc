@@ -2,7 +2,6 @@ package com.miget.hxb.controller.client;
 
 import com.miget.hxb.Shift;
 import com.miget.hxb.controller.StatusCode;
-import com.miget.hxb.domain.BizOrder;
 import com.miget.hxb.model.request.PaymentRequest;
 import com.miget.hxb.model.request.PlaceOrderRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;

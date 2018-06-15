@@ -34,7 +34,7 @@ angular.module('goodsList.controller', ['goodsList.service'])
     // 获取商品最新列表数据
     $scope.func_refreshGoodsList=function(){
       // 要传递的参数
-      $scope.obj_pagingInfo.pageNum=1;
+      $scope.obj_pagingInfo.pageNo=1;
       var message=$scope.obj_pagingInfo;
       // 调用promise对象
       var promise=GoodsListFty.refreshGoodsList(message);
@@ -77,7 +77,7 @@ angular.module('goodsList.controller', ['goodsList.service'])
         function(data){
           if(!data.lastPage){
             $scope.pms_isMoreItemsAvailable=true;
-            $.each(data, function(i, item) {
+            $.each(data.list, function(i, item) {
               $scope.obj_goodsListData.push(item);
             });
           }else{
