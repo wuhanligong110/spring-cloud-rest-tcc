@@ -216,8 +216,22 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
         }
         PageHelper.startPage(request.getPageNo(), request.getPageSize());
-        final Page<OrderListResponse> orderList = mapper.userOrderPageList(request);
+        final Page<BizOrder> orderPageList = mapper.queryUserOrderPageList(request);
+        PageInfo<BizOrder> orderPageInfo = new PageInfo<>(orderPageList);
+        List<Long> orderIdList = new ArrayList<>();
+        if(orderPageInfo.getList() != null && orderPageInfo.getList().size() >0){
+            for(int i = 0; i < orderPageInfo.getList().size(); i++){
+                orderIdList.add(orderPageInfo.getList().get(i).getOrderId());
+            }
+        }
+        List<OrderListResponse> orderList = mapper.userOrderList(orderIdList);
         PageInfo<OrderListResponse> pageInfo = new PageInfo<>(orderList);
+        pageInfo.setFirstPage(orderPageInfo.isFirstPage());
+        pageInfo.setLastPage(orderPageInfo.isLastPage());
+        pageInfo.setPageNum(orderPageInfo.getPageNum());
+        pageInfo.setPages(orderPageInfo.getPages());
+        pageInfo.setPageSize(orderPageInfo.getPageSize());
+        pageInfo.setTotal(orderPageInfo.getTotal());
         if(pageInfo.getList() != null && pageInfo.getList().size() > 0){
             for(int i = 0; i < pageInfo.getList().size(); i++){
                 List<OrderItemResponse> orderItemList = pageInfo.getList().get(i).getOrderItems();

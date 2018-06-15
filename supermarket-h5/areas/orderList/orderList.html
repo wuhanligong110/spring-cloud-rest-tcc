@@ -4,30 +4,25 @@
     <ion-refresher pulling-text="亲爱滴！马上为您加载最新商品..." refreshing-text="loading..." on-refresh="func_refreshOrderList()"></ion-refresher>
 
     <div class="orderli module cut" id="orders" data-cur="1" data-next="1">
-      <div class="item" ng-repeat="order in obj_orderListData">
+      <div class="item" ng-repeat="order in obj_orderListData" style="padding: 0;font-size: 12px">
         <div class="th c666"><span class="fr">{{order.progress}}</span><font class="mr5">订单号:</font><b>{{order.outTradeNo}}</b></div>
         <div class="goods" ng-repeat="orderItem in order.orderItems">
           <a class="im" ng-href="#/details/orderItem.productId"><img src="{{orderItem.productImg}}" /></a>
           <div class="info">
             <p><a ng-href="#/details/orderItem.productId">{{orderItem.productName}}</a></p>
-            <!--{@if vv.goods_opts != null}
-            <p class="c999 mt5">{@each vv.goods_opts as o}<span class="mr10">${o.opt_type}: [<font class="c666">${o.opt_text}</font>]</span>{@/each}</p>
-            {@/if}-->
+            <span></span>
             <p class="mt5">
-              <font class="c999 mr5">单价:</font><i class="cny">¥</i>{{orderItem.productPrice}}<span class="sep10"></span><font class="c999 mr5">数量:</font>{{orderItem.productCount}}
+              <font class="c999 mr5">单价:</font><i class="cny">¥</i>{{orderItem.productPrice}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="c999 mr5">数量:</font>{{orderItem.productCount}}
             </p>
           </div>
         </div>
 
-        <div class="total"><font class="mr5">总额:</font><span class="red"><i class="cny">¥</i><font class="f14">{{order.amount}}</font></span><span class="ml5 c999">(含运费：<i class="cny">¥</i>0.00</span></div>
+        <div class="total"><p class="mr5">总额:</p><p class="red" style="color: #c81623;font-size: 18px;"><i class="cny">¥</i><font class="f14" style="font-size: 18px;">{{order.amount}}</font></p><p class="ml5 c999">(含运费：<i class="cny">¥</i>0.00)</p></div>
         <div class="act">
           <a ng-href="#/order/detail/order.orderId">查看详细</a>
-          <a ng-if="order.orderStatus == 0" class="b1" href="<{url c='mobile/order' a='rebuy' id='${v.order_id}'}>">重新购买</a>
-          <a ng-if="order.status == 1" class="b1" href="<{url c='mobile/pay' a='index' order_id='${v.order_id}'}>">立即付款</a>{@/if}
-          <a ng-if="order.status == 2" class="b2" href="<{url c='mobile/order' a='cancel' id='${v.order_id}'}>">取消订单</a>
-          <a ng-if="order.status == 3" class="b1" href="<{url c='mobile/order' a='delivered' id='${v.order_id}'}>">确认签收</a>
-          <a ng-if="order.status == 4" class="b1" href="<{url c='mobile/review' a='order' order_id='${v.order_id}'}>">评价</a>
-          <a ng-if="order.status == 4" class="b2" href="<{url c='mobile/aftersales' a='order' order_id='${v.order_id}'}>">售后</a>
+          <a ng-if="order.orderStatus == 0" class="b1" href="<{url c='mobile/order' a='rebuy' id='${v.order_id}'}>">立即付款</a>
+          <a ng-if="order.orderStatus == 1" class="b1" href="<{url c='mobile/pay' a='index' order_id='${v.order_id}'}>">确认签收</a>
+          <a ng-if="order.orderStatus == 2" class="b2" href="<{url c='mobile/order' a='cancel' id='${v.order_id}'}>">重新购买</a>
         </div>
       </div>
     </div>

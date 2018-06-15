@@ -3,20 +3,22 @@ CREATE SCHEMA IF NOT EXISTS `order`
 USE `order`;
 
 CREATE TABLE `tbiz_order` (
-  `order_id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '订单id',
+  `out_trade_no` varchar(64) DEFAULT '' COMMENT '订单号',
+  `order_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单id',
   `user_id` int(11) NOT NULL COMMENT '用户id',
-	`address_id` int(11) NOT NULL COMMENT '收货地址id',
-	`amount` bigint(15) DEFAULT NULL COMMENT '*100',
+  `address_id` int(11) NOT NULL COMMENT '收货地址id',
+  `amount` bigint(15) DEFAULT NULL COMMENT '*100',
+  `order_status` int(4) DEFAULT '0' COMMENT '订单状态',
   `is_payed` int(11) DEFAULT '0' COMMENT '是否支付 0=未支付|1=已支付',
   `pay_id` int(1) DEFAULT NULL COMMENT '支付ID',
-	`pay_type` int(11) DEFAULT '1' COMMENT '消费类型 1：积分购买 2：购物积分兑换',
-	`create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `pay_type` int(11) DEFAULT '1' COMMENT '消费类型 1：积分购买 2：购物积分兑换',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `operator` varchar(30) DEFAULT NULL COMMENT '操作人',
   PRIMARY KEY (`order_id`),
   KEY `ix_user_id` (`user_id`) USING BTREE,
   KEY `ix_create_time` (`create_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='订单表';
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='订单表';
 
 CREATE TABLE `tbiz_order_item` (
   `order_item_id` BIGINT(30) NOT NULL AUTO_INCREMENT COMMENT '订单明细id',

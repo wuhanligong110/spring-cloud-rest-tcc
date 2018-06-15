@@ -44,4 +44,17 @@ public class OrderListResponse implements Response {
     @ApiModelProperty(value = "订单明细", example = "", required = true)
     private List<OrderItemResponse> orderItems;
 
+    public String getProgress() {
+        if(orderStatus == 0){
+            return "待支付";
+        }else if(orderStatus == 1){
+            return "待收货";
+        }else {
+            return progress;
+        }
+    }
+
+    public void setProgress(String progress) {
+        this.progress = progress;
+    }
 }

@@ -23,6 +23,11 @@ angular.module('orderList.service', [])
 				data.data.list[temp]["listImg"] = GlobalVariable.IMAGE_SERVER + data.data.list[temp]["listImg"]+"?w=400&h=400";
 			}*/
             //console.log(JSON.stringify(data));
+			for(var i in data.data.list){
+				for(j in data.data.list[i].orderItems){
+					data.data.list[i].orderItems[j].productImg = GlobalVariable.IMAGE_SERVER + data.data.list[i].orderItems[j].productImg+"?w=400&h=400";
+				}
+			}
         	deferred.resolve(data.data);
         }).error(function(data,status,headers,config){
         	deferred.reject(data);
