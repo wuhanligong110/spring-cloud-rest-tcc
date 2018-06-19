@@ -8,21 +8,18 @@
           <dl class="col"><dt>下单时间：</dt><dd>{{date('Y-m-d H:i:s', order.createTime)}}</dd></dl>
           <dl class="col"><dt>支付方式：</dt><dd>{{order.payType}}</dd></dl>
         </div>
-        <{if !empty($carrier) && !empty($shipping)}>
         <dl class="carrier col mt8">
           <dt><i class="iconfont">&#xe623;</i></dt>
           <dd>
-            <h4 class="c666"><{$carrier.name}></h4>
-            <p class="mt5 c888">运单编号：<a class="blue" href="<{$carrier.tracking_url}><{$shipping.tracking_no}>"><{$shipping.tracking_no}></a></p>
-            <p class="mt5 c888">客服电话：<a class="blue" href="tel:<{$carrier.service_tel}>"><{$carrier.service_tel}></a></p>
+            <h4 class="c666">{{order.courierCompany}}</h4>
+            <p class="mt5 c888">运单编号：<a class="blue" href="https://www.kuaidi100.com/chaxun?com={{order.courierCompany}}&nu={{order.courierNumber}}">{{order.courierNumber}}</a></p>
           </dd>
         </dl>
-        <{/if}>
         <dl class="address col mt8">
           <dt><i class="iconfont">&#xe62f;</i></dt>
           <dd class="c666">
-            <h4>{{order.addres.receivingUserName}}<span class="ml10">{{order.addres.mobile}}</span></h4>
-            <p class="mt5">{{order.addres.provinceName}}{{order.addres.cityName}}{{order.addres.area}}{{order.addres.receivingAddress}}</p>
+            <h4>{{order.address.receivingUserName}}<span class="ml10">{{order.address.mobile}}</span></h4>
+            <p class="mt5">{{order.address.provinceName}}{{order.address.cityName}}{{order.address.area}}{{order.address.receivingAddress}}</p>
           </dd>
         </dl>
         <div class="parcel mt8">
