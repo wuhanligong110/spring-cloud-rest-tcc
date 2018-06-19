@@ -20,9 +20,7 @@
         <div class="total"><p class="mr5">总额:</p><p class="red" style="color: #c81623;font-size: 18px;"><i class="cny">¥</i><font class="f14" style="font-size: 18px;">{{order.amount}}</font></p><p class="ml5 c999">(含运费：<i class="cny">¥</i>0.00)</p></div>
         <div class="act">
           <a ng-href="#/order/detail/order.orderId">查看详细</a>
-          <a ng-if="order.orderStatus == 0" class="b1" href="<{url c='mobile/order' a='rebuy' id='${v.order_id}'}>">立即付款</a>
-          <a ng-if="order.orderStatus == 1" class="b1" href="<{url c='mobile/pay' a='index' order_id='${v.order_id}'}>">确认签收</a>
-          <a ng-if="order.orderStatus == 2" class="b2" href="<{url c='mobile/order' a='cancel' id='${v.order_id}'}>">重新购买</a>
+          <a ng-if="order.orderStatus == 1" class="b1" ng-click="func_hasReceived()">确认签收</a>
         </div>
       </div>
     </div>
