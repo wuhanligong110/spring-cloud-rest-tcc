@@ -11,7 +11,8 @@ angular.module('route', [
   'order.route',
   'address.list.route',
   'address.detail.route',
-  'orderList.route'
+  'orderList.route',
+  'orderDetail.route'
 ])
   .config(function($stateProvider, $urlRouterProvider) {
 

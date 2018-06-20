@@ -9,10 +9,12 @@ import com.miget.hxb.controller.client.AccountClient;
 import com.miget.hxb.controller.client.ProductClient;
 import com.miget.hxb.domain.BizOrder;
 import com.miget.hxb.domain.BizOrderItem;
+import com.miget.hxb.domain.CrmUserAddress;
 import com.miget.hxb.model.CimProduct;
 import com.miget.hxb.model.CrmUser;
 import com.miget.hxb.model.request.*;
 import com.miget.hxb.model.response.ObjectDataResponse;
+import com.miget.hxb.model.response.OrderDetailResponse;
 import com.miget.hxb.model.response.OrderItemResponse;
 import com.miget.hxb.model.response.OrderListResponse;
 import com.miget.hxb.page.PageInfo;
@@ -30,7 +32,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.OffsetDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Zhao Junjian
@@ -39,9 +44,9 @@ import java.util.*;
 public class BizOrderService extends CrudServiceImpl<BizOrder> {
     private static final Logger LOGGER = LoggerFactory.getLogger(BizOrderService.class);
 
-    @Autowired
+    @Resource
     private AccountClient accountClient;
-    @Autowired
+    @Resource
     private ProductClient productClient;
     @Autowired
     private BizOrderItemService orderItemService;
@@ -118,10 +123,6 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
             for (CimProduct product : resultMap.values()) {
                 if (product == null) {
                     Shift.fatal(StatusCode.PRODUCT_NOT_EXISTS);
-                }
-                // 检查库存
-                if (product.getHavaInventory() >= product.getInventory()) {
-                    Shift.fatal(StatusCode.INSUFFICIENT_PRODUCT);
                 }
             }
         }else{
@@ -235,17 +236,13 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
         if(pageInfo.getList() != null && pageInfo.getList().size() > 0){
             for(int i = 0; i < pageInfo.getList().size(); i++){
                 List<OrderItemResponse> orderItemList = pageInfo.getList().get(i).getOrderItems();
-                List<PlaceOrderItemRequest> orderItems = new ArrayList<>();
+                List<Integer> productIds = new ArrayList<>();
                 if(orderItemList != null && orderItemList.size() > 0){
                     for(int k = 0; k < orderItemList.size(); k++){
-                        PlaceOrderItemRequest orderItemRequest = new PlaceOrderItemRequest();
-                        orderItemRequest.setBusinessId(orderItemList.get(k).getBusinessId());
-                        orderItemRequest.setProductId(orderItemList.get(k).getProductId());
-                        orderItemRequest.setProductCount(orderItemList.get(k).getProductCount());
-                        orderItems.add(orderItemRequest);
+                        productIds.add(orderItemList.get(k).getProductId());
                     }
                 }
-                final Map<Integer,CimProduct> productMap = orderProductInventory(orderItems);
+                final Map<Integer,CimProduct> productMap = findRemoteProducts(productIds);
                 if(pageInfo.getList().get(i).getOrderItems() != null && pageInfo.getList().get(i).getOrderItems().size() > 0){
                     for(int j = 0; j < pageInfo.getList().get(i).getOrderItems().size(); j++){
                         pageInfo.getList().get(i).getOrderItems().get(j).setProductName(productMap.get(pageInfo.getList().get(i).getOrderItems().get(j).getProductId()).getProductName());
@@ -269,5 +266,34 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
         Preconditions.checkNotNull(orderId);
         List<BizOrderItem> orderItems = orderItemService.orderDetailList(orderId);
         return new ObjectDataResponse<>(orderItems);
+    }
+
+    public ObjectDataResponse<OrderDetailResponse> orderDetail(Long orderId) {
+        OrderDetailResponse orderDetail = mapper.orderDetail(orderId);
+        Preconditions.checkNotNull(orderDetail);
+        CrmUserAddress address = findRemoteAddressDetail(Long.valueOf(orderDetail.getAddressId()));
+        orderDetail.setAddress(address);
+        List<OrderItemResponse> orderItemList = orderDetail.getOrderItems();
+        List<Integer> productIds = new ArrayList<>();
+        if(orderItemList != null && orderItemList.size() > 0){
+            for(int k = 0; k < orderItemList.size(); k++){
+                productIds.add(orderItemList.get(k).getProductId());
+            }
+        }
+        final Map<Integer,CimProduct> productMap = findRemoteProducts(productIds);
+        if(orderItemList != null && orderItemList.size() > 0){
+            for(int j = 0; j < orderItemList.size(); j++){
+                orderItemList.get(j).setProductName(productMap.get(orderItemList.get(j).getProductId()).getProductName());
+                orderItemList.get(j).setProductImg(productMap.get(orderItemList.get(j).getProductId()).getListImg());
+            }
+        }
+        return new ObjectDataResponse<>(orderDetail);
+    }
+
+    private CrmUserAddress findRemoteAddressDetail(Long addressId) {
+        Preconditions.checkNotNull(addressId);
+        ObjectDataResponse<CrmUserAddress> response = accountClient.userAddressDetail(addressId);
+        Preconditions.checkNotNull(response.getData());
+        return response.getData();
     }
 }

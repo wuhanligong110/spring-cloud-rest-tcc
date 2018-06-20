@@ -5,6 +5,7 @@ import com.miget.hxb.MyBatisRepository;
 import com.miget.hxb.domain.BizOrder;
 import com.miget.hxb.model.request.OrderStatusPageRequest;
 import com.miget.hxb.model.request.PaymentRequest;
+import com.miget.hxb.model.response.OrderDetailResponse;
 import com.miget.hxb.model.response.OrderListResponse;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,4 +24,6 @@ public interface BizOrderMapper extends CrudMapper<BizOrder> {
     Page<BizOrder> queryUserOrderPageList(OrderStatusPageRequest request);
 
     List<OrderListResponse> userOrderList(List<Long> orderIdList);
+
+    OrderDetailResponse orderDetail(@Param("orderId")Long orderId);
 }

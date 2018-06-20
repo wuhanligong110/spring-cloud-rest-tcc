@@ -89,8 +89,8 @@ public class CimProductController {
     }
 
     @ApiOperation(value = "批量按产品ID查询产品", notes = "查询产品")
-    @RequestMapping(value = "/products", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ObjectDataResponse<Map<Integer, CimProduct>> findProducts(@RequestParam List<Integer> productIds){
+    @RequestMapping(value = "/products", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<Map<Integer, CimProduct>> findProducts(@RequestBody List<Integer> productIds){
         Map<Integer,CimProduct> result = productService.findProducts(productIds);
         return new ObjectDataResponse<>(result);
     }

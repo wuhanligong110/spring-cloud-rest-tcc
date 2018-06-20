@@ -5,42 +5,42 @@
         <div class="blank ptb5 f14 cut">
           <dl class="col"><dt>订单号：</dt><dd>{{order.outTradeNo}}</dd></dl>
           <dl class="col"><dt>订单状态：</dt><dd><font class="red">{{order.progress}}</font></dd></dl>
-          <dl class="col"><dt>下单时间：</dt><dd>{{date('Y-m-d H:i:s', order.createTime)}}</dd></dl>
+          <dl class="col"><dt>下单时间：</dt><dd>{{order.createTime}}</dd></dl>
           <dl class="col"><dt>支付方式：</dt><dd>{{order.payType}}</dd></dl>
         </div>
         <dl class="carrier col mt8">
-          <dt><i class="iconfont">&#xe623;</i></dt>
+          <dt><i style="font-size: 30px;" class="icon ion-folder"></i></dt>
           <dd>
             <h4 class="c666">{{order.courierCompany}}</h4>
             <p class="mt5 c888">运单编号：<a class="blue" href="https://www.kuaidi100.com/chaxun?com={{order.courierCompany}}&nu={{order.courierNumber}}">{{order.courierNumber}}</a></p>
           </dd>
         </dl>
         <dl class="address col mt8">
-          <dt><i class="iconfont">&#xe62f;</i></dt>
+          <dt><i class="icon ion-location" style="font-size: 30px;"></i></dt>
           <dd class="c666">
-            <h4>{{order.address.receivingUserName}}<span class="ml10">{{order.address.mobile}}</span></h4>
+            <h4>{{order.address.receivingUserName}}<p class="ml10">{{order.address.mobile}}</p></h4>
             <p class="mt5">{{order.address.provinceName}}{{order.address.cityName}}{{order.address.area}}{{order.address.receivingAddress}}</p>
           </dd>
         </dl>
         <div class="parcel mt8">
           <ul>
-            <li ng-repeat="orderItem in order.orderItems">
-              <div class="im"><a ng-href="#/details/orderItem.productId"><img alt="{{orderItem.productName}}" ng-src="orderItem.productImg"/></a></div>
+            <li ng-repeat="orderItem in order.orderItems" style="position: relative;border: 0px;">
+              <div class="im"><a ng-href="#/details/{{orderItem.productId}}"><img alt="{{orderItem.productName}}" ng-src="{{orderItem.productImg}}"/></a></div>
               <div class="info">
-                <p class="name"><a ng-href="#/details/orderItem.productId">{{orderItem.productName}}</a></p>
-                <p class="subtotal mt5 c999">共<b class="q">{{orderItem.productCount}}</b>件<span class="price ml10"><i class="cny">¥</i>{{orderItem.productPrice}}</span></p>
+                <span class="name"><a ng-href="#/details/{{orderItem.productId}}">{{orderItem.productName}}</a></span>
+                <span class="subtotal mt5 c999">共<b class="q">{{orderItem.productCount}}</b>件<p class="price ml10"><i class="cny">¥</i>{{orderItem.productPrice}}</p></span>
               </div>
             </li>
           </ul>
         </div>
         <div class="amount mt8 f14 cut">
-          <dl class="col mt10"><dt>商品总计：</dt><dd><i class="cny">¥</i>{{order.total}}</dd></dl>
+          <dl class="col mt10"><dt>商品总计：</dt><dd><i class="cny">¥</i>{{order.amount}}</dd></dl>
           <dl class="col mt10"><dt>运费：</dt><dd><i class="cny">¥</i>0.00</dd></dl>
-          <dl class="col total mt10"><dt>订单总额：</dt><dd class="f16"><i class="cny">¥</i>{{order.total}}</dd></dl>
+          <dl class="col total mt10"><dt>订单总额：</dt><dd class="f16"><i class="cny">¥</i>{{order.amount}}</dd></dl>
         </div>
       </div>
     </div>
-    <div class="orderact footfixed" id="footact">
+    <div class="orderact" id="footact">
       <a class="b1" ng-click="func_hasReceived()">确认签收</a>
     </div>
   </ion-content>

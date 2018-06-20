@@ -7,9 +7,9 @@
       <div class="item" ng-repeat="order in obj_orderListData" style="padding: 0;font-size: 12px">
         <div class="th c666"><span class="fr">{{order.progress}}</span><font class="mr5">订单号:</font><b>{{order.outTradeNo}}</b></div>
         <div class="goods" ng-repeat="orderItem in order.orderItems">
-          <a class="im" ng-href="#/details/orderItem.productId"><img src="{{orderItem.productImg}}" /></a>
+          <a class="im" ng-href="#/details/{{orderItem.productId}}"><img src="{{orderItem.productImg}}" /></a>
           <div class="info">
-            <p><a ng-href="#/details/orderItem.productId">{{orderItem.productName}}</a></p>
+            <p><a ng-href="#/details/{{orderItem.productId}}">{{orderItem.productName}}</a></p>
             <span></span>
             <p class="mt5">
               <font class="c999 mr5">单价:</font><i class="cny">¥</i>{{orderItem.productPrice}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="c999 mr5">数量:</font>{{orderItem.productCount}}
@@ -19,7 +19,7 @@
 
         <div class="total"><p class="mr5">总额:</p><p class="red" style="color: #c81623;font-size: 18px;"><i class="cny">¥</i><font class="f14" style="font-size: 18px;">{{order.amount}}</font></p><p class="ml5 c999">(含运费：<i class="cny">¥</i>0.00)</p></div>
         <div class="act">
-          <a ng-href="#/order/detail/order.orderId">查看详细</a>
+          <a ng-href="#/order/detail/{{order.orderId}}">查看详细</a>
           <a ng-if="order.orderStatus == 1" class="b1" ng-click="func_hasReceived()">确认签收</a>
         </div>
       </div>

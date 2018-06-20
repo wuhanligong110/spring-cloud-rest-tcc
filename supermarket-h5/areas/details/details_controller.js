@@ -61,7 +61,7 @@ angular.module('details.controller', ['details.service'])
         }).finally(function() {
           
       });
-    };
+    }
 
     // 数量加1
     $scope.func_jia1 = function () {

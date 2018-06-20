@@ -2,17 +2,24 @@ package com.miget.hxb.controller;
 
 import com.miget.hxb.Delay;
 import com.miget.hxb.RandomlyThrowsException;
+import com.miget.hxb.model.request.WxprepayRequest;
 import com.miget.hxb.sender.RabbitSender;
+import com.miget.hxb.service.PayService;
 import com.miget.hxb.util.MQConstants;
 import com.miget.hxb.util.RabbitMetaMessage;
+import com.miget.hxb.wx.utils.IpKit;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author hxb
@@ -25,6 +32,8 @@ public class BizPayController {
 
     @Autowired
     private RabbitSender rabbitSender;
+    @Resource
+    private PayService payService;
 
     @Delay
     @RandomlyThrowsException
@@ -46,6 +55,17 @@ public class BizPayController {
         rabbitSender.send(rabbitMetaMessage);
 
         return "sucess";
+    }
+
+    @RequestMapping(value = "/pay/prepay", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "下单", notes = "生成预订单")
+    public Map<String, String> placeOrder(HttpServletRequest request, HttpServletResponse response, @RequestBody WxprepayRequest wxprepayRequest) {
+        logger.debug("开始调用统一下单接口");
+        Map<String, String> returnParams = new HashMap<String, String>();
+        wxprepayRequest.setRealIp(IpKit.getRealIp(request));
+        returnParams = payService.placeOrder(request,response,wxprepayRequest);
+        return returnParams;
     }
 
 }

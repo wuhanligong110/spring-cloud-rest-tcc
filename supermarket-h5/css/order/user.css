@@ -82,7 +82,7 @@
 .order .parcel ul li .subtotal {text-align:right;}
 .order .parcel ul li .subtotal .q {margin:0 2px;color:#555;}
 .order .parcel ul li .price {color:#c81623}
-.orderact {padding:10px 0;text-align:center;background:#fbfbfb;}
+.orderact {padding:10px 0;text-align:center;background:#ffffff;}
 .orderact a {display:inline-block;width:78px;height:28px;line-height:28px;margin:0 8px;color:#666;border:1px solid #d5d5d5;background:#fff;border-radius:3px;}
 .orderact a.b1 {color:#cc3333;border-color:#ee3333}
 .orderact a.b2 {color:#669999;border-color:#9ccdcd}

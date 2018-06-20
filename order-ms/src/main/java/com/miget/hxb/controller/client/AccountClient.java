@@ -1,5 +1,6 @@
 package com.miget.hxb.controller.client;
 
+import com.miget.hxb.domain.CrmUserAddress;
 import com.miget.hxb.model.CrmUser;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -23,5 +24,8 @@ public interface AccountClient {
 
     @RequestMapping(value = API_PATH + "/users/{userId}", method = RequestMethod.GET)
     ObjectDataResponse<CrmUser> findUser(@PathVariable("userId") Long userId);
+
+    @RequestMapping(value = API_PATH +  "/users/address/detail/{addressId}", method = RequestMethod.GET)
+    ObjectDataResponse<CrmUserAddress> userAddressDetail(@PathVariable("addressId") Long addressId);
 
 }

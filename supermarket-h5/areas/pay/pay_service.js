@@ -62,7 +62,7 @@ angular.module('order.service', [])
             prepayRequest.businessId = GlobalVariable.BUSINESS_ID;
             $http({
                 method:'post',
-                url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/pay/api/v1/pay/prepay",
+                url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/pay/api/v1/wxpay/prepay",
                 data:prepayRequest
             }).success(function(data,status,headers,config){
                 deferred.resolve(data);

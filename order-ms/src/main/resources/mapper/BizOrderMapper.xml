@@ -238,4 +238,57 @@
     </foreach>
     order by tord.create_time desc
   </select>
+
+  <resultMap id="OrderDetailResultMap" type="com.miget.hxb.model.response.OrderDetailResponse">
+    <id column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="out_trade_no" jdbcType="VARCHAR" property="outTradeNo" />
+    <result column="amount" jdbcType="BIGINT" property="amount" />
+    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+    <result column="courier_company" jdbcType="VARCHAR" property="courierCompany" />
+    <result column="courier_number" jdbcType="VARCHAR" property="courierNumber" />
+    <result column="address_id" jdbcType="INTEGER" property="addressId" />
+    <result column="payType" jdbcType="VARCHAR" property="payType" />
+    <result column="createTime" jdbcType="VARCHAR" property="createTime" />
+    <collection property="orderItems" ofType="com.miget.hxb.model.response.OrderItemResponse">
+      <result column="product_id" property="productId" jdbcType="INTEGER"/>
+      <result column="business_id" property="businessId" jdbcType="INTEGER"/>
+      <result column="product_img" property="productImg" jdbcType="VARCHAR"/>
+      <result column="product_name" property="productName" jdbcType="VARCHAR"/>
+      <result column="product_price" property="productPrice" jdbcType="INTEGER"/>
+      <result column="product_count" property="productCount" jdbcType="INTEGER"/>
+    </collection>
+  </resultMap>
+
+  <select id="orderDetail" resultMap="OrderDetailResultMap">
+    SELECT
+        tord.order_id,
+        tord.out_trade_no,
+        tord.amount,
+        tord.order_status,
+        tord.address_id,
+        (
+            CASE tord.pay_type
+            WHEN 1 THEN
+                '积分购买'
+            WHEN 2 THEN
+                '购物积分兑换'
+            WHEN 3 THEN
+                '微信支付'
+            WHEN 4 THEN
+                '支付宝支付'
+            END
+        ) AS payType,
+        DATE_FORMAT(tord.create_time,'%Y-%m-%d %H:%i:%s') AS createTime,
+        tordi.courier_company,
+        tordi.courier_number,
+        tordi.product_id,
+        tordi.product_price,
+        tordi.product_count
+    FROM
+        tbiz_order tord,
+        tbiz_order_item tordi
+    WHERE
+        tord.order_id = tordi.order_id
+    AND tord.order_id = #{orderId,jdbcType=BIGINT}
+  </select>
 </mapper>

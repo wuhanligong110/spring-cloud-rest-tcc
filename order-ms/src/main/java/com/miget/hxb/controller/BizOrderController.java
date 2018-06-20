@@ -1,15 +1,14 @@
 package com.miget.hxb.controller;
 
 import com.miget.hxb.domain.BizOrder;
-import com.miget.hxb.domain.BizOrderItem;
 import com.miget.hxb.model.request.OrderPageRequest;
 import com.miget.hxb.model.request.OrderStatusPageRequest;
 import com.miget.hxb.model.request.PaymentRequest;
 import com.miget.hxb.model.request.PlaceOrderRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
+import com.miget.hxb.model.response.OrderDetailResponse;
 import com.miget.hxb.model.response.OrderListResponse;
 import com.miget.hxb.page.PageInfo;
-import com.miget.hxb.sender.RabbitSender;
 import com.miget.hxb.service.BizOrderService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @author hxb
@@ -29,9 +27,6 @@ public class BizOrderController {
 
     @Autowired
     private BizOrderService orderService;
-
-    @Autowired
-    private RabbitSender rabbitSender;
 
     @ApiOperation(value = "下单", notes = "生成预订单")
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
@@ -70,9 +65,9 @@ public class BizOrderController {
     }
 
     @ApiOperation(value = "订单明细", notes = "订单明细")
-    @RequestMapping(value = "/orders/{orderId}/order/detail", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ObjectDataResponse<List<BizOrderItem>> orderDetailList(@PathVariable Long orderId) {
-        return orderService.orderDetailList(orderId);
+    @RequestMapping(value = "/orders/order/detail/{orderId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<OrderDetailResponse> orderDetail(@PathVariable Long orderId) {
+        return orderService.orderDetail(orderId);
     }
 
 }

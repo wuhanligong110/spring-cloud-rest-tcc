@@ -9,6 +9,7 @@ import com.miget.hxb.controller.StatusCode;
 import com.miget.hxb.controller.client.AccountClient;
 import com.miget.hxb.controller.client.OrderClient;
 import com.miget.hxb.controller.client.ProductClient;
+import com.miget.hxb.domain.BizOrder;
 import com.miget.hxb.domain.SysBusinessWeixinConfig;
 import com.miget.hxb.model.CrmUser;
 import com.miget.hxb.model.request.PaymentRequest;
@@ -59,8 +60,6 @@ public class WeixinService {
 
 		//订单id  和 openid
 		String out_trade_no = WeixinUtil.getUUID();
-
-
 
 		String openId = getUserOpenId(request,response);
 		//客户信息
