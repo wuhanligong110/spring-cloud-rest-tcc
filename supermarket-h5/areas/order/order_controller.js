@@ -43,8 +43,10 @@ angular.module('order.controller', ['order.service'])
       var promise = OrderFty.submitOrder(order);
       promise.then(
           function (data) {
+              CartFty.clearPay(order);
               var orderId = data['orderId'];
-              window.location.href = "#/pay/"+orderId;
+              var amount = data['amount'];
+              window.location.href = "#/pay/"+orderId+"/"+amount;
           },
           function (e) {
               CommonJs.AlertPopup(e);

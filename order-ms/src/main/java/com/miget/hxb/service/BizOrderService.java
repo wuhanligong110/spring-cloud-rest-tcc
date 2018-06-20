@@ -296,4 +296,5 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
         Preconditions.checkNotNull(response.getData());
         return response.getData();
     }
+
 }

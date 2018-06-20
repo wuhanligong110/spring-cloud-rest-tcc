@@ -12,6 +12,7 @@ import com.miget.hxb.domain.BizOrder;
 import com.miget.hxb.domain.SysBusinessWeixinConfig;
 import com.miget.hxb.model.CrmUser;
 import com.miget.hxb.model.request.PlaceOrderRequest;
+import com.miget.hxb.model.request.PrepayRequest;
 import com.miget.hxb.model.request.WxprepayRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.util.HttpRequestClient;
@@ -43,25 +44,21 @@ public class PayService{
     @Resource
     private OrderClient orderClient;
 
-    public Map<String, String> placeOrder(HttpServletRequest request, HttpServletResponse response, WxprepayRequest wxprepayRequest) {
+    public Map<String, String> placeOrder(PrepayRequest prepayRequest) {
 
         Map<String, String> returnParams = new HashMap<>();
 
-        LOGGER.info("调用统一下单接口请求参数,wxprepayRequest={}", JSONObject.toJSONString(wxprepayRequest));
+        LOGGER.info("调用统一下单接口请求参数,prepayRequest={}", JSONObject.toJSONString(prepayRequest));
 
         //订单id  和 openid
         String out_trade_no = WeixinUtil.getUUID();
-
-        String openId = getUserOpenId(request,response);
-        //客户信息
-        CrmUser user = remoteUserByOpenId(openId);
-        Integer userId = user.getUserId();
+        Long userId = prepayRequest.getUserId();
 
         Long total_fee = 0L;
 
         PlaceOrderRequest placeOrderRequest = new PlaceOrderRequest();
-        placeOrderRequest.setAddressId(wxprepayRequest.getAddressId());
-        placeOrderRequest.setOrderItems(wxprepayRequest.getOrderItems());
+        placeOrderRequest.setAddressId(prepayRequest.getAddressId());
+        placeOrderRequest.setOrderItems(prepayRequest.getOrderItems());
         placeOrderRequest.setUserId(Long.valueOf(userId));
         placeOrderRequest.setOutTradeNo(out_trade_no);
         ObjectDataResponse<BizOrder> dataOrder = orderClient.placeOrder(placeOrderRequest);

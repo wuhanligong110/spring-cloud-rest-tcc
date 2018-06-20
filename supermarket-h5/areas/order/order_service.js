@@ -60,6 +60,7 @@ angular.module('order.service', [])
             prepayRequest.total = order.total;
             prepayRequest.addressId = order.addressId;
             prepayRequest.businessId = GlobalVariable.BUSINESS_ID;
+            prepayRequest.userId = GlobalVariable.USER_ID;
             $http({
                 method:'post',
                 url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/pay/api/v1/pay/prepay",

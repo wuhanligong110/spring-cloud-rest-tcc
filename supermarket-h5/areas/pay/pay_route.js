@@ -3,8 +3,9 @@ angular.module('pay.route', ['pay.controller'])
 
     $stateProvider
       .state('pay',{
-          url: '/pay/:orderId',
+          url: '/pay/:orderId/:amount',
           templateUrl: 'areas/pay/pay.html',
-          controller: 'PayCtrl'
+          controller: 'PayCtrl',
+          params:{"orderId":null,"amount":null}
       })
   });

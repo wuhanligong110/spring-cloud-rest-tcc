@@ -9,16 +9,14 @@ import com.miget.hxb.controller.StatusCode;
 import com.miget.hxb.controller.client.AccountClient;
 import com.miget.hxb.controller.client.OrderClient;
 import com.miget.hxb.controller.client.ProductClient;
-import com.miget.hxb.domain.BizOrder;
 import com.miget.hxb.domain.SysBusinessWeixinConfig;
 import com.miget.hxb.model.CrmUser;
 import com.miget.hxb.model.request.PaymentRequest;
-import com.miget.hxb.model.request.PlaceOrderRequest;
 import com.miget.hxb.model.request.WxprepayRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
+import com.miget.hxb.model.response.OrderDetailResponse;
 import com.miget.hxb.util.HttpRequestClient;
 import com.miget.hxb.util.RequestUtil;
-import com.miget.hxb.util.SignUtils;
 import com.miget.hxb.wx.PaymentApi;
 import com.miget.hxb.wx.utils.PaymentKit;
 import com.miget.hxb.wx.utils.WeixinUtil;
@@ -59,80 +57,63 @@ public class WeixinService {
 		LOGGER.info("调用微信统一下单接口请求参数,wxprepayRequest={}", JSONObject.toJSONString(wxprepayRequest));
 
 		//订单id  和 openid
-		String out_trade_no = WeixinUtil.getUUID();
 
 		String openId = getUserOpenId(request,response);
-		//客户信息
-		CrmUser user = remoteUserByOpenId(openId);
-		Integer userId = user.getUserId();
 
-		Long total_fee = 0L;
 		String productNameTotal = "";
 
-		PlaceOrderRequest placeOrderRequest = new PlaceOrderRequest();
-		placeOrderRequest.setAddressId(wxprepayRequest.getAddressId());
-		placeOrderRequest.setOrderItems(wxprepayRequest.getOrderItems());
-		placeOrderRequest.setUserId(Long.valueOf(userId));
-		placeOrderRequest.setOutTradeNo(out_trade_no);
-		ObjectDataResponse<BizOrder> dataOrder = orderClient.placeOrder(placeOrderRequest);
-		BizOrder preOrder;
-		if(dataOrder.getCode() == 20000){
-			preOrder = dataOrder.getData();
-			total_fee = preOrder.getAmount();
-		}else if(dataOrder.getCode() == 42003){
-			returnParams.put("errorMessage", "订单信息有误!");
-		}else if(dataOrder.getCode() == 42005){
-			returnParams.put("errorMessage", "库存不足!");
-		}
+		OrderDetailResponse detailResponse = remoteOrderDetail(wxprepayRequest.getOrderId());
+		Preconditions.checkNotNull(detailResponse);
+		String out_trade_no = detailResponse.getOutTradeNo();
+		Long total_fee = detailResponse.getAmount();
 
-		/**
-		 * 若是普通微信支付   需生成微信预支付订单
-		 * 否则  不需要生成直接返回
-		 */
-		if(wxprepayRequest.getType()==0){
-			/**
-			 * 调用微信统一下单获取获取预付商品id
-			 */
-			SysBusinessWeixinConfig weixinConfig = remoteWeixinConfig(businessId);
-			if(weixinConfig != null) {
-				Map<String, String> params = new HashMap<String, String>();
-				params.put("appid", weixinConfig.getAppId());
-				params.put("mch_id", weixinConfig.getMchId());
-				params.put("trade_type", PaymentApi.TradeType.JSAPI.name());
-				params.put("nonce_str", WeixinUtil.createNonceStr());
-				params.put("notify_url", weixinConfig.getNotifyUrl());
-				params.put("spbill_create_ip", wxprepayRequest.getRealIp());
-				params.put("body", productNameTotal);
-				params.put("out_trade_no", out_trade_no);
-				params.put("total_fee", total_fee.toString());
-				params.put("openid", openId);
-				String sign = PaymentKit.createSign(params, weixinConfig.getPayKey());
-				params.put("sign", sign);
+		SysBusinessWeixinConfig weixinConfig = remoteWeixinConfig(businessId);
+		if(weixinConfig != null) {
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("appid", weixinConfig.getAppId());
+			params.put("mch_id", weixinConfig.getMchId());
+			params.put("trade_type", PaymentApi.TradeType.JSAPI.name());
+			params.put("nonce_str", WeixinUtil.createNonceStr());
+			params.put("notify_url", weixinConfig.getNotifyUrl());
+			params.put("spbill_create_ip", wxprepayRequest.getRealIp());
+			params.put("body", productNameTotal);
+			params.put("out_trade_no", out_trade_no);
+			params.put("total_fee", total_fee.toString());
+			params.put("openid", openId);
+			String sign = PaymentKit.createSign(params, weixinConfig.getPayKey());
+			params.put("sign", sign);
 
-				LOGGER.info("转换微信统一下单接口请求参数,params={}", JSONObject.toJSONString(params));
-				// 调用统一下单接口   若下单接口成功，获取预付商品id
-				Map<String, String> result = PaymentKit.xmlToMap(PaymentApi.pushOrder(params));
-				String prepay_id = "";
-				String return_code = result.get("return_code");
-				if ("SUCCESS".equals(return_code)) {
-					prepay_id = result.get("prepay_id");
-				}
-				returnParams.put("appId", weixinConfig.getAppId());
-				returnParams.put("timeStamp", WeixinUtil.createTimeStamp());
-				returnParams.put("nonceStr", WeixinUtil.createNonceStr());
-				returnParams.put("package", "prepay_id=" + prepay_id);
-				returnParams.put("signType", "MD5");
-				String paySign = PaymentKit.createSign(returnParams, weixinConfig.getPayKey());
-				returnParams.put("paySign", paySign);
-				returnParams.put("prepayId", prepay_id);
-				LOGGER.info("微信统一下单【需生成微信预支付订单】成功返回页面参数,returnParams={}", JSONObject.toJSONString(returnParams));
+			LOGGER.info("转换微信统一下单接口请求参数,params={}", JSONObject.toJSONString(params));
+			// 调用统一下单接口   若下单接口成功，获取预付商品id
+			Map<String, String> result = PaymentKit.xmlToMap(PaymentApi.pushOrder(params));
+			String prepay_id = "";
+			String return_code = result.get("return_code");
+			if ("SUCCESS".equals(return_code)) {
+				prepay_id = result.get("prepay_id");
 			}
-		} else {
-			returnParams.put("payOrderId", out_trade_no);//将订单id返回
-			returnParams.put("payOrderSign", SignUtils.signByStringDF(out_trade_no));//将订单id加密验证签名
-			LOGGER.info("微信统一下单【无需生成微信预支付订单】成功返回页面参数,returnParams={}",JSONObject.toJSONString(returnParams));
+			returnParams.put("appId", weixinConfig.getAppId());
+			returnParams.put("timeStamp", WeixinUtil.createTimeStamp());
+			returnParams.put("nonceStr", WeixinUtil.createNonceStr());
+			returnParams.put("package", "prepay_id=" + prepay_id);
+			returnParams.put("signType", "MD5");
+			String paySign = PaymentKit.createSign(returnParams, weixinConfig.getPayKey());
+			returnParams.put("paySign", paySign);
+			returnParams.put("prepayId", prepay_id);
+			LOGGER.info("微信统一下单【需生成微信预支付订单】成功返回页面参数,returnParams={}", JSONObject.toJSONString(returnParams));
 		}
+
 		return returnParams;
+	}
+
+	private OrderDetailResponse remoteOrderDetail(Long orderId) {
+		Preconditions.checkNotNull(orderId);
+		ObjectDataResponse<OrderDetailResponse> dataResponse =  orderClient.orderDetail(orderId);
+		if(dataResponse != null && dataResponse.getData() != null){
+			return dataResponse.getData();
+		}else{
+			Shift.fatal(StatusCode.ORDER_NOT_EXISTS);
+		}
+		return null;
 	}
 
 	public void payNotify(HttpServletRequest request, HttpServletResponse response) {

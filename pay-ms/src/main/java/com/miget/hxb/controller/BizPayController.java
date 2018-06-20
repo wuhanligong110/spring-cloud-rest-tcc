@@ -2,7 +2,7 @@ package com.miget.hxb.controller;
 
 import com.miget.hxb.Delay;
 import com.miget.hxb.RandomlyThrowsException;
-import com.miget.hxb.model.request.WxprepayRequest;
+import com.miget.hxb.model.request.PrepayRequest;
 import com.miget.hxb.sender.RabbitSender;
 import com.miget.hxb.service.PayService;
 import com.miget.hxb.util.MQConstants;
@@ -60,11 +60,10 @@ public class BizPayController {
     @RequestMapping(value = "/pay/prepay", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "下单", notes = "生成预订单")
-    public Map<String, String> placeOrder(HttpServletRequest request, HttpServletResponse response, @RequestBody WxprepayRequest wxprepayRequest) {
+    public Map<String, String> placeOrder(@RequestBody PrepayRequest prepayRequest) {
         logger.debug("开始调用统一下单接口");
         Map<String, String> returnParams = new HashMap<String, String>();
-        wxprepayRequest.setRealIp(IpKit.getRealIp(request));
-        returnParams = payService.placeOrder(request,response,wxprepayRequest);
+        returnParams = payService.placeOrder(prepayRequest);
         return returnParams;
     }
 

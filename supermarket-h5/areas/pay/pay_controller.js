@@ -4,12 +4,16 @@
  功  能：购物车
  ******************************************************/
 angular.module('pay.controller', ['pay.service'])
-  .controller('PayCtrl', ['$scope', '$state','$ionicHistory','IndexedDBJs','CommonJs','PayFty',function ($scope, $state,$ionicHistory,IndexedDBJs,CommonJs,PayFty) {
+  .controller('PayCtrl', ['$scope', '$state','$stateParams','$ionicHistory','IndexedDBJs','CommonJs','PayFty',function ($scope, $state,$stateParams,$ionicHistory,IndexedDBJs,CommonJs,PayFty) {
 
-      $scope.$on('$ionicView.beforeEnter', function (e) {
-          getDefaultConsignee();
-          getSelectedProduct();
-      });
+  $scope.$on('$ionicView.beforeEnter', function (e) {
+      getPayParams();
+  });
+
+  function getPayParams() {
+      $scope.amount = $stateParams.amount;
+      $scope.orderId = $stateParams.orderId;
+  }
 
   $scope.func_pay = function (orderId) {
       var promise = PayFty.pay(orderId);
