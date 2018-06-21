@@ -32,6 +32,8 @@ angular.module('pay.controller', ['pay.service'])
                   if(prepayId == ''){
                       mui.toast("微信支付失败,请稍后再试",{'verticalAlign':'middle'});
                   } else {
+                      mui.toast("微信支付开发中,敬请期待！",{'verticalAlign':'middle'});
+                      window.location.href = "#/home";
                       WeixinJSBridge.invoke(
                           'getBrandWCPayRequest', {
                               "appId" : appId,     //公众号名称，由商户传入
@@ -57,7 +59,8 @@ angular.module('pay.controller', ['pay.service'])
               }
           },
           function (e) {
-              CommonJs.AlertPopup(e);
+              //CommonJs.AlertPopup(e);
+              mui.toast("微信支付失败,请稍后再试",{'verticalAlign':'middle'});
           }
       ).finally(function () {
       });

@@ -26,6 +26,38 @@ angular.module('orderDetail.service', [])
         	deferred.reject(data);
         });
         return deferred.promise;
+     },
+     hasReceived: function (orderId) {
+         // 完整的请求服务器的步骤
+         var deferred = $q.defer();
+         var request = {};
+         request.order_id = orderId;
+         $http({
+             method:'post',
+             url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/order/api/v1/orders/received",
+             data:request
+         }).success(function(data,status,headers,config){
+             deferred.resolve(data.code);
+         }).error(function(data,status,headers,config){
+             deferred.reject(data);
+         });
+         return deferred.promise;
+     },
+     orderCancel: function (orderId) {
+         // 完整的请求服务器的步骤
+         var deferred = $q.defer();
+         var request = {};
+         request.order_id = orderId;
+         $http({
+             method:'post',
+             url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/order/api/v1/orders/cancel",
+             data:request
+         }).success(function(data,status,headers,config){
+             deferred.resolve(data.code);
+         }).error(function(data,status,headers,config){
+             deferred.reject(data);
+         });
+         return deferred.promise;
      }
     }
   });

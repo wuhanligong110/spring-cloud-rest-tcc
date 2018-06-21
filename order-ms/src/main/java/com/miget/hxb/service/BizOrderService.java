@@ -10,8 +10,8 @@ import com.miget.hxb.controller.client.ProductClient;
 import com.miget.hxb.domain.BizOrder;
 import com.miget.hxb.domain.BizOrderItem;
 import com.miget.hxb.domain.CrmUserAddress;
-import com.miget.hxb.model.CimProduct;
-import com.miget.hxb.model.CrmUser;
+import com.miget.hxb.domain.CimProduct;
+import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.model.request.*;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.model.response.OrderDetailResponse;
@@ -32,10 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Zhao Junjian
@@ -189,6 +186,10 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
             }
             Preconditions.checkNotNull(orderCancelRequests);
             int result = orderCancel(orderCancelRequests);
+            BizOrder order = new BizOrder();
+            order.setOrderId(request.getOrderId());
+            order.setOrderStatus(4);
+            updateNonNullProperties(order);
             return  result;
         }
         return 0;
@@ -297,4 +298,9 @@ public class BizOrderService extends CrudServiceImpl<BizOrder> {
         return response.getData();
     }
 
+    public int hasReceived(PaymentRequest request) {
+        BizOrder order = find(request.getOrderId());
+        order.setOrderStatus(3);
+        return updateNonNullProperties(order);
+    }
 }

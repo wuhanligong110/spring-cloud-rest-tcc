@@ -4,16 +4,17 @@ USE `account`;
 
 CREATE TABLE `tcrm_user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '会员id',
-	`business_id` int(11) NOT NULL COMMENT '商家id',
+  `business_id` int(11) DEFAULT NULL COMMENT '商家id',
   `parent_id` int(11) DEFAULT NULL COMMENT '直接推荐人',
-  `ancestor` text NOT NULL COMMENT '祖先',
+  `ancestor` text COMMENT '祖先',
+  `vip_level` int(4) DEFAULT '1' COMMENT '会员等级',
   `buy_total_money` bigint(15) DEFAULT '0' COMMENT '累计购买金额',
   `withdrawal_credit_total` bigint(15) NOT NULL DEFAULT '0' COMMENT '累计可提现积分',
   `have_withdrawal_credit_total` bigint(15) NOT NULL DEFAULT '0' COMMENT '累计已提现积分',
-	`acc_withdrawal_credit` bigint(15) NOT NULL DEFAULT '0' COMMENT '可提现积分',
-	`shop_credit_total` bigint(15) NOT NULL DEFAULT '0' COMMENT '累计购物积分',
+  `acc_withdrawal_credit` bigint(15) NOT NULL DEFAULT '0' COMMENT '可提现积分',
+  `shop_credit_total` bigint(15) NOT NULL DEFAULT '0' COMMENT '累计购物积分',
   `used_shop_credit_total` bigint(15) NOT NULL DEFAULT '0' COMMENT '累计已使用的购物积分',
-	`acc_shop_credit` bigint(15) NOT NULL DEFAULT '0' COMMENT '可使用的购物积分',
+  `acc_shop_credit` bigint(15) NOT NULL DEFAULT '0' COMMENT '可使用的购物积分',
   `wechat_nickname` varchar(255) DEFAULT NULL,
   `wechat_subscribe` int(11) DEFAULT NULL COMMENT '用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息，只有openid和UnionID（在该公众号绑定到了微信开放平台账号时才有）。',
   `wechat_openid` varchar(40) DEFAULT NULL,
@@ -33,11 +34,11 @@ CREATE TABLE `tcrm_user` (
   `pwd_salt` varchar(128) NOT NULL COMMENT '加密盐',
   `create_time` datetime DEFAULT NULL COMMENT '用户创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '用户更新时间',
-	`operator` varchar(30) DEFAULT NULL COMMENT '操作人',
+  `operator` varchar(30) DEFAULT NULL COMMENT '操作人',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `ix_openid` (`wechat_openid`) USING BTREE,
   KEY `ix_parent_id` (`parent_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1000001 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=1000006 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 CREATE TABLE `tcrm_user_address` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长主键',

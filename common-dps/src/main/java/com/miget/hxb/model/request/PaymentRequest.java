@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author Zhao Junjian
@@ -26,7 +25,6 @@ public class PaymentRequest extends RestfulRequest {
     @ApiModelProperty(value = "订单ID", example = "1", required = true)
     private Long orderId;
 
-    @NotEmpty
     @ApiModelProperty(value = "交易号", example = "xxxxxxxxxx", required = true)
     private String outTradeNo;
 

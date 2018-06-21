@@ -30,9 +30,8 @@
         <logger name="com.miget.hxb" level="WARN"/>
     </springProfile>
 
-    <logger name="com.miget.hxb.persistence" level="WARN" additivity="false">
+    <logger name="org.apache.ibatis.cache.decorators.LoggingCache" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE"/>
-        <!--<appender-ref ref="FILE"/>-->
     </logger>
 
     <root level="WARN">

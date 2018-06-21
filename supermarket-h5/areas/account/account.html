@@ -3,14 +3,14 @@
     <div class="wrapper">
       <div class="topinfo">
         <div class="module xauto cut">
-          <div class="avatar fl"><a href="#"><img src="http://thirdwx.qlogo.cn/mmopen/NZ42uviawqiaEsVeLKHqFhcBSBhEiapVDUWuiaKey96icg1qoWpHPnicgHZmk0BQFxJJdvwyJKe0hdnXOiaZWv4xbVveia5h88HykJno/132" /></a></div>
+          <div class="avatar fl"><a href="#"><img ng-src="{{user.wechatHeadimgurl}}" /></a></div>
           <div class="info">
             <dl>
-              <dd class="mt5"><font class="f14">Avail</font><p class="ml10 dim">初级会员</p></dd>
+              <dd class="mt5"><font class="f14">{{user.wechatNickname}}</font><p class="ml10 dim">{{user.vipLevel}}</p></dd>
               <dd class="mt5">
-                <font class="dim">账户余额：</font><b>5000.00 元</b>
+                <font class="dim">账户余额：</font><b>{{user.accWithdrawalCredit}}元</b>
                 <p class="sep5"></p>
-                <font class="dim">积分：</font><b>600</b>
+                <font class="dim">积分：</font><b>{{user.accShopCredit}}</b>
               </dd>
             </dl>
           </div>

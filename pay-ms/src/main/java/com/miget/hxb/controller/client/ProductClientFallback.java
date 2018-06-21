@@ -3,7 +3,7 @@ package com.miget.hxb.controller.client;
 import com.miget.hxb.Shift;
 import com.miget.hxb.controller.StatusCode;
 import com.miget.hxb.domain.SysBusinessWeixinConfig;
-import com.miget.hxb.model.CimProduct;
+import com.miget.hxb.domain.CimProduct;
 import com.miget.hxb.model.request.OrderCancelRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import org.slf4j.Logger;

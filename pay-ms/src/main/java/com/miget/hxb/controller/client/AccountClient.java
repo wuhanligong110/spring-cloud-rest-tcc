@@ -1,6 +1,6 @@
 package com.miget.hxb.controller.client;
 
-import com.miget.hxb.model.CrmUser;
+import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;

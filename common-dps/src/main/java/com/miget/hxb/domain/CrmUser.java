@@ -12,6 +12,8 @@ public class CrmUser extends BasicDomain {
 
     private Integer parentId;
 
+    private Integer vipLevel;
+
     private Long buyTotalMoney;
 
     private Long withdrawalCreditTotal;
@@ -314,5 +316,13 @@ public class CrmUser extends BasicDomain {
 
     public void setAncestor(String ancestor) {
         this.ancestor = ancestor;
+    }
+
+    public Integer getVipLevel() {
+        return vipLevel;
+    }
+
+    public void setVipLevel(Integer vipLevel) {
+        this.vipLevel = vipLevel;
     }
 }

@@ -70,4 +70,11 @@ public class BizOrderController {
         return orderService.orderDetail(orderId);
     }
 
+    @ApiOperation(value = "确认签收", notes = "签收")
+    @RequestMapping(value = "/orders/received", method = RequestMethod.POST)
+    public ObjectDataResponse hasReceived(@Valid @RequestBody PaymentRequest request, BindingResult result) {
+        orderService.hasReceived(request);
+        return  new ObjectDataResponse<>(null);
+    }
+
 }

@@ -10,11 +10,12 @@ import com.miget.hxb.controller.client.AccountClient;
 import com.miget.hxb.controller.client.OrderClient;
 import com.miget.hxb.controller.client.ProductClient;
 import com.miget.hxb.domain.SysBusinessWeixinConfig;
-import com.miget.hxb.model.CrmUser;
+import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.model.request.PaymentRequest;
 import com.miget.hxb.model.request.WxprepayRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.model.response.OrderDetailResponse;
+import com.miget.hxb.model.response.OrderItemResponse;
 import com.miget.hxb.util.HttpRequestClient;
 import com.miget.hxb.util.RequestUtil;
 import com.miget.hxb.wx.PaymentApi;
@@ -66,6 +67,10 @@ public class WeixinService {
 		Preconditions.checkNotNull(detailResponse);
 		String out_trade_no = detailResponse.getOutTradeNo();
 		Long total_fee = detailResponse.getAmount();
+
+		for (OrderItemResponse orderItem : detailResponse.getOrderItems()) {
+		    productNameTotal += "["+orderItem.getProductName()+"]";//拼接支付订单名称
+		}
 
 		SysBusinessWeixinConfig weixinConfig = remoteWeixinConfig(businessId);
 		if(weixinConfig != null) {

@@ -1,4 +1,6 @@
-package com.miget.hxb.model;
+package com.miget.hxb.domain;
+
+import com.miget.hxb.model.BasicDomain;
 
 import java.time.OffsetDateTime;
 

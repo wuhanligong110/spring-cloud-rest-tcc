@@ -41,7 +41,9 @@
       </div>
     </div>
     <div class="orderact" id="footact">
-      <a class="b1" ng-click="func_hasReceived()">确认签收</a>
+      <a ng-if="order.orderStatus == 2" class="b1" ng-click="func_hasReceived(order.orderId)">确认签收</a>
+      <a ng-if="order.orderStatus == 0" class="b1" ng-href="#/pay/{{order.orderId}}/{{order.amount}}">立即付款</a>
+      <a ng-if="order.orderStatus == 0" class="b2" ng-click="func_orderCancel(order.orderId)">取消订单</a>
     </div>
   </ion-content>
 </ion-view>

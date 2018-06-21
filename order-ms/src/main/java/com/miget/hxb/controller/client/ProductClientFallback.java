@@ -2,16 +2,13 @@ package com.miget.hxb.controller.client;
 
 import com.miget.hxb.Shift;
 import com.miget.hxb.controller.StatusCode;
-import com.miget.hxb.model.CimProduct;
+import com.miget.hxb.domain.CimProduct;
 import com.miget.hxb.model.request.OrderCancelRequest;
 import com.miget.hxb.model.request.PlaceOrderItemRequest;
-import com.miget.hxb.model.request.StockReservationRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
-import com.miget.hxb.model.response.ReservationResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;

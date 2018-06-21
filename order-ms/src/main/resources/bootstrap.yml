@@ -25,7 +25,7 @@ spring:
   datasource:
     username: chris
     password: 123123
-    url: 'jdbc:mysql://solar_mysql:3306/order?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useLegacyDatetimeCode=false&useSSL=false'
+    url: 'jdbc:mysql://solar_mysql:3306/order?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useLegacyDatetimeCode=false&useSSL=false&serverTimezone=Asia/Shanghai'
   rabbitmq:
     host: rabbitmq
     username: chris

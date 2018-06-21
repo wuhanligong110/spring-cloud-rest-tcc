@@ -48,7 +48,13 @@ public class OrderListResponse implements Response {
         if(orderStatus == 0){
             return "待支付";
         }else if(orderStatus == 1){
-            return "待收货";
+            return "待发货";
+        }else if(orderStatus == 2){
+            return "待签收";
+        }else if(orderStatus == 3){
+            return "待评价";
+        }else if(orderStatus == 4){
+            return "已取消";
         }else {
             return progress;
         }

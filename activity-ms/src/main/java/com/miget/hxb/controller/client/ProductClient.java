@@ -1,6 +1,6 @@
 package com.miget.hxb.controller.client;
 
-import com.miget.hxb.model.CimProduct;
+import com.miget.hxb.domain.CimProduct;
 import com.miget.hxb.model.request.OrderCancelRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import org.springframework.cloud.netflix.feign.FeignClient;

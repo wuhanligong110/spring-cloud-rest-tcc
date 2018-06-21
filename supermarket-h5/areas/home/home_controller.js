@@ -10,7 +10,7 @@ angular.module('home.controller', ['home.service'])
     getHotProduct();
     goTop();
     countdown();
-    headerChangeColor();
+    //headerChangeColor();
     initWeixinUserInfo();
 
     // 监听页面激活事件
