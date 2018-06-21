@@ -28,7 +28,7 @@
         <div class="pro-title">
           <div ng-class="{'pro-title-check':business.selected,'pro-title-uncheck':!business.selected}" ng-click="func_selectBusiness($event,business.businessId)"></div>
           <div class="pro-title-name">
-            <img src="{{business.logo}}" alt="">
+            <img ng-src="{{business.logo}}" alt="">
             <span>{{business.businessName}}</span>
           </div>
         </div>
@@ -37,7 +37,7 @@
             <div ng-class="{'pro-body-check':item.selected,'pro-body-uncheck':!item.selected}" ng-click="func_selectProduct($event,business.businessId,item.productId)"></div>
             <div class="pro-body-des">
               <a ng-href="#/details/{{item.productId}}">
-                <img src="{{item.listImg}}" alt="{{item.productName}}">
+                <img ng-src="{{item.listImg}}" alt="{{item.productName}}">
               </a>
               <div class="pro-body-des-text">
                 <span>{{item.description}}</span>

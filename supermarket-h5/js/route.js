@@ -13,7 +13,9 @@ angular.module('route', [
   'address.detail.route',
   'orderList.route',
   'orderDetail.route',
-  'pay.route'
+  'pay.route',
+  'cards.route',
+  'bankcard.route'
 ])
   .config(function($stateProvider, $urlRouterProvider) {
 

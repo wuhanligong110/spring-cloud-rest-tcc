@@ -20,7 +20,7 @@
           <div class="rc" style="width: 80%">
             <ul class="gli" id="gli">
               <li ng-repeat="item in order.items">
-                <div class="im"><img alt="{{item.productName}}" src="{{item.listImg}}"/></div>
+                <div class="im"><img alt="{{item.productName}}" ng-src="{{item.listImg}}"/></div>
                 <div class="info">
                   <div class="name">{{item.productName}}</div>
                   <span class="subtotal mt5 c666"><p class="price mr10"><i class="cny">¥</i><font class="f14">{{item.price}}</font></p>×<b class="q">{{item.number}}</b></span>
