@@ -3513,7 +3513,7 @@ ion-infinite-scroll {
   top: 88px; }
 
 .has-tabs-top {
-  top: 93px; }
+  top: 0px; }
 
 .has-header.has-subheader.has-tabs-top {
   top: 137px; }
@@ -5085,7 +5085,6 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
 /* If you change this, change platform.scss as well */
 .tabs-top > .tabs,
 .tabs.tabs-top {
-  top: 44px;
   padding-top: 0;
   background-position: bottom;
   border-top-width: 0;
