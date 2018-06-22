@@ -51,10 +51,8 @@ angular.module('cart.controller', ['cart.service'])
         function (data) {
             for(var i in data.businessProductList){
                 if(data.businessProductList[i].productId == productId){
-                    if(data.businessProductList[i].number != 1){
-                        data.businessProductList[i].number++;
-                        func_updateData(data);
-                    }
+                    data.businessProductList[i].number++;
+                    func_updateData(data);
                 }
             }
         },

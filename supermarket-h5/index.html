@@ -7,16 +7,32 @@
 
     <!--公共css-->
     <link href="css/mui/mui.css" rel="stylesheet">
-    <!--<link href="lib/ionic/css/ionic.css" rel="stylesheet">-->
+    <link href="css/cards/mui.picker.css" rel="stylesheet" />
+    <link href="css/cards/mui.poppicker.css" rel="stylesheet" />
     <link href="css/common.css" rel="stylesheet">
-
-    <!--功能模块css-->
     <link href="lib/Swiper/dist/css/swiper.css" rel="stylesheet">
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
 
-    <script src="lib/jquery/dist/jquery.js"></script>
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!--<link href="css/mui/mui.css" rel="stylesheet">
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+    <link href="css/mui/mui.css" rel="stylesheet">
+    <link href="css/guidePage/guidePage.css" rel="stylesheet">
+    <link href="css/home/home.css" rel="stylesheet">
+    <link href="css/category/category.css" rel="stylesheet">
+    <link href="css/goodsList/goodsList.css" rel="stylesheet">
+    <link href="css/details/details.css" rel="stylesheet">
+    <link href="css/cart/cart.css" rel="stylesheet">
+    <link href="css/account/account.css" rel="stylesheet">
+    <link href="lib/Swiper/dist/css/swiper.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/order/general.css">
+    <link rel="stylesheet" type="text/css" href="css/order/order.css">
+    <link rel="stylesheet" type="text/css" href="css/order/pay.css">
+    <link rel="stylesheet" type="text/css" href="css/order/user.css">-->
 
     <!--全局文件 -->
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="js/app.js"></script>
     <script src="js/route.js"></script>
     <script src="js/config.js"></script>
@@ -25,6 +41,9 @@
     <script src="areas/common/indexdb.js"></script>
     
     <script src="js/mui.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/mui.picker.js"></script>
+    <script src="js/mui.poppicker.js"></script>
     <script src="js/md5.min.js"></script>
     <script src="js/appSign.js"></script>
 
@@ -80,22 +99,9 @@
     <!--第三方插件js-->
     <script src="lib/Swiper/dist/js/swiper.js"></script>
     <script src="lib/ionic-image-lazy-load/ionic-image-lazy-load.js"></script>
+
   </head>
   <body ng-app="starter">
-    <!--
-      The nav bar that will be updated as we navigate between views.
-    -->
-    <!--<ion-nav-bar class="bar-stable">-->
-      <!--<ion-nav-back-button>-->
-      <!--</ion-nav-back-button>-->
-    <!--</ion-nav-bar>-->
-    <!--
-      The views will be rendered in the <ion-nav-view> directive below
-      Templates are in the /templates folder (but you could also
-      have templates inline in this html file if you'd like).
-    -->
     <ion-nav-view></ion-nav-view>
-    <!--<div ng-view></div>-->
-    <!--<div ui-view></div>-->
   </body>
 </html>

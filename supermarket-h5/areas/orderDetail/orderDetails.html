@@ -1,8 +1,6 @@
-<ion-view id="goodsList" view-title="商品列表页" hide-back-button="true" cache-view="false">
-  <ion-content class="scroll-content">
+<ion-view id="orderDetails" view-title="订单详情页" hide-back-button="true" cache-view="false">
+  <ion-content class="scroll-content" scroll="false">
     <link rel="stylesheet" type="text/css" href="../css/order/general.css">
-    <link rel="stylesheet" type="text/css" href="../css/order/order.css">
-    <link rel="stylesheet" type="text/css" href="../css/order/pay.css">
     <link rel="stylesheet" type="text/css" href="../css/order/user.css">
     <div class="wrapper" id="wrapper">
       <div class="order cut">
@@ -22,7 +20,7 @@
         <dl class="address col mt8">
           <dt><i class="icon ion-location" style="font-size: 30px;"></i></dt>
           <dd class="c666">
-            <h4>{{order.address.receivingUserName}}<p class="ml10">{{order.address.mobile}}</p></h4>
+            <h4>{{order.address.receivingUserName}}<span class="ml10">{{order.address.mobile}}</span></h4>
             <p class="mt5">{{order.address.provinceName}}{{order.address.cityName}}{{order.address.area}}{{order.address.receivingAddress}}</p>
           </dd>
         </dl>
@@ -31,8 +29,8 @@
             <li ng-repeat="orderItem in order.orderItems" style="position: relative;border: 0px;">
               <div class="im"><a ng-href="#/details/{{orderItem.productId}}"><img alt="{{orderItem.productName}}" ng-src="{{orderItem.productImg}}"/></a></div>
               <div class="info">
-                <span class="name"><a ng-href="#/details/{{orderItem.productId}}">{{orderItem.productName}}</a></span>
-                <span class="subtotal mt5 c999">共<b class="q">{{orderItem.productCount}}</b>件<p class="price ml10"><i class="cny">¥</i>{{orderItem.productPrice}}</p></span>
+                <p class="name"><a ng-href="#/details/{{orderItem.productId}}">{{orderItem.productName}}</a></p>
+                <p class="subtotal mt5 c999">共<b class="q">{{orderItem.productCount}}</b>件<span class="price ml10"><i class="cny">¥</i>{{orderItem.productPrice}}</span></p>
               </div>
             </li>
           </ul>

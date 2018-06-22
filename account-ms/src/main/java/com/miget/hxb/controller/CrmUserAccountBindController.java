@@ -1,8 +1,6 @@
 package com.miget.hxb.controller;
 
 import com.github.pagehelper.Page;
-import com.miget.hxb.Delay;
-import com.miget.hxb.RandomlyThrowsException;
 import com.miget.hxb.Shift;
 import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.domain.CrmUserAccountBind;
@@ -35,8 +33,6 @@ public class CrmUserAccountBindController {
     @Autowired
     private CrmUserService userService;
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "根据ID获取用户绑定的卡号", notes = "包括绑定的银行卡、支付宝等")
     @RequestMapping(value = "/users/{userId}/account", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
     public ObjectDataResponse<PageInfo<CrmUserAccountBind>> accountPageList(@PathVariable Long userId, PageRequest request) {
@@ -49,8 +45,6 @@ public class CrmUserAccountBindController {
         return new ObjectDataResponse<>(pageInfo);
     }
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "用户新增绑卡", notes = "包括绑定的银行卡、支付宝等")
     @RequestMapping(value = "/users/{userId}/account", method = RequestMethod.POST)
     public ObjectDataResponse<CrmUserAccountBind> accountAdd(@PathVariable Long userId, @Valid @RequestBody AccountAddRequest request, BindingResult error) {
@@ -66,8 +60,6 @@ public class CrmUserAccountBindController {
         return new ObjectDataResponse<>(userAccount);
     }
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "用户解绑账号", notes = "将绑定状态设置为无效")
     @RequestMapping(value = "/users/{userId}/account", method = RequestMethod.DELETE)
     public ObjectDataResponse accountUnBind(@PathVariable Long userId, @Valid @RequestBody AccountUnBindRequest request, BindingResult error) {
@@ -78,6 +70,17 @@ public class CrmUserAccountBindController {
         request.setUserId(Math.toIntExact(userId));
         userAccountBindService.accountUnBind(request);
         return new ObjectDataResponse<>(null);
+    }
+
+    @ApiOperation(value = "查询用户指定类型的绑卡信息", notes = "包括绑定的银行卡、支付宝等")
+    @RequestMapping(value = "/users/{userId}/account/{accountType}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<CrmUserAccountBind> userAccountTypeInfo(@PathVariable Long userId, @PathVariable Integer accountType) {
+        final CrmUser user = userService.queryByUserId(userId);
+        if (user == null) {
+            Shift.fatal(StatusCode.USER_NOT_EXISTS);
+        }
+        CrmUserAccountBind userAccountBind = userAccountBindService.queryUserAccountTypeInfo(userId,accountType);
+        return new ObjectDataResponse<>(userAccountBind);
     }
 
 }

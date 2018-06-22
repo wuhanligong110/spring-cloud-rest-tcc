@@ -22,7 +22,7 @@ angular.module('category.controller', ['category.service'])
 	          
 	      });
 
-        };
+        }
 
         $scope.getCategoryDetailData = function(categotyId) {
           var promise=CategoryFty.categoryDetailData(categotyId);
@@ -43,6 +43,7 @@ angular.module('category.controller', ['category.service'])
 
         // 左侧分类单击样式修改
         $scope.categoryLeftClick = function(e) {
+        	console.log("this is a e");
             e.target.className = 'nav-current';
             $(e.target).siblings().removeClass().addClass('nav-blur');
         };

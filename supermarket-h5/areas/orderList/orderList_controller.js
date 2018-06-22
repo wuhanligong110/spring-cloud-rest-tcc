@@ -79,7 +79,6 @@ angular.module('orderList.controller', ['orderList.service'])
             $.each(data.list, function(i, item) {
               $scope.obj_orderListData.push(item);
             });
-            console.log($scope.obj_orderListData);
           }else{
             $scope.pms_isMoreItemsAvailable=false;
           }

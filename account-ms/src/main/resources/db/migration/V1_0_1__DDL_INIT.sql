@@ -72,13 +72,13 @@ CREATE TABLE `tcrm_user_account_bind` (
   `open_account` varchar(120) DEFAULT NULL COMMENT '开户账户（银行对应开户行）',
   `id_card` varchar(32) DEFAULT NULL COMMENT '身份证号',
   `status` int(11) DEFAULT '0' COMMENT '状态(0=不可用，1=可用)',
-	`account_type` int(6) DEFAULT NULL COMMENT '账户类型 1：微信 2：支付宝 3：银行卡',
-	`create_time` datetime DEFAULT NULL COMMENT '用户创建时间',
+  `account_type` int(6) DEFAULT NULL COMMENT '账户类型 1：微信 2：支付宝 3：银行卡',
+  `create_time` datetime DEFAULT NULL COMMENT '用户创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '用户更新时间',
-	`operator` varchar(30) DEFAULT NULL COMMENT '操作人',
+  `operator` varchar(30) DEFAULT NULL COMMENT '操作人',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `user_account` (`user_id`,`account_card`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='账户绑定表';
+  UNIQUE KEY `user_account` (`user_id`,`account_type`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='账户绑定表';
 
 CREATE TABLE `tbiz_credit_type` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增长主键',

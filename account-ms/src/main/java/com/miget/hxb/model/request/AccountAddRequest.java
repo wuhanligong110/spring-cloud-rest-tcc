@@ -38,6 +38,8 @@ public class AccountAddRequest extends RestfulRequest{
 
     private String accountCode;
 
+    private Integer accountType;
+
     private String accountName;
 
     private String city;

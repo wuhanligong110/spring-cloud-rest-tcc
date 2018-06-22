@@ -11,7 +11,7 @@
           <!--<div >-->
               <div class="rc" ui-sref="addressList()" ng-if="consignee != null" style="position: relative;margin-left: 0px;width: 98%;">
                 <div class="unfold fr" style="position: absolute;padding-left: 95% !important;"><i class="icon ion-chevron-right"></i></div>
-                <h4 class="c666" data-id="{{consignee.id}}">{{consignee.receivingUserName}}<p class="ml10">{{consignee.mobile}}</p></h4>
+                <h4 class="c666" data-id="{{consignee.id}}">{{consignee.receivingUserName}}<span class="ml10">{{consignee.mobile}}</span></h4>
                 <p class="mt5 c888">{{consignee.provinceName}}{{consignee.cityName}}{{consignee.area}}{{consignee.receivingAddress}}</p>
               </div>
             <!--</div>-->
@@ -27,7 +27,7 @@
                 <div class="im"><img alt="{{item.productName}}" ng-src="{{item.listImg}}"/></div>
                 <div class="info">
                   <div class="name">{{item.productName}}</div>
-                  <span class="subtotal mt5 c666"><p class="price mr10"><i class="cny">¥</i><font class="f14">{{item.price}}</font></p>×<b class="q">{{item.number}}</b></span>
+                  <p class="subtotal mt5 c666"><span class="price mr10"><i class="cny">¥</i><font class="f14">{{item.price}}</font></span>×<b class="q">{{item.number}}</b></p>
                 </div>
               </li>
             </ul>
