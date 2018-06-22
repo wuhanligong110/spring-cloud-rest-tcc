@@ -3,9 +3,8 @@ angular.module('bankcard.route', ['bankcard.controller'])
 
     $stateProvider
       .state('bankcard', {
-        url: '/bankcard/:accountType',
+        url: '/bankcard',
         templateUrl: 'areas/bankcard/bankcard.html',
-        controller: 'BankcardCtrl',
-        params:{"accountType":null}
+        controller: 'BankcardCtrl'
       })
   });

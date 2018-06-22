@@ -16,9 +16,11 @@ angular.module('bankcard.controller', ['bankcard.service'])
           promise.then(
               function (data) {
                   var accountBindInfo = data;
+                  console.log(accountBindInfo);
                   if(accountBindInfo){
                       $("#username").val(accountBindInfo.userName);
                       $("#account").val(accountBindInfo.accountCard);
+                      console.log(accountBindInfo.accountCard);
                       $("#openBank").attr("txt",accountBindInfo.accountCode);
                       $("#openBank").val(accountBindInfo.accountName);
                       $("#mobile").val(accountBindInfo.reserveMobile);

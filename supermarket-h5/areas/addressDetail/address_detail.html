@@ -1,48 +1,47 @@
 <ion-view id="addressDetail" view-title="地址详情" hide-back-button="true" cache-view="false">
   <ion-content class="scroll-content" scroll="false">
-    <link rel="stylesheet" type="text/css" href="../css/order/general.css">
-    <link rel="stylesheet" type="text/css" href="../css/order/order.css">
-    <link rel="stylesheet" type="text/css" href="../css/order/pay.css">
-    <link rel="stylesheet" type="text/css" href="../css/order/user.css">
-    <!-- 收件人表单开始 -->
-    <div class="csnform" id="csnform" style="width: 100%;">
-      <form>
-        <div class="main cut">
-          <input type="hidden" ng-model="receiver.id" name="id"/>
-          <dl><dt>收件人</dt><dd><input ng-model="receiver.receivingUserName" name="receivingUserName" type="text" class="vinput"></dd></dl>
-          <dl><dt>手机号码</dt><dd><input ng-model="receiver.mobile" name="mobile" type="number" pattern="[0-9]*" class="vinput"></dd></dl>
-          <dl>
-            <dt>选择省份</dt>
-            <dd>
-              <div class="vslt">
-                <input ng-model="receiver.provinceName" name="provinceName" type="text" class="vinput" placeholder="请输入省份">
-                <span><i class="iconfont">&#xe615;</i></span>
-              </div>
-            </dd>
-          </dl>
-          <dl>
-            <dt>选择城市</dt>
-            <dd>
-              <div class="vslt">
-                <input ng-model="receiver.cityName" name="cityName" type="text" class="vinput">
-                <span><i class="iconfont">&#xe615;</i></span>
-              </div>
-            </dd>
-          </dl>
-          <dl>
-            <dt>选择区/县</dt>
-            <dd>
-              <div class="vslt">
-                <input ng-model="receiver.area" name="area" type="text" class="vinput" placeholder="请输入区/县">
-                <span><i class="iconfont">&#xe615;</i></span>
-              </div>
-            </dd>
-          </dl>
-          <dl><dt>详细地址</dt><dd><textarea ng-model="receiver.receivingAddress" name="receivingAddress" class="vtextarea"></textarea></dd></dl>
-        </div>
+    <style>
+      body{
+        font-family: PingFangSC-Regular;
+        font-size: 14px;
+        color: #848484;
+      }
+      input{
+        font-size:10px ;
+      }
+    </style>
+    <div class="mui-content">
+      <form class="mui-input-group">
+        <ul class="mui-table-view">
+          <li class="mui-table-view-cell" style="padding: 8px 15px;">
+            <label style="width:20%;font-family: sans-serif;color: #848484;float: left;height: 34px;line-height: 34px;">收&nbsp;&nbsp;件&nbsp;&nbsp;人</label>
+            <input style="width:70%;font-family: sans-serif;color: #3F424B;margin: 0;padding: 0;" id='receivingUserName' ng-model="receiver.receivingUserName" name="receivingUserName" type="text" class="mui-input-clear mui-input" placeholder="请输入收件人姓名">
+          </li>
+          <li class="mui-table-view-cell" style="padding: 8px 15px;">
+            <label style="width:20%;font-family: sans-serif;color: #848484;float: left;height: 34px;line-height: 34px;">手机号码</label>
+            <input style="width:70%;font-family: sans-serif;color: #3F424B;margin: 0;padding: 0;" id='mobile' ng-model="receiver.mobile" name="mobile" type="number" pattern="[0-9]*" class="mui-input-clear mui-input" placeholder="请输入收件人联系电话">
+          </li>
+          <li class="mui-table-view-cell" style="padding: 8px 15px;" id='showCityPicker3'>
+            <a class="mui-navigate-right">
+              <label style="width:20%;font-family: sans-serif;color: #848484;float: left;height: 34px;line-height: 34px;">选择地区</label>
+              <input id='cityResult3' readonly="readonly" style="width:60%;font-family: sans-serif;color: #3F424B;margin: 0;padding: 0;float: left;background-color: #fff;" type="text" class="mui-input-clear mui-input">
+              <span style="font-size: 12px;color: #848484;height: 34px;line-height: 34px;">请选择</span>
+            </a>
+          </li>
+          <li class="mui-table-view-cell" style="padding: 8px 15px;">
+            <label style="width:20%;font-family: sans-serif;color: #848484;float: left;height: 34px;line-height: 34px;">详细地址</label>
+            <input style="width:70%;font-family: sans-serif;color: #3F424B;margin: 0;padding: 0;" id='receivingAddress' ng-model="receiver.receivingAddress" name="receivingAddress" type="text" class="mui-input-clear mui-input" placeholder="请输入收件人详细地址">
+          </li>
+        </ul>
       </form>
-      <a class="submit act xauto mt15" style="background: #538bf1;" ng-click="func_saveCsnForm()">保 存</a>
-      <a ng-if="receiver.id" class="submit act xauto mt15" ng-click="func_deleteCsnForm(receiver.id)">删 除</a>
+      <div class="mui-row mui-text-center" style="padding: 3em 0 0 0;">
+        <button id='saveAddress' ng-click="func_saveCsnForm()" type="button" class="mui-btn mui-btn-blue" style="width: 80%; border-radius: 8px;height: 40px;margin-bottom: 1em;">保 存</button>
+        <button ng-if="receiver.id" id='deleteAddress' ng-click="func_deleteCsnForm(receiver.id)" type="button" class="mui-btn mui-btn-danger" style="width: 80%; border-radius: 8px;height: 40px;margin-top: 10px;">删 除</button>
+      </div>
+
     </div>
+
+    <script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+
   </ion-content>
 </ion-view>
