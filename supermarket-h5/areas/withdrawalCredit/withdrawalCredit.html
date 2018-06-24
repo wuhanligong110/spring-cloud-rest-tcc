@@ -1,0 +1,51 @@
+<ion-view id="withdrawCredit" view-title="余额" hide-back-button="true" cache-view="false">
+  <ion-content class="scroll-content" scroll="false">
+    <link rel="stylesheet" href="../css/cards/myPoints.css" />
+
+    <style>
+      body{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        font-size: 12px;
+        overflow: hidden;
+        background: white;
+      }
+
+      .txbtn{
+        float: right;
+        margin: 0.5em;
+        border: 1px solid #F2F2F2;
+        border-radius: 100px;
+        font-size: 14px;
+        color: #848484;
+        text-align: center;
+      }
+    </style>
+
+    <div class="mui-content tabbar-content-padding">
+      <div class="mui-row">
+        <div class="mui-col-sm-12 mui-col-xs-12">
+          <a ng-href="#/creditList/1/" class="mui-btn mui-btn-outlined txbtn">余额明细</a>
+        </div>
+      </div>
+      <div class="mui-row">
+        <div class="mui-col-sm-12 mui-col-xs-12 mui-text-center">
+          <img  class="img_banner" src="http://wh.jiuguishangcheng.com/images/044ce6a44b568711b6fac893b56022f9?f=png">
+          <div>
+            <span style="font-size: 1.3em;font-weight: 500;">我的余额</span>
+          </div>
+          <div>
+            <span style="font-size: 2em;">¥{{withdrawalCredit}}</span>
+          </div>
+        </div>
+        <div class="mui-row mui-text-center" style="padding: 3em 0 0 0;">
+          <button id='charge' ui-sref="charge" type="button" class="mui-btn mui-btn-green" style="width: 80%; border-radius: 8px;height: 40px;margin-top: 3em;margin-bottom: 1em;" disabled="disabled">充 值</button>
+          <button id='withdraw' ui-sref="withdraw({withdrawCredit:withdrawalCredit})" type="button" class="mui-btn mui-btn-primary" style="width: 80%; border-radius: 8px;height: 40px;margin-top: 10px;">提 现</button>
+        </div>
+      </div>
+    </div>
+    
+  </ion-content>
+</ion-view>

@@ -23,4 +23,8 @@ public class UserCreditDetailRequest extends PageRequest{
     @JsonProperty("typeValue")
     @ApiModelProperty(value = "积分类型", example = "1", required = true)
     private Integer typeValue;
+
+    @JsonProperty("typeCategory")
+    @ApiModelProperty(value = "积分分类", example = "1", required = true)
+    private Integer typeCategory;
 }

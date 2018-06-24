@@ -1,9 +1,9 @@
-// 商品列表页面
-angular.module('orderList.controller', ['orderList.service'])
-  .controller('OrderListCtrl', function ($scope,$stateParams,OrderListFty,$ionicLoading,$ionicHistory) {
+// 积分列表页面
+angular.module('creditList.controller', ['creditList.service'])
+  .controller('CreditListCtrl', function ($scope,$stateParams,CreditListFty,$ionicLoading,$ionicHistory) {
 
     // 初始化变量
-    $scope.obj_orderListData=[];
+    $scope.obj_creditListData=[];
     $scope.pms_isMoreItemsAvailable=true;
 
     // 分页查询对象
@@ -23,25 +23,26 @@ angular.module('orderList.controller', ['orderList.service'])
       pageSize: 10,
       sortFlag: "0",
       sortType: "desc",
-      orderStatus:$stateParams.orderStatus
+      typeCategory:$stateParams.creditCategory,
+      typeValue:$stateParams.creditType
     };
 
     // 视图事件
     $scope.$on('$ionicView.beforeEnter', function (e) {
-      $scope.func_refreshOrderList();
+      $scope.func_refreshCreditList();
     });
 
     // 获取订单最新列表数据
-    $scope.func_refreshOrderList=function(){
+    $scope.func_refreshCreditList=function(){
       // 要传递的参数
       $scope.obj_pagingInfo.pageNo=1;
       var message=$scope.obj_pagingInfo;
       // 调用promise对象
-      var promise=OrderListFty.refreshOrderList(message);
+      var promise=CreditListFty.refreshCreditList(message);
       promise.then(
         function(data){
           if(data.list){
-            $scope.obj_orderListData=data.list;
+            $scope.obj_creditListData=data.list;
           }
           if(!data.lastPage && data.list.length > 0){
             $scope.pms_isMoreItemsAvailable=true;
@@ -59,7 +60,7 @@ angular.module('orderList.controller', ['orderList.service'])
     };
 
     // 加载更多数据的方法
-    $scope.func_loadMoreOrderList=function(){
+    $scope.func_loadMoreCreditList=function(){
 
       console.log("loading............");
 
@@ -71,13 +72,13 @@ angular.module('orderList.controller', ['orderList.service'])
       $scope.obj_pagingInfo.pageNo++;
       var message=$scope.obj_pagingInfo;
       // 调用promise对象
-      var promise=OrderListFty.refreshOrderList(message);
+      var promise=CreditListFty.refreshCreditList(message);
       promise.then(
         function(data){
           if(!data.lastPage){
             $scope.pms_isMoreItemsAvailable=true;
             $.each(data.list, function(i, item) {
-              $scope.obj_orderListData.push(item);
+              $scope.obj_creditListData.push(item);
             });
           }else{
             $scope.pms_isMoreItemsAvailable=false;

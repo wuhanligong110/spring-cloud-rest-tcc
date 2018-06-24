@@ -1,0 +1,34 @@
+<ion-view id="wallet" view-title="钱包" hide-back-button="true" cache-view="false">
+  <ion-content class="scroll-content" scroll="false">
+    <link rel="stylesheet" href="../css/cards/myPoints.css" />
+
+    <div class="mui-content tabbar-content-padding">
+      <div class="mui-row">
+        <div class="mui-col-sm-12 mui-col-xs-12 mui-text-center">
+          <img  class="img_banner" src="http://wh.jiuguishangcheng.com/images/5eac19efb822e1b3f63add6c9a2a7a3f?f=png">
+        </div>
+        <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-hj">
+          <div ui-sref="withdrawalCredit({withdrawalCredit:wallet.withdrawalCredit})" class="mui-row mui-navigate-right">
+            <div class="mui-col-sm-6 mui-col-xs-6 ab-ucenter-wddd-wd-xx iconfont icon-bangdingyinxingqia">
+              <span class="mui-col-sm-6 mui-col-xs-6">余额</span>
+            </div>
+            <div id="withdrawalCredit" class="mui-col-sm-4 mui-col-xs-4 mui-text-right ab-ucenter-wddd-ckqxx">
+              <span class="mui-badge mui-badge-yellow">{{wallet.withdrawalCredit}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="mui-col-sm-12 mui-col-xs-12 tcart-tj-ddcp-row-hj">
+          <div ui-sref="shopCredit({shopCredit:wallet.shopCredit})" class="mui-row mui-navigate-right">
+            <div class="mui-col-sm-6 mui-col-xs-6 ab-ucenter-wddd-wd-xx iconfont icon-bangdingyinxingqia">
+              <span class="mui-col-sm-6 mui-col-xs-6">积分</span>
+            </div>
+            <div id="shopCredit" class="mui-col-sm-4 mui-col-xs-4 mui-text-right ab-ucenter-wddd-ckqxx">
+              <span class="mui-badge mui-badge-yellow">{{wallet.shopCredit}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

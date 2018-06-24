@@ -156,14 +156,14 @@
   <select id="queryUserCreditPageList" resultType="com.miget.hxb.model.response.UserCreditDetailResponse"
           parameterType="com.miget.hxb.model.request.UserCreditDetailRequest">
     SELECT
-        tcd.create_time,
+        tcd.create_time as createTime,
         tcd.credit,
-        tcd.order_id,
+        tcd.order_id as orderId,
         tcd.remark,
-        tct.type_value,
-        tct.type_name,
-        tct.balance_type,
-        tct.type_category
+        tct.type_value as typeValue,
+        tct.type_name as typeName,
+        tct.balance_type as balanceType,
+        tct.type_category as typeCategory
     FROM
         tbiz_credit_detail tcd,
         tbiz_credit_type tct
@@ -172,6 +172,9 @@
     AND tcd.user_id = #{userId,jdbcType=INTEGER}
     <if test="typeValue != null">
       AND tcd.credit_type = #{typeValue,jdbcType=INTEGER}
+    </if>
+    <if test="typeCategory != null">
+      AND tct.type_category = #{typeCategory,jdbcType=INTEGER}
     </if>
   </select>
 

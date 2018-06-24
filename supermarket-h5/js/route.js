@@ -15,7 +15,13 @@ angular.module('route', [
   'orderDetail.route',
   'pay.route',
   'cards.route',
-  'bankcard.route'
+  'bankcard.route',
+  'wallet.route',
+  'withdrawalCredit.route',
+  'creditList.route',
+  'shopCredit.route',
+  'myFavorite.route',
+  'withdraw.route'
 ])
   .config(function($stateProvider, $urlRouterProvider) {
 

@@ -1,5 +1,5 @@
 <ion-view id="account" view-title="我的" hide-back-button="true" cache-view="false">
-  <ion-content class="scroll-content" scroll="false">
+  <ion-content class="scroll-content has-footer" scroll="false">
     <!--<link href="../css/account/account.css" rel="stylesheet">-->
     <link rel="stylesheet" type="text/css" href="../css/order/general.css">
     <link rel="stylesheet" type="text/css" href="../css/order/user.css">
@@ -11,19 +11,19 @@
             <dl>
               <dd class="mt5"><font class="f14">{{user.wechatNickname}}</font><span class="ml10 dim">{{user.vipLevel}}</span></dd>
               <dd class="mt5">
-                <font class="dim">账户余额：</font><b>{{user.accWithdrawalCredit}}元</b>
+                <font class="dim">账户余额：</font><a ng-href="#/creditList/1/" style="color: #fff"><b>{{user.accWithdrawalCredit}}元</b></a>
                 <span class="sep5"></span>
-                <font class="dim">积分：</font><b>{{user.accShopCredit}}</b>
+                <font class="dim">积分：</font><a ng-href="#/creditList/2/" style="color: #fff"><b>{{user.accShopCredit}}</b></a>
               </dd>
             </dl>
           </div>
         </div>
         <div class="menus cut">
           <ul>
-            <li><a ng-href="#/goods/fouseList"><i class="icon ion-heart"  style="font-size: 16px"></i><p style="color: #CEE7FF;">商品收藏</p></a></li>
+            <li><a ng-href="#/myFavorite"><i class="icon ion-heart"  style="font-size: 16px"></i><p style="color: #CEE7FF;">商品收藏</p></a></li>
             <li><a ng-href="#/goods/history"><i class="icon ion-chatbox-working"  style="font-size: 16px"></i><p style="color: #CEE7FF;">我的评价</p></a></li>
             <li><a ng-href="#/cards"><i class="icon ion-card"  style="font-size: 16px"></i><p style="color: #CEE7FF;">账户卡包</p></a></li>
-            <li><a ng-href="#/assessment"><i class="icon ion-ios-bookmarks"  style="font-size: 16px"></i><p style="color: #CEE7FF;">收入钱包</p></a></li>
+            <li><a ng-href="#/wallet/{{user.accWithdrawalCredit}}/{{user.accShopCredit}}"><i class="icon ion-ios-bookmarks"  style="font-size: 16px"></i><p style="color: #CEE7FF;">收入钱包</p></a></li>
           </ul>
         </div>
       </div>

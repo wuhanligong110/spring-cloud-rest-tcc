@@ -1,0 +1,80 @@
+<ion-view id="myFavorite" view-title="我的收藏" hide-back-button="true" cache-view="false">
+  <ion-content class="scroll-content" scroll="true">
+    <link rel="stylesheet" href="../css/cards/myPoints.css" />
+    <link rel="stylesheet" type="text/css" href="../css/order/general.css">
+    <link rel="stylesheet" type="text/css" href="../css/order/user.css">
+    <style>
+      body{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        font-size: 12px;
+        overflow: hidden;
+        background: white;
+      }
+
+      .txbtn{
+        float: right;
+        margin: 0.5em;
+        border: 1px solid #F2F2F2;
+        border-radius: 100px;
+        font-size: 14px;
+        color: #848484;
+        text-align: center;
+      }
+
+      .floor-title:before{
+        display: inline-block;
+        content: '';
+        width: 3px;
+        height: 12px;
+        background-color: #d8505c;
+        margin: 1px 7px 0 0;
+      }
+    </style>
+
+    <div class="mui-content tabbar-content-padding">
+      <div class="mui-row">
+        <div class="mui-col-sm-12 mui-col-xs-12 mui-text-center">
+          <img  class="img_banner" src="http://wh.jiuguishangcheng.com/images/d87dbd75ce70dc8bdb19cc33ecf5827b?f=png">
+        </div>
+      </div>
+
+      <div id="floor-1" class="floor" style="margin-top: 20px;">
+        <div class="floor-title" style="font-size: 15px;">收藏</div>
+        <div class="favli cut" id="favorites" data-cur='1' data-next='1'>
+          <div class="item">
+            <div class="goods">
+              <a class="im" ng-href="#/details/1"><img ng-src="http://demo.verydows.com/upload/goods/prime/150x150/2258291084d0330.jpg" /></a>
+              <a class="name mt5 c666" ng-href="#/details/1">海峡两岸</a>
+              <div class="mt5"><a class="fr" onclick="delFav(this, ${v.goods_id})"><i class="ion-trash-a"></i></a><span class="red"><i class="cny">¥</i><font class="f14">500.00</font></span></div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="goods">
+              <a class="im" ng-href="#/details/1"><img ng-src="http://demo.verydows.com/upload/goods/prime/150x150/2258291084d0330.jpg" /></a>
+              <a class="name mt5 c666" ng-href="#/details/1">海峡两岸</a>
+              <div class="mt5"><a class="fr" onclick="delFav(this, ${v.goods_id})"><i class="ion-trash-a"></i></a><span class="red"><i class="cny">¥</i><font class="f14">500.00</font></span></div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="goods">
+              <a class="im" ng-href="#/details/1"><img ng-src="http://demo.verydows.com/upload/goods/prime/150x150/2258291084d0330.jpg" /></a>
+              <a class="name mt5 c666" ng-href="#/details/1">海峡两岸</a>
+              <div class="mt5"><a class="fr" onclick="delFav(this, ${v.goods_id})"><i class="ion-trash-a"></i></a><span class="red"><i class="cny">¥</i><font class="f14">500.00</font></span></div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="goods">
+              <a class="im" ng-href="#/details/1"><img ng-src="http://demo.verydows.com/upload/goods/prime/150x150/2258291084d0330.jpg" /></a>
+              <a class="name mt5 c666" ng-href="#/details/1">海峡两岸</a>
+              <div class="mt5"><a class="fr" onclick="delFav(this, ${v.goods_id})"><i class="ion-trash-a"></i></a><span class="red"><i class="cny">¥</i><font class="f14">500.00</font></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </ion-content>
+</ion-view>

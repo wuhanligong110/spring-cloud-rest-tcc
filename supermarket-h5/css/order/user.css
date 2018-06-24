@@ -89,7 +89,7 @@
 .orderact a.b3 {color:#0099cc;border-color:#0099cc}
 /* favorite */
 .favli {padding:5px;}
-.favli .item {float:left;width:50%;height:auto;}
+.favli .item {float:left;width:48%;height:auto;padding:0;margin:3px;}
 .favli .item .goods {margin:5px;padding:8px 8px 10px 8px;background:#fff;overflow:hidden;}
 .favli .item .goods .im {display:block;text-align:center;}
 .favli .item .goods .im img {width:90%;}

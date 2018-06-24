@@ -43,8 +43,7 @@ angular.module('goodsList.controller', ['goodsList.service'])
           if(data.list){
             $scope.obj_goodsListData=data.list;
           }
-
-          if(!data.lastPage){
+          if(!data.lastPage && data.list.length > 0){
             $scope.pms_isMoreItemsAvailable=true;
           }else{
             $scope.pms_isMoreItemsAvailable=false;

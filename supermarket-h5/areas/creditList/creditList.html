@@ -1,0 +1,43 @@
+<ion-view id="creditList" view-title="积分列表页" hide-back-button="true" cache-view="false">
+  <ion-content class="scroll-content">
+    <link rel="stylesheet" type="text/css" href="../css/credit/withdrawDetail.css">
+    <ion-refresher pulling-text="亲爱滴！马上为您加载积分列表..." refreshing-text="loading..." on-refresh="func_refreshCreditList()"></ion-refresher>
+
+    <div class="creditli module cut" id="credits" data-cur="1" data-next="1">
+      <div class="mui-row txmx-row" ng-repeat="credit in obj_creditListData">
+        <div class="mui-col-sm-12 mui-col-xs-12">
+          <div class="mui-row txmx-lqjf-txzt">
+            <div class="mui-col-sm-6 mui-col-xs-6 txmx-lqjf">
+              {{credit.typeName}}
+            </div>
+            <div class="mui-col-sm-6 mui-col-xs-6 mui-text-right txmx-txzt">
+              {{credit.progress}}
+            </div>
+          </div>
+        </div>
+        <div class="mui-col-sm-12 mui-col-xs-12 mui-text-center txmx-txje-wz">
+          金额
+        </div>
+        <div class="mui-col-sm-12 mui-col-xs-12 mui-text-center txmx-txje-je">
+          <span>¥</span>
+          <span class="txmx-txje-jesz">{{credit.credit}}</span>
+        </div>
+        <div class="mui-col-sm-12 mui-col-xs-12 txmx-txje-txsj">
+          <span>时间:</span>
+          <span>{{credit.createTime}}</span>
+        </div>
+        <div class="mui-col-sm-12 mui-col-xs-12 txmx-txje-txsj">
+          <span>备注:</span>
+          <span ng-if="credit.balanceType == 2">消费积分{{credit.credit}}分</span>
+          <span ng-if="credit.balanceType == 1">获得积分{{credit.credit}}分</span>
+        </div>
+      </div>
+    </div>
+
+    <div ng-hide="pms_isMoreItemsAvailable" style="text-align: center">
+      <span>见底了！</span>
+    </div>
+    <ion-infinite-scroll ng-if="pms_isMoreItemsAvailable" on-infinite="func_loadMoreCreditList()" distance="1%" immediate-check="false">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

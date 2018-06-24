@@ -25,7 +25,6 @@ angular.module('bankcard.service', [])
                 async: false,
                 contentType: 'application/json',
                 data:JSON.stringify(bindRequest),
-                // data:bindRequest,
                 timeout:10000,//超时时间设置为10秒；
                 success: function(data){
                     deferred.resolve(data.code);

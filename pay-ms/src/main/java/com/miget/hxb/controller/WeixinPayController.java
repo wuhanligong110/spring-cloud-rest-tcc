@@ -59,11 +59,11 @@ public class WeixinPayController {
     /**
      * 微信提现
      */
-    /*@RequestMapping("/wxpay/enchashment")
+    @RequestMapping("/wxpay/enchashment")
     @ResponseBody
     public String enchashment(HttpServletRequest request, HttpServletResponse response){
     	LOGGER.debug("开始微信提现");
     	return weixinService.enchashment(request,response);
-    }*/
+    }
 
 }
