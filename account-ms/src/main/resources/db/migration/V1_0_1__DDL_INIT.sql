@@ -99,11 +99,13 @@ CREATE TABLE `tbiz_credit_detail` (
   `credit_type` int(10) DEFAULT NULL COMMENT '交易类型',
   `order_id` varchar(64) DEFAULT NULL COMMENT '订单id',
   `deal_id` varchar(64) DEFAULT NULL COMMENT '交易号',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `credit` bigint(15) DEFAULT NULL COMMENT '交易金额 *100',
+  `send_status` int(4) DEFAULT '0' COMMENT '发放状态 0：未发放 1：已发放 2：发放失败',
   `create_time` datetime DEFAULT NULL COMMENT '用户创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '用户更新时间',
-	`operator` varchar(30) DEFAULT NULL COMMENT '操作人',
+  `operator` varchar(30) DEFAULT NULL COMMENT '操作人',
   PRIMARY KEY (`id`),
   KEY `user_credit` (`user_id`,`credit_type`) USING BTREE,
-	KEY `order` (`order_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='积分明细表';
+  KEY `order` (`order_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='积分明细表';

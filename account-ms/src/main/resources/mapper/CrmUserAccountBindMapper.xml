@@ -238,4 +238,13 @@
     and tuab.account_type = #{accountType,jdbcType=INTEGER}
     and status = 1
   </select>
+
+  <select id="queryUserAccountInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tcrm_user_account_bind tuab
+    where tuab.user_id = #{userId,jdbcType=BIGINT}
+    and tuab.id = #{userAccount,jdbcType=INTEGER}
+    and status = 1
+  </select>
 </mapper>

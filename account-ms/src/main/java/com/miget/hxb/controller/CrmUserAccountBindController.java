@@ -83,4 +83,15 @@ public class CrmUserAccountBindController {
         return new ObjectDataResponse<>(userAccountBind);
     }
 
+    @ApiOperation(value = "查询用户指定账户的信息", notes = "")
+    @RequestMapping(value = "/users/{userId}/account/{userAccount}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<CrmUserAccountBind> userAccountInfo(@PathVariable Long userId, @PathVariable Integer userAccount) {
+        final CrmUser user = userService.queryByUserId(userId);
+        if (user == null) {
+            Shift.fatal(StatusCode.USER_NOT_EXISTS);
+        }
+        CrmUserAccountBind userAccountBind = userAccountBindService.queryUserAccountInfo(userId,userAccount);
+        return new ObjectDataResponse<>(userAccountBind);
+    }
+
 }

@@ -3,6 +3,7 @@ package com.miget.hxb.persistence;
 import com.miget.hxb.MyBatisRepository;
 import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.model.request.CreditAddRequest;
+import com.miget.hxb.model.request.CreditSubRequest;
 import org.apache.ibatis.annotations.Param;
 
 @SuppressWarnings("InterfaceNeverImplemented")
@@ -18,4 +19,8 @@ public interface CrmUserMapper extends CrudMapper<CrmUser> {
     int addShopCredit(CreditAddRequest request);
 
     CrmUser queryUserByOpenId(@Param("openid")String openid);
+
+    int subWithdrawCredit(CreditSubRequest request);
+
+    int subShopCredit(CreditSubRequest request);
 }

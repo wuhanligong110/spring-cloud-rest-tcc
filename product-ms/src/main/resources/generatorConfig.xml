@@ -69,7 +69,16 @@
             <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
         </table>-->
 
-        <table alias="tbwc" tableName="tsys_business_weixin_config" domainObjectName="SysBusinessWeixinConfig"
+        <!--<table alias="tbwc" tableName="tsys_business_weixin_config" domainObjectName="SysBusinessWeixinConfig"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+            <!--<columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="false"/>-->
+            <!--<columnOverride column="business_id" javaType="java.lang.Long" isGeneratedAlways="false"/>-->
+            <!--<columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>-->
+            <!--<columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>-->
+        <!--</table>-->
+
+        <table alias="tc" tableName="tsys_config" domainObjectName="SysConfig"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="id" javaType="java.lang.Long" isGeneratedAlways="false"/>

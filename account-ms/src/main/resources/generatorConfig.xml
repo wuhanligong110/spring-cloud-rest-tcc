@@ -37,12 +37,12 @@
             <property name="rootInterface" value="com.miget.hxb.persistence.CrudMapper"/>
         </javaClientGenerator>
 
-        <table alias="tu" tableName="tcrm_user" domainObjectName="CrmUser"
+        <!--<table alias="tu" tableName="tcrm_user" domainObjectName="CrmUser"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="create_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
             <columnOverride column="update_time" javaType="java.time.OffsetDateTime" isGeneratedAlways="false"/>
-        </table>
+        </table>-->
 
         <!--<table alias="tuab" tableName="tcrm_user_account_bind" domainObjectName="CrmUserAccountBind"
                enableCountByExample="false" enableUpdateByExample="false"

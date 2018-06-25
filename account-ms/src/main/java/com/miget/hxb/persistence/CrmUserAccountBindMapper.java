@@ -15,4 +15,6 @@ public interface CrmUserAccountBindMapper extends CrudMapper<CrmUserAccountBind>
     int accountUnBind(AccountUnBindRequest request);
 
     CrmUserAccountBind queryUserAccountTypeInfo(@Param("userId")Long userId, @Param("accountType")Integer accountType);
+
+    CrmUserAccountBind queryUserAccountInfo(@Param("userId")Long userId, @Param("userAccount")Integer userAccount);
 }

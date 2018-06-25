@@ -9,8 +9,8 @@ import com.miget.hxb.controller.StatusCode;
 import com.miget.hxb.controller.client.AccountClient;
 import com.miget.hxb.controller.client.OrderClient;
 import com.miget.hxb.controller.client.ProductClient;
-import com.miget.hxb.domain.SysBusinessWeixinConfig;
 import com.miget.hxb.domain.CrmUser;
+import com.miget.hxb.domain.SysBusinessWeixinConfig;
 import com.miget.hxb.model.request.PaymentRequest;
 import com.miget.hxb.model.request.WxprepayRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
@@ -32,7 +32,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -261,8 +260,10 @@ public class WeixinService {
 		return openId;
 	}
 
-	/*public String enchashment(HttpServletRequest request,HttpServletResponse response) {
-		String enchashmentType = sysConfigService.getValuesByKey("enchashment_type");
+	/*public String enchashment(Long businessId,WithdrawRequest request) {
+		ConfigRequest configRequest = new ConfigRequest();
+		configRequest.setConfigKey("enchashment_type");
+		String enchashmentType = productClient.sysConfig(businessId,configRequest).getData();
 		if(enchashmentType.equals("0")){
 			LOGGER.info("企业付款到银行卡【人工】");
 			return artificialBankCard(request,response);

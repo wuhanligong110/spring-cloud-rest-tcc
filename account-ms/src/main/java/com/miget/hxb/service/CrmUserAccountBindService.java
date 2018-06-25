@@ -45,4 +45,10 @@ public class CrmUserAccountBindService extends CrudServiceImpl<CrmUserAccountBin
         Preconditions.checkNotNull(accountType);
         return mapper.queryUserAccountTypeInfo(userId,accountType);
     }
+
+    public CrmUserAccountBind queryUserAccountInfo(Long userId, Integer userAccount) {
+        Preconditions.checkNotNull(userId);
+        Preconditions.checkNotNull(userAccount);
+        return mapper.queryUserAccountInfo(userId,userAccount);
+    }
 }

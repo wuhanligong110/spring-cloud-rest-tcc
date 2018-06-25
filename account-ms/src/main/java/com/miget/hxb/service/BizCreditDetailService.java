@@ -3,9 +3,10 @@ package com.miget.hxb.service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.google.common.base.Preconditions;
-import com.miget.hxb.domain.BizCreditDetail;
 import com.miget.hxb.domain.BizCreditType;
 import com.miget.hxb.model.request.CreditAddRequest;
+import com.miget.hxb.model.request.CreditStatusRequest;
+import com.miget.hxb.model.request.CreditSubRequest;
 import com.miget.hxb.model.request.UserCreditDetailRequest;
 import com.miget.hxb.model.response.UserCreditDetailResponse;
 import com.miget.hxb.persistence.BizCreditDetailMapper;
@@ -81,5 +82,30 @@ public class BizCreditDetailService extends CrudServiceImpl<BizCreditDetail>{
             return 1;
         }
         return 0;
+    }
+
+    public int creditSub(CreditSubRequest request) {
+        Preconditions.checkNotNull(request);
+        if(request.getTypeValue() != null){
+            BizCreditType creditType = creditTypeService.queryUseableCreditType(request.getTypeValue());
+            Preconditions.checkNotNull(creditType);
+            //积分类型分类为1：可提现积分 2：购物积分 时，需要更新关联的用户信息表上对应字段
+            if(creditType.getTypeCategory() == 1){
+                userService.subWithdrawCredit(request);
+            }else if(creditType.getTypeCategory() == 2){
+                userService.subShopCredit(request);
+            }
+            BizCreditDetail creditDetail = new BizCreditDetail();
+            BeanUtils.copyProperties(request,creditDetail);
+            creditDetail.setDealId(StringUtils.getUUID());
+            creditDetail.setCreditType(request.getTypeValue());
+            creditDetail.setOperator("system");
+            return persistNonNullProperties(creditDetail);
+        }
+        return 0;
+    }
+
+    public int updataCreditStatus(CreditStatusRequest request) {
+        return mapper.updataCreditStatus(request);
     }
 }

@@ -1,7 +1,8 @@
 package com.miget.hxb.controller.client;
 
-import com.miget.hxb.domain.SysBusinessWeixinConfig;
 import com.miget.hxb.domain.CimProduct;
+import com.miget.hxb.domain.SysBusinessWeixinConfig;
+import com.miget.hxb.model.request.ConfigRequest;
 import com.miget.hxb.model.request.OrderCancelRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -33,4 +34,7 @@ public interface ProductClient {
 
     @RequestMapping(value = API_PATH + "/weixin/config/{businessId}", method = RequestMethod.GET)
     ObjectDataResponse<SysBusinessWeixinConfig> weixinConfig(@PathVariable("businessId") Long businessId);
+
+    @RequestMapping(value = API_PATH + "/config/{businessId}", method = RequestMethod.GET)
+    ObjectDataResponse<String> sysConfig(@PathVariable Long businessId, @ModelAttribute ConfigRequest request);
 }

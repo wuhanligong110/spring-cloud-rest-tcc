@@ -18,6 +18,8 @@ public class BizCreditDetail extends BasicDomain {
 
     private Long credit;
 
+    private Integer sendStatus;
+
     private OffsetDateTime createTime;
 
     private OffsetDateTime updateTime;
@@ -78,6 +80,14 @@ public class BizCreditDetail extends BasicDomain {
 
     public void setCredit(Long credit) {
         this.credit = credit;
+    }
+
+    public Integer getSendStatus() {
+        return sendStatus;
+    }
+
+    public void setSendStatus(Integer sendStatus) {
+        this.sendStatus = sendStatus;
     }
 
     public OffsetDateTime getCreateTime() {

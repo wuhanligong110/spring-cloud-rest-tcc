@@ -2,11 +2,11 @@ package com.miget.hxb.controller;
 
 import com.github.pagehelper.Page;
 import com.google.common.base.Preconditions;
-import com.miget.hxb.Delay;
-import com.miget.hxb.RandomlyThrowsException;
 import com.miget.hxb.Shift;
 import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.model.request.CreditAddRequest;
+import com.miget.hxb.model.request.CreditStatusRequest;
+import com.miget.hxb.model.request.CreditSubRequest;
 import com.miget.hxb.model.request.UserCreditDetailRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.model.response.UserCreditDetailResponse;
@@ -35,8 +35,6 @@ public class CrmUserCreditController {
     @Autowired
     private CrmUserService userService;
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "根据ID获取用户积分明细", notes = "包括可提现积分明细、购物积分明细等")
     @RequestMapping(value = "/users/{userId}/credit", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
     public ObjectDataResponse<PageInfo<UserCreditDetailResponse>> creditPageList(@PathVariable Long userId, @Valid @ModelAttribute UserCreditDetailRequest request) {
@@ -51,10 +49,8 @@ public class CrmUserCreditController {
         return new ObjectDataResponse<>(pageInfo);
     }
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "用户新增积分", notes = "发放积分")
-    @RequestMapping(value = "/users/{userId}/credit", method = RequestMethod.POST)
+    @RequestMapping(value = "/users/{userId}/credit/add", method = RequestMethod.POST)
     public ObjectDataResponse creditAdd(@PathVariable Long userId, @Valid @RequestBody CreditAddRequest request, BindingResult error) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
@@ -65,12 +61,34 @@ public class CrmUserCreditController {
         return new ObjectDataResponse<>(null);
     }
 
-    @Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "批量新增积分", notes = "批量发放积分")
     @RequestMapping(value = "/users/credit/batch", method = RequestMethod.POST)
     public ObjectDataResponse creditBatchAdd(@Valid @RequestBody List<CreditAddRequest> requests, BindingResult error) {
         creditDetailService.creditBatchAdd(requests);
+        return new ObjectDataResponse<>(null);
+    }
+
+    @ApiOperation(value = "用户预消耗积分", notes = "预消耗积分")
+    @RequestMapping(value = "/users/{userId}/credit/sub", method = RequestMethod.POST)
+    public ObjectDataResponse preCreditSub(@PathVariable Long userId, @Valid @RequestBody CreditSubRequest request, BindingResult error) {
+        final CrmUser user = userService.queryByUserId(userId);
+        if (user == null) {
+            Shift.fatal(StatusCode.USER_NOT_EXISTS);
+        }
+        request.setUserId(Math.toIntExact(userId));
+        creditDetailService.creditSub(request);
+        return new ObjectDataResponse<>(null);
+    }
+
+    @ApiOperation(value = "用户积分状态", notes = "积分状态")
+    @RequestMapping(value = "/users/{userId}/credit/status", method = RequestMethod.POST)
+    public ObjectDataResponse creditStatus(@PathVariable Long userId, @Valid @RequestBody CreditStatusRequest request, BindingResult error) {
+        final CrmUser user = userService.queryByUserId(userId);
+        if (user == null) {
+            Shift.fatal(StatusCode.USER_NOT_EXISTS);
+        }
+        request.setUserId(Math.toIntExact(userId));
+        creditDetailService.updataCreditStatus(request);
         return new ObjectDataResponse<>(null);
     }
 

@@ -490,6 +490,20 @@
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 
+  <update id="subWithdrawCredit" parameterType="com.miget.hxb.model.request.CreditSubRequest">
+    update tcrm_user
+    set
+      acc_withdrawal_credit = acc_withdrawal_credit - #{credit,jdbcType=BIGINT}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <update id="subShopCredit" parameterType="com.miget.hxb.model.request.CreditSubRequest">
+    update tcrm_user
+    set
+      acc_shop_credit = acc_shop_credit - #{credit,jdbcType=BIGINT}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
   <select id="queryUserByOpenId" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>

@@ -77,6 +77,14 @@ public enum StatusCode implements RestStatus {
 
     WEIXIN_CONFIG_NULL(42010, "商家微信配置不存在"),
 
+    WITHDRAW_TIME_ERRO(42011,"不在提现时间范围内"),
+
+    WITHDRAW_PARAMS_ERRO(42012,"提现参数错误"),
+
+    WITHDRAW_MAINTAIN(42013,"提现维护中"),
+
+    USER_ACCOUNT_NOT_EXISTS(42014, "用户账户不存在"),
+
     // 50xxx 服务端异常
     /**
      * 用于处理未知的服务端错误

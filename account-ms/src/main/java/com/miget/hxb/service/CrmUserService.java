@@ -8,6 +8,7 @@ import com.miget.hxb.controller.StatusCode;
 import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.event.RegisterAddCreditEvent;
 import com.miget.hxb.model.request.CreditAddRequest;
+import com.miget.hxb.model.request.CreditSubRequest;
 import com.miget.hxb.model.request.LoginRequest;
 import com.miget.hxb.model.request.RegisterRequest;
 import com.miget.hxb.model.response.LoginResponse;
@@ -129,5 +130,13 @@ public class CrmUserService extends CrudServiceImpl<CrmUser> implements Applicat
     public CrmUser queryUserByOpenId(String openid) {
         Preconditions.checkNotNull(openid);
         return mapper.queryUserByOpenId(openid);
+    }
+
+    public int subWithdrawCredit(CreditSubRequest request) {
+        return mapper.subWithdrawCredit(request);
+    }
+
+    public int subShopCredit(CreditSubRequest request) {
+        return mapper.subShopCredit(request);
     }
 }

@@ -9,18 +9,19 @@
     <result column="tcd_deal_id" jdbcType="VARCHAR" property="dealId" />
     <result column="tcd_remark" jdbcType="VARCHAR" property="remark" />
     <result column="tcd_credit" jdbcType="BIGINT" property="credit" />
+    <result column="tcd_send_status" jdbcType="INTEGER" property="sendStatus" />
     <result column="tcd_create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="tcd_update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="tcd_operator" jdbcType="VARCHAR" property="operator" />
   </resultMap>
   <sql id="Base_Column_List">
-    tcd.id as tcd_id, tcd.user_id as tcd_user_id, tcd.credit_type as tcd_credit_type, 
-    tcd.order_id as tcd_order_id, tcd.deal_id as tcd_deal_id, tcd.remark as tcd_remark, 
-    tcd.credit as tcd_credit, tcd.create_time as tcd_create_time, tcd.update_time as tcd_update_time, 
-    tcd.operator as tcd_operator
+    tcd.id as tcd_id, tcd.user_id as tcd_user_id, tcd.credit_type as tcd_credit_type,
+    tcd.order_id as tcd_order_id, tcd.deal_id as tcd_deal_id, tcd.remark as tcd_remark,
+    tcd.credit as tcd_credit, tcd.send_status as tcd_send_status, tcd.create_time as tcd_create_time,
+    tcd.update_time as tcd_update_time, tcd.operator as tcd_operator
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from tbiz_credit_detail tcd
     where tcd.id = #{id,jdbcType=INTEGER}
@@ -30,14 +31,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.miget.hxb.domain.BizCreditDetail">
-    insert into tbiz_credit_detail (id, user_id, credit_type, 
-      order_id, deal_id, remark, 
-      credit, create_time, update_time, 
-      operator)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{creditType,jdbcType=INTEGER}, 
-      #{orderId,jdbcType=VARCHAR}, #{dealId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{credit,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{operator,jdbcType=VARCHAR})
+    insert into tbiz_credit_detail (id, user_id, credit_type,
+    order_id, deal_id, remark,
+    credit, send_status, create_time,
+    update_time, operator)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{creditType,jdbcType=INTEGER},
+    #{orderId,jdbcType=VARCHAR}, #{dealId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+    #{credit,jdbcType=BIGINT}, #{sendStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+    #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.miget.hxb.domain.BizCreditDetail">
     insert into tbiz_credit_detail
@@ -62,6 +63,9 @@
       </if>
       <if test="credit != null">
         credit,
+      </if>
+      <if test="sendStatus != null">
+        send_status,
       </if>
       <if test="createTime != null">
         create_time,
@@ -95,6 +99,9 @@
       <if test="credit != null">
         #{credit,jdbcType=BIGINT},
       </if>
+      <if test="sendStatus != null">
+        #{sendStatus,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -127,6 +134,9 @@
       <if test="credit != null">
         credit = #{credit,jdbcType=BIGINT},
       </if>
+      <if test="sendStatus != null">
+        send_status = #{sendStatus,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -147,6 +157,7 @@
       deal_id = #{dealId,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       credit = #{credit,jdbcType=BIGINT},
+      send_status = #{sendStatus,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       operator = #{operator,jdbcType=VARCHAR}
@@ -177,5 +188,13 @@
       AND tct.type_category = #{typeCategory,jdbcType=INTEGER}
     </if>
   </select>
+
+  <update id="updataCreditStatus" parameterType="com.miget.hxb.model.request.CreditStatusRequest">
+    update tbiz_credit_detail
+    set
+      send_status = #{status,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
+    and order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
 
 </mapper>
