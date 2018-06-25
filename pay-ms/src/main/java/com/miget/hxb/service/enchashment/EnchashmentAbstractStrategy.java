@@ -16,8 +16,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Service
-public abstract class EnchashimentAbstractStrategy implements EnchashmentStrategy {
+public abstract class EnchashmentAbstractStrategy implements EnchashmentStrategy {
 
     @Resource
     private AccountClient accountClient;

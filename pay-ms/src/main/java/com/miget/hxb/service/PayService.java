@@ -11,9 +11,13 @@ import com.miget.hxb.controller.client.ProductClient;
 import com.miget.hxb.domain.BizOrder;
 import com.miget.hxb.domain.SysBusinessWeixinConfig;
 import com.miget.hxb.domain.CrmUser;
+import com.miget.hxb.model.request.ConfigRequest;
 import com.miget.hxb.model.request.PlaceOrderRequest;
 import com.miget.hxb.model.request.PrepayRequest;
+import com.miget.hxb.model.request.WithdrawRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
+import com.miget.hxb.service.enchashment.EnchashmentContext;
+import com.miget.hxb.service.enchashment.EnchashmentStrategyFactory;
 import com.miget.hxb.util.HttpRequestClient;
 import com.miget.hxb.wx.utils.WeixinUtil;
 import org.apache.commons.lang.StringUtils;
@@ -169,4 +173,11 @@ public class PayService{
         return openId;
     }
 
+    public void enchashment(Long businessId, Long userId, WithdrawRequest request) {
+        ConfigRequest configRequest = new ConfigRequest();
+        configRequest.setConfigKey("enchashment_type");
+        Integer enchashmentType = Integer.valueOf(productClient.sysConfig(businessId,configRequest).getData());
+        EnchashmentContext context = new EnchashmentContext(EnchashmentStrategyFactory.createEnchashmentStrategy(enchashmentType));
+        context.enchashment(businessId,userId,request.getUserAccount(),request.getAmount());
+    }
 }

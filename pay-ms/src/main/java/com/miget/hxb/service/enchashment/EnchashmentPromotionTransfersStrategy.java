@@ -15,19 +15,19 @@ import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.util.CommonUtils;
 import com.miget.hxb.wx.constant.WeixinRequestConstant;
 import com.miget.hxb.wx.model.PayBank;
+import com.miget.hxb.wx.model.Transfers;
 import com.miget.hxb.wx.utils.PaymentKit;
 import com.miget.hxb.wx.utils.WeixinUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Map;
 
-public class EnchashmentPayBankStrategy extends EnchashmentAbstractStrategy {
+public class EnchashmentPromotionTransfersStrategy extends EnchashmentAbstractStrategy {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EnchashmentPayBankStrategy.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EnchashmentPromotionTransfersStrategy.class);
 
     @Resource
     private AccountClient accountClient;
@@ -46,7 +46,7 @@ public class EnchashmentPayBankStrategy extends EnchashmentAbstractStrategy {
     @Override
     public boolean userAccountCheck(Long userId, Integer userAccount) {
         CrmUserAccountBind accountBind = remoteUserAccount(userId,userAccount);
-        if(accountBind.getAccountType() == 3){
+        if(accountBind.getAccountType() == 1){
             return true;
         }else{
             return false;
@@ -77,19 +77,21 @@ public class EnchashmentPayBankStrategy extends EnchashmentAbstractStrategy {
         SysBusinessWeixinConfig weixinConfig = remoteWeixinConfig(businessId);
 
         try {
-            PayBank payBank = new PayBank();
-            payBank.setMch_id(weixinConfig.getMchId());
-            payBank.setPartner_trade_no(mchBillno);
-            payBank.setNonce_str(WeixinUtil.createNonceStr());
-            payBank.setEnc_bank_no(accountBind.getAccountCard());
-            payBank.setEnc_true_name(accountBind.getUserName());
-            payBank.setBank_code(accountBind.getAccountCode());
-            payBank.setAmount(amount.multiply(new BigDecimal("100")).toBigInteger().intValue());
-            String sign = PaymentKit.createSign(CommonUtils.obj2Map(payBank), weixinConfig.getPayKey());
-            payBank.setSign(sign);
-            LOGGER.info("调用企业付款到银行卡请求参数,payBank={}", JSONObject.toJSONString(payBank));
-            Map<String, String> result = PaymentKit.xmlToMap(weixinHelper.redPackPost(businessId,WeixinRequestConstant.PAY_BANK, PaymentKit.objToXml(payBank)));
-            LOGGER.info("请求企业付款到银行卡结果,result={}",JSONObject.toJSONString(result));
+            Transfers transfers = new Transfers();
+            transfers.setMch_appid(weixinConfig.getAppId());
+            transfers.setMchid(weixinConfig.getMchId());
+            transfers.setNonce_str(WeixinUtil.createNonceStr());
+            transfers.setPartner_trade_no(mchBillno);
+            transfers.setOpenid(accountBind.getAccountCard());
+            transfers.setCheck_name("NO_CHECK");
+            transfers.setAmount(amount.multiply(new BigDecimal("100")).toBigInteger().intValue());
+            transfers.setDesc("商城微信积分兑换");
+            //TODO 获取真实IP
+            transfers.setSpbill_create_ip("127.0.0.1");
+            LOGGER.info("微信请求企业付款参数,transfers={}",JSONObject.toJSONString(transfers));
+            transfers.setSign(PaymentKit.createSign(CommonUtils.obj2Map(transfers), weixinConfig.getPayKey()));
+            Map<String, String> result = PaymentKit.xmlToMap(weixinHelper.redPackPost(businessId,WeixinRequestConstant.PROMOTION_TRANSFERS, PaymentKit.objToXml(transfers)));
+            LOGGER.info("请求企业付款结果,result={}",JSONObject.toJSONString(result));
             String return_code = result.get("return_code");
             String result_code = result.get("result_code");
             if ("SUCCESS".equalsIgnoreCase(return_code) && "SUCCESS".equalsIgnoreCase(result_code)) {//成功

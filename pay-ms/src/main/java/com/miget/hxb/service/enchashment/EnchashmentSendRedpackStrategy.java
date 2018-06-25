@@ -9,25 +9,26 @@ import com.miget.hxb.controller.client.ProductClient;
 import com.miget.hxb.domain.CrmUserAccountBind;
 import com.miget.hxb.domain.SysBusinessWeixinConfig;
 import com.miget.hxb.helper.WeixinHelper;
+import com.miget.hxb.model.request.ConfigRequest;
 import com.miget.hxb.model.request.CreditStatusRequest;
 import com.miget.hxb.model.request.CreditSubRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.util.CommonUtils;
+import com.miget.hxb.wx.constant.WeixinConstant;
 import com.miget.hxb.wx.constant.WeixinRequestConstant;
 import com.miget.hxb.wx.model.PayBank;
-import com.miget.hxb.wx.utils.PaymentKit;
-import com.miget.hxb.wx.utils.WeixinUtil;
+import com.miget.hxb.wx.model.RedPack;
+import com.miget.hxb.wx.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Map;
 
-public class EnchashmentPayBankStrategy extends EnchashmentAbstractStrategy {
+public class EnchashmentSendRedpackStrategy extends EnchashmentAbstractStrategy {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EnchashmentPayBankStrategy.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EnchashmentSendRedpackStrategy.class);
 
     @Resource
     private AccountClient accountClient;
@@ -46,7 +47,7 @@ public class EnchashmentPayBankStrategy extends EnchashmentAbstractStrategy {
     @Override
     public boolean userAccountCheck(Long userId, Integer userAccount) {
         CrmUserAccountBind accountBind = remoteUserAccount(userId,userAccount);
-        if(accountBind.getAccountType() == 3){
+        if(accountBind.getAccountType() == 1){
             return true;
         }else{
             return false;
@@ -77,19 +78,32 @@ public class EnchashmentPayBankStrategy extends EnchashmentAbstractStrategy {
         SysBusinessWeixinConfig weixinConfig = remoteWeixinConfig(businessId);
 
         try {
-            PayBank payBank = new PayBank();
-            payBank.setMch_id(weixinConfig.getMchId());
-            payBank.setPartner_trade_no(mchBillno);
-            payBank.setNonce_str(WeixinUtil.createNonceStr());
-            payBank.setEnc_bank_no(accountBind.getAccountCard());
-            payBank.setEnc_true_name(accountBind.getUserName());
-            payBank.setBank_code(accountBind.getAccountCode());
-            payBank.setAmount(amount.multiply(new BigDecimal("100")).toBigInteger().intValue());
-            String sign = PaymentKit.createSign(CommonUtils.obj2Map(payBank), weixinConfig.getPayKey());
-            payBank.setSign(sign);
-            LOGGER.info("调用企业付款到银行卡请求参数,payBank={}", JSONObject.toJSONString(payBank));
-            Map<String, String> result = PaymentKit.xmlToMap(weixinHelper.redPackPost(businessId,WeixinRequestConstant.PAY_BANK, PaymentKit.objToXml(payBank)));
-            LOGGER.info("请求企业付款到银行卡结果,result={}",JSONObject.toJSONString(result));
+            ConfigRequest configRequest = new ConfigRequest();
+            configRequest.setConfigKey("app_name");
+            String appName = productClient.sysConfig(businessId,configRequest).getData();
+            configRequest.setConfigKey("redpack_scene_id");
+            String redpackSceneId = productClient.sysConfig(businessId,configRequest).getData();
+
+            RedPack redPack = new RedPack();
+            redPack.setAct_name("商城积分兑换");
+            //TODO 获取真实IP
+            redPack.setClient_ip("127.0.0.1");
+            redPack.setMch_billno(mchBillno);
+            redPack.setMch_id(weixinConfig.getMchId());
+            redPack.setNonce_str(WeixinUtil.createNonceStr());
+            redPack.setRe_openid(accountBind.getAccountCard());
+            redPack.setRemark("商城微信积分兑换");
+            redPack.setSend_name(appName);//微信账号名称
+            redPack.setTotal_num(1);
+            redPack.setTotal_amount(amount.multiply(new BigDecimal("100")).toBigInteger().intValue());//微信单位为分
+            redPack.setWishing("感谢您的订购");
+            redPack.setWxappid(weixinConfig.getAppId());
+            redPack.setScene_id(redpackSceneId);//微信红包场景ID
+            String sign = PaymentKit.createSign(CommonUtils.obj2Map(redPack), weixinConfig.getPayKey());
+            redPack.setSign(sign);
+            LOGGER.info("微信发红包请求参数,redPack={}",JSONObject.toJSONString(redPack));
+            Map<String, String> result = PaymentKit.xmlToMap(weixinHelper.redPackPost(businessId,WeixinRequestConstant.SEND_REDPACK, MessageUtil.RedPackToXml(redPack)));
+            LOGGER.info("请求微信发红包结果,result={}",JSONObject.toJSONString(result));
             String return_code = result.get("return_code");
             String result_code = result.get("result_code");
             if ("SUCCESS".equalsIgnoreCase(return_code) && "SUCCESS".equalsIgnoreCase(result_code)) {//成功
@@ -106,7 +120,7 @@ public class EnchashmentPayBankStrategy extends EnchashmentAbstractStrategy {
                 accountClient.creditStatus(userId,creditStatusRequest);
             }
         } catch (Exception e) {
-            LOGGER.error("提现调用企业付款到银行卡异常",e);
+            LOGGER.error("提现调用微信发送普通红包异常",e);
            Shift.fatal(StatusCode.WITHDRAW_PARAMS_ERRO);
         }
     }

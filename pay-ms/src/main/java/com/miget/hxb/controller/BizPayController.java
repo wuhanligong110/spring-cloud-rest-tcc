@@ -2,12 +2,15 @@ package com.miget.hxb.controller;
 
 import com.miget.hxb.Delay;
 import com.miget.hxb.RandomlyThrowsException;
+import com.miget.hxb.Shift;
+import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.model.request.PrepayRequest;
+import com.miget.hxb.model.request.WithdrawRequest;
+import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.sender.RabbitSender;
 import com.miget.hxb.service.PayService;
 import com.miget.hxb.util.MQConstants;
 import com.miget.hxb.util.RabbitMetaMessage;
-import com.miget.hxb.wx.utils.IpKit;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,14 +58,20 @@ public class BizPayController {
         return "sucess";
     }
 
-    @RequestMapping(value = "/pay/prepay", method = RequestMethod.POST)
-    @ResponseBody
     @ApiOperation(value = "下单", notes = "生成预订单")
+    @RequestMapping(value = "/pay/prepay", method = RequestMethod.POST)
     public Map<String, String> placeOrder(@RequestBody PrepayRequest prepayRequest) {
         logger.debug("开始调用统一下单接口");
         Map<String, String> returnParams = new HashMap<String, String>();
         returnParams = payService.placeOrder(prepayRequest);
         return returnParams;
+    }
+
+    @ApiOperation(value = "提现", notes = "提现")
+    @RequestMapping(value = "/pay/{businessId}/{userId}/enchashment", method = RequestMethod.GET)
+    public ObjectDataResponse enchashment(@PathVariable Long businessId,@PathVariable Long userId,@RequestBody WithdrawRequest request) {
+        payService.enchashment(businessId,userId,request);
+        return new ObjectDataResponse<>(null);
     }
 
 }
