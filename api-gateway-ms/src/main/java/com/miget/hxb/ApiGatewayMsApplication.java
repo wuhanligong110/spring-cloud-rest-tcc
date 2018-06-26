@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringCloudApplication
 public class ApiGatewayMsApplication {
 
-    /*@Bean
+    @Bean
     @LoadBalanced
     RestTemplate restTemplate() {
         return new RestTemplate();
@@ -21,7 +21,7 @@ public class ApiGatewayMsApplication {
     @Bean
     public LoginFilter loginFilter() {
         return new LoginFilter();
-    }*/
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(ApiGatewayMsApplication.class, args);

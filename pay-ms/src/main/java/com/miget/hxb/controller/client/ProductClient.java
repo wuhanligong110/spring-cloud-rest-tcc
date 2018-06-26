@@ -40,7 +40,7 @@ public interface ProductClient {
     @RequestMapping(value = API_PATH + "/weixin/config/{businessId}", method = RequestMethod.GET)
     ObjectDataResponse<SysBusinessWeixinConfig> weixinConfig(@PathVariable("businessId") Long businessId);
 
-    @RequestMapping(value = API_PATH + "/config/{businessId}", method = RequestMethod.GET)
+    @RequestMapping(value = API_PATH + "/config/{businessId}", method = RequestMethod.POST)
     ObjectDataResponse<String> sysConfig(@PathVariable("businessId") Long businessId, @RequestBody ConfigRequest request);
 
     @RequestMapping(value = API_PATH + "/config/list", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
