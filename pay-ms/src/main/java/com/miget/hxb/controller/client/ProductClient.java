@@ -2,13 +2,18 @@ package com.miget.hxb.controller.client;
 
 import com.miget.hxb.domain.CimProduct;
 import com.miget.hxb.domain.SysBusinessWeixinConfig;
+import com.miget.hxb.domain.SysConfig;
 import com.miget.hxb.model.request.ConfigRequest;
 import com.miget.hxb.model.request.OrderCancelRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -36,5 +41,8 @@ public interface ProductClient {
     ObjectDataResponse<SysBusinessWeixinConfig> weixinConfig(@PathVariable("businessId") Long businessId);
 
     @RequestMapping(value = API_PATH + "/config/{businessId}", method = RequestMethod.GET)
-    ObjectDataResponse<String> sysConfig(@PathVariable Long businessId, @ModelAttribute ConfigRequest request);
+    ObjectDataResponse<String> sysConfig(@PathVariable("businessId") Long businessId, @RequestBody ConfigRequest request);
+
+    @RequestMapping(value = API_PATH + "/config/list", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    ObjectDataResponse<List<SysConfig>> sysConfigList(@Valid @RequestBody ConfigRequest request);
 }

@@ -160,4 +160,17 @@
     where tc.business_id = #{businessId,jdbcType=INTEGER}
     and tc.config_key = #{configKey,jdbcType=VARCHAR}
   </select>
+
+  <select id="getValuesByBnIdAndType" resultMap="BaseResultMap" parameterType="com.miget.hxb.model.request.ConfigRequest">
+    select
+    <include refid="Base_Column_List" />
+    from tsys_config tc
+    where tc.business_id = #{businessId,jdbcType=INTEGER}
+    <if test="configType != null">
+      and config_type = #{configType,jdbcType=VARCHAR}
+    </if>
+    <if test="configKey != null">
+      and config_key = #{configKey,jdbcType=VARCHAR}
+    </if>
+  </select>
 </mapper>

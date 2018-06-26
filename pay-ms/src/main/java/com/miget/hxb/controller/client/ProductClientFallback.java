@@ -4,6 +4,7 @@ import com.miget.hxb.Shift;
 import com.miget.hxb.controller.StatusCode;
 import com.miget.hxb.domain.SysBusinessWeixinConfig;
 import com.miget.hxb.domain.CimProduct;
+import com.miget.hxb.domain.SysConfig;
 import com.miget.hxb.model.request.ConfigRequest;
 import com.miget.hxb.model.request.OrderCancelRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
@@ -44,6 +45,13 @@ public class ProductClientFallback implements ProductClient {
 
     @Override
     public ObjectDataResponse<String> sysConfig(Long businessId, ConfigRequest request) {
+        didNotGetResponse();
+        Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
+        return null;
+    }
+
+    @Override
+    public ObjectDataResponse<List<SysConfig>> sysConfigList(ConfigRequest request) {
         didNotGetResponse();
         Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
         return null;

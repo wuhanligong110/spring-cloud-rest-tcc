@@ -3,6 +3,7 @@ package com.miget.hxb.service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.google.common.base.Preconditions;
+import com.miget.hxb.domain.BizCreditDetail;
 import com.miget.hxb.domain.BizCreditType;
 import com.miget.hxb.model.request.CreditAddRequest;
 import com.miget.hxb.model.request.CreditStatusRequest;

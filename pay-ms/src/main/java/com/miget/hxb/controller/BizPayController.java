@@ -2,8 +2,9 @@ package com.miget.hxb.controller;
 
 import com.miget.hxb.Delay;
 import com.miget.hxb.RandomlyThrowsException;
-import com.miget.hxb.Shift;
-import com.miget.hxb.domain.CrmUser;
+import com.miget.hxb.controller.client.ProductClient;
+import com.miget.hxb.domain.SysConfig;
+import com.miget.hxb.model.request.ConfigRequest;
 import com.miget.hxb.model.request.PrepayRequest;
 import com.miget.hxb.model.request.WithdrawRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,6 +37,8 @@ public class BizPayController {
     private RabbitSender rabbitSender;
     @Resource
     private PayService payService;
+    @Resource
+    private ProductClient productClient;
 
     @Delay
     @RandomlyThrowsException
@@ -68,10 +72,20 @@ public class BizPayController {
     }
 
     @ApiOperation(value = "提现", notes = "提现")
-    @RequestMapping(value = "/pay/{businessId}/{userId}/enchashment", method = RequestMethod.GET)
+    @RequestMapping(value = "/pay/{businessId}/{userId}/enchashment", method = RequestMethod.POST)
     public ObjectDataResponse enchashment(@PathVariable Long businessId,@PathVariable Long userId,@RequestBody WithdrawRequest request) {
         payService.enchashment(businessId,userId,request);
         return new ObjectDataResponse<>(null);
+    }
+
+    @ApiOperation(value = "测试获取配置", notes = "测试获取配置")
+    @RequestMapping(value = "/pay/config/list", method = RequestMethod.POST)
+    public ObjectDataResponse configList() {
+        ConfigRequest request = new ConfigRequest();
+        request.setBusinessId(1L);
+        request.setConfigType("enchashment_config");
+        ObjectDataResponse<List<SysConfig>> listData = productClient.sysConfigList(request);
+        return new ObjectDataResponse<>(listData.getData());
     }
 
 }

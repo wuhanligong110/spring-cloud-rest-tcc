@@ -4,12 +4,12 @@ import com.miget.hxb.Shift;
 import com.miget.hxb.controller.StatusCode;
 import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.domain.CrmUserAccountBind;
+import com.miget.hxb.model.request.CreditStatusRequest;
 import com.miget.hxb.model.request.CreditSubRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
@@ -41,7 +41,14 @@ public class AccountClientFallback implements AccountClient {
     }
 
     @Override
-    public ObjectDataResponse creditSub(Long userId, CreditSubRequest request, BindingResult error) {
+    public ObjectDataResponse creditSub(Long userId, CreditSubRequest request) {
+        didNotGetResponse();
+        Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
+        return null;
+    }
+
+    @Override
+    public ObjectDataResponse creditStatus(Long userId, CreditStatusRequest request) {
         didNotGetResponse();
         Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
         return null;

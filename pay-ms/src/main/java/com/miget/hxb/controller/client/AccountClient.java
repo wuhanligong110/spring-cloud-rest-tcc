@@ -34,11 +34,11 @@ public interface AccountClient {
     ObjectDataResponse<CrmUser> queryRemoteUserByOpenId(@PathVariable("openid")String openid);
 
     @RequestMapping(value = API_PATH + "/users/{userId}/account/{userAccount}", method = RequestMethod.GET)
-    ObjectDataResponse<CrmUserAccountBind> userAccountInfo(@PathVariable Long userId, @PathVariable Integer userAccount);
+    ObjectDataResponse<CrmUserAccountBind> userAccountInfo(@PathVariable("userId") Long userId, @PathVariable("userAccount") Integer userAccount);
 
     @RequestMapping(value = API_PATH + "/users/{userId}/credit/sub", method = RequestMethod.POST)
-    ObjectDataResponse creditSub(@PathVariable Long userId, @Valid @RequestBody CreditSubRequest request);
+    ObjectDataResponse creditSub(@PathVariable("userId") Long userId, @Valid @RequestBody CreditSubRequest request);
 
     @RequestMapping(value = API_PATH + "/users/{userId}/credit/status", method = RequestMethod.POST)
-    ObjectDataResponse creditStatus(@PathVariable Long userId, @Valid @RequestBody CreditStatusRequest request);
+    ObjectDataResponse creditStatus(@PathVariable("userId") Long userId, @Valid @RequestBody CreditStatusRequest request);
 }

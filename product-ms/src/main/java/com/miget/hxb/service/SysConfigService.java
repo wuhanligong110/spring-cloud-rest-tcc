@@ -1,12 +1,15 @@
 package com.miget.hxb.service;
 
 import com.miget.hxb.domain.SysConfig;
+import com.miget.hxb.model.request.ConfigRequest;
 import com.miget.hxb.persistence.CrudMapper;
 import com.miget.hxb.persistence.SysConfigMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 *
@@ -49,4 +52,8 @@ public class SysConfigService extends CrudServiceImpl<SysConfig>{
        SysConfig result = mapper.queryConfigByBnIdAndKey(businessId,key);
        return result.getConfigValue();
    }
+
+    public List<SysConfig> getValuesByBnIdAndType(ConfigRequest request) {
+        return mapper.getValuesByBnIdAndType(request);
+    }
 }
