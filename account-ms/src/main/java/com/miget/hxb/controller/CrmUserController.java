@@ -53,7 +53,7 @@ public class CrmUserController {
 
     @ApiOperation(value = "用户登录", notes = "用于用户登录, 可获取JWT")
     @RequestMapping(value = "/users/login", method = RequestMethod.POST)
-    public LoginResponse login(@Valid @RequestBody LoginRequest request, BindingResult error) {
+    public ObjectDataResponse<LoginResponse> login(@Valid @RequestBody LoginRequest request, BindingResult error) {
         return crmUserService.login(request);
     }
 

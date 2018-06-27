@@ -12,6 +12,7 @@ import com.miget.hxb.model.request.CreditSubRequest;
 import com.miget.hxb.model.request.LoginRequest;
 import com.miget.hxb.model.request.RegisterRequest;
 import com.miget.hxb.model.response.LoginResponse;
+import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.model.response.RegisterResponse;
 import com.miget.hxb.persistence.CrmUserMapper;
 import com.miget.hxb.persistence.CrudMapper;
@@ -70,7 +71,7 @@ public class CrmUserService extends CrudServiceImpl<CrmUser> implements Applicat
         return OrikaMapper.map(transientUser, RegisterResponse.class);
     }
 
-    public LoginResponse login(LoginRequest request) {
+    public ObjectDataResponse<LoginResponse> login(LoginRequest request) {
         Preconditions.checkNotNull(request);
         final CrmUser user = find(request.getMobile());
         if (user == null) {
@@ -84,7 +85,7 @@ public class CrmUserService extends CrudServiceImpl<CrmUser> implements Applicat
         final LoginResponse response = new LoginResponse();
         response.setMobile(user.getMobile());
         response.setUserId(Long.valueOf(user.getUserId()));
-        return response;
+        return new ObjectDataResponse<>(response);
     }
 
     public CrmUser find(String mobile) {
