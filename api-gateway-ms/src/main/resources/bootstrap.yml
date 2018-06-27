@@ -50,8 +50,8 @@ jwt:
     login: '/users/login'
 auth:
   allow:
-    url: '/users/login,/swagger/**'
+    url: '/api/v1/users/login,/account/**'
 resources:
   list:
-    url: 'http://localhost:8894/resources/listResources?status=1'
-    roleName: 'http://localhost:8894/resources/listRoleNameByResourceId'
+    url: 'http://localhost:10014/resources/listResources?status=1'
+    roleName: 'http://localhost:10014/resources/listRoleNameByResourceId'
