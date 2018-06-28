@@ -13,6 +13,8 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -99,5 +101,11 @@ public class CrmUserController {
         crmUserService.updateNonNullProperties(user);
         return new ObjectDataResponse<>(user);
     }*/
+
+    @GetMapping("/detail")
+    public void userDetail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        authentication.getPrincipal();
+    }
 
 }

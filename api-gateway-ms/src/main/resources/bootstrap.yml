@@ -45,7 +45,7 @@ hystrix:
           thread:
             timeoutInMilliseconds: 1500
 jwt:
-  expireTime: 110
+  expireTime: 120
   user:
     login: '/users/login'
 auth:

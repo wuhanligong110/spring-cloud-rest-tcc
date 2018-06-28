@@ -5,15 +5,15 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -26,7 +26,8 @@ import java.util.stream.Collectors;
 @Component
 public class JsonWebTokenAuthenticationProvider implements AuthenticationProvider {
 
-    private JsonWebTokenUtility tokenService = new JsonWebTokenUtility();
+    @Resource
+    private JsonWebTokenUtility tokenService;
 
     /**
      * 在authenticate方法中，首先可以根据用户名获取到用户信息，再者可以拿自定义参数和用户信息做逻辑验证，如密码的验证
@@ -47,6 +48,7 @@ public class JsonWebTokenAuthenticationProvider implements AuthenticationProvide
             if (userDetails != null) {
                 authenticatedUser =
                         new JsonWebTokenAuthentication(userDetails, tokenHeader);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } else {
             // It is already a JsonWebTokenAuthentication

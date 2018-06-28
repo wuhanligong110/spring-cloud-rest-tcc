@@ -17,7 +17,6 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Token生成工具类
@@ -130,4 +129,5 @@ public class JsonWebTokenUtility {
         calendar.add(Calendar.MINUTE, minute);
         return calendar.getTime();
     }
+
 }
