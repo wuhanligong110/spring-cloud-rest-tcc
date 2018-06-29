@@ -1,11 +1,11 @@
 
 package com.miget.hxb.jwt;
 
+import com.miget.hxb.context.BaseContextHandler;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
@@ -48,7 +48,7 @@ public class JsonWebTokenAuthenticationProvider implements AuthenticationProvide
             if (userDetails != null) {
                 authenticatedUser =
                         new JsonWebTokenAuthentication(userDetails, tokenHeader);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                BaseContextHandler.setToken(tokenHeader);
             }
         } else {
             // It is already a JsonWebTokenAuthentication

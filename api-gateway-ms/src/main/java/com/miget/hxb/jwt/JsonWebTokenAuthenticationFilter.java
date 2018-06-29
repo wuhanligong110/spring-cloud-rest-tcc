@@ -32,4 +32,5 @@ public class JsonWebTokenAuthenticationFilter extends RequestHeaderAuthenticatio
             AuthenticationManager authenticationManager) {
         super.setAuthenticationManager(authenticationManager);
     }
+
 }

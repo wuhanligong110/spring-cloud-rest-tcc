@@ -1,5 +1,7 @@
 package com.miget.hxb.sercuity;
 
+import com.miget.hxb.context.BaseContextHandler;
+import com.netflix.zuul.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.SecurityMetadataSource;
@@ -54,6 +56,8 @@ public class MySecurityInterceptor extends AbstractSecurityInterceptor implement
         InterceptorStatusToken token = super.beforeInvocation(fi);
 
         try {
+            RequestContext ctx = RequestContext.getCurrentContext();
+            ctx.addZuulRequestHeader("Authorization", BaseContextHandler.getToken());
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
         } finally {
             super.afterInvocation(token, null);

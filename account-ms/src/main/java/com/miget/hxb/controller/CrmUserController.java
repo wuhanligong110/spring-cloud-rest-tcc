@@ -103,7 +103,8 @@ public class CrmUserController {
     }*/
 
     @GetMapping("/detail")
-    public void userDetail() {
+    public void userDetail(HttpServletRequest request) {
+        String tokenss = request.getAttribute("token").toString();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         authentication.getPrincipal();
     }
