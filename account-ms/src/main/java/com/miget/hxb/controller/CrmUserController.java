@@ -104,6 +104,8 @@ public class CrmUserController {
 
     @GetMapping("/detail")
     public void userDetail(HttpServletRequest request) {
+        String xxxxToken = request.getHeader("token");
+        String xxxxAuthen = request.getHeader("authorization");
         String tokenss = request.getAttribute("token").toString();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         authentication.getPrincipal();

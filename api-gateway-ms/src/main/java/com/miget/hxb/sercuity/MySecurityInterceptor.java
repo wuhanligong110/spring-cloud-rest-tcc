@@ -1,6 +1,6 @@
 package com.miget.hxb.sercuity;
 
-import com.miget.hxb.context.BaseContextHandler;
+import com.miget.hxb.jwt.JsonWebTokenAuthentication;
 import com.netflix.zuul.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
@@ -8,12 +8,14 @@ import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import java.io.IOException;
+import java.util.*;
 
 /**
  * @Description 拦截器
@@ -57,7 +59,16 @@ public class MySecurityInterceptor extends AbstractSecurityInterceptor implement
 
         try {
             RequestContext ctx = RequestContext.getCurrentContext();
-            ctx.addZuulRequestHeader("Authorization", BaseContextHandler.getToken());
+            if(SecurityContextHolder.getContext().getAuthentication() instanceof JsonWebTokenAuthentication){
+                JsonWebTokenAuthentication authentication = (JsonWebTokenAuthentication)SecurityContextHolder.getContext().getAuthentication();
+                ctx.addZuulRequestHeader("Authorization", authentication.getJsonWebToken());
+                Map<String,List<String>> requestMap = ctx.getRequestQueryParams();
+                if(requestMap == null){
+                    requestMap = new HashMap<>();
+                }
+                requestMap.put("userId", Arrays.asList(authentication.getJsonWebToken()));
+                ctx.setRequestQueryParams(requestMap);
+            }
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
         } finally {
             super.afterInvocation(token, null);
