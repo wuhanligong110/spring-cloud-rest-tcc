@@ -8,7 +8,7 @@ eureka:
     hostname: eureka2
     prefer-ip-address: false
     metadata-map:
-      cluster: prontera
+      cluster: avail
       management:
         port: ${management.port}
         context-path: ${management.context-path}

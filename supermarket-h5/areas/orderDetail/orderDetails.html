@@ -30,15 +30,15 @@
               <div class="im"><a ng-href="#/details/{{orderItem.productId}}"><img alt="{{orderItem.productName}}" ng-src="{{orderItem.productImg}}"/></a></div>
               <div class="info">
                 <p class="name"><a ng-href="#/details/{{orderItem.productId}}">{{orderItem.productName}}</a></p>
-                <p class="subtotal mt5 c999">共<b class="q">{{orderItem.productCount}}</b>件<span class="price ml10"><i class="cny">¥</i>{{orderItem.productPrice}}</span></p>
+                <p class="subtotal mt5 c999">共<b class="q">{{orderItem.productCount}}</b>件<span class="price ml10"><i class="cny">¥</i>{{orderItem.productPrice/100 |  number:2}}</span></p>
               </div>
             </li>
           </ul>
         </div>
         <div class="amount mt8 f14 cut">
-          <dl class="col mt10"><dt>商品总计：</dt><dd><i class="cny">¥</i>{{order.amount}}</dd></dl>
+          <dl class="col mt10"><dt>商品总计：</dt><dd><i class="cny">¥</i>{{order.amount/100 |  number:2}}</dd></dl>
           <dl class="col mt10"><dt>运费：</dt><dd><i class="cny">¥</i>0.00</dd></dl>
-          <dl class="col total mt10"><dt>订单总额：</dt><dd class="f16"><i class="cny">¥</i>{{order.amount}}</dd></dl>
+          <dl class="col total mt10"><dt>订单总额：</dt><dd class="f16"><i class="cny">¥</i>{{order.amount/100 |  number:2}}</dd></dl>
         </div>
       </div>
     </div>

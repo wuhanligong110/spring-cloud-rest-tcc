@@ -3,7 +3,7 @@ version: "3"
 services:
     jce_java:
         build: ./docker-jce-jre
-        image: hxb/jce-java
+        image: avail/jce-java
         read_only: true
         command: echo "jce java"
         environment:

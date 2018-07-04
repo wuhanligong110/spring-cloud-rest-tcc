@@ -20,7 +20,7 @@
         </div>
         <div class="mui-col-sm-12 mui-col-xs-12 mui-text-center txmx-txje-je">
           <span>¥</span>
-          <span class="txmx-txje-jesz">{{credit.credit}}</span>
+          <span class="txmx-txje-jesz">{{credit.credit/100 |  number:2}}</span>
         </div>
         <div class="mui-col-sm-12 mui-col-xs-12 txmx-txje-txsj">
           <span>时间:</span>
@@ -28,8 +28,8 @@
         </div>
         <div class="mui-col-sm-12 mui-col-xs-12 txmx-txje-txsj">
           <span>备注:</span>
-          <span ng-if="credit.balanceType == 2">消费积分{{credit.credit}}分</span>
-          <span ng-if="credit.balanceType == 1">获得积分{{credit.credit}}分</span>
+          <span ng-if="credit.balanceType == 2">消费积分{{credit.credit/100 |  number:2}}分</span>
+          <span ng-if="credit.balanceType == 1">获得积分{{credit.credit/100 |  number:2}}分</span>
         </div>
       </div>
     </div>

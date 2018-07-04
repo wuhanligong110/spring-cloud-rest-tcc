@@ -36,8 +36,8 @@ public class CrmUserCreditController {
     private CrmUserService userService;
 
     @ApiOperation(value = "根据ID获取用户积分明细", notes = "包括可提现积分明细、购物积分明细等")
-    @RequestMapping(value = "/users/{userId}/credit", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ObjectDataResponse<PageInfo<UserCreditDetailResponse>> creditPageList(@PathVariable Long userId, @Valid @ModelAttribute UserCreditDetailRequest request) {
+    @RequestMapping(value = "/users/credit", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<PageInfo<UserCreditDetailResponse>> creditPageList(Long userId, @Valid @ModelAttribute UserCreditDetailRequest request) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
@@ -50,8 +50,8 @@ public class CrmUserCreditController {
     }
 
     @ApiOperation(value = "用户新增积分", notes = "发放积分")
-    @RequestMapping(value = "/users/{userId}/credit/add", method = RequestMethod.POST)
-    public ObjectDataResponse creditAdd(@PathVariable Long userId, @Valid @RequestBody CreditAddRequest request, BindingResult error) {
+    @RequestMapping(value = "/users/credit/add", method = RequestMethod.POST)
+    public ObjectDataResponse creditAdd(Long userId, @Valid @RequestBody CreditAddRequest request, BindingResult error) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
@@ -69,8 +69,8 @@ public class CrmUserCreditController {
     }
 
     @ApiOperation(value = "用户预消耗积分", notes = "预消耗积分")
-    @RequestMapping(value = "/users/{userId}/credit/sub", method = RequestMethod.POST)
-    public ObjectDataResponse preCreditSub(@PathVariable Long userId, @Valid @RequestBody CreditSubRequest request, BindingResult error) {
+    @RequestMapping(value = "/users/credit/sub", method = RequestMethod.POST)
+    public ObjectDataResponse preCreditSub(Long userId, @Valid @RequestBody CreditSubRequest request, BindingResult error) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
@@ -81,8 +81,8 @@ public class CrmUserCreditController {
     }
 
     @ApiOperation(value = "用户积分状态", notes = "积分状态")
-    @RequestMapping(value = "/users/{userId}/credit/status", method = RequestMethod.POST)
-    public ObjectDataResponse creditStatus(@PathVariable Long userId, @Valid @RequestBody CreditStatusRequest request, BindingResult error) {
+    @RequestMapping(value = "/users/credit/status", method = RequestMethod.POST)
+    public ObjectDataResponse creditStatus(Long userId, @Valid @RequestBody CreditStatusRequest request, BindingResult error) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);

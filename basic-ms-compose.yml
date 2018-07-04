@@ -3,14 +3,14 @@ version: "3"
 services:
     jce_java:
         build: ./docker-jce-jre
-        image: pronter/jce-java
+        image: avail/jce-java
         read_only: true
         command: echo "jce java"
         environment:
             - TZ=Asia/Shanghai
     eureka1:
         build: ./eureka-registry-ms
-        image: prontera/eureka-registry-ms
+        image: avail/eureka-registry-ms
         ports:
             - "8763:8763"
             - "9274:9274"
@@ -21,7 +21,7 @@ services:
         command: "--spring.profiles.active=peer1"
     eureka2:
         build: ./eureka-registry-ms
-        image: prontera/eureka-registry-ms
+        image: avail/eureka-registry-ms
         ports:
             - "8762:8762"
             - "10177:10177"
@@ -32,7 +32,7 @@ services:
         command: "--spring.profiles.active=peer2"
     config_server:
         build: ./config-ms
-        image: prontera/config-server-ms
+        image: avail/config-server-ms
         ports:
             - "10888:10888"
             - "10481:10481"

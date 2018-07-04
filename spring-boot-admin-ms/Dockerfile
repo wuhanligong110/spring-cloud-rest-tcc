@@ -1,5 +1,5 @@
-FROM pronter/jce-java
-MAINTAINER Chris<chiuchunkin@gmail.com>
+FROM avail/jce-java
+MAINTAINER Avail<694208570@qq.com>
 
 VOLUME /tmp
 COPY ./target/spring-boot-admin-ms-0.0.1-SNAPSHOT.jar /app.jar

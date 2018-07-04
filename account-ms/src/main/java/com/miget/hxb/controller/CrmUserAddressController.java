@@ -34,8 +34,8 @@ public class CrmUserAddressController {
     private CrmUserService userService;
 
     @ApiOperation(value = "根据ID获取用户收件地址", notes = "")
-    @RequestMapping(value = "/users/{userId}/address", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ObjectDataResponse<PageInfo<CrmUserAddress>> addressPageList(@PathVariable Long userId, PageRequest request) {
+    @RequestMapping(value = "/users/address", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<PageInfo<CrmUserAddress>> addressPageList(Long userId, PageRequest request) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
@@ -46,8 +46,8 @@ public class CrmUserAddressController {
     }
 
     @ApiOperation(value = "根据ID获取用户默认收件地址", notes = "")
-    @RequestMapping(value = "/users/{userId}/address/default", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ObjectDataResponse<CrmUserAddress> userDefaultAddress(@PathVariable Long userId) {
+    @RequestMapping(value = "/users/address/default", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<CrmUserAddress> userDefaultAddress(Long userId) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
@@ -57,8 +57,8 @@ public class CrmUserAddressController {
     }
 
     @ApiOperation(value = "用户编辑收件地址", notes = "编辑收件地址")
-    @RequestMapping(value = "/users/{userId}/address", method = RequestMethod.POST)
-    public ObjectDataResponse<CrmUserAddress> addressEdit(@PathVariable Long userId, @Valid @RequestBody AddressAddRequest request, BindingResult error) {
+    @RequestMapping(value = "/users/address", method = RequestMethod.POST)
+    public ObjectDataResponse<CrmUserAddress> addressEdit(Long userId, @Valid @RequestBody AddressAddRequest request, BindingResult error) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);

@@ -14,12 +14,12 @@
             <p><a ng-href="#/details/{{orderItem.productId}}">{{orderItem.productName}}</a></p>
             <span></span>
             <p class="mt5">
-              <font class="c999 mr5">单价:</font><i class="cny">¥</i>{{orderItem.productPrice}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="c999 mr5">数量:</font>{{orderItem.productCount}}
+              <font class="c999 mr5">单价:</font><i class="cny">¥</i>{{orderItem.productPrice/100 |  number:2}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="c999 mr5">数量:</font>{{orderItem.productCount}}
             </p>
           </div>
         </div>
 
-        <div class="total"><font class="mr5">总额:</font><span class="red" ><i class="cny">¥</i><font class="f14">{{order.amount}}</font></span><span class="ml5 c999">(含运费：<i class="cny">¥</i>0.00)</span></div>
+        <div class="total"><font class="mr5">总额:</font><span class="red" ><i class="cny">¥</i><font class="f14">{{order.amount/100 |  number:2}}</font></span><span class="ml5 c999">(含运费：<i class="cny">¥</i>0.00)</span></div>
         <div class="act">
           <a ng-href="#/order/detail/{{order.orderId}}">查看详细</a>
           <a ng-if="order.orderStatus == 0" class="b1" ng-href="#/pay/{{order.orderId}}/{{order.amount}}">立即付款</a>

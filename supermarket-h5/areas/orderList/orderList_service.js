@@ -8,9 +8,9 @@ angular.module('orderList.service', [])
         var deferred = $q.defer();
         $http({  
 		   method:'get',
-		   url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/order/api/v1/orders/"+GlobalVariable.USER_ID+"/order",
+		   url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/order/api/v1/orders/order",
 		   params:message,
-		   headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+           headers:{'Content-Type': 'application/x-www-form-urlencoded','Authorization':localStorage.getItem('userToken')},
 		   transformRequest: function(obj) {
 			 var str = [];
 			 for(var p in obj){

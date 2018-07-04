@@ -27,11 +27,11 @@
                       <div class="mui-row">
                         <div class="mui-col-sm-4 mui-col-xs-4 sy-rmtjcp-nr-jgkc-jg">
                           <span>¥</span>
-                          <span class="sy-rmtjcp-nr-jgkc-jgsz">{{item.price}}</span>
+                          <span class="sy-rmtjcp-nr-jgkc-jgsz">{{item.price/100 |  number:2}}</span>
                         </div>
                         <div class="mui-col-sm-4 mui-col-xs-4">
                           <span>原价:</span>
-                          <span>¥{{item.prePrice}}</span>
+                          <span>¥{{item.prePrice/100 |  number:2}}</span>
                         </div>
                         <div class="mui-col-sm-4 mui-col-xs-4">
                           <span>已售</span>

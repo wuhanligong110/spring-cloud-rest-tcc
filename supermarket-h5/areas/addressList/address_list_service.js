@@ -5,9 +5,9 @@ angular.module('address.list.service', [])
             var deferred = $q.defer();
             $http({
                 method:'get',
-                url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users/"+GlobalVariable.USER_ID+"/address",
+                url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users/address",
                 params:{pageNum:1,pageSize:10},
-                headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+                headers:{'Content-Type': 'application/x-www-form-urlencoded','Authorization':localStorage.getItem('userToken')},
                 transformRequest: function(obj) {
                     var str = [];
                     for(var p in obj){
@@ -27,7 +27,7 @@ angular.module('address.list.service', [])
             $http({
                 method:'get',
                 url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users/address/default/"+addressId,
-                headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+                headers:{'Content-Type': 'application/x-www-form-urlencoded','Authorization':localStorage.getItem('userToken')},
                 transformRequest: function(obj) {
                     var str = [];
                     for(var p in obj){

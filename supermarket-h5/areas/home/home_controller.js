@@ -11,7 +11,7 @@ angular.module('home.controller', ['home.service'])
     goTop();
     countdown();
     //headerChangeColor();
-    initWeixinUserInfo();
+    weixinUserLogin();
 
     // 监听页面激活事件
     $scope.$on('$ionicView.enter',function(){
@@ -156,12 +156,12 @@ angular.module('home.controller', ['home.service'])
       });
     }
 
-  function initWeixinUserInfo(){
-      var promise=HomeFty.initWeixinUserInfo();
+  function weixinUserLogin(){
+      var promise=HomeFty.weixinUserLogin();
       promise.then(
           function(data){
               if(data){
-                  GlobalVariable.USER_ID = data.userId;
+
               }else{
 
               }

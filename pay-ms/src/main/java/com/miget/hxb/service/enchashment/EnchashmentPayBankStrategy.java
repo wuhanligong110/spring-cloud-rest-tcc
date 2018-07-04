@@ -19,7 +19,6 @@ import com.miget.hxb.wx.utils.PaymentKit;
 import com.miget.hxb.wx.utils.WeixinUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -64,7 +63,8 @@ public class EnchashmentPayBankStrategy extends EnchashmentAbstractStrategy {
         subRequest.setOrderId(mchBillno);
         subRequest.setRemark("提现");
         subRequest.setTypeValue(3);
-        accountClient.creditSub(userId,subRequest);
+        subRequest.setUserId(Math.toIntExact(userId));
+        accountClient.creditSub(subRequest);
         return mchBillno;
     }
 
@@ -97,13 +97,15 @@ public class EnchashmentPayBankStrategy extends EnchashmentAbstractStrategy {
                 CreditStatusRequest creditStatusRequest = new CreditStatusRequest();
                 creditStatusRequest.setOrderId(mchBillno);
                 creditStatusRequest.setStatus(1);
-                accountClient.creditStatus(userId,creditStatusRequest);
+                creditStatusRequest.setUserId(Math.toIntExact(userId));
+                accountClient.creditStatus(creditStatusRequest);
             } else {//失败
                 //更新用户提现状态--失败
                 CreditStatusRequest creditStatusRequest = new CreditStatusRequest();
                 creditStatusRequest.setOrderId(mchBillno);
                 creditStatusRequest.setStatus(2);
-                accountClient.creditStatus(userId,creditStatusRequest);
+                creditStatusRequest.setUserId(Math.toIntExact(userId));
+                accountClient.creditStatus(creditStatusRequest);
             }
         } catch (Exception e) {
             LOGGER.error("提现调用企业付款到银行卡异常",e);

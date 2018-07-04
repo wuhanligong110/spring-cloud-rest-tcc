@@ -42,7 +42,7 @@
               </a>
               <div class="pro-body-des-text">
                 <span>{{item.description}}</span>
-                <p>￥{{item.price}}</p>
+                <p>￥{{item.price/100 |  number:2}}</p>
                 <div class="pro-body-des-con">
                   <div class="floatLeft clearBoth">
                     <span class="anniu floatLeft" ng-click="func_jian1(item.businessId,item.productId)">-</span>
@@ -66,8 +66,8 @@
       <div ng-class="{'checkall':selectedAll,'uncheckall':!selectedAll}" ng-click="func_selectAll($event)"></div>
       <div class="checktext">全选</div>
       <div class="foot-info">
-        <strong>合计:￥{{obj_cartDbData.total}}</strong>
-        <span>总额:￥{{obj_cartDbData.total}} 返现:￥0.00</span>
+        <strong>合计:￥{{obj_cartDbData.total/100 |  number:2}}</strong>
+        <span>总额:￥{{obj_cartDbData.total/100 |  number:2}} 返现:￥0.00</span>
       </div>
     </div>
     <div class="footRight">

@@ -9,7 +9,7 @@ angular.module('orderDetail.service', [])
         $http({  
 		   method:'get',
 		   url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/order/api/v1/orders/order/detail/"+orderId,
-		   headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+		   headers:{'Content-Type': 'application/x-www-form-urlencoded','Authorization':localStorage.getItem('userToken')},
 		   transformRequest: function(obj) {
 			 var str = [];
 			 for(var p in obj){
@@ -35,6 +35,7 @@ angular.module('orderDetail.service', [])
          $http({
              method:'post',
              url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/order/api/v1/orders/received",
+             headers:{'Content-Type': 'application/json','Authorization':localStorage.getItem('userToken')},
              data:request
          }).success(function(data,status,headers,config){
              deferred.resolve(data.code);
@@ -51,6 +52,7 @@ angular.module('orderDetail.service', [])
          $http({
              method:'post',
              url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/order/api/v1/orders/cancel",
+             headers:{'Content-Type': 'application/json','Authorization':localStorage.getItem('userToken')},
              data:request
          }).success(function(data,status,headers,config){
              deferred.resolve(data.code);

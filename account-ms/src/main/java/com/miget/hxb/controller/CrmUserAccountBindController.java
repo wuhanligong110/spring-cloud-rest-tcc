@@ -34,8 +34,8 @@ public class CrmUserAccountBindController {
     private CrmUserService userService;
 
     @ApiOperation(value = "根据ID获取用户绑定的卡号", notes = "包括绑定的银行卡、支付宝等")
-    @RequestMapping(value = "/users/{userId}/account", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ObjectDataResponse<PageInfo<CrmUserAccountBind>> accountPageList(@PathVariable Long userId, PageRequest request) {
+    @RequestMapping(value = "/users/account", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<PageInfo<CrmUserAccountBind>> accountPageList(Long userId, PageRequest request) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
@@ -46,8 +46,8 @@ public class CrmUserAccountBindController {
     }
 
     @ApiOperation(value = "用户新增绑卡", notes = "包括绑定的银行卡、支付宝等")
-    @RequestMapping(value = "/users/{userId}/account", method = RequestMethod.POST)
-    public ObjectDataResponse<CrmUserAccountBind> accountAdd(@PathVariable Long userId, @Valid @RequestBody AccountAddRequest request, BindingResult error) {
+    @RequestMapping(value = "/users/account", method = RequestMethod.POST)
+    public ObjectDataResponse<CrmUserAccountBind> accountAdd(Long userId, @Valid @RequestBody AccountAddRequest request, BindingResult error) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
@@ -61,8 +61,8 @@ public class CrmUserAccountBindController {
     }
 
     @ApiOperation(value = "用户解绑账号", notes = "将绑定状态设置为无效")
-    @RequestMapping(value = "/users/{userId}/account", method = RequestMethod.DELETE)
-    public ObjectDataResponse accountUnBind(@PathVariable Long userId, @Valid @RequestBody AccountUnBindRequest request, BindingResult error) {
+    @RequestMapping(value = "/users/account", method = RequestMethod.DELETE)
+    public ObjectDataResponse accountUnBind(Long userId, @Valid @RequestBody AccountUnBindRequest request, BindingResult error) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
@@ -73,8 +73,8 @@ public class CrmUserAccountBindController {
     }
 
     @ApiOperation(value = "查询用户指定类型的绑卡信息", notes = "包括绑定的银行卡、支付宝等")
-    @RequestMapping(value = "/users/{userId}/account/{accountType}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ObjectDataResponse<CrmUserAccountBind> userAccountTypeInfo(@PathVariable Long userId, @PathVariable Integer accountType) {
+    @RequestMapping(value = "/users/accountType/{accountType}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<CrmUserAccountBind> userAccountTypeInfo(Long userId, @PathVariable Integer accountType) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
@@ -84,8 +84,8 @@ public class CrmUserAccountBindController {
     }
 
     @ApiOperation(value = "查询用户指定账户的信息", notes = "")
-    @RequestMapping(value = "/users/{userId}/account/{userAccount}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ObjectDataResponse<CrmUserAccountBind> userAccountInfo(@PathVariable Long userId, @PathVariable Integer userAccount) {
+    @RequestMapping(value = "/users/account/{userAccount}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<CrmUserAccountBind> userAccountInfo(Long userId, @PathVariable Integer userAccount) {
         final CrmUser user = userService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);

@@ -1,5 +1,6 @@
 package com.miget.hxb.model.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,6 +32,7 @@ public class UserCreditDetailResponse implements Response {
 
     @JsonProperty("createTime")
     @ApiModelProperty(value = "创建时间", example = "2018-05-20 20:00:00", required = true)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private OffsetDateTime createTime;
 
     @JsonProperty("typeName")

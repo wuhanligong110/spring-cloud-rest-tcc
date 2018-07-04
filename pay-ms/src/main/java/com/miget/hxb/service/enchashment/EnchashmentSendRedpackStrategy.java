@@ -14,11 +14,11 @@ import com.miget.hxb.model.request.CreditStatusRequest;
 import com.miget.hxb.model.request.CreditSubRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import com.miget.hxb.util.CommonUtils;
-import com.miget.hxb.wx.constant.WeixinConstant;
 import com.miget.hxb.wx.constant.WeixinRequestConstant;
-import com.miget.hxb.wx.model.PayBank;
 import com.miget.hxb.wx.model.RedPack;
-import com.miget.hxb.wx.utils.*;
+import com.miget.hxb.wx.utils.MessageUtil;
+import com.miget.hxb.wx.utils.PaymentKit;
+import com.miget.hxb.wx.utils.WeixinUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,7 +65,8 @@ public class EnchashmentSendRedpackStrategy extends EnchashmentAbstractStrategy 
         subRequest.setOrderId(mchBillno);
         subRequest.setRemark("提现");
         subRequest.setTypeValue(3);
-        accountClient.creditSub(userId,subRequest);
+        subRequest.setUserId(Math.toIntExact(userId));
+        accountClient.creditSub(subRequest);
         return mchBillno;
     }
 
@@ -111,13 +112,15 @@ public class EnchashmentSendRedpackStrategy extends EnchashmentAbstractStrategy 
                 CreditStatusRequest creditStatusRequest = new CreditStatusRequest();
                 creditStatusRequest.setOrderId(mchBillno);
                 creditStatusRequest.setStatus(1);
-                accountClient.creditStatus(userId,creditStatusRequest);
+                creditStatusRequest.setUserId(Math.toIntExact(userId));
+                accountClient.creditStatus(creditStatusRequest);
             } else {//失败
                 //更新用户提现状态--失败
                 CreditStatusRequest creditStatusRequest = new CreditStatusRequest();
                 creditStatusRequest.setOrderId(mchBillno);
                 creditStatusRequest.setStatus(2);
-                accountClient.creditStatus(userId,creditStatusRequest);
+                creditStatusRequest.setUserId(Math.toIntExact(userId));
+                accountClient.creditStatus(creditStatusRequest);
             }
         } catch (Exception e) {
             LOGGER.error("提现调用微信发送普通红包异常",e);

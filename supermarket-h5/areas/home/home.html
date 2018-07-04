@@ -16,7 +16,7 @@
         </span>
     </a>
   </div>-->
-  <ion-content id="home-content" class="scroll-content has-footer" scroll="true">
+  <ion-content id="home-content" class="scroll-content" scroll="false">
     <link href="../css/home/home.css" rel="stylesheet">
     <!--头部滚动条-->
     <div class="headerSlider">
@@ -176,11 +176,11 @@
                         <div class="mui-row">
                           <div class="mui-col-sm-4 mui-col-xs-4 sy-rmtjcp-nr-jgkc-jg">
                             <span>¥</span>
-                            <span class="sy-rmtjcp-nr-jgkc-jgsz">{{item.price}}</span>
+                            <span class="sy-rmtjcp-nr-jgkc-jgsz">{{item.price/100 |  number:2}}</span>
                           </div>
                           <div class="mui-col-sm-4 mui-col-xs-4">
                             <span>原价:</span>
-                            <span>¥{{item.prePrice}}</span>
+                            <span>¥{{item.prePrice/100 |  number:2}}</span>
                           </div>
                           <div class="mui-col-sm-4 mui-col-xs-4">
                             <span>已售</span>

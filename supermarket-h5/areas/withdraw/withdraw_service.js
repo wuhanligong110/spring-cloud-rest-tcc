@@ -5,9 +5,9 @@ angular.module('withdraw.service', [])
             var deferred = $q.defer();
             $.ajax({
                 type: "POST",
-                url: GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/pay/api/v1/pay/"+GlobalVariable.BUSINESS_ID+GlobalVariable.USER_ID+"/enchashment",
+                url: GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/pay/api/v1/pay/"+GlobalVariable.BUSINESS_ID+"/enchashment",
                 async: false,
-                contentType: 'application/json',
+                headers:{'Content-Type': 'application/json','Authorization':localStorage.getItem('userToken')},
                 data:JSON.stringify(withdrawRequest),
                 timeout:10000,//超时时间设置为10秒；
                 success: function(data){

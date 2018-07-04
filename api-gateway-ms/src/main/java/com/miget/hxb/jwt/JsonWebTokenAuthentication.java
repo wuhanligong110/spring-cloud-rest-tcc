@@ -30,7 +30,7 @@ public class JsonWebTokenAuthentication extends AbstractAuthenticationToken {
     }
 
     @Override
-    public Object getPrincipal() {
+    public UserDetails getPrincipal() {
         return principal;
     }
 }

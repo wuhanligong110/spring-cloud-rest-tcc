@@ -20,7 +20,7 @@ public class AccountClientFallback implements AccountClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountClientFallback.class);
 
     @Override
-    public ObjectDataResponse<CrmUser> findUser(@PathVariable("userId") Long userId) {
+    public ObjectDataResponse<CrmUser> findUser(Long userId) {
         didNotGetResponse();
         Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
         return null;
@@ -41,14 +41,14 @@ public class AccountClientFallback implements AccountClient {
     }
 
     @Override
-    public ObjectDataResponse creditSub(Long userId, CreditSubRequest request) {
+    public ObjectDataResponse creditSub(CreditSubRequest request) {
         didNotGetResponse();
         Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
         return null;
     }
 
     @Override
-    public ObjectDataResponse creditStatus(Long userId, CreditStatusRequest request) {
+    public ObjectDataResponse creditStatus(CreditStatusRequest request) {
         didNotGetResponse();
         Shift.fatal(StatusCode.SERVER_IS_BUSY_NOW);
         return null;

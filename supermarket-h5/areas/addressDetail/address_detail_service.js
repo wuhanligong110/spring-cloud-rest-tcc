@@ -7,7 +7,8 @@ angular.module('address.detail.service', [])
             var deferred = $q.defer();
             $http({
                 method:'post',
-                url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users/"+GlobalVariable.USER_ID+"/address",
+                url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users/address",
+                headers:{'Content-Type': 'application/json','Authorization':localStorage.getItem('userToken')},
                 data:receiver
             }).success(function(data,status,headers,config){
                 deferred.resolve(data.data);
@@ -21,7 +22,7 @@ angular.module('address.detail.service', [])
             $http({
                 method:'delete',
                 url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users/address/"+addressId,
-                headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+                headers:{'Content-Type': 'application/x-www-form-urlencoded','Authorization':localStorage.getItem('userToken')},
                 transformRequest: function(obj) {
                     var str = [];
                     for(var p in obj){
@@ -41,7 +42,7 @@ angular.module('address.detail.service', [])
             $http({
                 method:'get',
                 url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users/address/detail/"+addressId,
-                headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+                headers:{'Content-Type': 'application/x-www-form-urlencoded','Authorization':localStorage.getItem('userToken')},
                 transformRequest: function(obj) {
                     var str = [];
                     for(var p in obj){

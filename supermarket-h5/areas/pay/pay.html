@@ -9,7 +9,7 @@
         <div class="order">
           <dl style="padding-top: 10px;padding-bottom: 20px;">
             <dt style="width: 50%;float: left">合计金额：</dt>
-            <dd style="width: 50%;float: right;margin-left: 0" class="amount"><i class="f18 cny">¥</i><font class="f18 ml2">{{amount}}</font></dd>
+            <dd style="width: 50%;float: right;margin-left: 0" class="amount"><i class="f18 cny">¥</i><font class="f18 ml2">{{amount/100 |  number:2}}</font></dd>
           </dl>
         </div>
         <div class="payment mt10" id="payments">

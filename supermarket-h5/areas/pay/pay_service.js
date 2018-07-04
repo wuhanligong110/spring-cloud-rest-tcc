@@ -9,6 +9,7 @@ angular.module('pay.service', [])
             $http({
                 method:'post',
                 url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/pay/api/v1/wxpay/prepay",
+                headers:{'Content-Type': 'application/json','Authorization':localStorage.getItem('userToken')},
                 data:prepayRequest
             }).success(function(data,status,headers,config){
                 deferred.resolve(data);

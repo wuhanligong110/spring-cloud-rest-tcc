@@ -10,7 +10,7 @@ eureka:
     registry-fetch-interval-seconds: 5
   instance:
     metadata-map:
-      cluster: prontera
+      cluster: avail
       management:
         port: ${management.port}
         context-path: ${management.context-path}
@@ -31,4 +31,4 @@ spring:
     admin:
       turbine:
         url: 'http://hystrix_dashboard:8193/turbine.stream'
-        clusters: 'prontera'
+        clusters: 'avail'

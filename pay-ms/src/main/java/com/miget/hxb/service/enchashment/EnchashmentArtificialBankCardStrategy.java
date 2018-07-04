@@ -1,28 +1,19 @@
 package com.miget.hxb.service.enchashment;
 
-import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Preconditions;
 import com.miget.hxb.Shift;
 import com.miget.hxb.controller.StatusCode;
 import com.miget.hxb.controller.client.AccountClient;
 import com.miget.hxb.controller.client.ProductClient;
 import com.miget.hxb.domain.CrmUserAccountBind;
-import com.miget.hxb.domain.SysBusinessWeixinConfig;
 import com.miget.hxb.helper.WeixinHelper;
-import com.miget.hxb.model.request.CreditStatusRequest;
 import com.miget.hxb.model.request.CreditSubRequest;
 import com.miget.hxb.model.response.ObjectDataResponse;
-import com.miget.hxb.util.CommonUtils;
-import com.miget.hxb.wx.constant.WeixinRequestConstant;
-import com.miget.hxb.wx.model.PayBank;
-import com.miget.hxb.wx.utils.PaymentKit;
-import com.miget.hxb.wx.utils.WeixinUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.Map;
 
 public class EnchashmentArtificialBankCardStrategy extends EnchashmentAbstractStrategy {
 
@@ -63,7 +54,8 @@ public class EnchashmentArtificialBankCardStrategy extends EnchashmentAbstractSt
         subRequest.setOrderId(mchBillno);
         subRequest.setRemark("提现");
         subRequest.setTypeValue(3);
-        accountClient.creditSub(userId,subRequest);
+        subRequest.setUserId(Math.toIntExact(userId));
+        accountClient.creditSub(subRequest);
         return mchBillno;
     }
 

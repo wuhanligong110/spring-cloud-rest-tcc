@@ -3,14 +3,14 @@ version: "3"
 services:
     jce_java:
         build: ./docker-jce-jre
-        image: pronter/jce-java
+        image: avail/jce-java
         read_only: true
         command: echo "jce java"
         environment:
             - TZ=Asia/Shanghai
     account:
         build: ./account-ms
-        image: prontera/account-ms
+        image: avail/account-ms
         ports:
             - "10014:10014"
             - "10248:10248"
@@ -25,7 +25,7 @@ services:
             - TZ=Asia/Shanghai
     order:
         build: ./order-ms
-        image: prontera/order-ms
+        image: avail/order-ms
         ports:
             - "8295:8295"
             - "10848:10848"
@@ -40,7 +40,7 @@ services:
             - TZ=Asia/Shanghai
     product:
         build: ./product-ms
-        image: prontera/product-ms
+        image: avail/product-ms
         ports:
             - "8040:8040"
             - "10912:10912"
@@ -53,12 +53,22 @@ services:
            retries: 3
         environment:
             - TZ=Asia/Shanghai
-    tcc_coordinator:
-        build: ./tcc-coordinator-ms
-        image: prontera/tcc-coordinator-ms
+    gateway:
+        build: ./api-gateway-ms
+        image: avail/gateway-ms
         ports:
-            - "11020:11020"
-            - "12841:12841"
+            - "7291:7291"
+            - "10211:10211"
+        depends_on:
+            - 'jce_java'
+        environment:
+            - TZ=Asia/Shanghai
+    activity:
+        build: ./activity-ms
+        image: avail/activity-ms
+        ports:
+            - "10018:10018"
+            - "10858:10858"
         depends_on:
             - 'jce_java'
         healthcheck:
@@ -68,12 +78,12 @@ services:
            retries: 3
         environment:
             - TZ=Asia/Shanghai
-    membership:
-        build: ./membership-ms
-        image: prontera/membership-ms
+    pay:
+        build: ./pay-ms
+        image: avail/pay-ms
         ports:
-            - "10673:10673"
-            - "10391:10391"
+            - "10019:10019"
+            - "10898:10898"
         depends_on:
             - 'jce_java'
         healthcheck:

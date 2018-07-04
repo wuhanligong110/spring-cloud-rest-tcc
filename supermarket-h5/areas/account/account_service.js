@@ -6,9 +6,9 @@ angular.module('account.service', [])
               var deferred = $q.defer();
               $http({
                   method:'get',
-                  url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users/"+GlobalVariable.USER_ID,
+                  url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users",
                   params :{},
-                  headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+                  headers:{'Content-Type': 'application/x-www-form-urlencoded','Authorization':localStorage.getItem('userToken')},
                   transformRequest: function(obj) {
                       var str = [];
                       for(var p in obj){

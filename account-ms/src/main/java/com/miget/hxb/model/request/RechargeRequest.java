@@ -33,7 +33,12 @@ public class RechargeRequest extends RestfulRequest {
     @NotNull
     @Min(1)
     @Max(100000000)
-    @ApiModelProperty(value = "充值金额, 单位分", example = "100000000", required = true)
+    @ApiModelProperty(value = "充值金额, 单位分", example = "100000", required = true)
     private Long amount;
+
+    @Min(1000001)
+    @Max(9999999)
+    @ApiModelProperty(value = "用户ID", example = "1000001", required = true)
+    private Long userId;
 
 }

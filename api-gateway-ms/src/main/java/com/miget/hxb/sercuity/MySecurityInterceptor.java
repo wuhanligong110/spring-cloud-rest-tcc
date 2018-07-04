@@ -66,7 +66,7 @@ public class MySecurityInterceptor extends AbstractSecurityInterceptor implement
                 if(requestMap == null){
                     requestMap = new HashMap<>();
                 }
-                requestMap.put("userId", Arrays.asList(authentication.getJsonWebToken()));
+                requestMap.put("userId", Arrays.asList(authentication.getPrincipal().getUsername()));
                 ctx.setRequestQueryParams(requestMap);
             }
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());

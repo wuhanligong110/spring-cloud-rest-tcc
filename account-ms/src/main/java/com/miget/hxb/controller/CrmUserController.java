@@ -3,6 +3,7 @@ package com.miget.hxb.controller;
 import com.miget.hxb.Shift;
 import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.model.request.LoginRequest;
+import com.miget.hxb.model.request.RechargeRequest;
 import com.miget.hxb.model.request.RegisterRequest;
 import com.miget.hxb.model.response.LoginResponse;
 import com.miget.hxb.model.response.ObjectDataResponse;
@@ -13,8 +14,6 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,8 +34,8 @@ public class CrmUserController {
     private WeixinService weixinService;
 
     @ApiOperation(value = "根据ID获取用户", notes = "根据userId获取用户")
-    @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ObjectDataResponse<CrmUser> findUser(@PathVariable Long userId) {
+    @RequestMapping(value = "/users", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<CrmUser> findUser(Long userId) {
         final CrmUser user = crmUserService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
@@ -57,6 +56,24 @@ public class CrmUserController {
     @RequestMapping(value = "/users/login", method = RequestMethod.POST)
     public ObjectDataResponse<LoginResponse> login(@Valid @RequestBody LoginRequest request, BindingResult error) {
         return crmUserService.login(request);
+    }
+
+    @ApiOperation(value = "微信用户登录", notes = "登录")
+    @RequestMapping(value = "/users/weixin/login", method = RequestMethod.POST)
+    public ObjectDataResponse<LoginResponse> weixinLogin(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("根据微信获取用户");
+        String openId = weixinService.getUserOpenId(request,response);
+        if(StringUtils.isBlank(openId)){
+            Shift.fatal(StatusCode.WEIXIN_OPENID_ERROR);
+        }
+        final CrmUser user = crmUserService.queryUserByOpenId(openId);
+        if(user == null){
+            Shift.fatal(StatusCode.USER_NOT_EXISTS);
+        }
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setUserId(Long.valueOf(user.getUserId()));
+        loginResponse.setMobile(user.getMobile());
+        return new ObjectDataResponse<>(loginResponse);
     }
 
     @ApiOperation(value = "根据微信openid获取用户", notes = "根据微信openid获取用户")
@@ -88,11 +105,9 @@ public class CrmUserController {
         return new ObjectDataResponse<>(user);
     }
 
-    /*@Delay
-    @RandomlyThrowsException
     @ApiOperation(value = "用户余额变更", notes = "直接变更指定用户的余额")
-    @RequestMapping(value = "/users/{userId}/balance", method = RequestMethod.PATCH)
-    public ObjectDataResponse<CrmUser> recharge(@PathVariable Long userId, @Valid @RequestBody RechargeRequest request, BindingResult error) {
+    @RequestMapping(value = "/users/balance", method = RequestMethod.PATCH)
+    public ObjectDataResponse<CrmUser> recharge(Long userId,@Valid @RequestBody RechargeRequest request, BindingResult error) {
         final CrmUser user = crmUserService.queryByUserId(userId);
         if (user == null) {
             Shift.fatal(StatusCode.USER_NOT_EXISTS);
@@ -100,15 +115,16 @@ public class CrmUserController {
         user.setAccWithdrawalCredit(request.getAmount());
         crmUserService.updateNonNullProperties(user);
         return new ObjectDataResponse<>(user);
-    }*/
+    }
 
-    @GetMapping("/detail")
-    public void userDetail(HttpServletRequest request) {
+    /*@PostMapping("/detail")
+    public void userDetail(HttpServletRequest request,String userId) {
+        System.out.println(userId);
         String xxxxToken = request.getHeader("token");
         String xxxxAuthen = request.getHeader("authorization");
         String tokenss = request.getAttribute("token").toString();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         authentication.getPrincipal();
-    }
+    }*/
 
 }

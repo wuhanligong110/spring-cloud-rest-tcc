@@ -10,7 +10,7 @@ eureka:
       defaultZone: 'http://eureka1:8763/eureka/,http://eureka2:8762/eureka/'
   instance:
     metadata-map:
-      cluster: prontera
+      cluster: avail
       management:
         port: ${management.port}
         context-path: ${management.context-path}
@@ -50,7 +50,7 @@ jwt:
     login: '/users/login'
 auth:
   allow:
-    url: '/account/api/v1/users/login,/swagger/**'
+    url: '/account/api/v1/users/login,/account/api/v1/users/weixin/login,/activity/api/v1/advs/**,/product/api/v1/products/**,/product/api/v1/businesses/**,/swagger/**'
 resources:
   list:
     url: 'http://localhost:10014/resources/listResources?status=1'

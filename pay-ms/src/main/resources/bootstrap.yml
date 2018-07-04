@@ -9,7 +9,7 @@ eureka:
       defaultZone: 'http://eureka1:8763/eureka/,http://eureka2:8762/eureka/'
   instance:
     metadata-map:
-      cluster: prontera
+      cluster: avail
       management:
         port: ${management.port}
         context-path: ${management.context-path}
@@ -28,9 +28,9 @@ spring:
     url: 'jdbc:mysql://solar_mysql:3306/pay?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useLegacyDatetimeCode=false&useSSL=false&serverTimezone=Asia/Shanghai'
   rabbitmq:
     host: rabbitmq
-    username: chris
+    username: avail
     password: 123123
-    virtual-host: prontera
+    virtual-host: avail
     listener:
       retry:
         enabled: true

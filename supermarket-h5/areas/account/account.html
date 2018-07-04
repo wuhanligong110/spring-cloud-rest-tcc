@@ -11,9 +11,9 @@
             <dl>
               <dd class="mt5"><font class="f14">{{user.wechatNickname}}</font><span class="ml10 dim">{{user.vipLevel}}</span></dd>
               <dd class="mt5">
-                <font class="dim">账户余额：</font><a ng-href="#/creditList/1/" style="color: #fff"><b>{{user.accWithdrawalCredit}}元</b></a>
+                <font class="dim">账户余额：</font><a ng-href="#/creditList/1/" style="color: #fff"><b>{{user.accWithdrawalCredit/100 |  number:2}}元</b></a>
                 <span class="sep5"></span>
-                <font class="dim">积分：</font><a ng-href="#/creditList/2/" style="color: #fff"><b>{{user.accShopCredit}}</b></a>
+                <font class="dim">积分：</font><a ng-href="#/creditList/2/" style="color: #fff"><b>{{user.accShopCredit/100 |  number:2}}</b></a>
               </dd>
             </dl>
           </div>

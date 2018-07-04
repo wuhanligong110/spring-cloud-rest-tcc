@@ -53,13 +53,13 @@ public class BizOrderController {
     }
 
     @ApiOperation(value = "用户订单列表", notes = "用户订单分页")
-    @RequestMapping(value = "/orders/{userId}/order", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
-    public ObjectDataResponse<PageInfo<OrderListResponse>> userOrderPageList(@PathVariable Long userId, OrderStatusPageRequest request) {
+    @RequestMapping(value = "/orders/order", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    public ObjectDataResponse<PageInfo<OrderListResponse>> userOrderPageList(Long userId, OrderStatusPageRequest request) {
         return orderService.userOrderPageList(userId,request);
     }
 
     @ApiOperation(value = "订单列表", notes = "订单分页--管理后台")
-    @RequestMapping(value = "/orders/order", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
+    @RequestMapping(value = "/orders/pageList", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE)
     public ObjectDataResponse<PageInfo<BizOrder>> orderPageList(OrderPageRequest request) {
         return orderService.orderPageList(request);
     }

@@ -6,10 +6,10 @@ management:
 turbine:
   app-config: account,gateway,order,product,tcc
   aggregator:
-    clusterConfig: prontera
+    clusterConfig: avail
   cluster-name-expression: metadata['cluster']
   instanceUrlSuffix:
-    prontera: '/78d504ff-82e8-4a87-82e8-724d72d1171b/hystrix.stream'
+    avail: '/78d504ff-82e8-4a87-82e8-724d72d1171b/hystrix.stream'
 eureka:
   client:
    service-url:

@@ -4,10 +4,7 @@ import com.miget.hxb.domain.CrmUser;
 import com.miget.hxb.model.response.ObjectDataResponse;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author hxb
@@ -23,8 +20,8 @@ public interface AccountClient {
      */
     String API_PATH = "/api/v1";
 
-    @RequestMapping(value = API_PATH + "/users/{userId}", method = RequestMethod.GET)
-    ObjectDataResponse<CrmUser> findUser(@PathVariable("userId") Long userId);
+    @RequestMapping(value = API_PATH + "/users", method = RequestMethod.GET)
+    ObjectDataResponse<CrmUser> findUser(@RequestParam("userId") Long userId);
 
     @RequestMapping(value = API_PATH + "/users/{openid}/weixin", method = RequestMethod.GET)
     ObjectDataResponse<CrmUser> queryRemoteUserByOpenId(@PathVariable("openid") String openid);

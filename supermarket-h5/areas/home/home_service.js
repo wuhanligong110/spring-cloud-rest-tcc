@@ -147,12 +147,12 @@ angular.module('home.service', [])
         });
         return deferred.promise;
       },
-      initWeixinUserInfo:function(){
+      weixinUserLogin:function(){
           var deferred = $q.defer();
           $http({
-              method:'get',
-              url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/activity/api/v1/weixin/userinfo",
-              headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+              method:'post',
+              url:GlobalVariable.SERVER_PATH+":"+GlobalVariable.PORT+"/account/api/v1/users/weixin/login",
+              headers:{'Content-Type': 'application/json'},
               transformRequest: function(obj) {
                   var str = [];
                   for(var p in obj){
@@ -161,7 +161,8 @@ angular.module('home.service', [])
                   return str.join("&");
               }
           }).success(function(data,status,headers,config){
-              console.log(data.data);
+              console.log(data.token);
+              localStorage.setItem("userToken",data.token);
               deferred.resolve(data.data);
           }).error(function(data,status,headers,config){
               deferred.reject(data);

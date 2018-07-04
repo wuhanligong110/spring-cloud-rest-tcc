@@ -64,16 +64,17 @@ public class BizPayController {
 
     @ApiOperation(value = "下单", notes = "生成预订单")
     @RequestMapping(value = "/pay/prepay", method = RequestMethod.POST)
-    public Map<String, String> placeOrder(@RequestBody PrepayRequest prepayRequest) {
+    public Map<String, String> placeOrder(Long userId,@RequestBody PrepayRequest prepayRequest) {
         logger.debug("开始调用统一下单接口");
+        prepayRequest.setUserId(userId);
         Map<String, String> returnParams = new HashMap<String, String>();
         returnParams = payService.placeOrder(prepayRequest);
         return returnParams;
     }
 
     @ApiOperation(value = "提现", notes = "提现")
-    @RequestMapping(value = "/pay/{businessId}/{userId}/enchashment", method = RequestMethod.POST)
-    public ObjectDataResponse enchashment(@PathVariable Long businessId,@PathVariable Long userId,@RequestBody WithdrawRequest request) {
+    @RequestMapping(value = "/pay/{businessId}/enchashment", method = RequestMethod.POST)
+    public ObjectDataResponse enchashment(@PathVariable Long businessId,Long userId,@RequestBody WithdrawRequest request) {
         payService.enchashment(businessId,userId,request);
         return new ObjectDataResponse<>(null);
     }

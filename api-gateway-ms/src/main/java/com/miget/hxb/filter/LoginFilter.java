@@ -1,11 +1,7 @@
 package com.miget.hxb.filter;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.miget.hxb.jwt.AuthTokenDetails;
-import com.miget.hxb.jwt.JsonWebTokenUtility;
-import com.miget.hxb.model.vo.AuthTokenVO;
 import com.google.common.io.CharStreams;
 import com.miget.hxb.jwt.AuthTokenDetails;
 import com.miget.hxb.jwt.JsonWebTokenUtility;
@@ -19,9 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -39,6 +33,9 @@ public class LoginFilter extends ZuulFilter {
 
     @Value("${jwt.user.login:/users/login}")
     private String loginUrl;
+
+    @Value("${jwt.user.weixinLogin:/users/weixin/login}")
+    private String weixinLoginUrl;
 
     @Override
     public String filterType() {
@@ -59,7 +56,7 @@ public class LoginFilter extends ZuulFilter {
     public final Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
         final String requestURI = ctx.getRequest().getRequestURI();
-        if(requestURI.contains(loginUrl)){
+        if(requestURI.contains(loginUrl) || requestURI.contains(weixinLoginUrl)){
             final InputStream responseDataStream = ctx.getResponseDataStream();
             final String responseData;
             try {

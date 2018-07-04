@@ -13,7 +13,7 @@
               <span class="mui-col-sm-6 mui-col-xs-6">余额</span>
             </div>
             <div id="withdrawalCredit" class="mui-col-sm-4 mui-col-xs-4 mui-text-right ab-ucenter-wddd-ckqxx">
-              <span class="mui-badge mui-badge-yellow">{{wallet.withdrawalCredit}}</span>
+              <span class="mui-badge mui-badge-yellow">{{wallet.withdrawalCredit/100 |  number:2}}</span>
             </div>
           </div>
         </div>
@@ -23,7 +23,7 @@
               <span class="mui-col-sm-6 mui-col-xs-6">积分</span>
             </div>
             <div id="shopCredit" class="mui-col-sm-4 mui-col-xs-4 mui-text-right ab-ucenter-wddd-ckqxx">
-              <span class="mui-badge mui-badge-yellow">{{wallet.shopCredit}}</span>
+              <span class="mui-badge mui-badge-yellow">{{wallet.shopCredit/100 |  number:2}}</span>
             </div>
           </div>
         </div>
